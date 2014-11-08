@@ -1,5 +1,6 @@
 package recyclapp;
 import javax.swing.JFrame;
+import views.fenetre;
 
 /**
  * Application RecyclApp
@@ -12,8 +13,8 @@ public class RecyclApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame fenetre = new JFrame();
-        fenetre.setVisible(true);
+        fenetre main = new fenetre();
+        main.setVisible(true);
     }
     
 }
