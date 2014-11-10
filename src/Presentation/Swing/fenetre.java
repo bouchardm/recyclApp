@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package Presentation.Swing;
 
-import controllers.MainController;
+import Application.Controller.MainController;
 
 /**
  *

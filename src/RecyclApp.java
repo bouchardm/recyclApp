@@ -1,6 +1,6 @@
-package recyclapp;
+
 import javax.swing.JFrame;
-import views.fenetre;
+import Presentation.Swing.fenetre;
 
 /**
  * Application RecyclApp
