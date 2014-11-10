@@ -13,14 +13,14 @@ import Application.Controller.Controller;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private Controller _MainController;
+    public final Controller controller;
     
     
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
-        this._MainController = new Controller();
+        this.controller = new Controller();
         initComponents();
     }
 
@@ -45,14 +45,14 @@ public class MainFrame extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
         panelWrokspace = new javax.swing.JPanel();
-        viewportScrollPane = new javax.swing.JScrollPane();
-        viewport = new Presentation.Swing.Viewport(this);
         viewportBar = new javax.swing.JPanel();
         gridButton = new javax.swing.JToggleButton();
         snapButton = new javax.swing.JToggleButton();
         zoomOutButton = new javax.swing.JButton();
         zoomInButton = new javax.swing.JButton();
         cursorCoordsLabel = new javax.swing.JLabel();
+        viewportScrollPane = new javax.swing.JScrollPane();
+        viewport = new Presentation.Swing.Viewport(this);
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelInformation = new javax.swing.JPanel();
@@ -195,27 +195,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelWrokspace.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelWrokspace.setLayout(new java.awt.BorderLayout());
 
-        viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                viewportMouseMoved(evt);
-            }
-        });
-
-        javax.swing.GroupLayout viewportLayout = new javax.swing.GroupLayout(viewport);
-        viewport.setLayout(viewportLayout);
-        viewportLayout.setHorizontalGroup(
-            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
-        );
-        viewportLayout.setVerticalGroup(
-            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
-        );
-
-        viewportScrollPane.setViewportView(viewport);
-
-        panelWrokspace.add(viewportScrollPane, java.awt.BorderLayout.CENTER);
-
         viewportBar.setPreferredSize(new java.awt.Dimension(710, 30));
 
         gridButton.setText("grid");
@@ -228,8 +207,18 @@ public class MainFrame extends javax.swing.JFrame {
         snapButton.setText("snap");
 
         zoomOutButton.setText("-");
+        zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOutButtonActionPerformed(evt);
+            }
+        });
 
         zoomInButton.setText("+");
+        zoomInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomInButtonActionPerformed(evt);
+            }
+        });
 
         cursorCoordsLabel.setText("cursorCoords");
 
@@ -253,22 +242,40 @@ public class MainFrame extends javax.swing.JFrame {
         viewportBarLayout.setVerticalGroup(
             viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewportBarLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewportBarLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(snapButton)
-                            .addComponent(gridButton)))
-                    .addGroup(viewportBarLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(zoomInButton)
-                            .addComponent(cursorCoordsLabel)
-                            .addComponent(zoomOutButton))))
+                    .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(snapButton)
+                        .addComponent(gridButton))
+                    .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(zoomInButton)
+                        .addComponent(cursorCoordsLabel)
+                        .addComponent(zoomOutButton)))
                 .addGap(2, 2, 2))
         );
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
+
+        viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                viewportMouseMoved(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewportLayout = new javax.swing.GroupLayout(viewport);
+        viewport.setLayout(viewportLayout);
+        viewportLayout.setHorizontalGroup(
+            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
+        );
+        viewportLayout.setVerticalGroup(
+            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 412, Short.MAX_VALUE)
+        );
+
+        viewportScrollPane.setViewportView(viewport);
+
+        panelWrokspace.add(viewportScrollPane, java.awt.BorderLayout.CENTER);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -430,7 +437,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
-        this._MainController.showAboutUs();
+        this.controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
@@ -438,8 +445,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_gridButtonActionPerformed
 
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
-        cursorCoordsLabel.setText(String.format("x : %d  y : %d\n", evt.getX(), evt.getY()));
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", viewport.pixToMeter(evt.getX()), viewport.pixToMeter(evt.getY())));
     }//GEN-LAST:event_viewportMouseMoved
+
+    private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
+        viewport.setZoomFactor(viewport.getZoomFactor() + 0.1f);
+    }//GEN-LAST:event_zoomInButtonActionPerformed
+
+    private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
+        viewport.setZoomFactor(viewport.getZoomFactor() - 0.1f);
+    }//GEN-LAST:event_zoomOutButtonActionPerformed
 
     /**
      * @param args the command line arguments

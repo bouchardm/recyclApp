@@ -9,6 +9,7 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -40,16 +41,19 @@ public class SortCenterDrawer
     
     private void drawFloor(Graphics g)
     {
-//        g.setColor(new Color(0,255,0));
-        int x = 10;
-        int y = 20;
-        int width = 100;
-        int height = 100;
-        int level = 240;
-        g.setColor(new Color(level, level, level));
-        g.fillRect(x, y, width, height);
-        g.setColor(Color.WHITE);
-        g.drawRect(x, y, width, height);
+        if (controller != null)
+        {
+            Point2D.Float dim = controller.getSortCenterDimensions();
+            float zoomFactor = viewport.getZoomFactor();
+            int margin = (int)(viewport.MARGIN * zoomFactor);
+            int level = 240;
+            int width = (int)(dim.x * 50 * zoomFactor);
+            int height = (int)(dim.y * 50 * zoomFactor);
+            g.setColor(new Color(level, level, level));
+            g.fillRect(margin, margin, width, height);
+            g.setColor(Color.WHITE);
+            g.drawRect(margin, margin, width, height);
+        }
     }
     
     private void drawGrid(Graphics g)

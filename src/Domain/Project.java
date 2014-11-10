@@ -17,4 +17,47 @@ public class Project
     private SortCenter sortCenter;
     private Boolean isSaved;
     
+    public Project()
+    {
+        newProject();
+    }
+    
+    public void newProject()
+    {
+        filename = null;
+        path = null;
+        sortCenter = new SortCenter();
+        isSaved = true;
+    }
+    
+    public void loadProject(String path)
+    {
+    }
+    
+    public void saveProject()
+    {
+        saveAsProject(path, filename);
+    }
+    
+    public void saveAsProject(String path, String filename)
+    {
+        this.path = path;
+        this.filename = filename;
+        isSaved = true;
+    }
+    
+    public void exportImage(String path)
+    {
+    }
+    
+    public void setUnsaved()
+    {
+        isSaved = false;
+    }
+    
+    public SortCenter getSortCenter()
+    {
+        return sortCenter;
+    }
+    
 }

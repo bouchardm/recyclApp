@@ -5,6 +5,7 @@
  */
 package Application.Controller;
 
+import Domain.Project;
 import Presentation.Swing.AboutUs;
 import java.awt.geom.Point2D;
 
@@ -12,7 +13,14 @@ import java.awt.geom.Point2D;
  *
  * @author Marcleking
  */
-public class Controller {
+public class Controller
+{
+    private final Project project;
+    
+    public Controller()
+    {
+        project = new Project();
+    }
     
     public void showAboutUs() {
         AboutUs view = new AboutUs();
@@ -20,9 +28,11 @@ public class Controller {
     }
     
     
-    public Point2D getSortCenterDimensions()
+    // ************ SortCenter ***************
+    
+    public Point2D.Float getSortCenterDimensions()
     {
-        return null;
+        return project.getSortCenter().getDimensions();
     }
     
     
