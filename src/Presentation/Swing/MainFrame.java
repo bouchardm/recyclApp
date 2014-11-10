@@ -5,22 +5,22 @@
  */
 package Presentation.Swing;
 
-import Application.Controller.MainController;
+import Application.Controller.Controller;
 
 /**
  *
  * @author Marcleking
  */
-public class fenetre extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
 
-    private MainController _MainController;
+    private Controller _MainController;
     
     
     /**
      * Creates new form fenetre
      */
-    public fenetre() {
-        this._MainController = new MainController();
+    public MainFrame() {
+        this._MainController = new Controller();
         initComponents();
     }
 
@@ -45,6 +45,14 @@ public class fenetre extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
         panelWrokspace = new javax.swing.JPanel();
+        viewportScrollPane = new javax.swing.JScrollPane();
+        viewport = new Presentation.Swing.Viewport(this);
+        viewportBar = new javax.swing.JPanel();
+        gridButton = new javax.swing.JToggleButton();
+        snapButton = new javax.swing.JToggleButton();
+        zoomOutButton = new javax.swing.JButton();
+        zoomInButton = new javax.swing.JButton();
+        cursorCoordsLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelInformation = new javax.swing.JPanel();
@@ -172,7 +180,7 @@ public class fenetre extends javax.swing.JFrame {
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,17 +193,82 @@ public class fenetre extends javax.swing.JFrame {
         );
 
         panelWrokspace.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelWrokspace.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout panelWrokspaceLayout = new javax.swing.GroupLayout(panelWrokspace);
-        panelWrokspace.setLayout(panelWrokspaceLayout);
-        panelWrokspaceLayout.setHorizontalGroup(
-            panelWrokspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
+        viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                viewportMouseMoved(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewportLayout = new javax.swing.GroupLayout(viewport);
+        viewport.setLayout(viewportLayout);
+        viewportLayout.setHorizontalGroup(
+            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
         );
-        panelWrokspaceLayout.setVerticalGroup(
-            panelWrokspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        viewportLayout.setVerticalGroup(
+            viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 592, Short.MAX_VALUE)
         );
+
+        viewportScrollPane.setViewportView(viewport);
+
+        panelWrokspace.add(viewportScrollPane, java.awt.BorderLayout.CENTER);
+
+        viewportBar.setPreferredSize(new java.awt.Dimension(710, 30));
+
+        gridButton.setText("grid");
+        gridButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gridButtonActionPerformed(evt);
+            }
+        });
+
+        snapButton.setText("snap");
+
+        zoomOutButton.setText("-");
+
+        zoomInButton.setText("+");
+
+        cursorCoordsLabel.setText("cursorCoords");
+
+        javax.swing.GroupLayout viewportBarLayout = new javax.swing.GroupLayout(viewportBar);
+        viewportBar.setLayout(viewportBarLayout);
+        viewportBarLayout.setHorizontalGroup(
+            viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewportBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(gridButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(snapButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
+                .addComponent(cursorCoordsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(zoomOutButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zoomInButton)
+                .addContainerGap())
+        );
+        viewportBarLayout.setVerticalGroup(
+            viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewportBarLayout.createSequentialGroup()
+                .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(viewportBarLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(snapButton)
+                            .addComponent(gridButton)))
+                    .addGroup(viewportBarLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(zoomInButton)
+                            .addComponent(cursorCoordsLabel)
+                            .addComponent(zoomOutButton))))
+                .addGap(2, 2, 2))
+        );
+
+        panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -360,6 +433,14 @@ public class fenetre extends javax.swing.JFrame {
         this._MainController.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
+    private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gridButtonActionPerformed
+
+    private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
+        cursorCoordsLabel.setText(String.format("x : %d  y : %d\n", evt.getX(), evt.getY()));
+    }//GEN-LAST:event_viewportMouseMoved
+
     /**
      * @param args the command line arguments
      */
@@ -377,20 +458,20 @@ public class fenetre extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new fenetre().setVisible(true);
+                new MainFrame().setVisible(true);
             }
         });
     }
@@ -407,6 +488,8 @@ public class fenetre extends javax.swing.JFrame {
     private javax.swing.JButton btnRedo;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUndo;
+    private javax.swing.JLabel cursorCoordsLabel;
+    private javax.swing.JToggleButton gridButton;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -420,5 +503,11 @@ public class fenetre extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel panelInformation;
     private javax.swing.JPanel panelWrokspace;
+    private javax.swing.JToggleButton snapButton;
+    private Presentation.Swing.Viewport viewport;
+    private javax.swing.JPanel viewportBar;
+    private javax.swing.JScrollPane viewportScrollPane;
+    private javax.swing.JButton zoomInButton;
+    private javax.swing.JButton zoomOutButton;
     // End of variables declaration//GEN-END:variables
 }

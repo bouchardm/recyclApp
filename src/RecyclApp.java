@@ -1,6 +1,6 @@
 
 import javax.swing.JFrame;
-import Presentation.Swing.fenetre;
+import Presentation.Swing.MainFrame;
 
 /**
  * Application RecyclApp
@@ -13,7 +13,7 @@ public class RecyclApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        fenetre main = new fenetre();
+        MainFrame main = new MainFrame();
         main.setVisible(true);
     }
     

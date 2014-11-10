@@ -6,16 +6,23 @@
 package Application.Controller;
 
 import Presentation.Swing.AboutUs;
+import java.awt.geom.Point2D;
 
 /**
  *
  * @author Marcleking
  */
-public class MainController {
+public class Controller {
     
     public void showAboutUs() {
         AboutUs view = new AboutUs();
         view.setVisible(true);
+    }
+    
+    
+    public Point2D getSortCenterDimensions()
+    {
+        return null;
     }
     
     
