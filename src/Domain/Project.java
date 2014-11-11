@@ -6,16 +6,23 @@
 
 package Domain;
 
+import Application.Controller.RecyclAppController;
+import java.util.Vector;
+
 /**
  *
  * @author Dany
  */
 public class Project
 {
-    private String filename;
-    private String path;
-    private SortCenter sortCenter;
-    private Boolean isSaved;
+    private String _filename;
+    private String _path;
+    private SortCenter _sortCenter;
+    private Boolean _isSaved;
+    
+    // public Vector<ProjectController> _projectController = new Vector<ProjectController>();
+    public RecyclAppController _recyclAppController;
+    public SortCenter _sortCenter2;
     
     public Project()
     {
@@ -24,10 +31,10 @@ public class Project
     
     public void newProject()
     {
-        filename = null;
-        path = null;
-        sortCenter = new SortCenter();
-        isSaved = true;
+        _filename = null;
+        _path = null;
+        _sortCenter = new SortCenter();
+        _isSaved = true;
     }
     
     public void loadProject(String path)
@@ -36,14 +43,14 @@ public class Project
     
     public void saveProject()
     {
-        saveAsProject(path, filename);
+        saveAsProject(_path, _filename);
     }
     
     public void saveAsProject(String path, String filename)
     {
-        this.path = path;
-        this.filename = filename;
-        isSaved = true;
+        this._path = path;
+        this._filename = filename;
+        _isSaved = true;
     }
     
     public void exportImage(String path)
@@ -52,12 +59,12 @@ public class Project
     
     public void setUnsaved()
     {
-        isSaved = false;
+        _isSaved = false;
     }
     
     public SortCenter getSortCenter()
     {
-        return sortCenter;
+        return _sortCenter;
     }
     
 }

@@ -6,7 +6,7 @@
 
 package Presentation.Swing;
 
-import Application.Controller.Controller;
+import Application.Controller.RecyclAppController;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
@@ -17,19 +17,19 @@ import java.awt.geom.Point2D;
  */
 public class SortCenterDrawer
 {
-    private Controller controller;
-    private Viewport viewport;
+    private RecyclAppController _recyclAppController;
+    private ViewPort _viewport;
 
-    public SortCenterDrawer(Controller controller, Viewport viewport)
+    public SortCenterDrawer(RecyclAppController controller, ViewPort viewport)
     {
-        this.controller = controller;
-        this.viewport = viewport;
+        this._recyclAppController = controller;
+        this._viewport = viewport;
     }
     
     public void draw(Graphics g)
     {
         drawFloor(g);
-        if (viewport.isShowGrid())
+        if (_viewport.isShowGrid())
         {
             drawGrid(g);
         }
@@ -41,11 +41,11 @@ public class SortCenterDrawer
     
     private void drawFloor(Graphics g)
     {
-        if (controller != null)
+        if (_recyclAppController != null)
         {
-            Point2D.Float dim = controller.getSortCenterDimensions();
-            float zoomFactor = viewport.getZoomFactor();
-            int margin = (int)(viewport.MARGIN * zoomFactor);
+            Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+            float zoomFactor = _viewport.getZoomFactor();
+            int margin = (int)(_viewport.MARGIN * zoomFactor);
             int level = 240;
             int width = (int)(dim.x * 50 * zoomFactor);
             int height = (int)(dim.y * 50 * zoomFactor);

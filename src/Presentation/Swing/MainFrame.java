@@ -5,6 +5,7 @@
  */
 package Presentation.Swing;
 
+import Application.Controller.RecyclAppController;
 import Application.Controller.Controller;
 
 /**
@@ -12,15 +13,14 @@ import Application.Controller.Controller;
  * @author Marcleking
  */
 public class MainFrame extends javax.swing.JFrame {
-
-    public final Controller controller;
     
-    
+    RecyclAppController _recycleAppController;
+    private ViewPort _viewPort;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
-        this.controller = new Controller();
+        _recycleAppController = new RecyclAppController();
         initComponents();
     }
 
@@ -33,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelBouton = new javax.swing.JPanel();
+        PanelButton = new javax.swing.JPanel();
         btnAddEntrace = new javax.swing.JButton();
         btnAddStation = new javax.swing.JButton();
         btnAddConveyor = new javax.swing.JButton();
@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         zoomInButton = new javax.swing.JButton();
         cursorCoordsLabel = new javax.swing.JLabel();
         viewportScrollPane = new javax.swing.JScrollPane();
-        viewport = new Presentation.Swing.Viewport(this);
+        viewport = new Presentation.Swing.ViewPort(this);
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelInformation = new javax.swing.JPanel();
@@ -68,7 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        PanelBouton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnAddEntrace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/entry.png"))); // NOI18N
         btnAddEntrace.setToolTipText("Ajouter une entrée");
@@ -150,13 +150,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout PanelBoutonLayout = new javax.swing.GroupLayout(PanelBouton);
-        PanelBouton.setLayout(PanelBoutonLayout);
-        PanelBoutonLayout.setHorizontalGroup(
-            PanelBoutonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelButtonLayout = new javax.swing.GroupLayout(PanelButton);
+        PanelButton.setLayout(PanelButtonLayout);
+        PanelButtonLayout.setHorizontalGroup(
+            PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(PanelBoutonLayout.createSequentialGroup()
-                .addGroup(PanelBoutonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(PanelButtonLayout.createSequentialGroup()
+                .addGroup(PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRedo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUndo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,9 +168,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        PanelBoutonLayout.setVerticalGroup(
-            PanelBoutonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBoutonLayout.createSequentialGroup()
+        PanelButtonLayout.setVerticalGroup(
+            PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelButtonLayout.createSequentialGroup()
                 .addComponent(btnAddEntrace, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +367,7 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelBouton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -377,7 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelBouton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,7 +437,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
-        this.controller.showAboutUs();
+        this._recycleAppController.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
@@ -492,7 +492,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelBouton;
+    private javax.swing.JPanel PanelButton;
     private javax.swing.JMenu btnAboutUs;
     private javax.swing.JButton btnAddConveyor;
     private javax.swing.JButton btnAddEntrace;
@@ -519,7 +519,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelInformation;
     private javax.swing.JPanel panelWrokspace;
     private javax.swing.JToggleButton snapButton;
-    private Presentation.Swing.Viewport viewport;
+    private Presentation.Swing.ViewPort viewport;
     private javax.swing.JPanel viewportBar;
     private javax.swing.JScrollPane viewportScrollPane;
     private javax.swing.JButton zoomInButton;
