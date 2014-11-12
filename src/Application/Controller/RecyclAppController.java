@@ -7,12 +7,15 @@ import Domain.SortStation;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
+import Domain.Element;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.MainFrame;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclAppController {
 	private SortMatrix _sortMatrix;
@@ -27,9 +30,26 @@ public class RecyclAppController {
 	private MatterList _matterList;
 	public MainFrame _mainFrame;
         
+        private Element _selectedElement;
+        
         public RecyclAppController()
         {
             _project = new Project();
+            _selectedElement = null;
+        }
+        
+        public void selectElement(Point2D.Float coords)
+        {
+            List<Element> elements = new ArrayList<Element>();
+            
+            elements.add(_project.getSortCenter());
+            
+            _selectedElement = null;
+            
+            if (elements.size() != 0)
+            {
+                _selectedElement = elements.get(elements.size()-1);
+            }
         }
 
         public void showAboutUs() {

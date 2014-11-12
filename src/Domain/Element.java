@@ -1,10 +1,7 @@
 package Domain;
 
 
-import Domain.SortStation;
-import Domain.EntryPoint;
-import Domain.ExitPoint;
-import Domain.Conveyor;
+import java.awt.geom.Point2D;
 
 public abstract class Element extends MatterBasket {
 	public SortStation _sortStation;
@@ -13,7 +10,5 @@ public abstract class Element extends MatterBasket {
 	public Conveyor _conveyor;
 	public Junction _junction;
 
-	public void isIn() {
-		throw new UnsupportedOperationException();
-	}
+	public abstract boolean include(Point2D.Float point);
 }

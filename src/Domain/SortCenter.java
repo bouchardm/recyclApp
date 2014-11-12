@@ -14,7 +14,7 @@ import java.awt.geom.Point2D;
  *
  * @author Dany
  */
-public class SortCenter
+public class SortCenter extends Element
 {
     
     private List _entryPointList;
@@ -65,6 +65,14 @@ public class SortCenter
     public SortCenter()
     {
         dimensions = new Point2D.Float(15f, 10f);
+    }
+    
+    
+    @Override
+    public boolean include(Point2D.Float point)
+    {
+        return (0 <= point.x && point.x <= dimensions.x) && 
+                (0 <= point.y && point.y <= dimensions.y);
     }
     
     
