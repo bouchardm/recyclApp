@@ -21,7 +21,6 @@ public class Conveyor extends Element
         {
             this._startPoint = startPoint;
             this._endPoint = endPoint;
-            
         }
         
 	public Float GetLength() {
