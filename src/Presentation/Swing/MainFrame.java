@@ -6,7 +6,8 @@
 package Presentation.Swing;
 
 import Application.Controller.RecyclAppController;
-import Application.Controller.Controller;
+import javax.swing.AbstractButton;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -15,7 +16,6 @@ import Application.Controller.Controller;
 public class MainFrame extends javax.swing.JFrame {
     
     RecyclAppController _recycleAppController;
-    private Viewport _viewPort;
     /**
      * Creates new form fenetre
      */
@@ -198,6 +198,11 @@ public class MainFrame extends javax.swing.JFrame {
         viewportBar.setPreferredSize(new java.awt.Dimension(710, 30));
 
         gridButton.setText("grid");
+        gridButton.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                gridButtonItemStateChanged(evt);
+            }
+        });
         gridButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gridButtonActionPerformed(evt);
@@ -440,10 +445,6 @@ public class MainFrame extends javax.swing.JFrame {
         this._recycleAppController.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
-    private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gridButtonActionPerformed
-
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", viewport.pixToMeter(evt.getX()), viewport.pixToMeter(evt.getY())));
     }//GEN-LAST:event_viewportMouseMoved
@@ -455,6 +456,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
         viewport.setZoomFactor(viewport.getZoomFactor() - 0.1f);
     }//GEN-LAST:event_zoomOutButtonActionPerformed
+
+    private void gridButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gridButtonItemStateChanged
+        
+    }//GEN-LAST:event_gridButtonItemStateChanged
+
+    private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
+        AbstractButton abstractButton = (AbstractButton)evt.getSource();
+        viewport.displayGrid(abstractButton.getModel().isSelected());
+    }//GEN-LAST:event_gridButtonActionPerformed
 
     /**
      * @param args the command line arguments

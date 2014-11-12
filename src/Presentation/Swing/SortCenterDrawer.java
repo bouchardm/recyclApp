@@ -29,6 +29,7 @@ public class SortCenterDrawer
     public void draw(Graphics g)
     {
         drawFloor(g);
+        System.out.println(_viewport.isShowGrid());
         if (_viewport.isShowGrid())
         {
             drawGrid(g);
@@ -58,6 +59,33 @@ public class SortCenterDrawer
     
     private void drawGrid(Graphics g)
     {
+        Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+        
+        Point2D.Float gridDim = _viewport.grid.getDimensions();
+        Point2D.Float gridOffset = _viewport.grid.getOffset();
+        
+        float x = gridOffset.x;
+        float y = gridOffset.y;
+        
+        int pxX;
+        int pxY;
+        
+        g.setColor(Color.WHITE);
+        
+        while (y <= dim.y)
+        {
+            while (x <= dim.x)
+            {
+                pxX = _viewport.meterToPix(x);
+                pxY = _viewport.meterToPix(y);
+                
+                g.fillRect(pxX - 1, pxY - 1, 3, 3);
+                
+                x += gridDim.x;
+            }
+            x = gridOffset.x;
+            y += gridDim.y;
+        }
     }
     
     private void drawStations(Graphics g)

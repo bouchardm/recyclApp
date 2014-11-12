@@ -29,19 +29,27 @@ import javax.swing.JPanel;
     public enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE};
     private CREATION_MODES creationMode = CREATION_MODES.NONE;
     
-    private boolean showGrid = false;
-    private boolean snapToGrid = false;
+    private boolean showGrid;
+    private boolean snapToGrid;
     public static int MARGIN = 50;
+    
+    public final Grid grid;
     
     
     public Viewport()
     {
+        showGrid = false;
+        snapToGrid = false;
+        grid = new Grid();
         config();
     }
     
     public Viewport(MainFrame mainFrame)
     {
         this.mainFrame = mainFrame;
+        grid = new Grid();
+        showGrid = false;
+        snapToGrid = false;
         config();
     }
     
@@ -63,12 +71,23 @@ import javax.swing.JPanel;
        }
     }
     
-    
-    public void toggleDisplayGrid()
+    public void displayGrid(boolean showGrid)
     {
-        showGrid = !showGrid;
+        this.showGrid = showGrid;
         repaint();
     }
+    
+    public void setShowGrid(boolean showGrid)
+    {
+        this.showGrid = showGrid;
+    }
+    
+    
+//    public void toggleDisplayGrid()
+//    {
+//        showGrid = !showGrid;
+//        repaint();
+//    }
     
     public void setZoomFactor(float zoomFactor)
     {
