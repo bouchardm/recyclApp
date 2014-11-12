@@ -14,6 +14,13 @@ hs_err_pid*
 
 # NetBeans specific #
 
+/build
+/nbproject
+/.README.md.un~
+/build.xml
+/manifest.mf
+/README.md
+/README.md~
 nbproject/private/
 build/
 nbbuild/
@@ -21,3 +28,4 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+
