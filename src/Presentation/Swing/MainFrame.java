@@ -15,7 +15,7 @@ import Application.Controller.Controller;
 public class MainFrame extends javax.swing.JFrame {
     
     RecyclAppController _recycleAppController;
-    private ViewPort _viewPort;
+    private Viewport _viewPort;
     /**
      * Creates new form fenetre
      */
@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         zoomInButton = new javax.swing.JButton();
         cursorCoordsLabel = new javax.swing.JLabel();
         viewportScrollPane = new javax.swing.JScrollPane();
-        viewport = new Presentation.Swing.ViewPort(this);
+        viewport = new Presentation.Swing.Viewport(this);
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelInformation = new javax.swing.JPanel();
@@ -519,7 +519,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelInformation;
     private javax.swing.JPanel panelWrokspace;
     private javax.swing.JToggleButton snapButton;
-    private Presentation.Swing.ViewPort viewport;
+    private Presentation.Swing.Viewport viewport;
     private javax.swing.JPanel viewportBar;
     private javax.swing.JScrollPane viewportScrollPane;
     private javax.swing.JButton zoomInButton;

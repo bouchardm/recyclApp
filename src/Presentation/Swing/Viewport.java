@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author Dany
  */
- public class ViewPort extends JPanel implements Serializable
+ public class Viewport extends JPanel implements Serializable
 {
     private MainFrame mainFrame;
     
@@ -34,12 +34,12 @@ import javax.swing.JPanel;
     public static int MARGIN = 50;
     
     
-    public ViewPort()
+    public Viewport()
     {
         config();
     }
     
-    public ViewPort(MainFrame mainFrame)
+    public Viewport(MainFrame mainFrame)
     {
         this.mainFrame = mainFrame;
         config();

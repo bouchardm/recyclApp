@@ -413,12 +413,12 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="Presentation.Swing.ViewPort" name="viewport">
+            <Container class="Presentation.Swing.Viewport" name="viewport">
               <Events>
                 <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseMoved"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Presentation.Swing.ViewPort(this)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new Presentation.Swing.Viewport(this)"/>
               </AuxValues>
 
               <Layout>

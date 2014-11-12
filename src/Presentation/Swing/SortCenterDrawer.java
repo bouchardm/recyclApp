@@ -18,9 +18,9 @@ import java.awt.geom.Point2D;
 public class SortCenterDrawer
 {
     private RecyclAppController _recyclAppController;
-    private ViewPort _viewport;
+    private Viewport _viewport;
 
-    public SortCenterDrawer(RecyclAppController controller, ViewPort viewport)
+    public SortCenterDrawer(RecyclAppController controller, Viewport viewport)
     {
         this._recyclAppController = controller;
         this._viewport = viewport;
