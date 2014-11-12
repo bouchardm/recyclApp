@@ -15,16 +15,6 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 
 public class RecyclAppController {
-	private Object _projectController;
-	private Object _sortCenterController;
-	private Object _matterBasketController;
-	private Object _exitPointController;
-	private Object _entryPointController;
-	private Object _conveyorController;
-	private Object _sortStationController;
-	private Object _transformationStationController;
-	private Object _sortMatrixController;
-	private Object _junctionController;
 	private SortMatrix _sortMatrix;
 	private Project _project;
 	private SortCenter _sortCenter;
