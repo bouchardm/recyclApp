@@ -41,6 +41,25 @@ public abstract class Station extends Node
     {
         return _rect.contains(point);
     }
+    
+    @Override
+    public Point2D.Float getCenter()
+    {
+        Point2D.Float center = new Point2D.Float(
+                (float)_rect.getCenterX(),(float)_rect.getCenterY());
+        return center;
+    }
+    
+    public void setDimensions(float height, float width)
+    {
+        _rect.height = height;
+        _rect.width = width;
+    }
+    
+    public Point2D.Float getDimensions()
+    {
+        return new Point2D.Float(_rect.width, _rect.height);
+    }
 
     
     

@@ -16,5 +16,6 @@ public abstract class Node extends Element
 	public Outlet _outLet;
         
         public abstract Point2D.Float getPosition();
+        public abstract Point2D.Float getCenter();
         public abstract void setPosition(float x, float y);
 }

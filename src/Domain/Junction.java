@@ -34,4 +34,10 @@ public class Junction extends Node {
         {
             return _position.distance(point) <= RADIUS;
         }
+        
+        @Override
+        public Point2D.Float getCenter()
+        {
+            return getPosition();
+        }
 }

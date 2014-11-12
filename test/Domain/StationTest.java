@@ -94,5 +94,56 @@ public class StationTest {
 
     public class StationImpl extends Station {
     }
+
+    /**
+     * Test of getCenter method, of class Station.
+     */
+    @Test
+    public void testGetCenter() {
+        System.out.println("getCenter");
+        Station instance = new StationImpl();
+        Point2D.Float expResult = new Point2D.Float(0.5f, 0.5f);
+        Point2D.Float result = instance.getCenter();
+        assertEquals(expResult, result);
+        instance.setPosition(-0.5f, -0.5f);
+        expResult = new Point2D.Float(0f, 0f);
+        result = instance.getCenter();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setDimensions method, of class Station.
+     */
+    @Test
+    public void testSetDimensions() {
+        System.out.println("setDimensions");
+        float height = 10.0F;
+        float width = 20.0F;
+        Station instance = new StationImpl();
+        instance.setDimensions(height, width);
+        Point2D.Float expResult = new Point2D.Float(width, height);
+        Point2D.Float result = instance.getDimensions();
+        assertEquals(expResult, result);
+        height = 20;
+        width = -10;
+        expResult.x = width;
+        expResult.y = height;
+        instance.setDimensions(height, width);
+        result = instance.getDimensions();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getDimensions method, of class Station.
+     */
+    @Test
+    public void testGetDimensions() {
+        System.out.println("getDimensions");
+        Station instance = new StationImpl();
+        Point2D.Float expResult = new Point2D.Float(1f, 1f);
+        Point2D.Float result = instance.getDimensions();
+        assertEquals(expResult, result);
+    }
     
 }

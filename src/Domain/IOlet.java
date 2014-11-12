@@ -6,6 +6,8 @@
 
 package Domain;
 
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author Dany
@@ -28,6 +30,11 @@ public abstract class IOlet
     public boolean IsFree()
     {
         return (_conveyor == null);
+    }
+    
+    public Point2D.Float getPosition()
+    {
+        return _parentNode.getCenter();
     }
     
     
