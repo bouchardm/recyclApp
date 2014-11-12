@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author Dany
  */
-public class Viewport extends JPanel implements Serializable
+ public class ViewPort extends JPanel implements Serializable
 {
     private MainFrame mainFrame;
     
@@ -34,12 +34,12 @@ public class Viewport extends JPanel implements Serializable
     public static int MARGIN = 50;
     
     
-    public Viewport()
+    public ViewPort()
     {
         config();
     }
     
-    public Viewport(MainFrame mainFrame)
+    public ViewPort(MainFrame mainFrame)
     {
         this.mainFrame = mainFrame;
         config();
@@ -58,7 +58,7 @@ public class Viewport extends JPanel implements Serializable
        if (mainFrame != null)
        {
            super.paintComponent(g);
-           SortCenterDrawer drawer = new SortCenterDrawer(mainFrame.controller, this);
+           SortCenterDrawer drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
            drawer.draw(g);
        }
     }
@@ -79,7 +79,7 @@ public class Viewport extends JPanel implements Serializable
         this.zoomFactor = zoomFactor;
         if (mainFrame != null)
         {
-            Point2D.Float dim = mainFrame.controller.getSortCenterDimensions();
+            Point2D.Float dim = mainFrame._recycleAppController.getSortCenterDimensions();
             dim.x = dim.x;
             dim.y = dim.y;
             int x = meterToPix(dim.x) + MARGIN * 2;

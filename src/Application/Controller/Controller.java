@@ -15,25 +15,7 @@ import java.awt.geom.Point2D;
  */
 public class Controller
 {
-    private final Project project;
     
-    public Controller()
-    {
-        project = new Project();
-    }
-    
-    public void showAboutUs() {
-        AboutUs view = new AboutUs();
-        view.setVisible(true);
-    }
-    
-    
-    // ************ SortCenter ***************
-    
-    public Point2D.Float getSortCenterDimensions()
-    {
-        return project.getSortCenter().getDimensions();
-    }
     
     
 }

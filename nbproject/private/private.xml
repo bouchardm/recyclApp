@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Presentation/Swing/MainFrame.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Application/Controller/Controller.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Domain/Project.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Presentation/Swing/Viewport.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Domain/SortCenter.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/Presentation/Swing/SortCenterDrawer.java</file>
-            <file>file:/C:/Users/Dany/Documents/Universite/Automne_2014/IFT-2007/repository/recyclApp/src/RecyclApp.java</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/test/Domain/ProjectTest.java</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/src/Presentation/Swing/Viewport.java</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/src/Presentation/Swing/MainFrame.java</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/test/Application/Controller/ControllerTest.java</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Marcleking/Dropbox/Cours/laval/IFT-2007/app/RecyclApp/src/Presentation/Swing/SortCenterDrawer.java</file>
         </group>
     </open-files>
 </project-private>

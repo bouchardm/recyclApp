@@ -6,6 +6,8 @@
 
 package Domain;
 
+import Application.Controller.RecyclAppController;
+import java.awt.List;
 import java.awt.geom.Point2D;
 
 /**
@@ -14,6 +16,51 @@ import java.awt.geom.Point2D;
  */
 public class SortCenter
 {
+    
+    private List _entryPointList;
+    private List _exitPointList;
+    private List _stationList;
+    private List _junctionList;
+    private Float _size;
+    private MatterList _matterList;
+    private List _conveyorList;
+    public Project _project;
+    public MatterBasket _matterBasket;
+    public Node _node;
+    public MatterList _matterList2;
+    public RecyclAppController _recyclAppController;
+    public Conveyor _conveyor;
+    public Conveyor _conveyor2;
+
+    public void addSortStation(Point2D aPosition) {
+            throw new UnsupportedOperationException();
+    }
+
+    public void updateDesign() {
+            throw new UnsupportedOperationException();
+    }
+
+    public void addTransStation(Point2D aPosition) {
+            throw new UnsupportedOperationException();
+    }
+
+    public void addConveyor(Inlet aEntrance, Outlet aExit) {
+            throw new UnsupportedOperationException();
+    }
+
+    public void addJunction(Point2D aPosition) {
+            throw new UnsupportedOperationException();
+    }
+
+    public void addEntryPoint(Point2D aPosition) {
+            throw new UnsupportedOperationException();
+    }
+
+    public void addExitPoint(Point2D aPosition) {
+            throw new UnsupportedOperationException();
+    }
+        
+        
     private Point2D.Float dimensions;
     public SortCenter()
     {
