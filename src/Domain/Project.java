@@ -6,7 +6,7 @@
 
 package Domain;
 
-import Application.Controller.RecyclAppController;
+import Application.Controller.Controller;
 import java.util.Vector;
 
 /**
@@ -21,7 +21,7 @@ public class Project
     private Boolean _isSaved;
     
     // public Vector<ProjectController> _projectController = new Vector<ProjectController>();
-    public RecyclAppController _recyclAppController;
+    public Controller _recyclAppController;
     public SortCenter _sortCenter2;
     
     public Project()

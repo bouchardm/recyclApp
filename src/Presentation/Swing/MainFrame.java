@@ -5,7 +5,7 @@
  */
 package Presentation.Swing;
 
-import Application.Controller.RecyclAppController;
+import Application.Controller.Controller;
 import javax.swing.AbstractButton;
 import javax.swing.JToggleButton;
 
@@ -15,12 +15,12 @@ import javax.swing.JToggleButton;
  */
 public class MainFrame extends javax.swing.JFrame {
     
-    RecyclAppController _recycleAppController;
+    Controller _recycleAppController;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
-        _recycleAppController = new RecyclAppController();
+        _recycleAppController = new Controller();
         initComponents();
     }
 

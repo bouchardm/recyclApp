@@ -6,7 +6,7 @@
 
 package Domain;
 
-import Application.Controller.RecyclAppController;
+import Application.Controller.Controller;
 import java.awt.List;
 import java.awt.geom.Point2D;
 
@@ -28,7 +28,7 @@ public class SortCenter extends Element
     public MatterBasket _matterBasket;
     public Node _node;
     public MatterList _matterList2;
-    public RecyclAppController _recyclAppController;
+    public Controller _recyclAppController;
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
 

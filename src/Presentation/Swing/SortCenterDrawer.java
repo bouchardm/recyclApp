@@ -6,7 +6,7 @@
 
 package Presentation.Swing;
 
-import Application.Controller.RecyclAppController;
+import Application.Controller.Controller;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
@@ -17,10 +17,10 @@ import java.awt.geom.Point2D;
  */
 public class SortCenterDrawer
 {
-    private RecyclAppController _recyclAppController;
+    private Controller _recyclAppController;
     private Viewport _viewport;
 
-    public SortCenterDrawer(RecyclAppController controller, Viewport viewport)
+    public SortCenterDrawer(Controller controller, Viewport viewport)
     {
         this._recyclAppController = controller;
         this._viewport = viewport;
