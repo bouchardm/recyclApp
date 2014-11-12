@@ -56,7 +56,7 @@ public class ControllerTest {
     public void testGetSortCenterDimensions() {
         System.out.println("getSortCenterDimensions");
         Controller instance = new Controller();
-        Point2D expResult = new Point2D.Float(10f, 10f);
+        Point2D expResult = new Point2D.Float(15f, 10f);
         Point2D result = instance.getSortCenterDimensions();
         assertEquals(expResult, result);
     }

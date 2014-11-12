@@ -46,7 +46,7 @@ public class SortCenterTest {
     public void testGetDimensions() {
         System.out.println("getDimensions");
         SortCenter instance = new SortCenter();
-        Point2D.Float expResult = new Point2D.Float(10f, 10f);
+        Point2D.Float expResult = new Point2D.Float(15f, 10f);
         Point2D.Float result = instance.getDimensions();
         assertEquals(expResult, result);
     }

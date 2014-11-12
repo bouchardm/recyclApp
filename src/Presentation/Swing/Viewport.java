@@ -26,12 +26,12 @@ public class Viewport extends JPanel implements Serializable
     public enum VIEW_MODES { ICONIC, TEXTUAL };
     private VIEW_MODES viewmode = VIEW_MODES.ICONIC;
     
-    public enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR, NONE};
+    public enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE};
     private CREATION_MODES creationMode = CREATION_MODES.NONE;
     
     private boolean showGrid = false;
     private boolean snapToGrid = false;
-    public static int MARGIN = 20;
+    public static int MARGIN = 50;
     
     
     public Viewport()
@@ -82,8 +82,8 @@ public class Viewport extends JPanel implements Serializable
             Point2D.Float dim = mainFrame.controller.getSortCenterDimensions();
             dim.x = dim.x;
             dim.y = dim.y;
-            int x = meterToPix(dim.x) + 40;
-            int y = meterToPix(dim.y) + 40;
+            int x = meterToPix(dim.x) + MARGIN * 2;
+            int y = meterToPix(dim.y) + MARGIN * 2;
             setSize(new Dimension(x, y));
             setPreferredSize(new Dimension(x, y));
             
@@ -103,11 +103,11 @@ public class Viewport extends JPanel implements Serializable
     
     public float pixToMeter(int pixels)
     {
-        return (((float)(pixels - MARGIN) / 50) / zoomFactor);
+        return (((float)(pixels - MARGIN * zoomFactor) / 50) / zoomFactor);
     }
     
     public int meterToPix(float meters)
     {
-        return (int)(meters * 50 * zoomFactor) + MARGIN;
+        return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
 }
