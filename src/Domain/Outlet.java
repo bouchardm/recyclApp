@@ -4,7 +4,8 @@ package Domain;
 import Domain.Node;
 import Domain.Conveyor;
 
-public class Outlet extends Node {
+public class Outlet
+{
 	private Conveyor _conveyor;
 	private Node _parentNode;
 	private MatterBasket _matterBasket;

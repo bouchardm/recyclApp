@@ -29,7 +29,6 @@ public class SortCenterDrawer
     public void draw(Graphics g)
     {
         drawFloor(g);
-        System.out.println(_viewport.isShowGrid());
         if (_viewport.isShowGrid())
         {
             drawGrid(g);
