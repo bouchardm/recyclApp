@@ -7,7 +7,6 @@ import java.awt.geom.Point2D;
 
 public abstract class Node extends Element
 {
-	private Point2D.Float _position;
 	private Integer _iD;
 	private List _inletList;
 	private List _outletList;

@@ -112,8 +112,7 @@ public class ProjectTest {
         System.out.println("setUnsaved");
         Project instance = new Project();
         instance.setUnsaved();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertFalse(instance.isSaved());
     }
     
 }

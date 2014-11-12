@@ -62,6 +62,11 @@ public class Project
         _isSaved = false;
     }
     
+    public boolean isSaved()
+    {
+        return _isSaved;
+    }
+    
     public SortCenter getSortCenter()
     {
         return _sortCenter;

@@ -17,6 +17,11 @@ public abstract class Station extends Node
 {
     private Rectangle2D.Float _rect;
     
+    public Station()
+    {
+        _rect = new Rectangle2D.Float(0, 0, 1, 1);
+    }
+    
     
     @Override
     public void setPosition(float x, float y)

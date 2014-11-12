@@ -6,10 +6,15 @@ import java.awt.geom.Point2D;
 public class Junction extends Node {
 	private List _inletList;
 	private Outlet _outlet;
-	public Element _element;
         private Point2D.Float _position;
         
         public final static float RADIUS = 0.3f;
+        
+        
+        public Junction()
+        {
+            _position = new Point2D.Float(0, 0);
+        }
         
         @Override
         public Point2D.Float getPosition()
