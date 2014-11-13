@@ -30,6 +30,11 @@ public abstract class Station extends Node
         _rect.y = y;
     }
     
+    public void setPosition(Point2D.Float position) {
+        _rect.x = position.x;
+        _rect.y = position.y;
+    }
+    
     @Override
     public Point2D.Float getPosition()
     {

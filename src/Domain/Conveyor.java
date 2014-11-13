@@ -10,7 +10,6 @@ public class Conveyor extends Element
 	private Object _iD;
 	private MatterBasket _matterBasket;
 	public SortCenter _sortCenter;
-	public SortCenter _sortCenter2;
 	public Element _element;
 	public Outlet Outlet ;
         private Line2D.Float _line;

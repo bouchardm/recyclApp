@@ -6,6 +6,7 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
 import javax.swing.JToggleButton;
 
@@ -261,6 +262,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
+        viewport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                viewportMouseReleased(evt);
+            }
+        });
         viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 viewportMouseMoved(evt);
@@ -394,7 +400,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddEntraceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEntraceActionPerformed
-        // TODO add your handling code here:
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddEntraceActionPerformed
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -465,6 +471,14 @@ public class MainFrame extends javax.swing.JFrame {
         AbstractButton abstractButton = (AbstractButton)evt.getSource();
         viewport.displayGrid(abstractButton.getModel().isSelected());
     }//GEN-LAST:event_gridButtonActionPerformed
+
+    private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
+        if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+            this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
+            this.viewport.display();  
+        }
+    }//GEN-LAST:event_viewportMouseReleased
 
     /**
      * @param args the command line arguments

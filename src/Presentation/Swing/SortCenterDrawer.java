@@ -7,9 +7,13 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.SortStation;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -69,7 +73,7 @@ public class SortCenterDrawer
         int pxX;
         int pxY;
         
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         
         while (y <= dim.y)
         {
@@ -85,10 +89,41 @@ public class SortCenterDrawer
             x = gridOffset.x;
             y += gridDim.y;
         }
+        this.drawStations(g);
     }
     
     private void drawStations(Graphics g)
     {
+        g.setColor(Color.red);
+        // FAKE DE DONNÉE
+//        ArrayList list = new ArrayList<SortStation>();
+//        SortStation station = new SortStation();
+//        station.setDimensions(1, 1);
+//        station.setPosition(1, 1);
+//        list.add(station);
+//        station = new SortStation();
+//        station.setDimensions(2, 5);
+//        station.setPosition(4, 3);
+//        list.add(station);
+        // FIN
+        
+        int positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY;
+        
+        // Boucle des stations
+        for (Iterator iterator = this._recyclAppController.getProject().getSortCenter().getSortStationList().iterator(); iterator.hasNext();) {
+            SortStation next = (SortStation)iterator.next();
+            Point2D.Float dimension = next.getDimensions();
+            Point2D.Float position = next.getPosition();
+            
+            positionMeterX = _viewport.meterToPix(position.x);
+            positionMeterY = _viewport.meterToPix(position.y);
+            // TODO: Regarder pourquoi j'ai besoin de faire -1
+            dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
+            dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+            
+            // Dessin de la stations
+            g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        }
     }
     
     private void drawJunctions(Graphics g)

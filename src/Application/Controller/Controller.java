@@ -22,7 +22,7 @@ public class Controller {
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-	private SortStation _station;
+//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
@@ -117,8 +117,8 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddStation() {
-		throw new UnsupportedOperationException();
+	public void AddStation(Point2D.Float position) {
+            this._project.getSortCenter().addSortStation(position);
 	}
 
 	public void DeleteStation() {
@@ -188,4 +188,8 @@ public class Controller {
 	public void addJunction(Point aPosition) {
 		throw new UnsupportedOperationException();
 	}
+        
+        public Project getProject() {
+            return _project;
+        }
 }

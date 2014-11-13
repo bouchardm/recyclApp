@@ -416,6 +416,7 @@
           <SubComponents>
             <Container class="Presentation.Swing.Viewport" name="viewport">
               <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseReleased"/>
                 <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseMoved"/>
               </Events>
               <AuxValues>
