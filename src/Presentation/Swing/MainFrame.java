@@ -261,6 +261,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
+        viewport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                viewportMouseReleased(evt);
+            }
+        });
         viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 viewportMouseMoved(evt);
@@ -465,6 +470,10 @@ public class MainFrame extends javax.swing.JFrame {
         AbstractButton abstractButton = (AbstractButton)evt.getSource();
         viewport.displayGrid(abstractButton.getModel().isSelected());
     }//GEN-LAST:event_gridButtonActionPerformed
+
+    private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
+        viewport.onMouseReleased(evt);
+    }//GEN-LAST:event_viewportMouseReleased
 
     /**
      * @param args the command line arguments

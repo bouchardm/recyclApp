@@ -129,4 +129,23 @@ import javax.swing.JPanel;
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
+    
+    public void onMouseReleased(java.awt.event.MouseEvent evt)
+    {
+        switch (creationMode)
+        {
+            case NONE:
+                break;
+            case SORT_STATION:
+                break;
+            case TRANS_STATION:
+                break;
+            case JUNCTION:
+                break;
+            case CONVEYOR_1:
+                break;
+            case CONVEYOR_2:
+                break;
+        }
+    }
 }
