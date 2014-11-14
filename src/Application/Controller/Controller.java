@@ -16,6 +16,8 @@ import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -143,6 +145,25 @@ public class Controller {
 	public void EditStation() {
 		throw new UnsupportedOperationException();
 	}
+        
+        public void MouveStation(Point2D.Float position) {
+            ArrayList sortStationList = this._project.getSortCenter().getSortStationList();
+        
+            for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+                SortStation next = (SortStation)iterator.next();
+
+                if (next.include(position)) {
+                    next.setPosition(position);
+
+                    // Change la position de l'element déplacer dans la list
+                    int i = sortStationList.indexOf(next);
+                    if (i > 0) {
+                        Collections.swap(sortStationList, i, i-1);
+                    }
+                    break;
+                }
+            }
+        }
 
 	public void AddExitPoint() {
 		throw new UnsupportedOperationException();

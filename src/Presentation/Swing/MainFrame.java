@@ -504,23 +504,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStationMouseDragged
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
-        ArrayList sortStationList = this._recycleAppController.getProject().getSortCenter().getSortStationList();
-        
-        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-            SortStation next = (SortStation)iterator.next();
-            Point2D.Float position = new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY()));
-            
-            if (next.include(position)) {
-                next.setPosition(position);
-                
-                // Change la position de l'element déplacer dans la list
-                int i = sortStationList.indexOf(next);
-                if (i > 0) {
-                    Collections.swap(sortStationList, i, i-1);
-                }
-                break;
-            }
-        }
+        this._recycleAppController.MouveStation(this.viewport.createPointInMeter(evt.getX(), evt.getY()));
         this.viewport.display();
     }//GEN-LAST:event_viewportMouseDragged
 

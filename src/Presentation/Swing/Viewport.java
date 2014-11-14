@@ -134,6 +134,10 @@ import javax.swing.JPanel;
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
     
+    public Point2D.Float createPointInMeter (int pixelX, int pixelY) {
+        return new Point2D.Float(this.pixToMeter(pixelX), this.pixToMeter(pixelY));
+    }
+    
     public SortCenterDrawer getDrawer() {
         return _drawer;
     }
