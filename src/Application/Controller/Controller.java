@@ -8,6 +8,8 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
+import Domain.Inlet;
+import Domain.Outlet;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
@@ -28,6 +30,7 @@ public class Controller {
 	private Object _matterBasket;
 	private Object _transformationMatrix;
 	private MatterList _matterList;
+        private static int matterIDCounter = 0;
 	public MainFrame _mainFrame;
         
         private Element _selectedElement;
@@ -93,8 +96,9 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddConvoyer() {
-		throw new UnsupportedOperationException();
+	public void AddConvoyer(Outlet aExit, Inlet aEntrance) {
+            this._sortCenter.addConveyor(aExit, aEntrance);
+            this._sortCenter.updateDesign();
 	}
 
 	public void RemoveConveyor() {
@@ -165,8 +169,13 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddMatterl() {
+	public void AddMatter() {
 		throw new UnsupportedOperationException();
+            // new matter avec id = matterIDCounter
+            // matterIDCounter ++
+            // faudra ajouter à matterList
+                //vérifier: matterBasket aussi?  je crois que ça sera plutôt
+                //en propageant le panier d'une station à une autre
 	}
 
 	public void RemoveMatter() {

@@ -1,10 +1,10 @@
 package Domain;
 
-import java.awt.List;
+import java.util.ArrayList;
 import java.awt.geom.Point2D;
 
 public class Junction extends Node {
-	private List _inletList;
+	private ArrayList<Inlet> _inletList;
 	private Outlet _outlet;
         private Point2D.Float _position;
         
@@ -27,6 +27,11 @@ public class Junction extends Node {
         {
             _position.x = x;
             _position.y = y;
+        }
+       
+        public void addInlet(Inlet aInlet)
+        {
+            this._inletList.add(aInlet);
         }
         
         @Override
