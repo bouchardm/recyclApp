@@ -28,9 +28,15 @@ public class SortCenter extends Element
     public MatterBasket _matterBasket;
     public Node _node;
     public MatterList _matterList2;
-    public Controller _recyclAppController;
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
+    private Point2D.Float _dimensions;
+    
+    
+    public SortCenter()
+    {
+        _dimensions = new Point2D.Float(15f, 10f);
+    }
 
     public void addSortStation(Point2D aPosition) {
             throw new UnsupportedOperationException();
@@ -59,31 +65,29 @@ public class SortCenter extends Element
     public void addExitPoint(Point2D aPosition) {
             throw new UnsupportedOperationException();
     }
-        
-        
-    private Point2D.Float dimensions;
-    public SortCenter()
-    {
-        dimensions = new Point2D.Float(15f, 10f);
-    }
     
     
     @Override
     public boolean include(Point2D.Float point)
     {
-        return (0 <= point.x && point.x <= dimensions.x) && 
-                (0 <= point.y && point.y <= dimensions.y);
+        return (0 <= point.x && point.x <= _dimensions.x) && 
+                (0 <= point.y && point.y <= _dimensions.y);
     }
     
     
     public Point2D.Float getDimensions()
     {
-        return dimensions;
+        return _dimensions;
     }
     
     public void setDimensions(Float x, Float y)
     {
-        dimensions.x = x;
-        dimensions.y = y;
+        _dimensions.x = x;
+        _dimensions.y = y;
+    }
+    
+    public Element getElementAt(Point2D.Float point)
+    {
+        return null;
     }
 }
