@@ -60,8 +60,8 @@ public class SortCenterDrawer
     {
         Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
         
-        Point2D.Float gridDim = _viewport.grid.getDimensions();
-        Point2D.Float gridOffset = _viewport.grid.getOffset();
+        Point2D.Float gridDim = _viewport.getGridDimensions();
+        Point2D.Float gridOffset = _viewport.getGridOffset();
         
         float x = gridOffset.x;
         float y = gridOffset.y;

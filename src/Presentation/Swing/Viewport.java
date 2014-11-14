@@ -29,27 +29,27 @@ import javax.swing.JPanel;
     public enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE};
     private CREATION_MODES creationMode = CREATION_MODES.NONE;
     
-    private boolean showGrid;
-    private boolean snapToGrid;
+    private boolean _showGrid;
+    private boolean _snapToGrid;
     public static int MARGIN = 50;
     
-    public final Grid grid;
+    private final Grid _grid;
     
     
     public Viewport()
     {
-        showGrid = false;
-        snapToGrid = false;
-        grid = new Grid();
+        _showGrid = false;
+        _snapToGrid = false;
+        _grid = new Grid();
         config();
     }
     
     public Viewport(MainFrame mainFrame)
     {
         this.mainFrame = mainFrame;
-        grid = new Grid();
-        showGrid = false;
-        snapToGrid = false;
+        _grid = new Grid();
+        _showGrid = false;
+        _snapToGrid = false;
         config();
     }
     
@@ -57,6 +57,22 @@ import javax.swing.JPanel;
     {
         setBackground(Color.GRAY);
         setZoomFactor(1.0f);
+    }
+    
+    public void setGridDimensions(Point2D.Float dim)
+    {
+        _grid.setDimensions(dim);
+        repaint();
+    }
+    
+    public Point2D.Float getGridDimensions()
+    {
+        return _grid.getDimensions();
+    }
+    
+    public Point2D.Float getGridOffset()
+    {
+        return _grid.getOffset();
     }
     
     
@@ -73,13 +89,18 @@ import javax.swing.JPanel;
     
     public void displayGrid(boolean showGrid)
     {
-        this.showGrid = showGrid;
+        this._showGrid = showGrid;
         repaint();
+    }
+    
+    public void snapToGrid(boolean snapToGrid)
+    {
+        _snapToGrid = snapToGrid;
     }
     
     public void setShowGrid(boolean showGrid)
     {
-        this.showGrid = showGrid;
+        this._showGrid = showGrid;
     }
     
     
@@ -117,7 +138,7 @@ import javax.swing.JPanel;
     
     public boolean isShowGrid()
     {
-        return showGrid;
+        return _showGrid;
     }
     
     public float pixToMeter(int pixels)

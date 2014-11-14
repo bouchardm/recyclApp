@@ -6,8 +6,8 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
-import javax.swing.JToggleButton;
 
 /**
  *
@@ -16,6 +16,7 @@ import javax.swing.JToggleButton;
 public class MainFrame extends javax.swing.JFrame {
     
     Controller _recycleAppController;
+    
     /**
      * Creates new form fenetre
      */
@@ -46,11 +47,14 @@ public class MainFrame extends javax.swing.JFrame {
         btnOpen = new javax.swing.JButton();
         panelWrokspace = new javax.swing.JPanel();
         viewportBar = new javax.swing.JPanel();
-        gridButton = new javax.swing.JToggleButton();
-        snapButton = new javax.swing.JToggleButton();
         zoomOutButton = new javax.swing.JButton();
         zoomInButton = new javax.swing.JButton();
         cursorCoordsLabel = new javax.swing.JLabel();
+        gridCheckBox = new javax.swing.JCheckBox();
+        snapCheckBox = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        xGridDimFTextField = new javax.swing.JFormattedTextField();
+        yGridDimFTextField = new javax.swing.JFormattedTextField();
         viewportScrollPane = new javax.swing.JScrollPane();
         viewport = new Presentation.Swing.Viewport(this);
         jPanel3 = new javax.swing.JPanel();
@@ -197,20 +201,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         viewportBar.setPreferredSize(new java.awt.Dimension(710, 30));
 
-        gridButton.setText("grid");
-        gridButton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                gridButtonItemStateChanged(evt);
-            }
-        });
-        gridButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gridButtonActionPerformed(evt);
-            }
-        });
-
-        snapButton.setText("snap");
-
         zoomOutButton.setText("-");
         zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,16 +217,54 @@ public class MainFrame extends javax.swing.JFrame {
 
         cursorCoordsLabel.setText("cursorCoords");
 
+        gridCheckBox.setText("grid");
+        gridCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gridCheckBoxActionPerformed(evt);
+            }
+        });
+
+        snapCheckBox.setText("snap");
+        snapCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                snapCheckBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("x");
+
+        xGridDimFTextField.setValue(1.00f);
+        xGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        xGridDimFTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xGridDimFTextFieldActionPerformed(evt);
+            }
+        });
+
+        yGridDimFTextField.setValue(1.00f);
+        yGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        yGridDimFTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yGridDimFTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewportBarLayout = new javax.swing.GroupLayout(viewportBar);
         viewportBar.setLayout(viewportBarLayout);
         viewportBarLayout.setHorizontalGroup(
             viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewportBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(gridButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(snapButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
+                .addComponent(gridCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(xGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(snapCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
                 .addComponent(cursorCoordsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(zoomOutButton)
@@ -250,13 +278,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(snapButton)
-                        .addComponent(gridButton))
+                        .addComponent(gridCheckBox)
+                        .addComponent(snapCheckBox)
+                        .addComponent(jLabel2)
+                        .addComponent(xGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(zoomInButton)
                         .addComponent(cursorCoordsLabel)
                         .addComponent(zoomOutButton)))
-                .addGap(2, 2, 2))
+                .addContainerGap())
         );
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
@@ -457,14 +488,31 @@ public class MainFrame extends javax.swing.JFrame {
         viewport.setZoomFactor(viewport.getZoomFactor() - 0.1f);
     }//GEN-LAST:event_zoomOutButtonActionPerformed
 
-    private void gridButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gridButtonItemStateChanged
-        
-    }//GEN-LAST:event_gridButtonItemStateChanged
-
-    private void gridButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridButtonActionPerformed
+    private void gridCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gridCheckBoxActionPerformed
         AbstractButton abstractButton = (AbstractButton)evt.getSource();
         viewport.displayGrid(abstractButton.getModel().isSelected());
-    }//GEN-LAST:event_gridButtonActionPerformed
+    }//GEN-LAST:event_gridCheckBoxActionPerformed
+
+    private void snapCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snapCheckBoxActionPerformed
+        AbstractButton abstractButton = (AbstractButton)evt.getSource();
+        viewport.snapToGrid(abstractButton.getModel().isSelected());
+    }//GEN-LAST:event_snapCheckBoxActionPerformed
+
+    private void xGridDimFTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xGridDimFTextFieldActionPerformed
+        Point2D.Float dim = new Point2D.Float(
+                Float.valueOf(xGridDimFTextField.getValue().toString()),
+                Float.valueOf(yGridDimFTextField.getValue().toString()));
+        viewport.setGridDimensions(dim);
+        requestFocus();
+    }//GEN-LAST:event_xGridDimFTextFieldActionPerformed
+
+    private void yGridDimFTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yGridDimFTextFieldActionPerformed
+        Point2D.Float dim = new Point2D.Float(
+                Float.valueOf(xGridDimFTextField.getValue().toString()),
+                Float.valueOf(yGridDimFTextField.getValue().toString()));
+        viewport.setGridDimensions(dim);
+        requestFocus();
+    }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,9 +562,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUndo;
     private javax.swing.JLabel cursorCoordsLabel;
-    private javax.swing.JToggleButton gridButton;
+    private javax.swing.JCheckBox gridCheckBox;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -528,10 +577,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel panelInformation;
     private javax.swing.JPanel panelWrokspace;
-    private javax.swing.JToggleButton snapButton;
+    private javax.swing.JCheckBox snapCheckBox;
     private Presentation.Swing.Viewport viewport;
     private javax.swing.JPanel viewportBar;
     private javax.swing.JScrollPane viewportScrollPane;
+    private javax.swing.JFormattedTextField xGridDimFTextField;
+    private javax.swing.JFormattedTextField yGridDimFTextField;
     private javax.swing.JButton zoomInButton;
     private javax.swing.JButton zoomOutButton;
     // End of variables declaration//GEN-END:variables
