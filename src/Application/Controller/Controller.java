@@ -12,10 +12,13 @@ import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.MainFrame;
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private SortMatrix _sortMatrix;
@@ -118,7 +121,19 @@ public class Controller {
 	}
 
 	public void AddStation(Point2D.Float position) {
-            this._project.getSortCenter().addSortStation(position);
+            
+            JFrame frame = new JFrame("Nombre de sortie");
+            
+            int value;
+            
+            try {
+                value = Integer.parseInt(JOptionPane.showInputDialog(frame, "Quel est le nombre de sortie?", null, 0));            
+            } catch (NumberFormatException e) {
+                value = -1;
+            }
+            if (value > 0) {
+                this._project.getSortCenter().addSortStation(position);
+            }
 	}
 
 	public void DeleteStation() {
