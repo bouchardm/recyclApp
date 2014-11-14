@@ -95,17 +95,6 @@ public class SortCenterDrawer
     private void drawStations(Graphics g)
     {
         g.setColor(Color.red);
-        // FAKE DE DONNÉE
-//        ArrayList list = new ArrayList<SortStation>();
-//        SortStation station = new SortStation();
-//        station.setDimensions(1, 1);
-//        station.setPosition(1, 1);
-//        list.add(station);
-//        station = new SortStation();
-//        station.setDimensions(2, 5);
-//        station.setPosition(4, 3);
-//        list.add(station);
-        // FIN
         
         int positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY;
         

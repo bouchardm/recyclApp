@@ -6,8 +6,14 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.SortStation;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import javax.swing.AbstractButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
 /**
@@ -185,7 +191,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +247,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(gridButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(snapButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 511, Short.MAX_VALUE)
                 .addComponent(cursorCoordsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(zoomOutButton)
@@ -272,6 +278,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                viewportMouseDragged(evt);
+            }
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 viewportMouseMoved(evt);
             }
@@ -281,11 +290,11 @@ public class MainFrame extends javax.swing.JFrame {
         viewport.setLayout(viewportLayout);
         viewportLayout.setHorizontalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 792, Short.MAX_VALUE)
+            .addGap(0, 803, Short.MAX_VALUE)
         );
         viewportLayout.setVerticalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 503, Short.MAX_VALUE)
         );
 
         viewportScrollPane.setViewportView(viewport);
@@ -384,7 +393,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -477,7 +486,6 @@ public class MainFrame extends javax.swing.JFrame {
             this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
             btnAddStation.setSelected(false);
             this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
-            
             this.viewport.display();  
         }
     }//GEN-LAST:event_viewportMouseReleased
@@ -493,9 +501,30 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
         btnAddStation.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-        this.viewport.transferFocusDownCycle();
     }//GEN-LAST:event_btnAddStationMouseDragged
 
+    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
+        ArrayList sortStationList = this._recycleAppController.getProject().getSortCenter().getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+            Point2D.Float position = new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY()));
+            
+            if (next.include(position)) {
+                next.setPosition(position);
+                
+                // Change la position de l'element déplacer dans la list
+                int i = sortStationList.indexOf(next);
+                if (i > 0) {
+                    Collections.swap(sortStationList, i, i-1);
+                }
+                break;
+            }
+        }
+        this.viewport.display();
+    }//GEN-LAST:event_viewportMouseDragged
+
+    
     /**
      * @param args the command line arguments
      */
