@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
  public class Viewport extends JPanel implements Serializable
 {
-    private MainFrame mainFrame;
+    private MainFrame _mainFrame;
     
     private float zoomFactor = 1f;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
@@ -46,7 +46,7 @@ import javax.swing.JPanel;
     
     public Viewport(MainFrame mainFrame)
     {
-        this.mainFrame = mainFrame;
+        this._mainFrame = mainFrame;
         grid = new Grid();
         showGrid = false;
         snapToGrid = false;
@@ -63,10 +63,10 @@ import javax.swing.JPanel;
     @Override
     protected void paintComponent(Graphics g)
     {
-       if (mainFrame != null)
+       if (_mainFrame != null)
        {
            super.paintComponent(g);
-           SortCenterDrawer drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
+           SortCenterDrawer drawer = new SortCenterDrawer(_mainFrame.controller, this);
            drawer.draw(g);
        }
     }
@@ -96,9 +96,9 @@ import javax.swing.JPanel;
             zoomFactor = 0.1f;
         }
         this.zoomFactor = zoomFactor;
-        if (mainFrame != null)
+        if (_mainFrame != null)
         {
-            Point2D.Float dim = mainFrame._recycleAppController.getSortCenterDimensions();
+            Point2D.Float dim = _mainFrame.controller.getSortCenterDimensions();
             dim.x = dim.x;
             dim.y = dim.y;
             int x = meterToPix(dim.x) + MARGIN * 2;
@@ -135,6 +135,10 @@ import javax.swing.JPanel;
         switch (creationMode)
         {
             case NONE:
+                Point2D.Float pos = new Point2D.Float();
+                pos.x = pixToMeter(evt.getX());
+                pos.y = pixToMeter(evt.getY());
+                _mainFrame.controller.selectElement(pos);
                 break;
             case SORT_STATION:
                 break;

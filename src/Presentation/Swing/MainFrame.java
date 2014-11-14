@@ -15,12 +15,12 @@ import javax.swing.JToggleButton;
  */
 public class MainFrame extends javax.swing.JFrame {
     
-    Controller _recycleAppController;
+    public final Controller controller;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
-        _recycleAppController = new Controller();
+        controller = new Controller();
         initComponents();
     }
 
@@ -447,7 +447,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
-        this._recycleAppController.showAboutUs();
+        this.controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
