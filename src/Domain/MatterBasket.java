@@ -23,11 +23,13 @@ public class MatterBasket {
     public MatterBasket( MatterList aMatterList) {
         _quantity = new HashMap<>();
         //_matterList = new MatterList();
-        for(int i = 0; i<aMatterList.GetCount(); i++)
-        {
-            if(aMatterList.GetCount()>0) {
-            //_matterList.Add(aMatterList.GetMatter(i));
-            _quantity.put(aMatterList.GetMatter(i).getName(),new Float(0));
+        if(aMatterList.GetCount()>0) { 
+            for(int i = 0; i<aMatterList.GetCount(); i++)
+            {
+
+                //_matterList.Add(aMatterList.GetMatter(i));
+                _quantity.put(aMatterList.GetMatter(i).getName(),new Float(0));
+
             }
         }
     }
