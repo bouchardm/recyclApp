@@ -33,7 +33,8 @@ public abstract class Station extends Node
     @Override
     public Point2D.Float getPosition()
     {
-        return new Point2D.Float(_rect.x, _rect.y);
+        Point2D.Float pos = new Point2D.Float(_rect.x, _rect.y);
+        return pos;
     }
 
     @Override

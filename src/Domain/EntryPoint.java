@@ -2,12 +2,23 @@ package Domain;
 
 import java.awt.Point;
 
-public class EntryPoint extends Station {
-	private Outlet _outlet;
-	private Point _position;
-	private Object _matterBasket;
-	public Node _node;
-	public Element _element;
+public class EntryPoint extends Station
+{
+    private Outlet _outlet;
+    private Object _matterBasket;
+    
+    public EntryPoint()
+    {
+        super();
+        _outlet = new Outlet(this);
+    }
+
+        
+        
+    public Outlet getOutlet()
+    {
+        return _outlet;
+    }
         
         
 }
