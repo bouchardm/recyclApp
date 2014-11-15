@@ -135,7 +135,7 @@ public class Controller {
             }
             
             if (value > 0) {
-                this._project.getSortCenter().addSortStation(position);
+                this._project.getSortCenter().addSortStation(position, value);
             }
 	}
 

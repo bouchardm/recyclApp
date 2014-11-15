@@ -37,9 +37,10 @@ public class SortCenter extends Element
         dimensions = new Point2D.Float(15f, 10f);
     }
     
-    public void addSortStation(Point2D.Float aPosition) {
+    public void addSortStation(Point2D.Float aPosition, Integer exit) {
         SortStation station = new SortStation();
         station.setPosition(aPosition);
+        station.setExit(exit);
         this._sortStationList.add(station);
     }
 

@@ -2,14 +2,15 @@ package Domain;
 
 import java.awt.List;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class Junction extends Node {
 	private List _inletList;
 	private Outlet _outlet;
         private Point2D.Float _position;
+        private ArrayList _exit;
         
         public final static float RADIUS = 0.3f;
-        
         
         public Junction()
         {
@@ -40,4 +41,9 @@ public class Junction extends Node {
         {
             return getPosition();
         }
+        
+        @Override
+        public void setExit(int nbExit) {
+            this._exit = new ArrayList<Integer>();
+        } 
 }

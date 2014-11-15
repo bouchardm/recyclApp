@@ -157,6 +157,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        btnAddStation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddStationMouseClicked(evt);
+            }
+        });
         btnAddStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btnAddStationMouseDragged(evt);
@@ -198,7 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,6 +226,7 @@ public class MainFrame extends javax.swing.JFrame {
                 zoomOutButtonActionPerformed(evt);
             }
         });
+        viewportBar.add(zoomOutButton);
 
         zoomInButton.setText("+");
         zoomInButton.addActionListener(new java.awt.event.ActionListener() {
@@ -228,8 +234,10 @@ public class MainFrame extends javax.swing.JFrame {
                 zoomInButtonActionPerformed(evt);
             }
         });
+        viewportBar.add(zoomInButton);
 
         cursorCoordsLabel.setText("cursorCoords");
+        viewportBar.add(cursorCoordsLabel);
 
         gridCheckBox.setText("grid");
         gridCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
                 gridCheckBoxActionPerformed(evt);
             }
         });
+        viewportBar.add(gridCheckBox);
 
         snapCheckBox.setText("snap");
         snapCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -244,8 +253,10 @@ public class MainFrame extends javax.swing.JFrame {
                 snapCheckBoxActionPerformed(evt);
             }
         });
+        viewportBar.add(snapCheckBox);
 
         jLabel2.setText("x");
+        viewportBar.add(jLabel2);
 
         xGridDimFTextField.setValue(1.00f);
         xGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00 m"))));
@@ -255,6 +266,7 @@ public class MainFrame extends javax.swing.JFrame {
                 xGridDimFTextFieldActionPerformed(evt);
             }
         });
+        viewportBar.add(xGridDimFTextField);
 
         yGridDimFTextField.setValue(1.00f);
         yGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00 m"))));
@@ -264,47 +276,7 @@ public class MainFrame extends javax.swing.JFrame {
                 yGridDimFTextFieldActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout viewportBarLayout = new javax.swing.GroupLayout(viewportBar);
-        viewportBar.setLayout(viewportBarLayout);
-        viewportBarLayout.setHorizontalGroup(
-            viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewportBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(gridCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(xGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(snapCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
-                .addComponent(cursorCoordsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(zoomOutButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(zoomInButton)
-                .addContainerGap())
-        );
-        viewportBarLayout.setVerticalGroup(
-            viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewportBarLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(gridCheckBox)
-                        .addComponent(snapCheckBox)
-                        .addComponent(jLabel2)
-                        .addComponent(xGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(viewportBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(zoomInButton)
-                        .addComponent(cursorCoordsLabel)
-                        .addComponent(zoomOutButton)))
-                .addContainerGap())
-        );
+        viewportBar.add(yGridDimFTextField);
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
@@ -587,6 +559,11 @@ public class MainFrame extends javax.swing.JFrame {
         
         this.viewport.display();
     }//GEN-LAST:event_viewportMouseDragged
+
+    private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_btnAddStationMouseClicked
 
     
     /**

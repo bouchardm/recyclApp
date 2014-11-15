@@ -300,6 +300,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddStationMouseClicked"/>
             <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="btnAddStationMouseDragged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStationActionPerformed"/>
           </Events>
@@ -328,6 +329,8 @@
               <BorderConstraints direction="Last"/>
             </Constraint>
           </Constraints>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
           <SubComponents>
             <Component class="javax.swing.JButton" name="zoomOutButton">
               <Properties>
