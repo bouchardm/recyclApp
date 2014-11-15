@@ -28,13 +28,14 @@ public class Conveyor extends Element
         @Override
         public boolean include(Point2D.Float point)
         {
+            float tmp = ((float)_line.ptSegDist(point));
             return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
         }
         
         private void updatePoints()
         {
-            Point2D.Float p1 = _startPoint.getNode().getPosition();
-            Point2D.Float p2 = _endPoint.getNode().getPosition();
+            Point2D.Float p1 = _startPoint.getNode().getCenter();
+            Point2D.Float p2 = _endPoint.getNode().getCenter();
             _line.setLine(p1.x, p1.y, p2.x, p2.y);
         }
         

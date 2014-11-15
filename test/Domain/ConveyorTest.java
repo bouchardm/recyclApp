@@ -49,15 +49,15 @@ public class ConveyorTest {
         ExitPoint e2 = new ExitPoint();
         e2.setPosition(1, 0);
         Conveyor instance = new Conveyor(e1.getOutlet(), e2.getInlet());
-        assertTrue(instance.include(new Point2D.Float(0.5f, 0)));
-        assertTrue(instance.include(new Point2D.Float(0.5f, 0.1f)));
-        assertTrue(instance.include(new Point2D.Float(0.5f, -0.1f)));
-        assertTrue(instance.include(new Point2D.Float(1.01f, 0)));
-        assertTrue(instance.include(new Point2D.Float(-0.01f, 0)));
-        assertFalse(instance.include(new Point2D.Float(0.5f, 0.11f)));
-        assertFalse(instance.include(new Point2D.Float(0.5f, -0.11f)));
-        assertFalse(instance.include(new Point2D.Float(1.11f, 0)));
-        assertFalse(instance.include(new Point2D.Float(-0.11f, 0)));
+        assertTrue(instance.include(new Point2D.Float(1, 0.5f)));
+        assertTrue(instance.include(new Point2D.Float(1, 0.51f)));
+        assertTrue(instance.include(new Point2D.Float(1, 0.49f)));
+        assertTrue(instance.include(new Point2D.Float(1.51f, 0.5f)));
+        assertTrue(instance.include(new Point2D.Float(0.49f, 0.5f)));
+        assertFalse(instance.include(new Point2D.Float(1, 0.61f)));
+        assertFalse(instance.include(new Point2D.Float(1, 0.39f)));
+        assertFalse(instance.include(new Point2D.Float(1.61f, 0.5f)));
+        assertFalse(instance.include(new Point2D.Float(0.39f, 0.5f)));
     }
 
     /**
@@ -117,7 +117,7 @@ public class ConveyorTest {
         e1.setPosition(0.3f, 6.4f);
         ExitPoint e2 = new ExitPoint();
         Conveyor instance = new Conveyor(e1.getOutlet(), e2.getInlet());
-        Point2D.Float expResult = new Point2D.Float(0.3f, 6.4f);
+        Point2D.Float expResult = new Point2D.Float(0.8f, 6.9f);
         Point2D.Float result = instance.getPoint1();
         assertEquals(expResult, result);
     }
@@ -132,7 +132,7 @@ public class ConveyorTest {
         ExitPoint e2 = new ExitPoint();
         e2.setPosition(0.3f, 6.4f);
         Conveyor instance = new Conveyor(e1.getOutlet(), e2.getInlet());
-        Point2D.Float expResult = new Point2D.Float(0.3f, 6.4f);
+        Point2D.Float expResult = new Point2D.Float(0.8f, 6.9f);
         Point2D.Float result = instance.getPoint2();
         assertEquals(expResult, result);
     }
