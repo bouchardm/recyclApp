@@ -23,11 +23,13 @@ import javax.swing.JToggleButton;
 public class MainFrame extends javax.swing.JFrame {
     
     Controller _recycleAppController;
+    SortStation _sortStationSelected;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
         _recycleAppController = new Controller();
+        _sortStationSelected = null;
         initComponents();
     }
 
@@ -483,11 +485,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
+            // TODO createpointinmeter
+            this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
+            
+            this.viewport.display();
             this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
             btnAddStation.setSelected(false);
-            this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
-            this.viewport.display();  
         }
+        
+        this._sortStationSelected = null;
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -504,7 +510,30 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStationMouseDragged
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
-        this._recycleAppController.MouveStation(this.viewport.createPointInMeter(evt.getX(), evt.getY()));
+        
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        
+        if  (_sortStationSelected == null) {
+            ArrayList sortStationList = this._recycleAppController.getProject().getSortCenter().getSortStationList();
+        
+            for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+                SortStation next = (SortStation)iterator.next();
+                
+                if (next.include(position)) {
+                    this._sortStationSelected = next;
+                    
+                    // Change la position de l'element déplacer dans la list
+                    int i = sortStationList.indexOf(next);
+                    if (i > 0) {
+                        Collections.swap(sortStationList, i, i-1);
+                    }
+                    break;
+                }
+            }
+        } else {
+            this._sortStationSelected.setPosition(position);
+        }
+        
         this.viewport.display();
     }//GEN-LAST:event_viewportMouseDragged
 

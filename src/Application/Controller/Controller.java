@@ -12,7 +12,6 @@ import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.MainFrame;
-import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -131,8 +130,10 @@ public class Controller {
             try {
                 value = Integer.parseInt(JOptionPane.showInputDialog(frame, "Quel est le nombre de sortie?", null, 0));            
             } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(frame, "Veuillez saisir un entier positif", null, 0);
                 value = -1;
             }
+            
             if (value > 0) {
                 this._project.getSortCenter().addSortStation(position);
             }
@@ -145,25 +146,6 @@ public class Controller {
 	public void EditStation() {
 		throw new UnsupportedOperationException();
 	}
-        
-        public void MouveStation(Point2D.Float position) {
-            ArrayList sortStationList = this._project.getSortCenter().getSortStationList();
-        
-            for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-                SortStation next = (SortStation)iterator.next();
-
-                if (next.include(position)) {
-                    next.setPosition(position);
-
-                    // Change la position de l'element déplacer dans la list
-                    int i = sortStationList.indexOf(next);
-                    if (i > 0) {
-                        Collections.swap(sortStationList, i, i-1);
-                    }
-                    break;
-                }
-            }
-        }
 
 	public void AddExitPoint() {
 		throw new UnsupportedOperationException();
