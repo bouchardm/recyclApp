@@ -8,6 +8,15 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
+import Domain.SortStation;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import javax.swing.AbstractButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -16,12 +25,13 @@ import javax.swing.AbstractButton;
 public class MainFrame extends javax.swing.JFrame {
     
     Controller _recycleAppController;
-    
+    SortStation _sortStationSelected;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
         _recycleAppController = new Controller();
+        _sortStationSelected = null;
         initComponents();
     }
 
@@ -36,7 +46,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         PanelButton = new javax.swing.JPanel();
         btnAddEntrace = new javax.swing.JButton();
-        btnAddStation = new javax.swing.JButton();
         btnAddConveyor = new javax.swing.JButton();
         btnAddJunction = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -45,6 +54,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnRedo = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
+        btnAddStation = new javax.swing.JToggleButton();
         panelWrokspace = new javax.swing.JPanel();
         viewportBar = new javax.swing.JPanel();
         zoomOutButton = new javax.swing.JButton();
@@ -79,14 +89,6 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddEntrace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEntraceActionPerformed(evt);
-            }
-        });
-
-        btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
-        btnAddStation.setToolTipText("Ajouter une station");
-        btnAddStation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStationActionPerformed(evt);
             }
         });
 
@@ -154,37 +156,49 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        btnAddStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btnAddStationMouseDragged(evt);
+            }
+        });
+        btnAddStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddStationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelButtonLayout = new javax.swing.GroupLayout(PanelButton);
         PanelButton.setLayout(PanelButtonLayout);
         PanelButtonLayout.setHorizontalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(PanelButtonLayout.createSequentialGroup()
-                .addGroup(PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRedo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUndo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCreateNewProject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddConveyor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddJunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddEntrace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelButtonLayout.createSequentialGroup()
+                .addGroup(PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRedo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnCreateNewProject, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnAddJunction, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(btnAddConveyor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnAddEntrace, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnOpen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelButtonLayout.createSequentialGroup()
                 .addComponent(btnAddEntrace, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddConveyor, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,7 +308,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
+        viewport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                viewportMouseReleased(evt);
+            }
+        });
         viewport.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                viewportMouseDragged(evt);
+            }
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 viewportMouseMoved(evt);
             }
@@ -304,11 +326,11 @@ public class MainFrame extends javax.swing.JFrame {
         viewport.setLayout(viewportLayout);
         viewportLayout.setHorizontalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGap(0, 803, Short.MAX_VALUE)
         );
         viewportLayout.setVerticalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 503, Short.MAX_VALUE)
         );
 
         viewportScrollPane.setViewportView(viewport);
@@ -430,10 +452,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddEntraceActionPerformed
 
-    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddStationActionPerformed
-
     private void btnAddConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddConveyorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddConveyorActionPerformed
@@ -516,6 +534,61 @@ public class MainFrame extends javax.swing.JFrame {
         requestFocus();
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
+    private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
+        if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
+            // TODO createpointinmeter
+            this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
+            
+            this.viewport.display();
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+            btnAddStation.setSelected(false);
+        }
+        
+        this._sortStationSelected = null;
+    }//GEN-LAST:event_viewportMouseReleased
+
+    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
+        if (btnAddStation.isSelected()) {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+        } else {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+        }
+    }//GEN-LAST:event_btnAddStationActionPerformed
+
+    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_btnAddStationMouseDragged
+
+    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
+        
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        
+        if  (_sortStationSelected == null) {
+            ArrayList sortStationList = this._recycleAppController.getProject().getSortCenter().getSortStationList();
+        
+            for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+                SortStation next = (SortStation)iterator.next();
+                
+                if (next.include(position)) {
+                    this._sortStationSelected = next;
+                    
+                    // Change la position de l'element déplacer dans la list
+                    int i = sortStationList.indexOf(next);
+                    if (i > 0) {
+                        Collections.swap(sortStationList, i, i-1);
+                    }
+                    break;
+                }
+            }
+        } else {
+            this._sortStationSelected.setPosition(position);
+        }
+        
+        this.viewport.display();
+    }//GEN-LAST:event_viewportMouseDragged
+
+    
     /**
      * @param args the command line arguments
      */
@@ -557,7 +630,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAddConveyor;
     private javax.swing.JButton btnAddEntrace;
     private javax.swing.JButton btnAddJunction;
-    private javax.swing.JButton btnAddStation;
+    private javax.swing.JToggleButton btnAddStation;
     private javax.swing.JButton btnCreateNewProject;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnRedo;

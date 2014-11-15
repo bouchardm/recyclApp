@@ -9,6 +9,7 @@ package Domain;
 import Application.Controller.Controller;
 import java.awt.List;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,10 +17,9 @@ import java.awt.geom.Point2D;
  */
 public class SortCenter extends Element
 {
-    
     private List _entryPointList;
     private List _exitPointList;
-    private List _stationList;
+    private ArrayList _sortStationList;
     private List _junctionList;
     private Float _size;
     private MatterList _matterList;
@@ -32,8 +32,15 @@ public class SortCenter extends Element
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
 
-    public void addSortStation(Point2D aPosition) {
-            throw new UnsupportedOperationException();
+    public SortCenter() {
+        _sortStationList = new ArrayList<SortStation>();
+        dimensions = new Point2D.Float(15f, 10f);
+    }
+    
+    public void addSortStation(Point2D.Float aPosition) {
+        SortStation station = new SortStation();
+        station.setPosition(aPosition);
+        this._sortStationList.add(station);
     }
 
     public void updateDesign() {
@@ -59,14 +66,8 @@ public class SortCenter extends Element
     public void addExitPoint(Point2D aPosition) {
             throw new UnsupportedOperationException();
     }
-        
-        
-    private Point2D.Float dimensions;
-    public SortCenter()
-    {
-        dimensions = new Point2D.Float(15f, 10f);
-    }
     
+    private Point2D.Float dimensions;
     
     @Override
     public boolean include(Point2D.Float point)
@@ -85,5 +86,9 @@ public class SortCenter extends Element
     {
         dimensions.x = x;
         dimensions.y = y;
+    }
+    
+    public ArrayList getSortStationList() {
+        return _sortStationList;
     }
 }

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  public class Viewport extends JPanel implements Serializable
 {
     private MainFrame mainFrame;
-    
+    private SortCenterDrawer _drawer;
     private float zoomFactor = 1f;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
     private VIEW_MODES viewmode = VIEW_MODES.ICONIC;
@@ -82,8 +82,8 @@ import javax.swing.JPanel;
        if (mainFrame != null)
        {
            super.paintComponent(g);
-           SortCenterDrawer drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
-           drawer.draw(g);
+           _drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
+           _drawer.draw(g);
        }
     }
     
@@ -96,6 +96,10 @@ import javax.swing.JPanel;
     public void snapToGrid(boolean snapToGrid)
     {
         _snapToGrid = snapToGrid;
+    }
+    
+    public void display() {
+        repaint();
     }
     
     public void setShowGrid(boolean showGrid)
@@ -149,5 +153,21 @@ import javax.swing.JPanel;
     public int meterToPix(float meters)
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
+    }
+    
+    public Point2D.Float createPointInMeter (int pixelX, int pixelY) {
+        return new Point2D.Float(this.pixToMeter(pixelX), this.pixToMeter(pixelY));
+    }
+    
+    public SortCenterDrawer getDrawer() {
+        return _drawer;
+    }
+    
+    public CREATION_MODES getCreationMode() {
+        return creationMode;
+    }
+
+    public void setCreationMode(CREATION_MODES creationMode) {
+        this.creationMode = creationMode;
     }
 }

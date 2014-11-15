@@ -8,6 +8,10 @@ public class Conveyor extends Element
 	private final Outlet _startPoint;
 	private final Inlet _endPoint;
 	private Object _iD;
+	private MatterBasket _matterBasket;
+	public SortCenter _sortCenter;
+	public Element _element;
+	public Outlet Outlet ;
         private Line2D.Float _line;
         
         private final static float _WIDTH = 0.2f;
