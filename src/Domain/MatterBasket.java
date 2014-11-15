@@ -26,15 +26,17 @@ public class MatterBasket {
         if(aMatterList.GetCount()>0) { 
             for(int i = 0; i<aMatterList.GetCount(); i++)
             {
+                if(aMatterList.GetCount()>0) {
+                    //_matterList.Add(aMatterList.GetMatter(i));
+                    _quantity.put(aMatterList.GetMatter(i).getName(),new Float(0));
 
-                //_matterList.Add(aMatterList.GetMatter(i));
-                _quantity.put(aMatterList.GetMatter(i).getName(),new Float(0));
-
+                }
             }
         }
     }
     
-    public void setMatterQuantity(String matterName, Float aQuantity) {
+    public void setMatterQuantity(String matterName, Float aQuantity)
+    {
         if(_quantity.isEmpty()) {
             throw new IllegalArgumentException("Le panier est vide!");
         }
@@ -50,8 +52,6 @@ public class MatterBasket {
             throw new IllegalArgumentException("La matière est déjà dans le panier.");
         }
         this._quantity.put(matterName, aQuantity);
- 
-        
     }
     
     public float getMatterQuantity(String matterName) {
