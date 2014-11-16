@@ -49,7 +49,7 @@ public class MatterBasketTest {
         MatterList tml1 = new MatterList();
         tml1.Add(tm1);
         MatterBasket mb1 = new MatterBasket(tml1);
-        assertTrue(mb1.getMatterQuantity("tomate")==0);  
+        assertTrue(mb1.getMatterQuantity(11)==0);  
     }
     /*
     Test:   getMatterQuantity : exception IllegalArgumentException si pas dans le panier (panier pas vide)
@@ -61,7 +61,7 @@ public class MatterBasketTest {
         MatterList tml1 = new MatterList();
         tml1.Add(tm1);
         MatterBasket mb1 = new MatterBasket(tml1);
-        mb1.getMatterQuantity("tm1");
+        mb1.getMatterQuantity(15);
     }
     /*
     Test:   getMatterQuantity : exception IllegalArgumentException si pas dans le panier (panier vide)
@@ -70,7 +70,7 @@ public class MatterBasketTest {
     public void getMatterQuantity_FailsEmptyBasket_IllegalArgumentException(){
         System.out.println("getMatterQuantity: fails : matter not in empty basket.");
         MatterBasket mb1 = new MatterBasket();
-        mb1.getMatterQuantity("tm1");
+        mb1.getMatterQuantity(15);
     }
     
     /*
@@ -80,9 +80,10 @@ public class MatterBasketTest {
     public void addMatter_InvalidMatter_MatterAlreadyIncluded_ThrowInvalidArgumentException() {
         System.out.println("getMatterQuantity: fails. Matter already included in basket");
         MatterBasket mb1 = new MatterBasket();
+        Integer matterID = new Integer(16);
         Float aQuantity = new Float(150);
-        mb1.addMatter("tomate", aQuantity);
-        mb1.addMatter("tomate", aQuantity);
+        mb1.addMatterQuantity(matterID, aQuantity);
+        mb1.addMatterQuantity(matterID, aQuantity);
     }
     /*
     Test:   addMatter échoue : matière déjà dans panier, éléments déjà ajouté par une liste
@@ -97,7 +98,7 @@ public class MatterBasketTest {
         mList.Add(m2);
         Float aQuantity = new Float(150);
         MatterBasket mb = new MatterBasket(mList);
-        mb.addMatter("m2", aQuantity);
+        mb.addMatterQuantity(17, aQuantity);
     }
     
     /*
@@ -109,10 +110,10 @@ public class MatterBasketTest {
         Matter m1 = new Matter("m1",14);
         Float aQuantity = new Float(150);
         MatterBasket mb = new MatterBasket();
-        mb.addMatter(m1.getName(),aQuantity);
+        mb.addMatterQuantity(m1.getID(),aQuantity);
         Float aQuantity2 = new Float(250);
-        mb.setMatterQuantity(m1.getName(), aQuantity2);
-        assertTrue(mb.getMatterQuantity(m1.getName())==aQuantity2);
+        mb.setMatterQuantity(m1.getID(), aQuantity2);
+        assertTrue(mb.getMatterQuantity(m1.getID())==aQuantity2);
     }
     
     /*
@@ -124,9 +125,9 @@ public class MatterBasketTest {
         Matter m1 = new Matter("m1",14);
         Float aQuantity = new Float(150);
         MatterBasket mb = new MatterBasket();
-        mb.addMatter(m1.getName(),aQuantity);
+        mb.addMatterQuantity(m1.getID(),aQuantity);
         Float aQuantity2 = new Float(250);
-        mb.setMatterQuantity("tomato", aQuantity2);
+        mb.setMatterQuantity(15, aQuantity2);
     }
             
     /*
@@ -137,6 +138,70 @@ public class MatterBasketTest {
         System.out.println("setMatterQuantity: invalid, item not in empty basket");
         MatterBasket mb = new MatterBasket();
         Float aQuantity2 = new Float(250);
-        mb.setMatterQuantity("tomato", aQuantity2);
+        mb.setMatterQuantity(13, aQuantity2);
+    }
+    
+
+    /*
+    Test: removeMatterQuantity : succès, matière enlevé
+    */
+    @Test(expected = IllegalArgumentException.class)
+    public void removeMatterQuantity_success_matterRemoved() {
+        System.out.println("removeMatterQuantity: success");
+        Matter m1 = new Matter("tomate", 22);
+        MatterBasket mb = new MatterBasket();
+        Float aQuantity = new Float(200);
+        mb.addMatterQuantity(m1.getID(), aQuantity);
+        mb.removeMatterQuantity(22);
+        mb.getMatterQuantity(22);
+    }
+    
+    /*
+    Test: removeMatterQuantity : échec, matière n'est pas dans le panier
+    */
+    @Test(expected = IllegalArgumentException.class)
+    public void removeMatterQuantity_notInBasket_IllegalArgumentException() {
+        System.out.println("removeMatterQuantity: failure, not in basket");
+        Matter m1 = new Matter("tomate", 22);
+        MatterBasket mb = new MatterBasket();
+        Float aQuantity = new Float(200);
+        mb.addMatterQuantity(m1.getID(), aQuantity);
+        mb.removeMatterQuantity(23);
+    }
+    
+    /*
+    Test: removeMatterQuantity : échec, basket vide
+    */
+    @Test(expected = IllegalArgumentException.class)
+    public void removeMatterQuantity_emptyBasket_IllegalArgumentException() {
+        System.out.println("removeMatterQuantity: failure, empty basket");
+        MatterBasket mb = new MatterBasket();
+        mb.removeMatterQuantity(23);
+    }
+    
+    /*
+    Test: getTotalQuantity : succès, retourne bon total (panier avec éléments)
+    */
+    @Test
+    public void getTotalQuantity_success_basketWithItems() {
+        System.out.println("getTotalQuantity: success");
+        Matter m1 = new Matter("tomate", 22);
+        Matter m2 = new Matter("autre", 55);
+        MatterBasket mb = new MatterBasket();
+        Float aQuantity = new Float(200);
+        Float anotherQuantity = new Float(500);
+        mb.addMatterQuantity(m1.getID(), aQuantity);
+        mb.addMatterQuantity(m2.getID(), anotherQuantity);
+        assertTrue(mb.getTotalQuantity()==700);
+    }
+    
+    /*
+    Test: getTotalQuantity : succès, retourne bon total (panier vide)
+    */
+    @Test
+    public void getTotalQuantity_success_emptyBasket() {
+        System.out.println("getTotalQuantity: success (empty basket)");
+        MatterBasket mb = new MatterBasket();
+        assertTrue(mb.getTotalQuantity()==0);
     }
 }

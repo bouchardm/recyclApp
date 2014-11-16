@@ -217,4 +217,72 @@ public class MatterListTest {
         MatterList testList = new MatterList();
         testList.GetIndex("zebre");
     }
+    
+    
+    
+    /*
+    Test: getMatterID(string) : succès
+    */
+    @Test
+    public void GetMatterIDwithName_Success() {
+        System.out.println("GetMatterID with name test: success");
+        Matter tm1 = new Matter("tomate",10);
+        Matter tm2 = new Matter("autre", 55);
+        MatterList testList = new MatterList();
+        testList.Add(tm1);
+        testList.Add(tm2);
+        assertTrue(testList.getMatterID("autre")==55);
+    }
+    
+    /*
+    Test: getMatterID(string) : échec, liste vide
+    */
+    @Test (expected = IllegalArgumentException.class)
+    public void GetMatterIDwithName_EmptyList_ThrowIllegalArgumentException() {
+        System.out.println("GetMatterID with name test: failure : empty list");
+        MatterList testList = new MatterList();
+        testList.getMatterID("autre");
+    }
+    
+    /*
+    Test: getMatterID(string) : échec, matière n'est pas dans la liste
+    */
+    @Test (expected = IllegalArgumentException.class)
+    public void GetMatterIDwithName_NameNotInList_ThrowIllegalArgumentException() {
+        System.out.println("GetMatterID with name test: failure : name not in list");
+        Matter tm1 = new Matter("tomate",10);
+        Matter tm2 = new Matter("autre", 55);
+        MatterList testList = new MatterList();
+        testList.Add(tm1);
+        testList.Add(tm2);
+        testList.getMatterID("cyclops");
+    }
+    
+    /*
+    Test: getMatterID(listIndex) : succès
+    */
+    @Test
+    public void GetMatterIDwithListIndex_Success() {
+        System.out.println("GetMatterID with listIndex test: success");
+        Matter tm1 = new Matter("tomate",10);
+        Matter tm2 = new Matter("autre", 55);
+        MatterList testList = new MatterList();
+        testList.Add(tm1);
+        testList.Add(tm2);
+        assertTrue(testList.getMatterID(1)==55);
+    }
+    
+    /*
+    Test: getMatterID(listIndex) : échec, index out of bounds
+    */
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void GetMatterIDwithListIndex_IndexOutOfBounds_ThrowIndexOutOfBoundsException() {
+        System.out.println("GetMatterID with name test: failure : name not in list");
+        Matter tm1 = new Matter("tomate",10);
+        Matter tm2 = new Matter("autre", 55);
+        MatterList testList = new MatterList();
+        testList.Add(tm1);
+        testList.Add(tm2);
+        testList.getMatterID(3);
+    }
 }
