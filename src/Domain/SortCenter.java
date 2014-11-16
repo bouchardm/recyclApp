@@ -10,6 +10,8 @@ import Application.Controller.Controller;
 import java.awt.List;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  *
@@ -91,5 +93,35 @@ public class SortCenter extends Element
     
     public ArrayList getSortStationList() {
         return _sortStationList;
+    }
+    
+    public SortStation getSortStationCursorIn(Point2D.Float position) {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+
+            if (next.include(position)) {
+                // Change la position de l'element déplacer dans la list
+                int i = sortStationList.indexOf(next);
+                if (i > 0) {
+                    Collections.swap(sortStationList, i, i-1);
+                }
+                return next;
+            }
+        }
+        
+        return null;
+    }
+
+    public void unselectAll() {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+            
+            next.setSelected(false);
+        }
+        
     }
 }

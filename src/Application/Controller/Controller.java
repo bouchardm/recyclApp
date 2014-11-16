@@ -15,10 +15,7 @@ import Presentation.Swing.MainFrame;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Controller {
@@ -123,21 +120,39 @@ public class Controller {
 
 	public void AddStation(Point2D.Float position) {
             
-            JFrame frame = new JFrame("Nombre de sortie");
+            if (!this.getProject().getSortCenter().include(position)) {
+                JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+                return;
+            }
             
             int value;
-            
             try {
-                value = Integer.parseInt(JOptionPane.showInputDialog(frame, "Quel est le nombre de sortie?", null, 0));            
+                value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));            
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(frame, "Veuillez saisir un entier positif", null, 0);
                 value = -1;
             }
             
-            if (value > 0) {
-                this._project.getSortCenter().addSortStation(position, value);
+            if (value < 0) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
+                return;
             }
+            
+            if (value > 1000) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
+                return;
+            }
+            
+            this._project.getSortCenter().addSortStation(position, value);
 	}
+        
+        public void MouveStation(SortStation sortStation, Point2D.Float position) {
+            if (!this.getProject().getSortCenter().include(position)) {
+                JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+                return;
+            }
+            
+            sortStation.setPosition(position);
+        }
 
 	public void DeleteStation() {
 		throw new UnsupportedOperationException();
@@ -210,4 +225,6 @@ public class Controller {
         public Project getProject() {
             return _project;
         }
+
+    
 }

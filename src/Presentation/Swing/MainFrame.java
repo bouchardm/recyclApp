@@ -8,14 +8,18 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
+import Presentation.Swing.infoSortStationFrame;
 import Domain.SortStation;
+import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 /**
@@ -33,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         _recycleAppController = new Controller();
         _sortStationSelected = null;
         initComponents();
+        this.setLocationRelativeTo(null); // Centrer la fenêtre
     }
 
     /**
@@ -157,6 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        btnAddStation.setToolTipText("Ajouter une station");
         btnAddStation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddStationMouseClicked(evt);
@@ -281,6 +287,9 @@ public class MainFrame extends javax.swing.JFrame {
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
         viewport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewportMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 viewportMouseReleased(evt);
             }
@@ -508,8 +517,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
-            // TODO createpointinmeter
-            this._recycleAppController.AddStation(new Point2D.Float(this.viewport.pixToMeter(evt.getX()), this.viewport.pixToMeter(evt.getY())));
+            this._recycleAppController.AddStation(this.viewport.createPointInMeter(evt.getX(), evt.getY()));
             
             this.viewport.display();
             this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
@@ -533,28 +541,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStationMouseDragged
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
-        
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         
         if  (_sortStationSelected == null) {
-            ArrayList sortStationList = this._recycleAppController.getProject().getSortCenter().getSortStationList();
-        
-            for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-                SortStation next = (SortStation)iterator.next();
-                
-                if (next.include(position)) {
-                    this._sortStationSelected = next;
-                    
-                    // Change la position de l'element déplacer dans la list
-                    int i = sortStationList.indexOf(next);
-                    if (i > 0) {
-                        Collections.swap(sortStationList, i, i-1);
-                    }
-                    break;
-                }
-            }
+            this._sortStationSelected = this._recycleAppController.getProject().getSortCenter().getSortStationCursorIn(position);
         } else {
-            this._sortStationSelected.setPosition(position);
+            this._recycleAppController.MouveStation(this._sortStationSelected, position);
         }
         
         this.viewport.display();
@@ -564,6 +556,31 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddStation.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddStationMouseClicked
+
+    private void viewportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseClicked
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        this.cleanInformationPanel();
+        
+        SortStation sortStation = this._recycleAppController.getProject().getSortCenter().getSortStationCursorIn(position);
+        
+        this._recycleAppController.getProject().getSortCenter().unselectAll();
+        
+        if (sortStation != null) {
+            sortStation.setSelected(true);
+            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+                sortStation, 
+                this._recycleAppController.getProject().getSortCenter().getSortStationList(),
+                this
+            );
+            
+            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            this.panelInformation.add(sortStationPanel);
+        }
+        
+        repaint();
+    }//GEN-LAST:event_viewportMouseClicked
 
     
     /**
@@ -638,4 +655,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton zoomInButton;
     private javax.swing.JButton zoomOutButton;
     // End of variables declaration//GEN-END:variables
+
+    public void cleanInformationPanel() {
+        this.panelInformation.removeAll();
+    }
 }
