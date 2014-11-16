@@ -10,16 +10,16 @@ import Application.Controller.Controller;
 //import java.awt.List;
 import java.util.ArrayList;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 /**
  *
  * @author Dany
  */
 public class SortCenter extends Element
 {
-    
     private ArrayList<EntryPoint> _entryPointList;
     private ArrayList<ExitPoint> _exitPointList;
-    private ArrayList<Station> _stationList;
+    private ArrayList _sortStationList;
     private ArrayList<Junction> _junctionList;
     private Float _size;
     private MatterList _matterList;
@@ -33,34 +33,28 @@ public class SortCenter extends Element
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
     
-    public void addSortStation(Point2D aPosition) {
-            throw new UnsupportedOperationException();
+    public SortCenter() {
+        _sortStationList = new ArrayList<SortStation>();
+        dimensions = new Point2D.Float(15f, 10f);
+    }
+    
+    public void addSortStation(Point2D.Float aPosition, Integer exit) {
+        SortStation station = new SortStation();
+        station.setPosition(aPosition);
+        station.setExit(exit);
+        this._sortStationList.add(station);
     }
 
     public void updateDesign() {
-        throw new UnsupportedOperationException();
-        //à partir des point d'entrée
-        //on va chercher toutes les stations
-            //chaque station calcul son nouveau output
-            //propager le nouveau output sur le convoyeur
-            //la station va chercher toutes les stations connectées
-            //ils utilisent le input du convoyeur pour calculer leurs output
-            //jusqu'à temps qu'on arrive à la sortie, qui mets à jour son matterBasket
+            throw new UnsupportedOperationException();
     }
 
     public void addTransStation(Point2D aPosition) {
             throw new UnsupportedOperationException();
     }
 
-    //precondition: aEntrance et aExit sont libres et valides
-    public void addConveyor(Outlet aExit, Inlet aEntrance) {
-        //VÉRIFIER QU'IL N'Y A PAS DE BOUCLE!!!!
-        //à partir de aEntrance, vérifier tous les stations connectés en sorties
-        //récursivement : si on arrive à des exitPoint sans arriver à la station 
-        //auquel appartient aExit, tout est ok!
-        Conveyor newConveyor = new Conveyor(aExit, aEntrance);
-        this._conveyorList.add(newConveyor);
-        updateDesign();
+    public void addConveyor(Inlet aEntrance, Outlet aExit) {
+            throw new UnsupportedOperationException();
     }
 
     public void addJunction(Point2D aPosition) {
@@ -74,14 +68,8 @@ public class SortCenter extends Element
     public void addExitPoint(Point2D aPosition) {
             throw new UnsupportedOperationException();
     }
-        
-        
-    private Point2D.Float dimensions;
-    public SortCenter()
-    {
-        dimensions = new Point2D.Float(15f, 10f);
-    }
     
+    private Point2D.Float dimensions;
     
     @Override
     public boolean include(Point2D.Float point)
@@ -100,5 +88,9 @@ public class SortCenter extends Element
     {
         dimensions.x = x;
         dimensions.y = y;
+    }
+    
+    public ArrayList getSortStationList() {
+        return _sortStationList;
     }
 }

@@ -12,6 +12,11 @@ public class Outlet extends IOlet
         
         public Outlet(Node parentNode)
         {
-            super(parentNode);
+            super((Node)parentNode);
+        }
+        
+        public MatterBasket getMatterBasket()
+        {
+            return _matterBasket;
         }
 }

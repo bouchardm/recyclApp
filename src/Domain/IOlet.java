@@ -12,18 +12,18 @@ import java.awt.geom.Point2D;
  *
  * @author Dany
  */
-public abstract class IOlet
+public class IOlet
 {
-    private Node _parentNode;
+    private Node _node;
     private Conveyor _conveyor;
     
     public IOlet(Node parentNode)
     {
         if (parentNode == null)
         {
-            throw new IllegalArgumentException("node cannot be null");
+            throw new IllegalArgumentException("parentNode cannot be null");
         }
-        _parentNode = parentNode;
+        _node = parentNode;
         _conveyor = null;
     }
     
@@ -34,8 +34,21 @@ public abstract class IOlet
     
     public Point2D.Float getPosition()
     {
-        return _parentNode.getCenter();
+        return _node.getCenter();
     }
     
+    public Node getNode()
+    {
+        return _node;
+    }
     
+    public void setConveyor(Conveyor conveyor)
+    {
+        _conveyor = conveyor;
+    }
+    
+    public Conveyor getConveyor()
+    {
+        return _conveyor;
+    }
 }

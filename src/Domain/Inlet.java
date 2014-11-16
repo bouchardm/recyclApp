@@ -7,7 +7,6 @@ import Domain.Conveyor;
 public class Inlet extends IOlet
 {
 	private Float _speedMax;
-	private boolean _free;
 	private Conveyor _conveyor;
 	private Node _parentNode;
 
@@ -15,5 +14,10 @@ public class Inlet extends IOlet
         public Inlet(Node parentNode)
         {
             super(parentNode);
+        }
+        
+        public boolean isFree()
+        {
+            return _conveyor == null;
         }
 }

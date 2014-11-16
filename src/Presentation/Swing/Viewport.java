@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  public class Viewport extends JPanel implements Serializable
 {
     private MainFrame mainFrame;
-    
+    private SortCenterDrawer _drawer;
     private float zoomFactor = 1f;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
     private VIEW_MODES viewmode = VIEW_MODES.ICONIC;
@@ -29,27 +29,27 @@ import javax.swing.JPanel;
     public enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE};
     private CREATION_MODES creationMode = CREATION_MODES.NONE;
     
-    private boolean showGrid;
-    private boolean snapToGrid;
+    private boolean _showGrid;
+    private boolean _snapToGrid;
     public static int MARGIN = 50;
     
-    public final Grid grid;
+    private final Grid _grid;
     
     
     public Viewport()
     {
-        showGrid = false;
-        snapToGrid = false;
-        grid = new Grid();
+        _showGrid = false;
+        _snapToGrid = false;
+        _grid = new Grid();
         config();
     }
     
     public Viewport(MainFrame mainFrame)
     {
         this.mainFrame = mainFrame;
-        grid = new Grid();
-        showGrid = false;
-        snapToGrid = false;
+        _grid = new Grid();
+        _showGrid = false;
+        _snapToGrid = false;
         config();
     }
     
@@ -59,6 +59,22 @@ import javax.swing.JPanel;
         setZoomFactor(1.0f);
     }
     
+    public void setGridDimensions(Point2D.Float dim)
+    {
+        _grid.setDimensions(dim);
+        repaint();
+    }
+    
+    public Point2D.Float getGridDimensions()
+    {
+        return _grid.getDimensions();
+    }
+    
+    public Point2D.Float getGridOffset()
+    {
+        return _grid.getOffset();
+    }
+    
     
     @Override
     protected void paintComponent(Graphics g)
@@ -66,20 +82,29 @@ import javax.swing.JPanel;
        if (mainFrame != null)
        {
            super.paintComponent(g);
-           SortCenterDrawer drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
-           drawer.draw(g);
+           _drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
+           _drawer.draw(g);
        }
     }
     
     public void displayGrid(boolean showGrid)
     {
-        this.showGrid = showGrid;
+        this._showGrid = showGrid;
+        repaint();
+    }
+    
+    public void snapToGrid(boolean snapToGrid)
+    {
+        _snapToGrid = snapToGrid;
+    }
+    
+    public void display() {
         repaint();
     }
     
     public void setShowGrid(boolean showGrid)
     {
-        this.showGrid = showGrid;
+        this._showGrid = showGrid;
     }
     
     
@@ -117,7 +142,7 @@ import javax.swing.JPanel;
     
     public boolean isShowGrid()
     {
-        return showGrid;
+        return _showGrid;
     }
     
     public float pixToMeter(int pixels)
@@ -128,5 +153,21 @@ import javax.swing.JPanel;
     public int meterToPix(float meters)
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
+    }
+    
+    public Point2D.Float createPointInMeter (int pixelX, int pixelY) {
+        return new Point2D.Float(this.pixToMeter(pixelX), this.pixToMeter(pixelY));
+    }
+    
+    public SortCenterDrawer getDrawer() {
+        return _drawer;
+    }
+    
+    public CREATION_MODES getCreationMode() {
+        return creationMode;
+    }
+
+    public void setCreationMode(CREATION_MODES creationMode) {
+        this.creationMode = creationMode;
     }
 }
