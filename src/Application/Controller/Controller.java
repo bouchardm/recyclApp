@@ -8,8 +8,6 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
-import Domain.Inlet;
-import Domain.Outlet;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
@@ -17,14 +15,18 @@ import Presentation.Swing.MainFrame;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private SortMatrix _sortMatrix;
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-	private SortStation _station;
+//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
@@ -96,9 +98,8 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddConvoyer(Outlet aExit, Inlet aEntrance) {
-            this._sortCenter.addConveyor(aExit, aEntrance);
-            this._sortCenter.updateDesign();
+	public void AddConvoyer() {
+		throw new UnsupportedOperationException();
 	}
 
 	public void RemoveConveyor() {
@@ -121,8 +122,22 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddStation() {
-		throw new UnsupportedOperationException();
+	public void AddStation(Point2D.Float position) {
+            
+            JFrame frame = new JFrame("Nombre de sortie");
+            
+            int value;
+            
+            try {
+                value = Integer.parseInt(JOptionPane.showInputDialog(frame, "Quel est le nombre de sortie?", null, 0));            
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(frame, "Veuillez saisir un entier positif", null, 0);
+                value = -1;
+            }
+            
+            if (value > 0) {
+                this._project.getSortCenter().addSortStation(position, value);
+            }
 	}
 
 	public void DeleteStation() {
@@ -169,13 +184,9 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
+	public void AddMatterl() {
 	public void AddMatter() {
 		throw new UnsupportedOperationException();
-            // new matter avec id = matterIDCounter
-            // matterIDCounter ++
-            // faudra ajouter à matterList
-                //vérifier: matterBasket aussi?  je crois que ça sera plutôt
-                //en propageant le panier d'une station à une autre
 	}
 
 	public void RemoveMatter() {
@@ -197,4 +208,8 @@ public class Controller {
 	public void addJunction(Point aPosition) {
 		throw new UnsupportedOperationException();
 	}
+        
+        public Project getProject() {
+            return _project;
+        }
 }
