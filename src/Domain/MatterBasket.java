@@ -2,7 +2,6 @@ package Domain;
 
 import java.util.HashMap;
 
-
 public class MatterBasket {
 	private HashMap<Integer, Float> _quantity;   //string = nom matière, Float = quantité associée
 
@@ -20,7 +19,6 @@ public class MatterBasket {
             {
                 if(aMatterList.GetCount()>0) {
                     _quantity.put(aMatterList.GetMatter(i).getID(),new Float(0));
-
                 }
             }
         }
