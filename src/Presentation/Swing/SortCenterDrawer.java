@@ -11,9 +11,15 @@ import Domain.SortStation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -94,25 +100,37 @@ public class SortCenterDrawer
     
     private void drawStations(Graphics g)
     {
-        g.setColor(Color.red);
-        
-        int positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY;
-        
-        // Boucle des stations
-        for (Iterator iterator = this._recyclAppController.getProject().getSortCenter().getSortStationList().iterator(); iterator.hasNext();) {
-            SortStation next = (SortStation)iterator.next();
-            Point2D.Float dimension = next.getDimensions();
-            Point2D.Float position = next.getPosition();
-            
-            positionMeterX = _viewport.meterToPix(position.x);
-            positionMeterY = _viewport.meterToPix(position.y);
-            // TODO: Regarder pourquoi j'ai besoin de faire -1
-            dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
-            dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
-            
-            // Dessin de la stations
-            g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        ArrayList sortStationList = this._recyclAppController.getProject().getSortCenter().getSortStationList();
+        for (int i = sortStationList.size() - 1; i >= 0; i--) {
+            this.drawStation(g, (SortStation) sortStationList.get(i));
         }
+    }
+    
+    private void drawStation(Graphics g, SortStation station) {
+        Point2D.Float dimension = station.getDimensions();
+        Point2D.Float position = station.getPosition();
+
+        int positionMeterX = _viewport.meterToPix(position.x);
+        int positionMeterY = _viewport.meterToPix(position.y);
+        // TODO: Regarder pourquoi j'ai besoin de faire -1
+        int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
+        int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+
+        // Dessin de la stations
+        if (station.isSelected()) {
+            g.setColor(Color.black);
+            g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
+        }
+
+        g.setColor(station.getColor());
+
+        g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+
+        if (station.getImg() != null) {
+            g.drawImage(station.getImg(), positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
+        }
+        
+        g.drawString(station.getName(), positionMeterX, positionMeterY + dimensionMeterY + 20);
     }
     
     private void drawJunctions(Graphics g)

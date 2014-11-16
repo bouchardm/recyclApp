@@ -7,32 +7,33 @@
 package Domain;
 
 import Application.Controller.Controller;
-//import java.awt.List;
-import java.util.ArrayList;
+import java.awt.List;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
 /**
  *
  * @author Dany
  */
 public class SortCenter extends Element
 {
-    private ArrayList<EntryPoint> _entryPointList;
-    private ArrayList<ExitPoint> _exitPointList;
+    private List _entryPointList;
+    private List _exitPointList;
     private ArrayList _sortStationList;
-    private ArrayList<Junction> _junctionList;
+    private List _junctionList;
     private Float _size;
     private MatterList _matterList;
-    private ArrayList<Conveyor> _conveyorList;
+    private List _conveyorList;
     public Project _project;
     public MatterBasket _matterBasket;
     public Node _node;
     public MatterList _matterList2;
     public Controller _recyclAppController;
-    //pourquoi est-ce que le sortCenter a 2 convoyeurs?
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
-    
+
     public SortCenter() {
         _sortStationList = new ArrayList<SortStation>();
         dimensions = new Point2D.Float(15f, 10f);
@@ -92,5 +93,35 @@ public class SortCenter extends Element
     
     public ArrayList getSortStationList() {
         return _sortStationList;
+    }
+    
+    public SortStation getSortStationCursorIn(Point2D.Float position) {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+
+            if (next.include(position)) {
+                // Change la position de l'element déplacer dans la list
+                int i = sortStationList.indexOf(next);
+                if (i > 0) {
+                    Collections.swap(sortStationList, i, i-1);
+                }
+                return next;
+            }
+        }
+        
+        return null;
+    }
+
+    public void unselectAll() {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+            
+            next.setSelected(false);
+        }
+        
     }
 }
