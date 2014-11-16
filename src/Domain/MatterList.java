@@ -3,11 +3,8 @@ package Domain;
 import java.util.ArrayList;
 
 public class MatterList {
-	//public MatterBasket _matterBasket;
-	//public MatterBasket _matterBasket2;
+
 	public ArrayList<Matter> _matterList;
-	//public SortCenter _sortCenter;
-	//public Matter _matter2;
 
         public MatterList() {
             this._matterList = new ArrayList<>();
@@ -59,7 +56,7 @@ public class MatterList {
 	}
 
 	//retourne l'index dans la liste d'une matière (pas le numéro d'ID)
-        public Integer GetIndex(String matterName) {
+        public int GetIndex(String matterName) {
             for(int i = 0; i<_matterList.size(); i++)
             {
                 if(_matterList.get(i).getName().compareToIgnoreCase(matterName)==0)
@@ -70,4 +67,21 @@ public class MatterList {
             //si on se rend ici, c'est que la matière ne fait pas partie de la liste
             throw new IllegalArgumentException("La matière ne fait pas partie de la liste.");
 	}
+        
+        public Integer getMatterID(String matterName) {
+            for (int i = 0; i<_matterList.size(); i++) {
+                if(_matterList.get(i).getName().compareToIgnoreCase(matterName)==0) {
+                    return _matterList.get(i).getID();
+                }
+            }
+            //si on se rend ici, c'est que la matière ne fait pas partie de la liste
+            throw new IllegalArgumentException("La matière ne fait pas partie de la liste.");
+        }
+        
+        public Integer getMatterID(int listIndex) {
+            if (listIndex >= _matterList.size()) {
+                throw new IndexOutOfBoundsException("Index de matière invalide."); 
+            }
+            return _matterList.get(listIndex).getID();
+        }
 }
