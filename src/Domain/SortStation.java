@@ -32,10 +32,10 @@ public class SortStation extends Station {
             
             this._exit = new HashMap<Matter,Integer>();
             
-            this._exit.put(new Matter(), 100);
+            this._exit.put(new Matter("todo: change", 0), 100);
             
             for (int i = 1; i < nbExit; i++) {
-                this._exit.put(new Matter(), 0);
+                this._exit.put(new Matter("todo: change", i), 0);
             }
         }
         

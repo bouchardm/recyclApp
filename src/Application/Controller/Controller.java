@@ -184,7 +184,6 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddMatterl() {
 	public void AddMatter() {
 		throw new UnsupportedOperationException();
 	}
