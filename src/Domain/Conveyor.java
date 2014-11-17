@@ -5,12 +5,11 @@ import java.awt.geom.Point2D;
 
 public class Conveyor extends Element
 {
-	private Outlet _startPoint;
-	private Inlet _endPoint;
+	private final Outlet _startPoint;
+	private final Inlet _endPoint;
 	private Object _iD;
 	private MatterBasket _matterBasket;
 	public SortCenter _sortCenter;
-	public SortCenter _sortCenter2;
 	public Element _element;
 	public Outlet Outlet ;
         private Line2D.Float _line;
@@ -19,18 +18,58 @@ public class Conveyor extends Element
         
         public Conveyor(Outlet startPoint, Inlet endPoint)
         {
+            if (startPoint == null || endPoint == null)
+            {
+                throw new IllegalArgumentException("startPoint and endPoint cannot be null");
+            }
+            _line = new Line2D.Float();
             this._startPoint = startPoint;
             this._endPoint = endPoint;
+            updatePoints();
         }
-        
-	public Float GetLength() {
-		throw new UnsupportedOperationException();
-	}
         
         
         @Override
         public boolean include(Point2D.Float point)
         {
-            return _line.ptLineDist(point) <= _WIDTH/2;
+            float tmp = ((float)_line.ptSegDist(point));
+            return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
         }
+        
+        private void updatePoints()
+        {
+            Point2D.Float p1 = _startPoint.getNode().getCenter();
+            Point2D.Float p2 = _endPoint.getNode().getCenter();
+            _line.setLine(p1.x, p1.y, p2.x, p2.y);
+        }
+        
+        
+        public Node getStartNode()
+        {
+            return _startPoint.getNode();
+        }
+        
+        public Node getEndNode()
+        {
+            return _endPoint.getNode();
+        }
+        
+        public MatterBasket getMatterBasket()
+        {
+            return _startPoint.getMatterBasket();
+        }
+        
+        public Point2D.Float getPoint1()
+        {
+            updatePoints();
+            return (Point2D.Float)_line.getP1();
+        }
+        
+        
+        public Point2D.Float getPoint2()
+        {
+            updatePoints();
+            return (Point2D.Float)_line.getP2();
+        }
+        
 }

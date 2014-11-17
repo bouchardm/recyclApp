@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  public class Viewport extends JPanel implements Serializable
 {
     private MainFrame _mainFrame;
-    
+    private SortCenterDrawer _drawer;
     private float zoomFactor = 1f;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
     private VIEW_MODES viewmode = VIEW_MODES.ICONIC;
@@ -75,6 +75,11 @@ import javax.swing.JPanel;
         return _grid.getOffset();
     }
     
+    public Point2D.Float snap(Point2D.Float point)
+    {
+        return _grid.snap(point);
+    }
+    
     
     @Override
     protected void paintComponent(Graphics g)
@@ -82,8 +87,8 @@ import javax.swing.JPanel;
        if (_mainFrame != null)
        {
            super.paintComponent(g);
-           SortCenterDrawer drawer = new SortCenterDrawer(_mainFrame.controller, this);
-           drawer.draw(g);
+           _drawer = new SortCenterDrawer(_mainFrame._controller, this);
+           _drawer.draw(g);
        }
     }
     
@@ -96,6 +101,10 @@ import javax.swing.JPanel;
     public void snapToGrid(boolean snapToGrid)
     {
         _snapToGrid = snapToGrid;
+    }
+    
+    public void display() {
+        repaint();
     }
     
     public void setShowGrid(boolean showGrid)
@@ -119,7 +128,7 @@ import javax.swing.JPanel;
         this.zoomFactor = zoomFactor;
         if (_mainFrame != null)
         {
-            Point2D.Float dim = _mainFrame.controller.getSortCenterDimensions();
+            Point2D.Float dim = _mainFrame._controller.getSortCenterDimensions();
             dim.x = dim.x;
             dim.y = dim.y;
             int x = meterToPix(dim.x) + MARGIN * 2;
@@ -141,6 +150,11 @@ import javax.swing.JPanel;
         return _showGrid;
     }
     
+    public boolean isSnapToGrid()
+    {
+        return _snapToGrid;
+    }
+    
     public float pixToMeter(int pixels)
     {
         return (((float)(pixels - MARGIN * zoomFactor) / 50) / zoomFactor);
@@ -159,7 +173,7 @@ import javax.swing.JPanel;
                 Point2D.Float pos = new Point2D.Float();
                 pos.x = pixToMeter(evt.getX());
                 pos.y = pixToMeter(evt.getY());
-                _mainFrame.controller.selectElement(pos);
+                _mainFrame._controller.selectElement(pos);
                 break;
             case SORT_STATION:
                 break;
@@ -172,5 +186,26 @@ import javax.swing.JPanel;
             case CONVEYOR_2:
                 break;
         }
+    }
+    
+    private void selectFromPoint(Point2D.Float point)
+    {
+        
+    }
+    
+    public Point2D.Float createPointInMeter (int pixelX, int pixelY) {
+        return new Point2D.Float(this.pixToMeter(pixelX), this.pixToMeter(pixelY));
+    }
+    
+    public SortCenterDrawer getDrawer() {
+        return _drawer;
+    }
+    
+    public CREATION_MODES getCreationMode() {
+        return creationMode;
+    }
+
+    public void setCreationMode(CREATION_MODES creationMode) {
+        this.creationMode = creationMode;
     }
 }

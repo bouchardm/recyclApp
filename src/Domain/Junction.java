@@ -1,15 +1,16 @@
 package Domain;
 
-import java.awt.List;
+import java.util.ArrayList;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class Junction extends Node {
-	private List _inletList;
+	private ArrayList<Inlet> _inletList;
 	private Outlet _outlet;
         private Point2D.Float _position;
+        private ArrayList _exit;
         
         public final static float RADIUS = 0.3f;
-        
         
         public Junction()
         {
@@ -28,6 +29,11 @@ public class Junction extends Node {
             _position.x = x;
             _position.y = y;
         }
+       
+        public void addInlet(Inlet aInlet)
+        {
+            this._inletList.add(aInlet); // c'est Juncion qui devrait créer le nouvel Inlet
+        }
         
         @Override
         public boolean include(Point2D.Float point)
@@ -40,4 +46,9 @@ public class Junction extends Node {
         {
             return getPosition();
         }
+        
+        @Override
+        public void setExit(int nbExit) {
+            this._exit = new ArrayList<Integer>();
+        } 
 }

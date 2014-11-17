@@ -16,18 +16,20 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private SortMatrix _sortMatrix;
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-	private SortStation _station;
+//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
 	private Object _transformationMatrix;
 	private MatterList _matterList;
+        private static int matterIDCounter = 0;
 	public MainFrame _mainFrame;
         
         private Element _selectedElement;
@@ -117,9 +119,42 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddStation() {
-		throw new UnsupportedOperationException();
+	public void AddStation(Point2D.Float position) {
+            
+            if (!this.getProject().getSortCenter().include(position)) {
+                JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+                return;
+            }
+            
+            int value;
+            try {
+                value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));            
+            } catch (NumberFormatException e) {
+                value = -1;
+            }
+            
+            if (value < 0) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
+                return;
+            }
+            
+            if (value > 1000) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
+                return;
+            }
+            
+            this._project.getSortCenter().addSortStation(position, value);
 	}
+        
+        public void MouveStation(SortStation sortStation, Point2D.Float position) {
+            if (!this.getProject().getSortCenter().include(position)) {
+                JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+                return;
+            }
+            
+            
+            sortStation.setPosition(position);
+        }
 
 	public void DeleteStation() {
 		throw new UnsupportedOperationException();
@@ -165,7 +200,7 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void AddMatterl() {
+	public void AddMatter() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -188,4 +223,10 @@ public class Controller {
 	public void addJunction(Point aPosition) {
 		throw new UnsupportedOperationException();
 	}
+        
+        public Project getProject() {
+            return _project;
+        }
+
+    
 }

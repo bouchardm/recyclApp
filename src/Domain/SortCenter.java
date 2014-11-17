@@ -9,6 +9,9 @@ package Domain;
 import Application.Controller.Controller;
 import java.awt.List;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  *
@@ -16,10 +19,9 @@ import java.awt.geom.Point2D;
  */
 public class SortCenter extends Element
 {
-    
     private List _entryPointList;
     private List _exitPointList;
-    private List _stationList;
+    private ArrayList _sortStationList;
     private List _junctionList;
     private Float _size;
     private MatterList _matterList;
@@ -28,18 +30,20 @@ public class SortCenter extends Element
     public MatterBasket _matterBasket;
     public Node _node;
     public MatterList _matterList2;
+    public Controller _recyclAppController;
     public Conveyor _conveyor;
     public Conveyor _conveyor2;
-    private Point2D.Float _dimensions;
-    
-    
-    public SortCenter()
-    {
-        _dimensions = new Point2D.Float(15f, 10f);
-    }
 
-    public void addSortStation(Point2D aPosition) {
-            throw new UnsupportedOperationException();
+    public SortCenter() {
+        _sortStationList = new ArrayList<SortStation>();
+        dimensions = new Point2D.Float(15f, 10f);
+    }
+    
+    public void addSortStation(Point2D.Float aPosition, Integer exit) {
+        SortStation station = new SortStation();
+        station.setPosition(aPosition);
+        station.setExit(exit);
+        this._sortStationList.add(station);
     }
 
     public void updateDesign() {
@@ -66,28 +70,58 @@ public class SortCenter extends Element
             throw new UnsupportedOperationException();
     }
     
+    private Point2D.Float dimensions;
     
     @Override
     public boolean include(Point2D.Float point)
     {
-        return (0 <= point.x && point.x <= _dimensions.x) && 
-                (0 <= point.y && point.y <= _dimensions.y);
+        return (0 <= point.x && point.x <= dimensions.x) && 
+                (0 <= point.y && point.y <= dimensions.y);
     }
     
     
     public Point2D.Float getDimensions()
     {
-        return _dimensions;
+        return dimensions;
     }
     
     public void setDimensions(Float x, Float y)
     {
-        _dimensions.x = x;
-        _dimensions.y = y;
+        dimensions.x = x;
+        dimensions.y = y;
     }
     
-    public Element getElementAt(Point2D.Float point)
-    {
+    public ArrayList getSortStationList() {
+        return _sortStationList;
+    }
+    
+    public SortStation getSortStationCursorIn(Point2D.Float position) {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+
+            if (next.include(position)) {
+                // Change la position de l'element déplacer dans la list
+                int i = sortStationList.indexOf(next);
+                if (i > 0) {
+                    Collections.swap(sortStationList, i, i-1);
+                }
+                return next;
+            }
+        }
+        
         return null;
+    }
+
+    public void unselectAll() {
+        ArrayList sortStationList = this.getSortStationList();
+        
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+            SortStation next = (SortStation)iterator.next();
+            
+            next.setSelected(false);
+        }
+        
     }
 }

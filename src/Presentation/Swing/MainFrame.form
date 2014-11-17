@@ -150,21 +150,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="btnOpen" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnRedo" max="32767" attributes="0"/>
-                      <Component id="btnUndo" max="32767" attributes="0"/>
-                      <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnCreateNewProject" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnAddStation" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnAddConveyor" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnAddJunction" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnAddEntrace" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="btnRedo" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnUndo" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnCreateNewProject" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnSave" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton5" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddJunction" alignment="0" pref="47" max="32767" attributes="0"/>
+                      <Component id="btnAddConveyor" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddEntrace" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddStation" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnOpen" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
-              <Component id="btnSave" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -172,7 +172,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="btnAddEntrace" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnAddStation" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="btnAddStation" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAddConveyor" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -203,17 +203,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddEntraceActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAddStation">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/station.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Ajouter une station"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStationActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAddConveyor">
@@ -304,6 +293,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JToggleButton" name="btnAddStation">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/station.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ajouter une station"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddStationMouseClicked"/>
+            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="btnAddStationMouseDragged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStationActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelWrokspace">
@@ -333,7 +335,6 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="gridCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="xGridDimFTextField" min="-2" max="-2" attributes="0"/>
@@ -343,35 +344,39 @@
                       <Component id="yGridDimFTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="snapCheckBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="348" max="32767" attributes="0"/>
+                      <EmptySpace pref="465" max="32767" attributes="0"/>
                       <Component id="cursorCoordsLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="zoomOutButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="zoomInButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="gridCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="snapCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="xGridDimFTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="yGridDimFTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="snapCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="gridCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="xGridDimFTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="yGridDimFTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="zoomInButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cursorCoordsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="zoomOutButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="zoomInButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="zoomOutButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cursorCoordsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -461,7 +466,9 @@
           <SubComponents>
             <Container class="Presentation.Swing.Viewport" name="viewport">
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseClicked"/>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseReleased"/>
+                <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseDragged"/>
                 <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="viewportMouseMoved"/>
               </Events>
               <AuxValues>
@@ -471,12 +478,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="708" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="803" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="503" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
