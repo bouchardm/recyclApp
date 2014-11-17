@@ -1,18 +1,22 @@
 package Domain;
 
+import junit.framework.Assert;
 
-import Domain.Node;
-import Domain.Conveyor;
+
+//import Domain.Node;
+//import Domain.Conveyor;
 
 public class Outlet extends IOlet
 {
-	private Conveyor _conveyor;
-	private Node _parentNode;
+	//private Conveyor _conveyor;
+	//private Node _parentNode;
 	private MatterBasket _matterBasket;
         
         public Outlet(Node parentNode)
         {
-            super((Node)parentNode);
+            super(parentNode);
+            
+       
         }
         
         public MatterBasket getMatterBasket()

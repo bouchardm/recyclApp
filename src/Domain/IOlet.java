@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Domain;
 
 import java.awt.geom.Point2D;
@@ -12,52 +11,45 @@ import java.awt.geom.Point2D;
  *
  * @author Dany
  */
-public class IOlet
-{
+public class IOlet {
+
     private Node _node;
     private Conveyor _conveyor;
-   
-    
-    
-    
-    public IOlet(Node parentNode)
-    {
-        if (parentNode == null)
-        {
+
+    public IOlet(Node parentNode) {
+        if (parentNode == null) {
             throw new IllegalArgumentException("parentNode cannot be null");
         }
         _node = parentNode;
         _conveyor = null;
-       
+
     }
-    
-    public boolean IsFree()
-    {
+
+    public boolean IsFree() {
         return (_conveyor == null);
     }
-    
-    public Point2D.Float getPosition()
-    {
+
+    public Point2D.Float getPosition() {
         return _node.getCenter();
     }
-    
-    public Node getNode()
-    {
+
+    public Node getNode() {
         return _node;
     }
-    
-    public void setConveyor(Conveyor conveyor)
-    {
+
+    public void setNode(Node newNode) {
+        _node = newNode;
+    }
+
+    public void setConveyor(Conveyor conveyor) {
         _conveyor = conveyor;
     }
-    
-    public Conveyor getConveyor()
-    {
+
+    public Conveyor getConveyor() {
         return _conveyor;
     }
-    
-    public void removeConveyor()
-        {
-            _conveyor = null;
-        }
+
+    public void removeConveyor() {
+        _conveyor = null;
+    }
 }

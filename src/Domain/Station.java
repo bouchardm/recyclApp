@@ -16,6 +16,7 @@ import java.awt.geom.Rectangle2D;
 public abstract class Station extends Node
 {
     private Rectangle2D.Float _rect;
+    private int _nbExit;
     
     public Station()
     {
@@ -56,6 +57,12 @@ public abstract class Station extends Node
         return center;
     }
     
+    
+        @Override
+    public void setExit(int nbExit)
+    {
+          _nbExit = nbExit;
+    }
     public void setDimensions(float height, float width)
     {
         _rect.height = height;
