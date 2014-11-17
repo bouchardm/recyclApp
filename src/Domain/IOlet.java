@@ -16,6 +16,9 @@ public class IOlet
 {
     private Node _node;
     private Conveyor _conveyor;
+   
+    
+    
     
     public IOlet(Node parentNode)
     {
@@ -25,6 +28,7 @@ public class IOlet
         }
         _node = parentNode;
         _conveyor = null;
+       
     }
     
     public boolean IsFree()
@@ -51,4 +55,9 @@ public class IOlet
     {
         return _conveyor;
     }
+    
+    public void removeConveyor()
+        {
+            _conveyor = null;
+        }
 }
