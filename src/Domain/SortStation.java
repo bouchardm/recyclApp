@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class SortStation extends Station {
 	private Inlet _inlet;
-	private List _outputList;
+	private ArrayList<Outlet> _outletList;
 	private Float _speedMax;
 	private SortMatrix _sortMatrix;
 	private Integer _stationID;

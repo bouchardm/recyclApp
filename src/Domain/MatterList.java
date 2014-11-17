@@ -54,6 +54,17 @@ public class MatterList {
             }
             return _matterList.get(index);            
 	}
+        
+        //a tester
+        public String getMatterName(Integer matterID) {
+            for (int i = 0; i<_matterList.size(); i++) {
+                if(_matterList.get(i).getID().intValue()==matterID.intValue()) {
+                    return _matterList.get(i).getName();
+                }
+            }
+            //si on se rend ici, c'est que la matière ne fait pas partie de la liste
+            throw new IllegalArgumentException("La matière ne fait pas partie de la liste.");
+        }
 
 	//retourne l'index dans la liste d'une matière (pas le numéro d'ID)
         public int GetIndex(String matterName) {
