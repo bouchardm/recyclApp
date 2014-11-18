@@ -19,23 +19,23 @@ import java.util.Iterator;
  */
 public class SortCenter extends Element
 {
-    private List _entryPointList;
-    private List _exitPointList;
+    private ArrayList _conveyorList;
+    private ArrayList _entryPointList;
+    private ArrayList _exitPointList;
     private ArrayList _sortStationList;
-    private List _junctionList;
+    private ArrayList _transStationList;
+    private ArrayList _junctionList;
     private Float _size;
     private MatterList _matterList;
-    private List _conveyorList;
-    public Project _project;
-    public MatterBasket _matterBasket;
-    public Node _node;
-    public MatterList _matterList2;
-    public Controller _recyclAppController;
-    public Conveyor _conveyor;
-    public Conveyor _conveyor2;
 
     public SortCenter() {
+        _conveyorList = new ArrayList<Conveyor>();
+        _entryPointList = new ArrayList<EntryPoint>();
+        _exitPointList = new ArrayList<ExitPoint>();
         _sortStationList = new ArrayList<SortStation>();
+        _transStationList = new ArrayList<TransStation>();
+        _junctionList = new ArrayList<Junction>();
+        
         dimensions = new Point2D.Float(15f, 10f);
     }
     
@@ -45,6 +45,37 @@ public class SortCenter extends Element
         station.setExit(exit);
         this._sortStationList.add(station);
     }
+    
+    public ArrayList getEntryPoints()
+    {
+        return _entryPointList;
+    }
+    
+    public ArrayList getExitPoints()
+    {
+        return _exitPointList;
+    }
+    
+    public ArrayList getJunctions()
+    {
+        return _junctionList;
+    }
+    
+    public ArrayList getConveyors()
+    {
+        return _conveyorList;
+    }
+    
+    public ArrayList getSortStation()
+    {
+        return _sortStationList;
+    }
+    
+    public ArrayList getTransStation()
+    {
+        return _transStationList;
+    }
+    
 
     public void updateDesign() {
             throw new UnsupportedOperationException();

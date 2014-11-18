@@ -16,6 +16,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
@@ -23,7 +24,6 @@ public class Controller {
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
@@ -42,15 +42,26 @@ public class Controller {
         
         public void selectElement(Point2D.Float coords)
         {
+            _selectedElement = null;
+            
             List<Element> elements = new ArrayList<Element>();
             
             elements.add(_project.getSortCenter());
             
-            _selectedElement = null;
+            elements.addAll(_project.getSortCenter().getConveyors());
+            elements.addAll(_project.getSortCenter().getEntryPoints());
+            elements.addAll(_project.getSortCenter().getExitPoints());
+            elements.addAll(_project.getSortCenter().getSortStation());
+            elements.addAll(_project.getSortCenter().getTransStation());
+            elements.addAll(_project.getSortCenter().getJunctions());
             
-            if (elements.size() != 0)
+            for (int i=elements.size()-1; i>-1; i--)
             {
-                _selectedElement = elements.get(elements.size()-1);
+                if (elements.get(i).include(coords));
+                {
+                    _selectedElement = elements.get(i);
+                    return;
+                }
             }
         }
 
@@ -61,6 +72,11 @@ public class Controller {
 
 
         // ************ SortCenter ***************
+        
+        public Map<String, Object> getElementAttributes()
+        {
+            return null;
+        }
 
         public Point2D.Float getSortCenterDimensions()
         {

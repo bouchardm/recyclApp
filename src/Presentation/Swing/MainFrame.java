@@ -605,27 +605,28 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStationMouseClicked
 
     private void viewportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseClicked
-        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        this.cleanInformationPanel();
-        
-        SortStation sortStation = this._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
-        
-        this._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
-        
-        if (sortStation != null) {
-            sortStation.setSelected(true);
-            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                sortStation, 
-                this._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
-                this
-            );
-            
-            JPanel sortStationPanel = infoSortStationFrame.getPanel();
-
-            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            this.panelInformation.add(sortStationPanel);
-        }
-        
+        viewport.onMouseClicked(evt);
+//        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+//        this.cleanInformationPanel();
+//        
+//        SortStation sortStation = this._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
+//        
+//        this._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
+//        
+//        if (sortStation != null) {
+//            sortStation.setSelected(true);
+//            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+//                sortStation, 
+//                this._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+//                this
+//            );
+//            
+//            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+//
+//            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+//            this.panelInformation.add(sortStationPanel);
+//        }
+//        
         repaint();
     }//GEN-LAST:event_viewportMouseClicked
 

@@ -6,6 +6,7 @@
 
 package Presentation.Swing;
 
+import Domain.SortStation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -113,12 +114,6 @@ import javax.swing.JPanel;
     }
     
     
-//    public void toggleDisplayGrid()
-//    {
-//        showGrid = !showGrid;
-//        repaint();
-//    }
-    
     public void setZoomFactor(float zoomFactor)
     {
         if (zoomFactor < 0.1)
@@ -163,6 +158,34 @@ import javax.swing.JPanel;
     public int meterToPix(float meters)
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
+    }
+    
+    public void onMouseClicked(java.awt.event.MouseEvent evt)
+    {
+        Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
+        _mainFrame.cleanInformationPanel();
+        _mainFrame._controller.selectElement(position);
+        
+        
+        SortStation sortStation = _mainFrame._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
+        
+        _mainFrame._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
+        
+        if (sortStation != null) {
+            sortStation.setSelected(true);
+            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+                sortStation, 
+                _mainFrame._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+                _mainFrame
+            );
+            
+            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+
+//            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+//            _mainFrame.panelInformation.add(sortStationPanel);
+        }
+        
+        repaint();
     }
     
     public void onMouseReleased(java.awt.event.MouseEvent evt)
