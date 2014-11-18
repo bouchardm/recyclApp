@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class EntryPoint extends Station
+public class EntryPoint extends RectangularNode
 {
     private Outlet _outlet;
     private Object _matterBasket;
@@ -20,10 +20,5 @@ public class EntryPoint extends Station
     {
         return _outlet;
     }
-
-    @Override
-    public void setExit(int nbExit) {
-        this._exit = new ArrayList<Integer>();
-    }  
         
 }

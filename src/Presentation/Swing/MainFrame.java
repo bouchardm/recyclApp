@@ -28,13 +28,13 @@ import javax.swing.JToggleButton;
  */
 public class MainFrame extends javax.swing.JFrame {
     
-    Controller _recycleAppController;
+    Controller _controller;
     SortStation _sortStationSelected;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
-        _recycleAppController = new Controller();
+        _controller = new Controller();
         _sortStationSelected = null;
         initComponents();
         this.setLocationRelativeTo(null); // Centrer la fenêtre
@@ -508,7 +508,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
-        this._recycleAppController.showAboutUs();
+        this._controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
@@ -551,7 +551,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
-            this._recycleAppController.AddStation(this.viewport.createPointInMeter(evt.getX(), evt.getY()));
+            Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+            if (viewport.isSnapToGrid())
+            {
+                position = viewport.snap(position);
+            }
+            this._controller.AddStation(position);
             
             this.viewport.display();
             this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
@@ -576,11 +581,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        if (viewport.isSnapToGrid())
+        {
+            position = viewport.snap(position);
+        }
         
         if  (_sortStationSelected == null) {
-            this._sortStationSelected = this._recycleAppController.getProject().getSortCenter().getSortStationCursorIn(position);
+            this._sortStationSelected = this._controller.getProject().getSortCenter().getSortStationCursorIn(position);
         } else {
-            this._recycleAppController.MouveStation(this._sortStationSelected, position);
+            this._controller.MouveStation(this._sortStationSelected, position);
         }
         
         this.viewport.display();
@@ -595,15 +604,15 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         this.cleanInformationPanel();
         
-        SortStation sortStation = this._recycleAppController.getProject().getSortCenter().getSortStationCursorIn(position);
+        SortStation sortStation = this._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
         
-        this._recycleAppController.getProject().getSortCenter().unselectAll();
+        this._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
         
         if (sortStation != null) {
             sortStation.setSelected(true);
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
                 sortStation, 
-                this._recycleAppController.getProject().getSortCenter().getSortStationList(),
+                this._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
                 this
             );
             

@@ -21,7 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Marcleking
  */
-public class infoSortStationFrame extends javax.swing.JFrame {
+public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private SortStation _sortStation;
     private ArrayList _sortStationList;

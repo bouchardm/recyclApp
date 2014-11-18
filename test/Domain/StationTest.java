@@ -45,7 +45,7 @@ public class StationTest {
     @Test
     public void testSetPosition() {
         System.out.println("setPosition");
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         float x = 1.0F;
         float y = 2.0F;
         instance.setPosition(x, y);
@@ -60,7 +60,7 @@ public class StationTest {
     @Test
     public void testGetPosition() {
         System.out.println("getPosition");
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         Point2D.Float expResult = new Point2D.Float(0, 0);
         Point2D.Float result = instance.getPosition();
         assertEquals(expResult, result);
@@ -72,7 +72,7 @@ public class StationTest {
     @Test
     public void testInclude() {
         System.out.println("include");
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         Point2D.Float point = new Point2D.Float(0, 0);
         assertTrue(instance.include(point));
         point.x = 0.5f;
@@ -92,7 +92,7 @@ public class StationTest {
         assertFalse(instance.include(point));
     }
 
-    public class StationImpl extends Station {
+    public class StationImpl extends RectangularNode {
     }
 
     /**
@@ -101,7 +101,7 @@ public class StationTest {
     @Test
     public void testGetCenter() {
         System.out.println("getCenter");
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         Point2D.Float expResult = new Point2D.Float(0.5f, 0.5f);
         Point2D.Float result = instance.getCenter();
         assertEquals(expResult, result);
@@ -119,7 +119,7 @@ public class StationTest {
         System.out.println("setDimensions");
         float height = 10.0F;
         float width = 20.0F;
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         instance.setDimensions(height, width);
         Point2D.Float expResult = new Point2D.Float(width, height);
         Point2D.Float result = instance.getDimensions();
@@ -140,7 +140,7 @@ public class StationTest {
     @Test
     public void testGetDimensions() {
         System.out.println("getDimensions");
-        Station instance = new StationImpl();
+        RectangularNode instance = new StationImpl();
         Point2D.Float expResult = new Point2D.Float(1f, 1f);
         Point2D.Float result = instance.getDimensions();
         assertEquals(expResult, result);

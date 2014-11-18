@@ -16,29 +16,21 @@ import java.util.Map;
 public class SortStation extends Station {
 	private Inlet _inlet;
 	private ArrayList<Outlet> _outletList;
-	private Float _speedMax;
 	private SortMatrix _sortMatrix;
-	private Integer _stationID;
-	private Point _position;
-	public SortMatrix _sortMatrix2;
-	public Element _element;
-	public SortMatrix _sortMatrix3;
-        private Map<Matter,Integer> _exit;
+        private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
         
-        private Rectangle2D.Float rect;
         private String _name;
         private String _description;
-        private float _kgHMax;
-        private Color _color;
-        private Boolean _selected;
-        private Image _img;
+        private float _speedMax;
+        
+        private Boolean _selected; // la SortStation n'a pas à savoir ça
         
         public SortStation()
         {
             this._name = "";
             this._description = "";
             this._color = Color.RED;
-            this._kgHMax = 0;
+            this._speedMax = 0;
             this._selected = false; 
             this._img = null;
         }
@@ -79,20 +71,14 @@ public class SortStation extends Station {
 
     
     public float getKgHMax() {
-        return _kgHMax;
+        return _speedMax;
     }
 
     public void setKgHMax(float _kgHMax) {
-        this._kgHMax = _kgHMax;
+        this._speedMax = _kgHMax;
     }
 
-    public Color getColor() {
-        return _color;
-    }
-
-    public void setColor(Color _color) {
-        this._color = _color;
-    }
+    
     
     public Boolean isSelected() {
         return _selected;

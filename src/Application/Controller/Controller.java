@@ -152,6 +152,7 @@ public class Controller {
                 return;
             }
             
+            
             sortStation.setPosition(position);
         }
 
