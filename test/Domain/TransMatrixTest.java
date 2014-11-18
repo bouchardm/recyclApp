@@ -49,6 +49,29 @@ public class TransMatrixTest {
     */
     @Test
     public void testAddMatterToTransMatrix_Integer_success() {
+        TransMatrix tmtest = new TransMatrix();
+        tmtest.addMatterToTransMatrix(1);
+        tmtest.addMatterToTransMatrix(2);
+        assertTrue(tmtest.getMatterCount()==2);
+        HashMap<Integer, HashMap<Integer, Float>> tester = tmtest.getTransMatrix();
+        assertTrue(tester.containsKey(1));
+        assertTrue(tester.containsKey(2));
+        assertTrue(tester.get(1).containsKey(1));
+        assertTrue(tester.get(1).get(1)==1);
+        assertTrue(tester.get(1).containsKey(2));
+        assertTrue(tester.get(1).get(2)==0);
+        assertTrue(tester.get(2).containsKey(2));
+        assertTrue(tester.get(2).get(2)==1);
+        assertTrue(tester.get(2).containsKey(1));
+        assertTrue(tester.get(2).get(1)==0);
+    }
+
+    /**
+     * Test of addMatterToTransMatrix method, of class TransMatrix.
+     */
+    @Test
+    public void testAddMatterToTransMatrix_Integer_HashMap_Success() {
+        System.out.println("addMatterToTransMatrix_int_hm_success");
         Matter mat1 = new Matter("dog", 1);
         Matter mat2 = new Matter("cat", 2);
         HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
@@ -58,47 +81,55 @@ public class TransMatrixTest {
         catTransformQuantity.put(1,new Float(.25));
         catTransformQuantity.put(2,new Float(.75));
         dogTransformQuantity.put(1,new Float(.35));
-        dogTransformQuantity.put(2,new Float(.65));
         matterQuantities.put(1, dogTransformQuantity);
         matterQuantities.put(2, catTransformQuantity);
-        tmtest.addMatterToTransMatrix(1);
-        tmtest.addMatterToTransMatrix(2);
+        tmtest.addMatterToTransMatrix(mat1.getID(), dogTransformQuantity);
+        tmtest.addMatterToTransMatrix(mat2.getID(), catTransformQuantity);
         assertTrue(tmtest.getMatterCount()==2);
         HashMap<Integer, HashMap<Integer, Float>> tester = tmtest.getTransMatrix();
         assertTrue(tester.containsKey(1));
         assertTrue(tester.containsKey(2));
         assertTrue(tester.get(1).containsKey(1));
+        assertTrue((float)tester.get(1).get(1)==(float)0.35);
         assertTrue(tester.get(1).containsKey(2));
+        assertTrue(tester.get(1).get(2)==0.0);
         assertTrue(tester.get(2).containsKey(2));
+        assertTrue(tester.get(2).get(2)==0.75);
         assertTrue(tester.get(2).containsKey(1));
-    }
-
-    /**
-     * Test of addMatterToTransMatrix method, of class TransMatrix.
-     */
-    @Test
-    public void testAddMatterToTransMatrix_Integer_HashMap() {
-        System.out.println("addMatterToTransMatrix");
-        Integer matterID = null;
-        HashMap<Integer, Float> transformQuantities = null;
-        TransMatrix instance = new TransMatrix();
-        instance.addMatterToTransMatrix(matterID, transformQuantities);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(tester.get(2).get(1)==0.25);
     }
 
     /**
      * Test of getMatterCount method, of class TransMatrix.
+     * Empty matrix
      */
     @Test
-    public void testGetMatterCount() {
-        System.out.println("getMatterCount");
-        TransMatrix instance = new TransMatrix();
-        int expResult = 0;
-        int result = instance.getMatterCount();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetMatterCount_empty() {
+        TransMatrix tmtest = new TransMatrix();
+        assertTrue(tmtest.getMatterCount()==0);
+    }
+    
+    /**
+     * Test of getMatterCount method, of class TransMatrix.
+     * With elements
+     */
+    @Test
+    public void testGetMatterCount_wElements() {
+        TransMatrix tmtest = new TransMatrix();
+        Matter mat1 = new Matter("dog", 1);
+        Matter mat2 = new Matter("cat", 2);
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.35));
+        dogTransformQuantity.put(2, new Float(.65));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        assertTrue(tmtest.getMatterCount()==0);
+        tmtest.setTransMatrix(matterQuantities);
+        assertTrue(tmtest.getMatterCount()==2);
     }
 
     /**
@@ -113,29 +144,135 @@ public class TransMatrixTest {
         matrix.put(1, quantities);
         assertFalse(tmTest1.getMatterCount()==matrix.size());
     }
+    
+    /**
+     * Test of setTransMatrix method, of class TransMatrix.
+     */
+    @Test
+    public void testSetTransMatrix() {
+        System.out.println("setTransMatrix_success");
+        //on crée une transMatrix vide et on la remplace par une pleine après
+        TransMatrix tmtest = new TransMatrix();
+        Matter mat1 = new Matter("dog", 1);
+        Matter mat2 = new Matter("cat", 2);
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.35));
+        dogTransformQuantity.put(2, new Float(.65));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        assertTrue(tmtest.getMatterCount()==0);
+        tmtest.setTransMatrix(matterQuantities);
+        assertTrue(tmtest.getMatterCount()==2);
+        HashMap<Integer, HashMap<Integer, Float>> tester = tmtest.getTransMatrix();
+        assertTrue(tester.containsKey(1));
+        assertTrue(tester.containsKey(2));
+        assertTrue(tester.get(1).containsKey(1));
+        assertTrue((float)tester.get(1).get(1)==(float)0.35);
+        assertTrue(tester.get(1).containsKey(2));
+        assertTrue((float)tester.get(1).get(2)==(float)0.65);
+        assertTrue(tester.get(2).containsKey(2));
+        assertTrue(tester.get(2).get(2)==0.75);
+        assertTrue(tester.get(2).containsKey(1));
+        assertTrue(tester.get(2).get(1)==0.25);
+    }
 
     /**
      * Test of removeAllMatterFromTransMatrix method, of class TransMatrix.
      */
     @Test
     public void testRemoveAllMatterFromTransMatrix() {
-        System.out.println("removeAllMatterFromTransMatrix");
-        TransMatrix instance = new TransMatrix();
-        instance.removeAllMatterFromTransMatrix();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        TransMatrix tmtest = new TransMatrix();
+        Matter mat1 = new Matter("dog", 1);
+        Matter mat2 = new Matter("cat", 2);
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.35));
+        dogTransformQuantity.put(2, new Float(.65));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        tmtest.setTransMatrix(matterQuantities);
+        assertTrue(tmtest.getMatterCount()==2);
+        tmtest.removeAllMatterFromTransMatrix();
+        assertTrue(tmtest.getMatterCount()==0);
     }
+    
+    /**
+     * Test of removeAllMatterFromTransMatrix method, of class TransMatrix. Case: empty matrix
+     */
+    @Test
+    public void testRemoveAllMatterFromTransMatrix_emptyMatrix() {
+        TransMatrix tmtest = new TransMatrix();
+        tmtest.removeAllMatterFromTransMatrix();
+        assertTrue(tmtest.getMatterCount()==0);
+    }
+
 
     /**
      * Test of removeMatterFromMatrix method, of class TransMatrix.
+     * with elements
      */
     @Test
-    public void testRemoveMatterFromMatrix() {
-        System.out.println("removeMatterFromMatrix");
-        TransMatrix instance = new TransMatrix();
-        instance.removeMatterFromMatrix();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRemoveMatterFromMatrix_wElements() {
+        TransMatrix tmtest = new TransMatrix();
+        Matter mat1 = new Matter("dog", 1);
+        Matter mat2 = new Matter("cat", 2);
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.35));
+        dogTransformQuantity.put(2, new Float(.65));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        tmtest.setTransMatrix(matterQuantities);
+        assertTrue(tmtest.getMatterCount()==2);
+        tmtest.removeMatterFromMatrix(1);
+        HashMap<Integer, HashMap<Integer, Float>> tester = tmtest.getTransMatrix();
+        assertTrue(tmtest.getMatterCount()==1);
+        assertFalse(tester.containsKey(1));
+        assertFalse(tester.get(2).containsKey(1));
     }
     
+    /**
+     * Test of removeMatterFromMatrix method, of class TransMatrix.
+     * matter not in matrix
+     */
+    @Test
+    public void testRemoveMatterFromMatrix_notInMatrix() {
+        TransMatrix tmtest = new TransMatrix();
+        Matter mat1 = new Matter("dog", 1);
+        Matter mat2 = new Matter("cat", 2);
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.35));
+        dogTransformQuantity.put(2, new Float(.65));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        tmtest.setTransMatrix(matterQuantities);
+        assertTrue(tmtest.getMatterCount()==2);
+        tmtest.removeMatterFromMatrix(3);
+        assertTrue(tmtest.getMatterCount()==2);
+    }
+    
+    /**
+     * Test of removeMatterFromMatrix method, of class TransMatrix.
+     * empty matrix
+     */
+    @Test
+    public void testRemoveMatterFromMatrix_emptyMatrix() {
+        TransMatrix tmtest = new TransMatrix();
+        tmtest.removeMatterFromMatrix(1);
+        assertTrue(tmtest.getMatterCount()==0);
+    }
 }

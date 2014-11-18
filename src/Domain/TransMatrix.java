@@ -9,13 +9,54 @@ import java.util.Map;
 
 public class TransMatrix {
     //l'attribut transformMatrix : HashMap<MatterID, <Array de qté par matière, dans le même ordre que le matterList utilisé pour le construire>>
-    
     private HashMap<Integer, HashMap<Integer, Float>> _transformMatrix;
         
     //constructeur sans paramètres
     public TransMatrix() {
         _transformMatrix = new HashMap<>();
         
+    }
+    
+    //getter : doit retourner une copie profonde de transMatrix
+    public HashMap<Integer, HashMap<Integer, Float>> getTransMatrix() {
+        HashMap<Integer, HashMap<Integer, Float>> copiedMatrix = new HashMap<>();
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+        while(tmIter.hasNext()) {
+            Map.Entry<Integer, HashMap<Integer, Float>> currentMatterEntry = tmIter.next();
+            int currentMatterID = currentMatterEntry.getKey();
+            HashMap<Integer, Float> currentMatterTransMap = currentMatterEntry.getValue();
+            Iterator<Map.Entry<Integer, Float>> innerIter = currentMatterTransMap.entrySet().iterator();
+            HashMap<Integer, Float> copiedQuantities = new HashMap<>();
+            while(innerIter.hasNext()) {
+                Map.Entry<Integer, Float> innerEntry = innerIter.next();
+                int transMatterID = innerEntry.getKey();
+                float transMatterQty = innerEntry.getValue();
+                copiedQuantities.put(transMatterID, transMatterQty);
+            }
+            copiedMatrix.put(currentMatterID, copiedQuantities);
+        }
+        return copiedMatrix;
+    }
+    
+    //setter : crée une copie profonde de la matrice en entrée et la conserve dans _transformMatrix
+    public void setTransMatrix(HashMap<Integer, HashMap<Integer, Float>> newTransMatrix) {
+        //on veut mettre une copie dans _transMatrix. On commence par clairer transformMatrix
+        this.removeAllMatterFromTransMatrix();
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = newTransMatrix.entrySet().iterator();
+        while (tmIter.hasNext()) {
+            Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
+            Integer matterID = currentEntry.getKey();
+            HashMap<Integer, Float> quantitiesToCopy = currentEntry.getValue();
+            HashMap<Integer, Float> copiedQuantities = new HashMap<>();
+            Iterator<Map.Entry<Integer, Float>> innerIter = quantitiesToCopy.entrySet().iterator();
+            while(innerIter.hasNext()) {
+                Map.Entry<Integer, Float> innerEntry = innerIter.next();
+                int innerKey = innerEntry.getKey();
+                float innerValue = innerEntry.getValue();
+                copiedQuantities.put(innerKey, innerValue);
+            }
+            _transformMatrix.put(matterID, copiedQuantities);
+        }
     }
     
     //constructeur avec paramètres
@@ -52,6 +93,7 @@ public class TransMatrix {
                 Integer currentMatterID = currentEntry.getKey();
                 //on ajoute 0 pour toutes les matter ID
                 transformQty.put(currentMatterID, new Float(0));
+                _transformMatrix.get(currentMatterID).put(matterID, new Float(0));
             }
         }
         //on mets transformation à 100% de la matière à elle même
@@ -96,32 +138,20 @@ public class TransMatrix {
         return _transformMatrix.size();
     }
     
-    //doit retourner une copie profonde de transMatrix
-    public HashMap<Integer, HashMap<Integer, Float>> getTransMatrix() {
-        HashMap<Integer, HashMap<Integer, Float>> copiedMatrix = new HashMap<>();
+    //vide la transMatrix
+    public void removeAllMatterFromTransMatrix() {
+        _transformMatrix.clear();
+    }
+    
+    //ne fait rien si la matière est déjà pas incluse dans la matrice
+    public void removeMatterFromMatrix(Integer matterID) {
+        //on commence par enlever l'entrée principale de la matrice associée au matterID
+        _transformMatrix.remove(matterID);
+        //ensuite on enlève les références à ce matter ID dans les hashMap internes
         Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
         while(tmIter.hasNext()) {
-            Map.Entry<Integer, HashMap<Integer, Float>> currentMatterEntry = tmIter.next();
-            Integer currentMatterID = currentMatterEntry.getKey();
-            HashMap<Integer, Float> currentMatterTransMap = currentMatterEntry.getValue();
-            Iterator<Map.Entry<Integer, Float>> innerIter = currentMatterTransMap.entrySet().iterator();
-            HashMap<Integer, Float> copiedQuantities = new HashMap<>();
-            while(innerIter.hasNext()) {
-                Map.Entry<Integer, Float> innerEntry = innerIter.next();
-                Integer transMatterID = innerEntry.getKey();
-                Float transMatterQty = innerEntry.getValue();
-                copiedQuantities.put(transMatterID, transMatterQty);
-            }
-            copiedMatrix.put(currentMatterID, copiedQuantities);
+            Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
+            currentEntry.getValue().remove(matterID);
         }
-        return copiedMatrix;
-    }
-    
-    public void removeAllMatterFromTransMatrix() {
-        //todo
-    }
-    
-    public void removeMatterFromMatrix() {
-        //todo
     }
 }
