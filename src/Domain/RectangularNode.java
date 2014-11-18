@@ -17,6 +17,7 @@ public abstract class RectangularNode extends Node
 {
     private Rectangle2D.Float _rect;
     
+    
     public RectangularNode()
     {
         _rect = new Rectangle2D.Float(0, 0, 1, 1);
