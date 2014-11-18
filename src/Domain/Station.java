@@ -8,22 +8,25 @@ package Domain;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
-/**
- *
- * @author Dany
- */
+
 public abstract class Station extends Node
 {
     private Rectangle2D.Float _rect;
-    private int _nbExit;
-    
+    private Inlet _inlet;
+    private ArrayList<Outlet> _outlets;
+ 
     public Station()
     {
         _rect = new Rectangle2D.Float(0, 0, 1, 1);
+//        _inlet = new Inlet(this);
+//        _outlets = new ArrayList<>();
+//        setExit(nbOutlet);
+        
     }
     
-    
+
     @Override
     public void setPosition(float x, float y)
     {
@@ -61,7 +64,11 @@ public abstract class Station extends Node
         @Override
     public void setExit(int nbExit)
     {
-          _nbExit = nbExit;
+        for (int i = 0; i < nbExit ; i++)
+        {
+            Outlet outlet = new Outlet(this);
+            _outlets.add(outlet);
+        }
     }
     public void setDimensions(float height, float width)
     {

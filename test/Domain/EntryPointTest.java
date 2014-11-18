@@ -5,19 +5,16 @@
  */
 package Domain;
 
-
-import java.awt.geom.Point2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.internal.runners.statements.ExpectException;
 
 /**
  *
- * @author Dany
+ * @author keita shimoda
  */
 public class EntryPointTest {
     
@@ -39,7 +36,37 @@ public class EntryPointTest {
     @After
     public void tearDown() {
     }
+        public class StationImpl extends Station {
+    }
+
+    /**
+     * Test of Get/Set MatterBasket method, of class EntryPoint.
+     */
+    @Test
+    public void testGetSetMatterBasket() {
+        System.out.println("Get/Set MatterBasket");
+        MatterBasket matterBasket = new MatterBasket();
+        EntryPoint instance = new EntryPoint();
+        instance.setMatterBasket(matterBasket);
+        assertEquals(matterBasket, instance.getMatterBasket());
     
 
+    }
+
+    /**
+     * Test of Get/Set Outlet method, of class EntryPoint.
+     */
+    @Test
+    public void testGetOutlet() {
+        System.out.println("Get/Set Outlet");
+        EntryPoint instance = new EntryPoint();
+        Station aStation = new StationImpl();
+        Outlet outlet = new Outlet(aStation);
+        instance.setOutlet(outlet);
+        assertEquals(instance.getOutlet(), outlet);
+
+    }
+
+  
     
 }

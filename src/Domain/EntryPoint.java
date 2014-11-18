@@ -1,14 +1,10 @@
 package Domain;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class EntryPoint extends Station {
 
     private Outlet _outlet;
     private MatterBasket _matterBasket;
-    private ArrayList _exit;    // ???
+   
 
     public EntryPoint() {
         super();
@@ -19,14 +15,18 @@ public class EntryPoint extends Station {
         _matterBasket = matterBasket;
     }
 
-    ;
+    public MatterBasket getMatterBasket() {
+        return _matterBasket;
+    }
+
     public Outlet getOutlet() {
         return _outlet;
     }
-
-    @Override
-    public void setExit(int nbExit) {
-        this._exit = new ArrayList<Integer>();
+    
+    public void setOutlet(Outlet outlet){
+        _outlet = outlet;
     }
+
+
 
 }

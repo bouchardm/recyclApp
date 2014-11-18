@@ -21,6 +21,7 @@ import org.junit.internal.runners.statements.ExpectException;
  */
 public class IOletTest {
     
+    
     public IOletTest() {
     }
     
@@ -48,6 +49,7 @@ public class IOletTest {
      */
     @Test
     public void testIsFree() {
+
         System.out.println("IsFree");
         Station aStation = new StationImpl();
         IOlet instance = new IOlet(aStation);
@@ -67,8 +69,6 @@ public class IOletTest {
         Point2D.Float expResult = new Point2D.Float(0.5f, 0.5f);
         Point2D.Float result = instance.getPosition();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-     //   fail("The test case is a prototype.");
     }
 
     /**
@@ -85,30 +85,17 @@ public class IOletTest {
     }
 
     /**
-     * Test of setConveyor method, of class IOlet.
+     * Test of Get/Set Conveyor method, of class IOlet.
      */
-//    @Test
-//    public void testSetConveyor() {
-//        System.out.println("setConveyor");
-//        Station aStation = new StationImpl();
-//        IOlet instance = new IOlet(aStation);
-//        Conveyor conveyor = null;
-//        instance.setConveyor(conveyor);
-//
-//    }
+    @Test
+    public void testGetSetConveyor() {
+        System.out.println("Get/Set Conveyor");
+        Station station1 = new StationImpl();
+        Station station2 = new StationImpl();
+     //   station1.
+  
 
-    /**
-     * Test of getConveyor method, of class IOlet.
-     */
-//    @Test
-//    public void testGetConveyor() {
-//        System.out.println("getConveyor");
-//        IOlet instance = null;
-//        Conveyor expResult = null;
-//        Conveyor result = instance.getConveyor();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//    //    fail("The test case is a prototype.");
-//    }
-    
+    }
+
+
 }

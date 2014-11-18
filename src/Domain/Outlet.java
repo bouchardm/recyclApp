@@ -16,11 +16,17 @@ public class Outlet extends IOlet
         {
             super(parentNode);
             
-       
         }
         
         public MatterBasket getMatterBasket()
         {
             return _matterBasket;
         }
+        
+        
+        public void setMatterBasket( MatterBasket matterBasket)
+        {
+           _matterBasket = matterBasket;
+        }
+        
 }

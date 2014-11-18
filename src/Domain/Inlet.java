@@ -7,15 +7,12 @@ package Domain;
 public class Inlet extends IOlet
 {
 	private Float _speedMax;  // Float vs float?
-	//private Conveyor _conveyor;
-	//private Node _parentNode;
         private boolean _free;
 
         
         public Inlet(Node parentNode)
         {
             super(parentNode);
-           // _parentNode = parentNode;
             _speedMax = null ; // Valeur initiale?
             _free = true;
         }
