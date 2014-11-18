@@ -17,7 +17,7 @@ public class SortStation extends Station {
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
-    //private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
+    private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
     private String _name;
     private String _description;
@@ -35,7 +35,7 @@ public class SortStation extends Station {
         this._speedMax = 0;
         this._selected = false; 
         this._img = null;
-        _outletList = new ArrayList<Outlet>();
+        _outletList = new ArrayList<>();
     }
 
     public String getName() {
@@ -100,25 +100,49 @@ public class SortStation extends Station {
         return _outletList.size();
     }
     
-    public void sortBasket(MatterBasket matterBasket) {
-        //todo
+    //le nombre de matières dans matterBasket et la matrice doivent être identiques
+    //le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
+    public void sortMatterBasketToOutlets(MatterBasket matterBasket) {
+        //on va chercher la matrice de tri
+        HashMap<Integer, ArrayList<Float>> sortMatrix = _sortMatrix.getSortMatrix();
+        for(int i=0; i<this._outletList.size(); i++) {
+            //créer un nouveau basket pour la sortie en question
+            MatterBasket sortedBasketForOutlet = new MatterBasket();
+            //extraire de matterBasket les matières à traiter
+            HashMap<Integer, Float> basketQuantities = matterBasket.getQuantities();
+            Iterator<Map.Entry<Integer, Float>> basketIter = basketQuantities.entrySet().iterator();
+            //on itère dans le basket. 
+            while(basketIter.hasNext()) {
+                Map.Entry<Integer, Float> currentEntry = basketIter.next();
+                //la nouvelle quantité de matière pour le nouveau matterBasket = % dans la matrice * la quantité dans le panier
+                int currentMatterID = currentEntry.getKey();
+                float percentageForOutlet = sortMatrix.get(currentMatterID).get(i);
+                float newQtyForMatterBasket = matterBasket.getMatterQuantity(currentEntry.getKey()) * percentageForOutlet;
+                sortedBasketForOutlet.addMatterQuantity(currentMatterID, newQtyForMatterBasket);
+            }
+            //setMatterBasket de la sortie
+            _outletList.get(i).setMatterBasket(sortedBasketForOutlet);  
+        }
     }
     
-//        public void setExit(int nbExit) {
-//        this._exit = new HashMap<Matter,Integer>();
-//
-//        this._exit.put(new Matter("todo: change", 0), 100);
-//
-//        for (int i = 1; i < nbExit; i++) {
-//            this._exit.put(new Matter("todo: change", i), 0);
-//        }
-//    }
-//    
+    //ATTENTION: on ne devrait pas tenter de "setter" le nombre de outlets
+    //en tant que tel. On devrait plutôt ajouter ou retirer de la liste les
+    //outlets concernés
+    public void setExit(int nbExit) {
+        this._exit = new HashMap<Matter,Integer>();
+
+        this._exit.put(new Matter("todo: change", 0), 100);
+
+        for (int i = 1; i < nbExit; i++) {
+            this._exit.put(new Matter("todo: change", i), 0);
+        }
+    }
+    
 //        public void setExit(Map<Matter, Integer> _exit) {
 //        this._exit = _exit;
 //    }
-//    
-//    public Map<Matter, Integer> getExit() {
-//        return _exit;
-//    }
+    
+    public ArrayList<Outlet> getOutletList() {
+        return _outletList;
+    }
 }
