@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-public class ExitPoint extends Station
+public class ExitPoint extends RectangularNode
 {
     private Inlet _inlet;
     private ArrayList _exit;
@@ -23,11 +23,5 @@ public class ExitPoint extends Station
     {
         return _inlet;
     }
-    
-    @Override
-    public void setExit(int nbExit)
-    {
-        this._exit = new ArrayList<Integer>();
-    } 
     
 }

@@ -46,9 +46,4 @@ public class Junction extends Node {
         {
             return getPosition();
         }
-        
-        @Override
-        public void setExit(int nbExit) {
-            this._exit = new ArrayList<Integer>();
-        } 
 }
