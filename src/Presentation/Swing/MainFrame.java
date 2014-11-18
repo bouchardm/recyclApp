@@ -513,7 +513,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
-        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", viewport.pixToMeter(evt.getX()), viewport.pixToMeter(evt.getY())));
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
     }//GEN-LAST:event_viewportMouseMoved
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
@@ -582,6 +583,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+        
         if (viewport.isSnapToGrid())
         {
             position = viewport.snap(position);
