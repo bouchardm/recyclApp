@@ -64,7 +64,13 @@ public class TransMatrixTest {
         tmtest.addMatterToTransMatrix(1);
         tmtest.addMatterToTransMatrix(2);
         assertTrue(tmtest.getMatterCount()==2);
-        //GET TRANS MATRIX AND TEST ITS CONTENTS
+        HashMap<Integer, HashMap<Integer, Float>> tester = tmtest.getTransMatrix();
+        assertTrue(tester.containsKey(1));
+        assertTrue(tester.containsKey(2));
+        assertTrue(tester.get(1).containsKey(1));
+        assertTrue(tester.get(1).containsKey(2));
+        assertTrue(tester.get(2).containsKey(2));
+        assertTrue(tester.get(2).containsKey(1));
     }
 
     /**
