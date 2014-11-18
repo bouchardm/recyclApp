@@ -68,7 +68,7 @@ public class TransMatrix {
         //boucle dans le hashmap. pour chaque clé, on ajoute au hashMap interne l'entry (matterID, 0).
         Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
         while(tmIter.hasNext()) {
-            HashMap<Integer, Float> newTransformQuantities = new HashMap<>();
+            HashMap<Integer, Float> newTransformQuantities = new HashMap<>(); //ca sera les nouvelles quantités par matiere
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
             Integer currentID = currentEntry.getKey();
             //on va chercher les valeurs courantes du hashmap interne pour le recopier dans un nouveau
