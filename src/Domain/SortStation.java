@@ -115,6 +115,7 @@ public class SortStation extends Station {
             while(basketIter.hasNext()) {
                 Map.Entry<Integer, Float> currentEntry = basketIter.next();
                 //la nouvelle quantité de matière pour le nouveau matterBasket = % dans la matrice * la quantité dans le panier
+               
                 int currentMatterID = currentEntry.getKey();
                 float percentageForOutlet = sortMatrix.get(currentMatterID).get(i);
                 float newQtyForMatterBasket = matterBasket.getMatterQuantity(currentEntry.getKey()) * percentageForOutlet;
@@ -123,6 +124,16 @@ public class SortStation extends Station {
             //setMatterBasket de la sortie
             _outletList.get(i).setMatterBasket(sortedBasketForOutlet);  
         }
+    }
+    
+    public void setSortMatrix(SortMatrix sorter) {
+        _sortMatrix = sorter;
+    }
+    
+    public SortMatrix getSortMatrix() {
+        SortMatrix sm = new SortMatrix();
+        sm.setSortMatrix(_sortMatrix.getSortMatrix());
+        return sm;
     }
     
     //ATTENTION: on ne devrait pas tenter de "setter" le nombre de outlets
