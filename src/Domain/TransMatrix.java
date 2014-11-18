@@ -74,17 +74,20 @@ public class TransMatrix {
             //hashmap avec les nouvelles valeurs
             HashMap<Integer, Float> matterTransformQuantities = currentEntry.getValue();
             Iterator<Map.Entry<Integer, Float>> innerIter = matterTransformQuantities.entrySet().iterator();
+            newTransformQuantities.put(matterID, new Float(0));
             while(innerIter.hasNext()) {
                 Map.Entry<Integer, Float> currentInnerEntry = innerIter.next();
                 Integer innerKey = currentInnerEntry.getKey();
                 Float innerQty = currentInnerEntry.getValue();
                 newTransformQuantities.put(innerKey, innerQty);
-                //effacer l'entry courante (du inner hashmap)
-                //!!!!!!!!!ICI!!!!!!!
             }
+            _transformMatrix.remove(currentID);
             //rajouter les nouvelles quantités pour chaque matière à _transformMatrix
+            _transformMatrix.put(currentID, newTransformQuantities);
         }
+        
         //ajout au transformMatrix : (matterID, transformQuantities)
+        _transformMatrix.put(matterID, transformQuantities);
         
     }
     
