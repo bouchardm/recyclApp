@@ -16,21 +16,29 @@ import java.util.Map;
 public class SortStation extends Station {
 	private Inlet _inlet;
 	private ArrayList<Outlet> _outletList;
+	private Float _speedMax;
 	private SortMatrix _sortMatrix;
+	private Integer _stationID; // déjà hérité de Node._id
+	private Point _position; // la position s'obtient par _rect non pas par _position
+	public SortMatrix _sortMatrix2; // aucun rapport
+	public Element _element; // aucun rapport
+	public SortMatrix _sortMatrix3; // aucun rapport
         private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
         
+        private Rectangle2D.Float rect; // déjà hérité ... entant que _rect
         private String _name;
         private String _description;
-        private float _speedMax;
-        
+        private float _kgHMax; // duplicata avec _speedMax (quel nom d'attribut est dans le modèle?)
+        private Color _color; // aucun rapport dans le domaine
         private Boolean _selected; // la SortStation n'a pas à savoir ça
+        private Image _img; // l'image n'a pas affaire dans le domaine
         
         public SortStation()
         {
             this._name = "";
             this._description = "";
             this._color = Color.RED;
-            this._speedMax = 0;
+            this._kgHMax = 0;
             this._selected = false; 
             this._img = null;
         }
@@ -71,14 +79,20 @@ public class SortStation extends Station {
 
     
     public float getKgHMax() {
-        return _speedMax;
+        return _kgHMax;
     }
 
     public void setKgHMax(float _kgHMax) {
-        this._speedMax = _kgHMax;
+        this._kgHMax = _kgHMax;
     }
 
-    
+    public Color getColor() {
+        return _color;
+    }
+
+    public void setColor(Color _color) {
+        this._color = _color;
+    }
     
     public Boolean isSelected() {
         return _selected;
