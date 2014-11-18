@@ -1,0 +1,35 @@
+package Domain;
+
+<<<<<<< HEAD
+public class ExitPoint extends Station
+=======
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
+public class ExitPoint extends RectangularNode
+>>>>>>> origin/develop
+{
+    private Inlet _inlet;
+   // private position 
+    
+    public ExitPoint()
+    {
+        _inlet = new Inlet(this);
+    }
+        
+    public Inlet getInlet()
+    {
+        return _inlet;
+    }
+<<<<<<< HEAD
+
+    public void setInlet(Inlet inlet)
+    {
+    _inlet = inlet;
+    }
+=======
+>>>>>>> origin/develop
+    
+}

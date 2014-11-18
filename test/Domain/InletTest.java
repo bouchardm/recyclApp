@@ -12,49 +12,56 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class OutletTest {
-
-    public OutletTest() {
+/**
+ *
+ * @author keita shimoda
+ */
+public class InletTest {
+    
+    public InletTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
-
     public class StationImpl extends Station {
     }
-
-    // contructor test
+    
+      // contructor test
     @Test
     public void testCreateOutlet() {
         System.out.println("Create Outlet");
         Station aStation = new StationImpl();
-        Outlet instance = new Outlet(aStation);
+        Inlet instance = new Inlet(aStation);
         assertEquals(instance.getNode(), aStation);
         assertEquals(instance.IsFree(), true);
     }
-
-        // Test get/set matterbasket
-    @Test
-    public void testGetSetMatterBasket() {
-        System.out.println("getMatterBasket");
-        Station aStation = new StationImpl();
-        Outlet instance = new Outlet(aStation);
-        MatterBasket matterBasket = new MatterBasket();
-        instance.setMatterBasket(matterBasket);
-        assertEquals(matterBasket, instance.getMatterBasket());
     
+    /**
+     * Test of Set/ Get SpeedMax method, of class Inlet.
+     */
+    @Test
+    public void testGetSetSpeedMax() {
+        System.out.println("setSpeedMax");
+        Station aStation = new StationImpl();
+        Float speedMax = 10.0f;
+        Inlet instance = new Inlet(aStation);
+        instance.setSpeedMax(speedMax);
+        assertEquals(instance.getSpeedMax(), speedMax);
+        
     }
+
+    
 }

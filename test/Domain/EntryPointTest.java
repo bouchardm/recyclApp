@@ -12,49 +12,61 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class OutletTest {
-
-    public OutletTest() {
+/**
+ *
+ * @author keita shimoda
+ */
+public class EntryPointTest {
+    
+    public EntryPointTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
-
-    public class StationImpl extends Station {
+        public class StationImpl extends Station {
     }
 
-    // contructor test
-    @Test
-    public void testCreateOutlet() {
-        System.out.println("Create Outlet");
-        Station aStation = new StationImpl();
-        Outlet instance = new Outlet(aStation);
-        assertEquals(instance.getNode(), aStation);
-        assertEquals(instance.IsFree(), true);
-    }
-
-        // Test get/set matterbasket
+    /**
+     * Test of Get/Set MatterBasket method, of class EntryPoint.
+     */
     @Test
     public void testGetSetMatterBasket() {
-        System.out.println("getMatterBasket");
-        Station aStation = new StationImpl();
-        Outlet instance = new Outlet(aStation);
+        System.out.println("Get/Set MatterBasket");
         MatterBasket matterBasket = new MatterBasket();
+        EntryPoint instance = new EntryPoint();
         instance.setMatterBasket(matterBasket);
         assertEquals(matterBasket, instance.getMatterBasket());
     
+
     }
+
+    /**
+     * Test of Get/Set Outlet method, of class EntryPoint.
+     */
+    @Test
+    public void testGetOutlet() {
+        System.out.println("Get/Set Outlet");
+        EntryPoint instance = new EntryPoint();
+        Station aStation = new StationImpl();
+        Outlet outlet = new Outlet(aStation);
+        instance.setOutlet(outlet);
+        assertEquals(instance.getOutlet(), outlet);
+
+    }
+
+  
+    
 }

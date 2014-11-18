@@ -43,6 +43,7 @@ public class SortStation extends Station {
             this._img = null;
         }
 
+        @Override
         public void setExit(int nbExit) {
             this._exit = new HashMap<Matter,Integer>();
             
@@ -109,5 +110,18 @@ public class SortStation extends Station {
     public void setImg(String src) {
         this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
-        
+      
+        public void addOutlet(Outlet outlet){
+        // add at the end of the list  
+        _outletList.add(outlet);
+    }
+    
+    public void removeOulet(int index)
+    {
+    _outletList.remove(index);
+    }
+    
+    public int getOutletCount(){
+        return _outletList.size();
+    }
 }

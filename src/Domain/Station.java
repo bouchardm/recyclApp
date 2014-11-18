@@ -8,15 +8,16 @@ package Domain;
 
 import java.awt.Image;
 
-/**
- *
- * @author Dany
- */
+
+
 public class Station extends RectangularNode
 {
     protected Image _img;
+    
     public void setExit(int nbExit) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

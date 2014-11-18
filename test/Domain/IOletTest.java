@@ -21,6 +21,7 @@ import org.junit.internal.runners.statements.ExpectException;
  */
 public class IOletTest {
     
+    
     public IOletTest() {
     }
     
@@ -39,19 +40,22 @@ public class IOletTest {
     @After
     public void tearDown() {
     }
+    
+        public class StationImpl extends Station {
+    }
 
     /**
      * Test of IsFree method, of class IOlet.
      */
     @Test
     public void testIsFree() {
+
         System.out.println("IsFree");
-        IOlet instance = null;
-        boolean expResult = false;
+        Station aStation = new StationImpl();
+        IOlet instance = new IOlet(aStation);
+        boolean expResult = true;
         boolean result = instance.IsFree();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -60,12 +64,11 @@ public class IOletTest {
     @Test
     public void testGetPosition() {
         System.out.println("getPosition");
-        IOlet instance = null;
-        Point2D.Float expResult = null;
+        Station aStation = new StationImpl();
+        IOlet instance = new IOlet(aStation);
+        Point2D.Float expResult = new Point2D.Float(0.5f, 0.5f);
         Point2D.Float result = instance.getPosition();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -82,30 +85,17 @@ public class IOletTest {
     }
 
     /**
-     * Test of setConveyor method, of class IOlet.
+     * Test of Get/Set Conveyor method, of class IOlet.
      */
     @Test
-    public void testSetConveyor() {
-        System.out.println("setConveyor");
-        Conveyor conveyor = null;
-        IOlet instance = null;
-        instance.setConveyor(conveyor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetSetConveyor() {
+        System.out.println("Get/Set Conveyor");
+        Station station1 = new StationImpl();
+        Station station2 = new StationImpl();
+     //   station1.
+  
+
     }
 
-    /**
-     * Test of getConveyor method, of class IOlet.
-     */
-    @Test
-    public void testGetConveyor() {
-        System.out.println("getConveyor");
-        IOlet instance = null;
-        Conveyor expResult = null;
-        Conveyor result = instance.getConveyor();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+
 }
