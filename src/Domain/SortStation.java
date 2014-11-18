@@ -14,39 +14,29 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class SortStation extends Station {
-	private Inlet _inlet;
-	private ArrayList<Outlet> _outletList;
-	private SortMatrix _sortMatrix;
-        private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
-        
-        private String _name;
-        private String _description;
-        private float _speedMax;
-        
-        private Image _img;
-        
-        private Boolean _selected; // la SortStation n'a pas à savoir ça
-        
-        public SortStation()
-        {
-            this._name = "";
-            this._description = "";
-            this._color = Color.RED;
-            this._speedMax = 0;
-            this._selected = false; 
-            this._img = null;
-            _outletList = new ArrayList<Outlet>();
-        }
+    private Inlet _inlet;
+    private ArrayList<Outlet> _outletList;
+    private SortMatrix _sortMatrix;
+    //private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
-        public void setExit(int nbExit) {
-            this._exit = new HashMap<Matter,Integer>();
-            
-            this._exit.put(new Matter("todo: change", 0), 100);
-            
-            for (int i = 1; i < nbExit; i++) {
-                this._exit.put(new Matter("todo: change", i), 0);
-            }
-        }
+    private String _name;
+    private String _description;
+    private float _speedMax;
+
+    private Image _img;
+
+    private Boolean _selected; // la SortStation n'a pas à savoir ça
+
+    public SortStation()
+    {
+        this._name = "";
+        this._description = "";
+        this._color = Color.RED;
+        this._speedMax = 0;
+        this._selected = false; 
+        this._img = null;
+        _outletList = new ArrayList<Outlet>();
+    }
 
     public String getName() {
         return _name;
@@ -64,15 +54,6 @@ public class SortStation extends Station {
         this._description = _description;
     }
 
-    public Map<Matter, Integer> getExit() {
-        return _exit;
-    }
-
-    public void setExit(Map<Matter, Integer> _exit) {
-        this._exit = _exit;
-    }
-
-    
     public float getKgHMax() {
         return _speedMax;
     }
@@ -105,7 +86,7 @@ public class SortStation extends Station {
         this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
       
-        public void addOutlet(Outlet outlet){
+    public void addOutlet(Outlet outlet){
         // add at the end of the list  
         _outletList.add(outlet);
     }
@@ -118,4 +99,26 @@ public class SortStation extends Station {
     public int getOutletCount(){
         return _outletList.size();
     }
+    
+    public void sortBasket(MatterBasket matterBasket) {
+        //todo
+    }
+    
+//        public void setExit(int nbExit) {
+//        this._exit = new HashMap<Matter,Integer>();
+//
+//        this._exit.put(new Matter("todo: change", 0), 100);
+//
+//        for (int i = 1; i < nbExit; i++) {
+//            this._exit.put(new Matter("todo: change", i), 0);
+//        }
+//    }
+//    
+//        public void setExit(Map<Matter, Integer> _exit) {
+//        this._exit = _exit;
+//    }
+//    
+//    public Map<Matter, Integer> getExit() {
+//        return _exit;
+//    }
 }
