@@ -27,13 +27,12 @@ public abstract class RectangularNode extends Node
     @Override
     public void setPosition(float x, float y)
     {
-        _rect.x = x - _rect.height / 2;
-        _rect.y = y - _rect.width / 2;
+        _rect.x = x;
+        _rect.y = y;
     }
     
     public void setPosition(Point2D.Float position) {
-        _rect.x = position.x - _rect.height / 2;
-        _rect.y = position.y - _rect.width / 2;
+        setPosition(position.x, position.y);
     }
     
     @Override

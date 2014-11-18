@@ -8,6 +8,7 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
+import Domain.Node;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
@@ -48,22 +49,29 @@ public class Controller {
             
             elements.add(_project.getSortCenter());
             
-            elements.addAll(_project.getSortCenter().getConveyors());
-            elements.addAll(_project.getSortCenter().getEntryPoints());
-            elements.addAll(_project.getSortCenter().getExitPoints());
+            elements.addAll(_project.getSortCenter().getJunctions());
             elements.addAll(_project.getSortCenter().getSortStation());
             elements.addAll(_project.getSortCenter().getTransStation());
-            elements.addAll(_project.getSortCenter().getJunctions());
+            elements.addAll(_project.getSortCenter().getExitPoints());
+            elements.addAll(_project.getSortCenter().getEntryPoints());
+            elements.addAll(_project.getSortCenter().getConveyors());
+            
             
             for (int i=elements.size()-1; i>-1; i--)
             {
-                if (elements.get(i).include(coords));
+                if (elements.get(i).include(coords))
                 {
                     _selectedElement = elements.get(i);
                     return;
                 }
             }
         }
+        
+        public boolean isFloorSelected()
+        {
+            return _project.getSortCenter().equals(_selectedElement);
+        }
+                
 
         public void showAboutUs() {
             AboutUs view = new AboutUs();
