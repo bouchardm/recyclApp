@@ -13,7 +13,7 @@ public abstract class Node extends Element
         public abstract Point2D.Float getPosition();
         public abstract Point2D.Float getCenter();
         public abstract void setPosition(float x, float y);
-        public abstract void setExit(int nbExit);
+        public abstract void setExit(int nbExit); // C'est quoi setExit()? Outlet? noeuds n'ont pas tous des Outlet (ExitPoint, Junction = 1 seul)
         
         
 }

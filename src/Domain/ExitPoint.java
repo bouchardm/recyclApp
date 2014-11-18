@@ -25,7 +25,8 @@ public class ExitPoint extends Station
     }
     
     @Override
-    public void setExit(int nbExit) {
+    public void setExit(int nbExit)
+    {
         this._exit = new ArrayList<Integer>();
     } 
     

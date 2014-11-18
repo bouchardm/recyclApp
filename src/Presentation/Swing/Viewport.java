@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
  public class Viewport extends JPanel implements Serializable
 {
-    private MainFrame mainFrame;
+    private MainFrame _mainFrame;
     private SortCenterDrawer _drawer;
     private float zoomFactor = 1f;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
@@ -46,7 +46,7 @@ import javax.swing.JPanel;
     
     public Viewport(MainFrame mainFrame)
     {
-        this.mainFrame = mainFrame;
+        this._mainFrame = mainFrame;
         _grid = new Grid();
         _showGrid = false;
         _snapToGrid = false;
@@ -75,14 +75,19 @@ import javax.swing.JPanel;
         return _grid.getOffset();
     }
     
+    public Point2D.Float snap(Point2D.Float point)
+    {
+        return _grid.snap(point);
+    }
+    
     
     @Override
     protected void paintComponent(Graphics g)
     {
-       if (mainFrame != null)
+       if (_mainFrame != null)
        {
            super.paintComponent(g);
-           _drawer = new SortCenterDrawer(mainFrame._recycleAppController, this);
+           _drawer = new SortCenterDrawer(_mainFrame._controller, this);
            _drawer.draw(g);
        }
     }
@@ -121,9 +126,9 @@ import javax.swing.JPanel;
             zoomFactor = 0.1f;
         }
         this.zoomFactor = zoomFactor;
-        if (mainFrame != null)
+        if (_mainFrame != null)
         {
-            Point2D.Float dim = mainFrame._recycleAppController.getSortCenterDimensions();
+            Point2D.Float dim = _mainFrame._controller.getSortCenterDimensions();
             dim.x = dim.x;
             dim.y = dim.y;
             int x = meterToPix(dim.x) + MARGIN * 2;
@@ -145,6 +150,11 @@ import javax.swing.JPanel;
         return _showGrid;
     }
     
+    public boolean isSnapToGrid()
+    {
+        return _snapToGrid;
+    }
+    
     public float pixToMeter(int pixels)
     {
         return (((float)(pixels - MARGIN * zoomFactor) / 50) / zoomFactor);
@@ -153,6 +163,34 @@ import javax.swing.JPanel;
     public int meterToPix(float meters)
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
+    }
+    
+    public void onMouseReleased(java.awt.event.MouseEvent evt)
+    {
+        switch (creationMode)
+        {
+            case NONE: // selection
+                Point2D.Float pos = new Point2D.Float();
+                pos.x = pixToMeter(evt.getX());
+                pos.y = pixToMeter(evt.getY());
+                _mainFrame._controller.selectElement(pos);
+                break;
+            case SORT_STATION:
+                break;
+            case TRANS_STATION:
+                break;
+            case JUNCTION:
+                break;
+            case CONVEYOR_1:
+                break;
+            case CONVEYOR_2:
+                break;
+        }
+    }
+    
+    private void selectFromPoint(Point2D.Float point)
+    {
+        
     }
     
     public Point2D.Float createPointInMeter (int pixelX, int pixelY) {
