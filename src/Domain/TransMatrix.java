@@ -103,10 +103,17 @@ public class TransMatrix {
         while(tmIter.hasNext()) {
             Map.Entry<Integer, HashMap<Integer, Float>> currentMatterEntry = tmIter.next();
             Integer currentMatterID = currentMatterEntry.getKey();
-            HashMap<Integer, Float>
-            
+            HashMap<Integer, Float> currentMatterTransMap = currentMatterEntry.getValue();
+            Iterator<Map.Entry<Integer, Float>> innerIter = currentMatterTransMap.entrySet().iterator();
+            HashMap<Integer, Float> copiedQuantities = new HashMap<>();
+            while(innerIter.hasNext()) {
+                Map.Entry<Integer, Float> innerEntry = innerIter.next();
+                Integer transMatterID = innerEntry.getKey();
+                Float transMatterQty = innerEntry.getValue();
+                copiedQuantities.put(transMatterID, transMatterQty);
+            }
+            copiedMatrix.put(currentMatterID, copiedQuantities);
         }
-        
         return copiedMatrix;
     }
     
