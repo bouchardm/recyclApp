@@ -10,7 +10,6 @@ import java.util.Map;
 public class TransMatrix {
     //l'attribut transformMatrix : HashMap<MatterID, <Array de qté par matière, dans le même ordre que le matterList utilisé pour le construire>>
     
-    private HashMap<Integer, ArrayList<Float>> _transformMatrix;
     private HashMap<Integer, HashMap<Integer, Float>> _transformMatrix;
         
     //constructeur sans paramètres
@@ -100,7 +99,14 @@ public class TransMatrix {
     //doit retourner une copie profonde de transMatrix
     public HashMap<Integer, HashMap<Integer, Float>> getTransMatrix() {
         HashMap<Integer, HashMap<Integer, Float>> copiedMatrix = new HashMap<>();
-        //todo
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+        while(tmIter.hasNext()) {
+            Map.Entry<Integer, HashMap<Integer, Float>> currentMatterEntry = tmIter.next();
+            Integer currentMatterID = currentMatterEntry.getKey();
+            HashMap<Integer, Float>
+            
+        }
+        
         return copiedMatrix;
     }
     
