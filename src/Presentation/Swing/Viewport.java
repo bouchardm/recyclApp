@@ -170,10 +170,10 @@ import javax.swing.JPanel;
         switch (creationMode)
         {
             case NONE: // selection
-                Point2D.Float pos = new Point2D.Float();
-                pos.x = pixToMeter(evt.getX());
-                pos.y = pixToMeter(evt.getY());
-                _mainFrame._controller.selectElement(pos);
+//                Point2D.Float pos = new Point2D.Float();
+//                pos.x = pixToMeter(evt.getX());
+//                pos.y = pixToMeter(evt.getY());
+//                _mainFrame._controller.selectElement(pos);
                 break;
             case SORT_STATION:
                 break;
