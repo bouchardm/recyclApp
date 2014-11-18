@@ -1,7 +1,11 @@
 package Domain;
 
-public class EntryPoint extends Station {
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
 
+public class EntryPoint extends RectangularNode
+{
     private Outlet _outlet;
     private MatterBasket _matterBasket;
    

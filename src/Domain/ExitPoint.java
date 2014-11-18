@@ -1,6 +1,6 @@
 package Domain;
 
-public class ExitPoint extends Station
+public class ExitPoint extends RectangularNode
 {
     private Inlet _inlet;
    // private position 
@@ -19,5 +19,4 @@ public class ExitPoint extends Station
     {
     _inlet = inlet;
     }
-    
 }

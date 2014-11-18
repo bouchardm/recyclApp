@@ -32,7 +32,7 @@ public class Junction extends Node {
        
         public void addInlet(Inlet aInlet)
         {
-            this._inletList.add(aInlet);
+            this._inletList.add(aInlet); // c'est Juncion qui devrait créer le nouvel Inlet
         }
         
         @Override
@@ -46,9 +46,4 @@ public class Junction extends Node {
         {
             return getPosition();
         }
-        
-        @Override
-        public void setExit(int nbExit) {
-            this._exit = new ArrayList<Integer>();
-        } 
 }
