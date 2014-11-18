@@ -10,11 +10,13 @@ import java.util.Map;
 public class TransMatrix {
     //l'attribut transformMatrix : HashMap<MatterID, <Array de qté par matière, dans le même ordre que le matterList utilisé pour le construire>>
     
+    private HashMap<Integer, ArrayList<Float>> _transformMatrix;
     private HashMap<Integer, HashMap<Integer, Float>> _transformMatrix;
         
     //constructeur sans paramètres
     public TransMatrix() {
         _transformMatrix = new HashMap<>();
+        
     }
     
     //constructeur avec paramètres
