@@ -100,9 +100,22 @@ public class SortStation extends Station {
         return _outletList.size();
     }
     
-    //le nombre de matières dans matterBasket et la matrice doivent être identiques
-    //le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
+    //precondition 1: le nombre de matières dans matterBasket et la matrice doivent être identiques
+    //precondition 2: le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
     public void sortMatterBasketToOutlets(MatterBasket matterBasket) {
+        //precondition 1
+        if (matterBasket.getQuantities().size()!=_sortMatrix.getMatterCount()) {
+            throw new IllegalArgumentException("Le nombre de matières dans la liste de matière et la matrice de tri ne concorde pas.");
+        }
+        //precondition2
+        HashMap<Integer, ArrayList<Float>> preconditionTest = _sortMatrix.getSortMatrix();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> ptIter = preconditionTest.entrySet().iterator();
+        while (ptIter.hasNext()) {
+            Map.Entry<Integer, ArrayList<Float>> currentTest = ptIter.next();
+            if(currentTest.getValue().size()!=_outletList.size()){
+                throw new IllegalArgumentException("La station n'a pas le même nombre de sorties que le nombre dans la matrice de tri.");
+            }
+        }
         //on va chercher la matrice de tri
         HashMap<Integer, ArrayList<Float>> sortMatrix = _sortMatrix.getSortMatrix();
         for(int i=0; i<this._outletList.size(); i++) {

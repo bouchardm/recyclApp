@@ -248,7 +248,7 @@ public class SortStationTest {
      * Test of sortMatterBasketToOutlets method, of class SortStation.
      */
     @Test
-    public void testSortMatterBasketToOutlets() {
+    public void testSortMatterBasketToOutlets_success() {
         //créer un matterBasket
         Matter mat1 = new Matter("chose1", 1);
         Matter mat2 = new Matter("chose2", 2);
@@ -298,6 +298,90 @@ public class SortStationTest {
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(1)==(float)10);
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(2)==(float)500);
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(3)==(float)75);
+    }
+    
+    /**
+     * Test of sortMatterBasketToOutlets method, of class SortStation.
+     * test fails : number of outlets in matrix and station is not the same
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testSortMatterBasketToOutlets_failure_notRightNumberOfOutlets() {
+        Matter mat1 = new Matter("chose1", 1);
+        Matter mat2 = new Matter("chose2", 2);
+        Matter mat3 = new Matter("chose3", 3);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(mat1.getID(), new Float(100));
+        mb.addMatterQuantity(mat2.getID(), new Float(1000));
+        mb.addMatterQuantity(mat3.getID(), new Float(500));
+        //créer une matrice de tri
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.4));
+        innerList.add(new Float(0.5));
+        innerList.add(new Float(0.1));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.3));
+        innerList2.add(new Float(0.2));
+        innerList2.add(new Float(0.5));
+        smatrix.put(2, innerList2);
+        ArrayList<Float> innerList3 = new ArrayList<>();
+        innerList3.add(new Float(0.2));
+        innerList3.add(new Float(0.65));
+        innerList3.add(new Float(0.15));
+        smatrix.put(3, innerList3);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        //créer une station
+        SortStation station = new SortStation();
+        //ajouter des outlets (3)
+        Outlet o1 = new Outlet(station);
+        Outlet o2 = new Outlet(station);
+        station.addOutlet(o1);
+        station.addOutlet(o2);
+        //effectuer le sort
+        station.setSortMatrix(sorter);
+        station.sortMatterBasketToOutlets(mb);
+    }
+    
+     /**
+     * Test of sortMatterBasketToOutlets method, of class SortStation.
+     * test fails : number of outlets in matrix and station is not the same
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testSortMatterBasketToOutlets_failure_notRightNumberOfMatter() {
+        Matter mat1 = new Matter("chose1", 1);
+        Matter mat2 = new Matter("chose2", 2);
+        Matter mat3 = new Matter("chose3", 3);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(mat1.getID(), new Float(100));
+        mb.addMatterQuantity(mat2.getID(), new Float(1000));
+        mb.addMatterQuantity(mat3.getID(), new Float(500));
+        //créer une matrice de tri
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.4));
+        innerList.add(new Float(0.5));
+        innerList.add(new Float(0.1));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.3));
+        innerList2.add(new Float(0.2));
+        innerList2.add(new Float(0.5));
+        smatrix.put(2, innerList2);
+        //on ajoute juste 2 matières à la matrice même s'il y en a 3 dans le panier
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        //créer une station
+        SortStation station = new SortStation();
+        //ajouter des outlets (3)
+        Outlet o1 = new Outlet(station);
+        Outlet o2 = new Outlet(station);
+        station.addOutlet(o1);
+        station.addOutlet(o2);
+        //effectuer le sort
+        station.setSortMatrix(sorter);
+        station.sortMatterBasketToOutlets(mb);
     }
 
     /**
