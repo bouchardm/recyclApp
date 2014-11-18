@@ -23,6 +23,8 @@ public class SortStation extends Station {
         private String _description;
         private float _speedMax;
         
+        private Image _img;
+        
         private Boolean _selected; // la SortStation n'a pas à savoir ça
         
         public SortStation()
@@ -33,9 +35,9 @@ public class SortStation extends Station {
             this._speedMax = 0;
             this._selected = false; 
             this._img = null;
+            _outletList = new ArrayList<Outlet>();
         }
 
-        @Override
         public void setExit(int nbExit) {
             this._exit = new HashMap<Matter,Integer>();
             
