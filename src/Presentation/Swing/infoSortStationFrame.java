@@ -41,7 +41,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this.setStationName(sortStation.getName());
         this.setStationDescription(sortStation.getDescription());
         this.setStationKgHMax(sortStation.getKgHMax());
-        this.setStationNbExit(sortStation.getExit().size());
+        this.setStationNbExit(sortStation.getOutletList().size());
         
         this._parent = parent;
         this._sortStationList = sortStationList;
@@ -271,7 +271,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         try {
             nbExit = Integer.parseInt(strNbExit);            
         } catch (NumberFormatException e) {
-            nbExit = this._sortStation.getExit().size();
+            nbExit = this._sortStation.getOutletList().size();
         }
         
         this._sortStation.setExit(nbExit);
