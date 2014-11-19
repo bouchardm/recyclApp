@@ -26,11 +26,11 @@ public class TransStation extends Station {
     //transforme le contenu du matterBasket
     //precondition 1: il doit y avoir autant de matière dans le matterBasket que dans la transMatrix
     //precondition 2: chaque matiere doit avoir une quantité de transformation pour chaque matiere du matterBasket
-    public void transformMatterBasket(MatterBasket matterBasket) {
+    public void processMatterBasket(MatterBasket matterBasket) {
         //tester precondition 1
-        //todo
-        //tester precondition 2
-        //todo
+        if(matterBasket.getNumberOfMatterInBasket()!=this._transformMatrix.getMatterCount()) {
+            throw new IllegalArgumentException("La quantité de matières dans le panier et dans la matrice n'est pas pareil.");
+        }
         //on va chercher une copie de la matrice de transformation
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = _transformMatrix.getTransMatrix();
         Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = transMatrix.entrySet().iterator();
@@ -40,6 +40,7 @@ public class TransStation extends Station {
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
             int currentMatterId = currentEntry.getKey();
             HashMap<Integer, Float> currentMatterTransQuantities = currentEntry.getValue();
+            //tester precondition 2
             //on essaie le traitement suivant. on attrapera les erreurs si une matière  de la matrice
             //n'est pas dans le basket
             try {

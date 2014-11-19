@@ -153,29 +153,29 @@ public class SortStationTest {
     /**
      * Test of isSelected method, of class SortStation.
      */
-    @Test
-    public void testIsSelected() {
-        System.out.println("isSelected");
-        SortStation instance = new SortStation();
-        Boolean expResult = null;
-        Boolean result = instance.isSelected();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setSelected method, of class SortStation.
-     */
-    @Test
-    public void testSetSelected() {
-        System.out.println("setSelected");
-        Boolean _selected = null;
-        SortStation instance = new SortStation();
-        instance.setSelected(_selected);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testIsSelected() {
+//        System.out.println("isSelected");
+//        SortStation instance = new SortStation();
+//        Boolean expResult = null;
+//        Boolean result = instance.isSelected();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of setSelected method, of class SortStation.
+//     */
+//    @Test
+//    public void testSetSelected() {
+//        System.out.println("setSelected");
+//        Boolean _selected = null;
+//        SortStation instance = new SortStation();
+//        instance.setSelected(_selected);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of getImg method, of class SortStation.
@@ -249,6 +249,7 @@ public class SortStationTest {
      */
     @Test
     public void testSortMatterBasketToOutlets_success() {
+        System.out.println("processMatterBasket_success");
         //créer un matterBasket
         Matter mat1 = new Matter("chose1", 1);
         Matter mat2 = new Matter("chose2", 2);
@@ -287,7 +288,12 @@ public class SortStationTest {
         station.addOutlet(o3);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        ///tests de tests
+        System.out.println("# outlets: "+station.getOutletCount());
+        System.out.println("# matters: "+mb.getNumberOfMatterInBasket());
+        ////
+        station.processMatterBasket(mb);
+        
         //assert que c'est le résultat attendu
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(1)==(float)40);
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(2)==(float)300);
@@ -341,7 +347,7 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        station.processMatterBasket(mb);
     }
     
      /**
@@ -381,7 +387,7 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        station.processMatterBasket(mb);
     }
 
     /**
