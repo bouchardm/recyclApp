@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -20,7 +21,7 @@ public abstract class Station extends RectangularNode
     protected Image _img;
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
-    protected SortMatrix _sortMatrix;
+    private SortMatrix _sortMatrix;
     private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
     private String _name;
@@ -41,7 +42,44 @@ public abstract class Station extends RectangularNode
         _sortMatrix = new SortMatrix();
     }
     
-    protected abstract void processMatterBasket(MatterBasket matterBasket);
+    //precondition 1: le nombre de matières dans matterBasket et la matrice doivent être identiques
+    //precondition 2: le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
+    public void sortMatterBasket(MatterBasket matterBasket) {
+        //precondition 1
+        if (matterBasket.getQuantities().size()!=this.getSortMatrix().getMatterCount()) {
+            throw new IllegalArgumentException("Le nombre de matières dans la liste de matière et la matrice de tri ne concorde pas.");
+        }
+        //precondition2
+        HashMap<Integer, ArrayList<Float>> preconditionTest = this.getSortMatrix().getSortMatrix();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> ptIter = preconditionTest.entrySet().iterator();
+        while (ptIter.hasNext()) {
+            Map.Entry<Integer, ArrayList<Float>> currentTest = ptIter.next();
+            if(currentTest.getValue().size()!=this.getOutletList().size()){
+                throw new IllegalArgumentException("La station n'a pas le même nombre de sorties que le nombre dans la matrice de tri.");
+            }
+        }
+        //on va chercher la matrice de tri
+        HashMap<Integer, ArrayList<Float>> sortMatrix = this.getSortMatrix().getSortMatrix();
+        for(int i=0; i<this.getOutletList().size(); i++) {
+            //créer un nouveau basket pour la sortie en question
+            MatterBasket sortedBasketForOutlet = new MatterBasket();
+            //extraire de matterBasket les matières à traiter
+            HashMap<Integer, Float> basketQuantities = matterBasket.getQuantities();
+            Iterator<Map.Entry<Integer, Float>> basketIter = basketQuantities.entrySet().iterator();
+            //on itère dans le basket. 
+            while(basketIter.hasNext()) {
+                Map.Entry<Integer, Float> currentEntry = basketIter.next();
+                //la nouvelle quantité de matière pour le nouveau matterBasket = % dans la matrice * la quantité dans le panier
+               
+                int currentMatterID = currentEntry.getKey();
+                float percentageForOutlet = sortMatrix.get(currentMatterID).get(i);
+                float newQtyForMatterBasket = matterBasket.getMatterQuantity(currentEntry.getKey()) * percentageForOutlet;
+                sortedBasketForOutlet.addMatterQuantity(currentMatterID, newQtyForMatterBasket);
+            }
+            //setMatterBasket de la sortie
+            this.getOutletList().get(i).setMatterBasket(sortedBasketForOutlet);  
+        }
+    }
     
     
     public void setSortMatrix(SortMatrix sorter) {

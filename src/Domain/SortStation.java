@@ -94,52 +94,6 @@ public class SortStation extends Station {
 //        return _outletList.size();
 //    }
     
-    //precondition 1: le nombre de matières dans matterBasket et la matrice doivent être identiques
-    //precondition 2: le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
-    @Override
-    public void processMatterBasket(MatterBasket matterBasket) {
-        //precondition 1
-        if (matterBasket.getQuantities().size()!=this.getSortMatrix().getMatterCount()) {
-            System.out.println("MBqty = "+matterBasket.getQuantities().size());
-            System.out.println("SMqty = "+this.getSortMatrix().getMatterCount());
-            throw new IllegalArgumentException("Le nombre de matières dans la liste de matière et la matrice de tri ne concorde pas.");
-        }
-        //precondition2
-        HashMap<Integer, ArrayList<Float>> preconditionTest = this.getSortMatrix().getSortMatrix();
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> ptIter = preconditionTest.entrySet().iterator();
-        while (ptIter.hasNext()) {
-            Map.Entry<Integer, ArrayList<Float>> currentTest = ptIter.next();
-            if(currentTest.getValue().size()!=this.getOutletList().size()){
-                throw new IllegalArgumentException("La station n'a pas le même nombre de sorties que le nombre dans la matrice de tri.");
-            }
-        }
-        //on va chercher la matrice de tri
-        HashMap<Integer, ArrayList<Float>> sortMatrix = this.getSortMatrix().getSortMatrix();
-        for(int i=0; i<this.getOutletList().size(); i++) {
-            //créer un nouveau basket pour la sortie en question
-            MatterBasket sortedBasketForOutlet = new MatterBasket();
-            //extraire de matterBasket les matières à traiter
-            HashMap<Integer, Float> basketQuantities = matterBasket.getQuantities();
-            Iterator<Map.Entry<Integer, Float>> basketIter = basketQuantities.entrySet().iterator();
-            //on itère dans le basket. 
-            while(basketIter.hasNext()) {
-                Map.Entry<Integer, Float> currentEntry = basketIter.next();
-                //la nouvelle quantité de matière pour le nouveau matterBasket = % dans la matrice * la quantité dans le panier
-               
-                int currentMatterID = currentEntry.getKey();
-                float percentageForOutlet = sortMatrix.get(currentMatterID).get(i);
-                float newQtyForMatterBasket = matterBasket.getMatterQuantity(currentEntry.getKey()) * percentageForOutlet;
-                sortedBasketForOutlet.addMatterQuantity(currentMatterID, newQtyForMatterBasket);
-            }
-            //setMatterBasket de la sortie
-            this.getOutletList().get(i).setMatterBasket(sortedBasketForOutlet);  
-        }
-    }
-    
-
-    
-
-    
 //    //ATTENTION: on ne devrait pas tenter de "setter" le nombre de outlets
 //    //en tant que tel. On devrait plutôt ajouter ou retirer de la liste les
 //    //outlets concernés
