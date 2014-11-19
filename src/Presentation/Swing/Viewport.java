@@ -157,62 +157,6 @@ import javax.swing.JPanel;
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
     
-//    public void onMousePressed(java.awt.event.MouseEvent evt)
-//    {
-//        Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
-//        _mainFrame.cleanInformationPanel();
-//        _mainFrame._controller.selectElement(position);
-//        
-//        
-//        SortStation sortStation = _mainFrame._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
-//        
-////        _mainFrame._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
-//        
-//        if (sortStation != null) {
-////            sortStation.setSelected(true);
-//            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-//                sortStation, 
-//                _mainFrame._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
-//                _mainFrame
-//            );
-//            
-//            JPanel sortStationPanel = infoSortStationFrame.getPanel();
-//
-////            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-////            _mainFrame.panelInformation.add(sortStationPanel);
-//        }
-//        
-//        repaint();
-//    }
-    
-//    public void onMouseReleased(java.awt.event.MouseEvent evt)
-//    {
-//        switch (creationMode)
-//        {
-//            case NONE:
-//                break;
-//            case SORT_STATION:
-//                Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
-//                if (isSnapToGrid())
-//                {
-//                    position = snap(position);
-//                }
-//                _mainFrame._controller.AddStation(position);
-//
-//                repaint();
-//                creationMode = CREATION_MODES.NONE;
-//                break;
-//            case TRANS_STATION:
-//                break;
-//            case JUNCTION:
-//                break;
-//            case CONVEYOR_1:
-//                break;
-//            case CONVEYOR_2:
-//                break;
-//        }
-//    }
-    
     private void selectFromPoint(Point2D.Float point)
     {
         

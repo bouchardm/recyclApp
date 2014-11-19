@@ -552,21 +552,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-//        viewport.onMouseReleased(evt);
-//        if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
-//            Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-//            if (viewport.isSnapToGrid())
-//            {
-//                position = viewport.snap(position);
-//            }
-//            this._controller.AddStation(position);
-//            
-//            this.viewport.repaint();
-//            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-//            btnAddStation.setSelected(false);
-//        }
-//        
-//        this._sortStationSelected = null;
         switch (viewport.getCreationMode())
         {
             case NONE:
@@ -620,8 +605,6 @@ public class MainFrame extends javax.swing.JFrame {
 
             this.viewport.repaint();
         }
-        
-        
     }//GEN-LAST:event_viewportMouseDragged
 
     private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
@@ -630,7 +613,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStationMouseClicked
 
     private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
-//        viewport.onMousePressed(evt);
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         cleanInformationPanel();
         _controller.selectElement(position);
