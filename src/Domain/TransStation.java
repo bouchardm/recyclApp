@@ -23,10 +23,13 @@ public class TransStation extends Station {
         _transformMatrix = new TransMatrix();
     }
     
-    //transforme le contenu du matterBasket
+    //transforme le contenu du matterBasket et appel ensuite la méthode SortMatterBasket pour le trier aux outlets
     //precondition 1: il doit y avoir autant de matière dans le matterBasket que dans la transMatrix
     //precondition 2: chaque matiere doit avoir une quantité de transformation pour chaque matiere du matterBasket
-    public void processMatterBasket(MatterBasket matterBasket) {
+    public void transformMatterBasket(MatterBasket matterBasket) {
+        System.out.println("MB 1 : "+matterBasket.getQuantities().containsKey(1));
+        System.out.println("MB 2 : "+matterBasket.getQuantities().containsKey(2));
+        System.out.println("MB 3 : "+matterBasket.getQuantities().containsKey(3));
         //tester precondition 1
         if(matterBasket.getNumberOfMatterInBasket()!=this._transformMatrix.getMatterCount()) {
             throw new IllegalArgumentException("La quantité de matières dans le panier et dans la matrice n'est pas pareil.");
@@ -40,34 +43,49 @@ public class TransStation extends Station {
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
             int currentMatterId = currentEntry.getKey();
             HashMap<Integer, Float> currentMatterTransQuantities = currentEntry.getValue();
-            //tester precondition 2
-            //on essaie le traitement suivant. on attrapera les erreurs si une matière  de la matrice
-            //n'est pas dans le basket
-            try {
-                //on doit trouver les pourcentage de transformation par matière.
-                //dans newQuantities, on mettra à chaque itération les nouvelles quantités de chaque matière
-                //une vérif (if) doit être faite
-                if(newQuantities.containsKey(currentMatterId)) {
-                    //si matterID est in newQuantities, on fait l'addition et on mets la nouvelle valeur
-                    float interimQty = newQuantities.get(currentMatterId);
-                    float newMatterQty = interimQty + currentMatterTransQuantities.get(currentMatterId)*matterBasket.getMatterQuantity(currentMatterId);
-                    newQuantities.remove(currentMatterId);
-                    newQuantities.put(currentMatterId, newMatterQty);
+            Iterator<Map.Entry<Integer, Float>> innerIter = currentMatterTransQuantities.entrySet().iterator();
+            while(innerIter.hasNext()) {
+                Map.Entry<Integer, Float> innerEntry = innerIter.next();
+                int transformToMatterID = innerEntry.getKey();
+                float transformQtyFactor = innerEntry.getValue();
+                //tester precondition 2
+                //on essaie le traitement suivant. on attrapera les erreurs si une matière  de la matrice
+                //n'est pas dans le basket
+                try {
+                    //on doit trouver les pourcentage de transformation par matière.
+                    //dans newQuantities, on mettra à chaque itération les nouvelles quantités de chaque matière
+                    //une vérif (if) doit être faite
+                    if(newQuantities.containsKey(transformToMatterID)) {
+                        //si matterID est in newQuantities, on fait l'addition et on mets la nouvelle valeur
+                        float interimQty = newQuantities.get(transformToMatterID);
+                        float newMatterQty = interimQty + (transformQtyFactor*matterBasket.getMatterQuantity(currentMatterId));
+                        newQuantities.remove(transformToMatterID);
+                        newQuantities.put(transformToMatterID, newMatterQty);
+                    }
+                    else {
+                        //sinon, on fait l'ajout tout simplement
+                        System.out.println("here1");
+                        float newMatterQty = transformQtyFactor*matterBasket.getMatterQuantity(currentMatterId);
+                        System.out.println("here2");
+                        newQuantities.put(transformToMatterID, newMatterQty);
+                    }                
                 }
-                else {
-                    //sinon, on fait l'ajout tout simplement
-                    float newMatterQty = currentMatterTransQuantities.get(currentMatterId)*matterBasket.getMatterQuantity(currentMatterId);
-                    newQuantities.put(currentMatterId, newMatterQty);
-                }                
+                catch (IllegalArgumentException e) {
+                    System.out.println("Matrix id : "+currentMatterId);
+                    System.out.println("MB id : "+matterBasket.getQuantities().containsKey(3));
+                    throw new IllegalArgumentException("Une matière de la matrice de transformation n'est "
+                            + "pas présente dans le panier de matières.");
+                }
             }
-            catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Une matière de la matrice de transformation n'est "
-                        + "pas présente dans le panier de matières.");
-            }
-            //on change les quantités du matterBasket pour réfléter les nouvelles quantités
-            matterBasket.setQuantities(newQuantities);
+                    
+                    
             
+            //on change les quantités du matterBasket pour réfléter les nouvelles quantités
+            System.out.println("MB: "+matterBasket.getNumberOfMatterInBasket());
+            System.out.println("NQ: "+newQuantities.size());
         }
+        matterBasket.setQuantities(newQuantities);
+        this.sortMatterBasket(matterBasket);
     }
         
 }
