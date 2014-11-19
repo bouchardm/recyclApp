@@ -17,6 +17,32 @@ public class Station extends RectangularNode
     public void setExit(int nbExit) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void setAttribute(String attribName, Object value)
+    {
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
+        
+    }
+
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
 
     
     

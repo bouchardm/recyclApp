@@ -71,5 +71,15 @@ public class Conveyor extends Element
             updatePoints();
             return (Point2D.Float)_line.getP2();
         }
+
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
 }

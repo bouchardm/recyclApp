@@ -5,16 +5,21 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Iterator;
+public class TransStation extends Station {
+	private Object _transformationMatrix;
+	public TransMatrix _transMatrix;
+	public TransMatrix _transMatrix2;
+	public TransMatrix _transMatrix3;
 
-public class TransStation extends SortStation {
-	private TransMatrix _transformMatrix;
-        private Inlet _inlet;
-        private ArrayList<Outlet> _outletList;
-        private SortMatrix _sortMatrix;
-        private String _name;
-        private String _description;
-        private float _speedMax;
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     private Image _img;
         

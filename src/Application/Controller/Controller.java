@@ -8,6 +8,7 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
+import Domain.Node;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
@@ -16,6 +17,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
@@ -23,7 +25,6 @@ public class Controller {
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
@@ -40,27 +41,65 @@ public class Controller {
             _selectedElement = null;
         }
         
+        public boolean selectedElementIsFloor()
+        {
+            return _selectedElement.equals(_project.getSortCenter());
+        }
+        
         public void selectElement(Point2D.Float coords)
         {
+            _selectedElement = null;
+            
             List<Element> elements = new ArrayList<Element>();
             
             elements.add(_project.getSortCenter());
             
-            _selectedElement = null;
+            elements.addAll(_project.getSortCenter().getJunctions());
+            elements.addAll(_project.getSortCenter().getSortStation());
+            elements.addAll(_project.getSortCenter().getTransStation());
+            elements.addAll(_project.getSortCenter().getExitPoints());
+            elements.addAll(_project.getSortCenter().getEntryPoints());
+            elements.addAll(_project.getSortCenter().getConveyors());
             
-            if (elements.size() != 0)
+            
+            for (int i=elements.size()-1; i>-1; i--)
             {
-                _selectedElement = elements.get(elements.size()-1);
+                if (elements.get(i).include(coords))
+                {
+                    _selectedElement = elements.get(i);
+                    return;
+                }
             }
         }
+        
+        public boolean isFloorSelected()
+        {
+            return _project.getSortCenter().equals(_selectedElement);
+        }
+                
 
         public void showAboutUs() {
             AboutUs view = new AboutUs();
             view.setVisible(true);
         }
+        
+        public boolean selectedElementIs(Element element)
+        {
+            return _selectedElement != null && _selectedElement.equals(element);
+        }
+        
+        public void setSelectedElementAttribute(String attribName, Object value)
+        {
+            _selectedElement.setAttribute(attribName, value);
+        }
 
 
         // ************ SortCenter ***************
+        
+        public Map<String, Object> getElementAttributes()
+        {
+            return null;
+        }
 
         public Point2D.Float getSortCenterDimensions()
         {
@@ -143,7 +182,9 @@ public class Controller {
                 return;
             }
             
-            this._project.getSortCenter().addSortStation(position, value);
+            _selectedElement = this._project.getSortCenter().addSortStation();
+            ((SortStation)_selectedElement).setExit(value);
+            ((SortStation)_selectedElement).setPosition(position);
 	}
         
         public void MouveStation(SortStation sortStation, Point2D.Float position) {

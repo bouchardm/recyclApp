@@ -6,6 +6,7 @@
 
 package Presentation.Swing;
 
+import Domain.SortStation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -55,7 +56,8 @@ import javax.swing.JPanel;
     
     private void config()
     {
-        setBackground(Color.GRAY);
+        int level = 215;
+        setBackground(new Color(level, level, level));
         setZoomFactor(1.0f);
     }
     
@@ -103,21 +105,11 @@ import javax.swing.JPanel;
         _snapToGrid = snapToGrid;
     }
     
-    public void display() {
-        repaint();
-    }
-    
     public void setShowGrid(boolean showGrid)
     {
         this._showGrid = showGrid;
     }
     
-    
-//    public void toggleDisplayGrid()
-//    {
-//        showGrid = !showGrid;
-//        repaint();
-//    }
     
     public void setZoomFactor(float zoomFactor)
     {
@@ -163,29 +155,6 @@ import javax.swing.JPanel;
     public int meterToPix(float meters)
     {
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
-    }
-    
-    public void onMouseReleased(java.awt.event.MouseEvent evt)
-    {
-        switch (creationMode)
-        {
-            case NONE: // selection
-//                Point2D.Float pos = new Point2D.Float();
-//                pos.x = pixToMeter(evt.getX());
-//                pos.y = pixToMeter(evt.getY());
-//                _mainFrame._controller.selectElement(pos);
-                break;
-            case SORT_STATION:
-                break;
-            case TRANS_STATION:
-                break;
-            case JUNCTION:
-                break;
-            case CONVEYOR_1:
-                break;
-            case CONVEYOR_2:
-                break;
-        }
     }
     
     private void selectFromPoint(Point2D.Float point)
