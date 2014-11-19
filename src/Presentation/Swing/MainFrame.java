@@ -566,6 +566,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 repaint();
                 viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                btnAddStation.setSelected(false);
                 break;
             case TRANS_STATION:
                 break;
