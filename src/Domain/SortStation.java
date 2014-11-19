@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SortStation extends Station {
+public class SortStation extends RectangularNode {
 	private Inlet _inlet;
 	private ArrayList<Outlet> _outletList;
 	private SortMatrix _sortMatrix;
@@ -111,5 +111,21 @@ public class SortStation extends Station {
     
     public int getOutletCount(){
         return _outletList.size();
+    }
+
+    @Override
+    public void setAttribute(String attribName, Object value)
+    {
+        switch (attribName)
+        {
+            case "position":
+                setPosition((Point2D.Float)value);
+                break;
+        }
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

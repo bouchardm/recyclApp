@@ -48,12 +48,17 @@ public abstract class RectangularNode extends Node
         return _rect.contains(point);
     }
     
-    @Override
     public Point2D.Float getCenter()
     {
         Point2D.Float center = new Point2D.Float(
                 (float)_rect.getCenterX(),(float)_rect.getCenterY());
         return center;
+    }
+    
+    public void setCenter(Point2D.Float center)
+    {
+        _rect.x = center.x - (_rect.width / 2);
+        _rect.y = center.y - (_rect.height / 2);
     }
     
     public void setDimensions(float height, float width)

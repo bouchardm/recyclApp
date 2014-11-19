@@ -39,11 +39,12 @@ public class SortCenter extends Element
         dimensions = new Point2D.Float(15f, 10f);
     }
     
-    public void addSortStation(Point2D.Float aPosition, Integer exit) {
+    public SortStation addSortStation() {
         SortStation station = new SortStation();
-        station.setPosition(aPosition);
-        station.setExit(exit);
+//        station.setPosition(aPosition);
+//        station.setExit(exit);
         this._sortStationList.add(station);
+        return station;
     }
     
     public ArrayList getEntryPoints()
@@ -154,5 +155,15 @@ public class SortCenter extends Element
             next.setSelected(false);
         }
         
+    }
+
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
