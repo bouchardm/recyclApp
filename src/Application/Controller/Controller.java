@@ -55,8 +55,8 @@ public class Controller {
             elements.add(_project.getSortCenter());
             
             elements.addAll(_project.getSortCenter().getJunctions());
-            elements.addAll(_project.getSortCenter().getSortStation());
-            elements.addAll(_project.getSortCenter().getTransStation());
+            elements.addAll(_project.getSortCenter().getStations());
+//            elements.addAll(_project.getSortCenter().getTransStation());
             elements.addAll(_project.getSortCenter().getExitPoints());
             elements.addAll(_project.getSortCenter().getEntryPoints());
             elements.addAll(_project.getSortCenter().getConveyors());

@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 public class TransStation extends Station {
-	private Object _transformationMatrix;
-	public TransMatrix _transMatrix;
-	public TransMatrix _transMatrix2;
-	public TransMatrix _transMatrix3;
+	private TransMatrix _transformMatrix;
+	
 
     @Override
     public void setAttribute(String attribName, Object value) {
@@ -24,13 +23,7 @@ public class TransStation extends Station {
     private Image _img;
         
     public TransStation() {
-        this._name = "";
-        this._description = "";
-        this._color = Color.RED;
-        this._speedMax = 0;
-        this._img = null;
-        _outletList = new ArrayList<>();
-        _sortMatrix = new SortMatrix();
+        super();
         _transformMatrix = new TransMatrix();
     }
     
