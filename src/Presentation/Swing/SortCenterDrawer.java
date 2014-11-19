@@ -27,13 +27,15 @@ import javax.imageio.ImageIO;
  */
 public class SortCenterDrawer
 {
-    private Controller _recyclAppController;
+    private Controller _controller;
     private Viewport _viewport;
+    private Color _selectedContourColor;
 
     public SortCenterDrawer(Controller controller, Viewport viewport)
     {
-        this._recyclAppController = controller;
+        this._controller = controller;
         this._viewport = viewport;
+        _selectedContourColor = Color.MAGENTA;
     }
     
     public void draw(Graphics g)
@@ -51,9 +53,9 @@ public class SortCenterDrawer
     
     private void drawFloor(Graphics g)
     {
-        if (_recyclAppController != null)
+        if (_controller != null)
         {
-            Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+            Point2D.Float dim = _controller.getSortCenterDimensions();
             float zoomFactor = _viewport.getZoomFactor();
             int margin = (int)(_viewport.MARGIN * zoomFactor);
             int level = 240;
@@ -61,14 +63,19 @@ public class SortCenterDrawer
             int height = (int)(dim.y * 50 * zoomFactor);
             g.setColor(new Color(level, level, level));
             g.fillRect(margin, margin, width, height);
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.drawRect(margin, margin, width, height);
+            if (_controller.isFloorSelected())
+            {
+                g.setColor(_selectedContourColor);
+                g.drawRect(margin, margin, width, height);
+            }
         }
     }
     
     private void drawGrid(Graphics g)
     {
-        Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+        Point2D.Float dim = _controller.getSortCenterDimensions();
         
         Point2D.Float gridDim = _viewport.getGridDimensions();
         Point2D.Float gridOffset = _viewport.getGridOffset();
@@ -100,7 +107,7 @@ public class SortCenterDrawer
     
     private void drawStations(Graphics g)
     {
-        ArrayList sortStationList = this._recyclAppController.getProject().getSortCenter().getSortStationList();
+        ArrayList sortStationList = this._controller.getProject().getSortCenter().getSortStationList();
         for (int i = sortStationList.size() - 1; i >= 0; i--) {
             this.drawStation(g, (SortStation) sortStationList.get(i));
         }
@@ -117,8 +124,9 @@ public class SortCenterDrawer
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
 
         // Dessin de la stations
-        if (station.isSelected()) {
-            g.setColor(Color.black);
+        if (_controller.selectedElementIs(station))
+        {
+            g.setColor(_selectedContourColor);
             g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
         }
 

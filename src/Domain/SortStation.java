@@ -61,21 +61,12 @@ public class SortStation extends Station {
     public void setKgHMax(float _kgHMax) {
         this._speedMax = _kgHMax;
     }
-
     public Color getColor() {
         return _color;
     }
 
     public void setColor(Color _color) {
         this._color = _color;
-    }
-    
-    public Boolean isSelected() {
-        return _selected;
-    }
-
-    public void setSelected(Boolean _selected) {
-        this._selected = _selected;
     }
     
     public Image getImg() {
@@ -96,7 +87,8 @@ public class SortStation extends Station {
     _outletList.remove(index);
     }
     
-    public int getOutletCount(){
+    public int getOutletCount()
+    {
         return _outletList.size();
     }
     
@@ -168,5 +160,29 @@ public class SortStation extends Station {
     
     public ArrayList<Outlet> getOutletList() {
         return _outletList;
+    }
+    
+    
+    @Override
+    public void setAttribute(String attribName, Object value)
+    {
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
+        
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

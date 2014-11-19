@@ -320,8 +320,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
         viewport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewportMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                viewportMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 viewportMouseReleased(evt);
@@ -445,7 +445,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -454,7 +454,7 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+            .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -552,20 +552,30 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-        if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
-            Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-            if (viewport.isSnapToGrid())
-            {
-                position = viewport.snap(position);
-            }
-            this._controller.AddStation(position);
-            
-            this.viewport.display();
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-            btnAddStation.setSelected(false);
+        switch (viewport.getCreationMode())
+        {
+            case NONE:
+                break;
+            case SORT_STATION:
+                Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+                if (viewport.isSnapToGrid())
+                {
+                    position = viewport.snap(position);
+                }
+                _controller.AddStation(position);
+
+                repaint();
+                viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                break;
+            case TRANS_STATION:
+                break;
+            case JUNCTION:
+                break;
+            case CONVEYOR_1:
+                break;
+            case CONVEYOR_2:
+                break;
         }
-        
-        this._sortStationSelected = null;
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -585,18 +595,16 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
         
-        if (viewport.isSnapToGrid())
+        if (!_controller.selectedElementIsFloor())
         {
-            position = viewport.snap(position);
+            if (viewport.isSnapToGrid())
+            {
+                position = viewport.snap(position);
+            }
+            _controller.setSelectedElementAttribute("position", position);
+
+            this.viewport.repaint();
         }
-        
-        if  (_sortStationSelected == null) {
-            this._sortStationSelected = this._controller.getProject().getSortCenter().getSortStationCursorIn(position);
-        } else {
-            this._controller.MouveStation(this._sortStationSelected, position);
-        }
-        
-        this.viewport.display();
     }//GEN-LAST:event_viewportMouseDragged
 
     private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
@@ -604,31 +612,41 @@ public class MainFrame extends javax.swing.JFrame {
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddStationMouseClicked
 
-    private void viewportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseClicked
-        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        this.cleanInformationPanel();
+    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
+        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        cleanInformationPanel();
+        _controller.selectElement(position);
         
-        SortStation sortStation = this._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
         
-        this._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
+        SortStation sortStation = _controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
+        
         
         if (sortStation != null) {
-            sortStation.setSelected(true);
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
                 sortStation, 
-                this._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+                _controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
                 this
             );
             
             JPanel sortStationPanel = infoSortStationFrame.getPanel();
 
             sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            this.panelInformation.add(sortStationPanel);
+            panelInformation.add(sortStationPanel);
         }
         
         repaint();
-    }//GEN-LAST:event_viewportMouseClicked
+    }//GEN-LAST:event_viewportMousePressed
 
+    @Override
+    public void repaint()
+    {
+        super.repaint();
+    }
+    
+    private void displayPanel()
+    {
+        
+    }
     
     /**
      * @param args the command line arguments
