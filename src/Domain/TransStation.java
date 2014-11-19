@@ -10,17 +10,13 @@ public class TransStation extends Station {
 	private TransMatrix _transformMatrix;
 	
 
-    @Override
-    public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setTransformMatrix(TransMatrix newTransMatrix) {
+        _transformMatrix = newTransMatrix;
     }
 
-    @Override
-    public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public TransMatrix getTransMatrix() {
+        return _transformMatrix;
     }
-
-    private Image _img;
         
     public TransStation() {
         super();
