@@ -80,16 +80,6 @@ public class SortStation extends Station {
     public void setKgHMax(float _kgHMax) {
         this._speedMax = _kgHMax;
     }
-
-    
-    
-    public Boolean isSelected() {
-        return _selected;
-    }
-
-    public void setSelected(Boolean _selected) {
-        this._selected = _selected;
-    }
     
     public Image getImg() {
         return _img;
@@ -118,12 +108,19 @@ public class SortStation extends Station {
     @Override
     public void setAttribute(String attribName, Object value)
     {
-        switch (attribName)
+        try
         {
-            case "position":
-                setPosition((Point2D.Float)value);
-                break;
+            super.setAttribute(attribName, value);
         }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
+        
     }
 
     @Override

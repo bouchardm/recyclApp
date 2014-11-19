@@ -71,6 +71,19 @@ public abstract class RectangularNode extends Node
     {
         return new Point2D.Float(_rect.width, _rect.height);
     }
+    
+    @Override
+    public void setAttribute(String attribName, Object value)
+    {
+        switch (attribName)
+        {
+            case "position":
+                setPosition((Point2D.Float)value);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+        }
+    }
 
     
     

@@ -56,7 +56,8 @@ import javax.swing.JPanel;
     
     private void config()
     {
-        setBackground(Color.GRAY);
+        int level = 215;
+        setBackground(new Color(level, level, level));
         setZoomFactor(1.0f);
     }
     
@@ -102,10 +103,6 @@ import javax.swing.JPanel;
     public void snapToGrid(boolean snapToGrid)
     {
         _snapToGrid = snapToGrid;
-    }
-    
-    public void display() {
-        repaint();
     }
     
     public void setShowGrid(boolean showGrid)
@@ -160,56 +157,61 @@ import javax.swing.JPanel;
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
     
-    public void onMouseClicked(java.awt.event.MouseEvent evt)
-    {
-        Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
-        _mainFrame.cleanInformationPanel();
-        _mainFrame._controller.selectElement(position);
-        
-        
-        SortStation sortStation = _mainFrame._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
-        
-        _mainFrame._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
-        
-        if (sortStation != null) {
-            sortStation.setSelected(true);
-            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                sortStation, 
-                _mainFrame._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
-                _mainFrame
-            );
-            
-            JPanel sortStationPanel = infoSortStationFrame.getPanel();
-
-//            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-//            _mainFrame.panelInformation.add(sortStationPanel);
-        }
-        
-        repaint();
-    }
+//    public void onMousePressed(java.awt.event.MouseEvent evt)
+//    {
+//        Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
+//        _mainFrame.cleanInformationPanel();
+//        _mainFrame._controller.selectElement(position);
+//        
+//        
+//        SortStation sortStation = _mainFrame._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
+//        
+////        _mainFrame._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
+//        
+//        if (sortStation != null) {
+////            sortStation.setSelected(true);
+//            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+//                sortStation, 
+//                _mainFrame._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+//                _mainFrame
+//            );
+//            
+//            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+//
+////            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+////            _mainFrame.panelInformation.add(sortStationPanel);
+//        }
+//        
+//        repaint();
+//    }
     
-    public void onMouseReleased(java.awt.event.MouseEvent evt)
-    {
-        switch (creationMode)
-        {
-            case NONE: // selection
-//                Point2D.Float pos = new Point2D.Float();
-//                pos.x = pixToMeter(evt.getX());
-//                pos.y = pixToMeter(evt.getY());
-//                _mainFrame._controller.selectElement(pos);
-                break;
-            case SORT_STATION:
-                break;
-            case TRANS_STATION:
-                break;
-            case JUNCTION:
-                break;
-            case CONVEYOR_1:
-                break;
-            case CONVEYOR_2:
-                break;
-        }
-    }
+//    public void onMouseReleased(java.awt.event.MouseEvent evt)
+//    {
+//        switch (creationMode)
+//        {
+//            case NONE:
+//                break;
+//            case SORT_STATION:
+//                Point2D.Float position = this.createPointInMeter(evt.getX(), evt.getY());
+//                if (isSnapToGrid())
+//                {
+//                    position = snap(position);
+//                }
+//                _mainFrame._controller.AddStation(position);
+//
+//                repaint();
+//                creationMode = CREATION_MODES.NONE;
+//                break;
+//            case TRANS_STATION:
+//                break;
+//            case JUNCTION:
+//                break;
+//            case CONVEYOR_1:
+//                break;
+//            case CONVEYOR_2:
+//                break;
+//        }
+//    }
     
     private void selectFromPoint(Point2D.Float point)
     {

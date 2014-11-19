@@ -63,7 +63,7 @@ public class SortCenterDrawer
             int height = (int)(dim.y * 50 * zoomFactor);
             g.setColor(new Color(level, level, level));
             g.fillRect(margin, margin, width, height);
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.drawRect(margin, margin, width, height);
             if (_controller.isFloorSelected())
             {
@@ -124,7 +124,8 @@ public class SortCenterDrawer
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
 
         // Dessin de la stations
-        if (station.isSelected()) {
+        if (_controller.selectedElementIs(station))
+        {
             g.setColor(_selectedContourColor);
             g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
         }

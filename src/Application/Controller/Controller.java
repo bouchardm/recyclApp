@@ -41,6 +41,11 @@ public class Controller {
             _selectedElement = null;
         }
         
+        public boolean selectedElementIsFloor()
+        {
+            return _selectedElement.equals(_project.getSortCenter());
+        }
+        
         public void selectElement(Point2D.Float coords)
         {
             _selectedElement = null;
@@ -76,6 +81,16 @@ public class Controller {
         public void showAboutUs() {
             AboutUs view = new AboutUs();
             view.setVisible(true);
+        }
+        
+        public boolean selectedElementIs(Element element)
+        {
+            return _selectedElement != null && _selectedElement.equals(element);
+        }
+        
+        public void setSelectedElementAttribute(String attribName, Object value)
+        {
+            _selectedElement.setAttribute(attribName, value);
         }
 
 
@@ -167,7 +182,9 @@ public class Controller {
                 return;
             }
             
-            this._project.getSortCenter().addSortStation(position, value);
+            _selectedElement = this._project.getSortCenter().addSortStation();
+            ((SortStation)_selectedElement).setExit(value);
+            ((SortStation)_selectedElement).setPosition(position);
 	}
         
         public void MouveStation(SortStation sortStation, Point2D.Float position) {

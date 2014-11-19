@@ -146,16 +146,16 @@ public class SortCenter extends Element
         return null;
     }
 
-    public void unselectAll() {
-        ArrayList sortStationList = this.getSortStationList();
-        
-        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-            SortStation next = (SortStation)iterator.next();
-            
-            next.setSelected(false);
-        }
-        
-    }
+//    public void unselectAll() {
+//        ArrayList sortStationList = this.getSortStationList();
+//        
+//        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
+//            SortStation next = (SortStation)iterator.next();
+//            
+////            next.setSelected(false);
+//        }
+//        
+//    }
 
     @Override
     public void setAttribute(String attribName, Object value) {
