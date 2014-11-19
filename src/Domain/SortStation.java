@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SortStation extends RectangularNode {
+public class SortStation extends Station {
 	private Inlet _inlet;
 	private ArrayList<Outlet> _outletList;
 	private SortMatrix _sortMatrix;
@@ -109,10 +109,12 @@ public class SortStation extends RectangularNode {
     _outletList.remove(index);
     }
     
-    public int getOutletCount(){
+    public int getOutletCount()
+    {
         return _outletList.size();
     }
-
+    
+    
     @Override
     public void setAttribute(String attribName, Object value)
     {
