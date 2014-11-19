@@ -36,6 +36,7 @@ public class SortStation extends Station {
         this._selected = false; 
         this._img = null;
         _outletList = new ArrayList<>();
+        _sortMatrix = new SortMatrix();
     }
 
     public String getName() {
