@@ -29,13 +29,13 @@ public class SortCenterDrawer
 {
     private Controller _controller;
     private Viewport _viewport;
-    private Color _selectedContour;
+    private Color _selectedContourColor;
 
     public SortCenterDrawer(Controller controller, Viewport viewport)
     {
         this._controller = controller;
         this._viewport = viewport;
-        _selectedContour = Color.MAGENTA;
+        _selectedContourColor = Color.MAGENTA;
     }
     
     public void draw(Graphics g)
@@ -67,7 +67,7 @@ public class SortCenterDrawer
             g.drawRect(margin, margin, width, height);
             if (_controller.isFloorSelected())
             {
-                g.setColor(_selectedContour);
+                g.setColor(_selectedContourColor);
                 g.drawRect(margin, margin, width, height);
             }
         }
@@ -125,7 +125,7 @@ public class SortCenterDrawer
 
         // Dessin de la stations
         if (station.isSelected()) {
-            g.setColor(Color.black);
+            g.setColor(_selectedContourColor);
             g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
         }
 
