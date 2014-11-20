@@ -8,16 +8,15 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
+import Domain.IOlet;
 import Domain.Node;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
-import Presentation.Swing.MainFrame;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,9 +66,23 @@ public class Controller {
             elements.addAll(_project.getSortCenter().getEntryPoints());
             elements.addAll(_project.getSortCenter().getConveyors());
             
+            ArrayList<IOlet> iolets;
             
             for (int i=elements.size()-1; i>-1; i--)
             {
+                if (elements.get(i) instanceof Node)
+                {
+                    iolets = ((Node)elements.get(i)).getIOlets();
+                    
+                    for (IOlet iol: iolets)
+                    {
+                        if (iol.include(coords))
+                        {
+                            _selectedElement = iol;
+                            return;
+                        }
+                    }
+                }
                 if (elements.get(i).include(coords))
                 {
                     _selectedElement = elements.get(i);
@@ -96,6 +109,11 @@ public class Controller {
         
         public boolean typeOfElementSelectedIs(Class ElementClass) {
             return _selectedElement != null && _selectedElement.getClass() == ElementClass;
+        }
+        
+        public Object getSelectedElementAttribute(String attribName)
+        {
+            return _selectedElement.getAttribute(attribName);
         }
         
         public Map<String, Object> getSelectedElementAttributes() {
@@ -221,17 +239,38 @@ public class Controller {
             }
             
             _selectedElement = this._project.getSortCenter().addSortStation();
+            for (int i=0; i<value; i++)
+            {
+                ((SortStation)_selectedElement).addOutlet();
+            }
 //            ((SortStation)_selectedElement).setExit(value);
             ((SortStation)_selectedElement).setPosition(position);
 	}
         
-        public void MouveStation(SortStation sortStation, Point2D.Float position) {
+        public void MouveStation(Point2D.Float position) 
+        {
+            if (position.x < 0)
+            {
+                position.x = 0;
+            }
+            else if (position.x+((Point2D.Float)getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x)
+            {
+                position.x = getSortCenterDimensions().x-((Point2D.Float)getSelectedElementAttribute("dimensions")).x;
+            }
+            if (position.y < 0)
+            {
+                position.y = 0;
+            }
+            else if (position.y+((Point2D.Float)getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y)
+            {
+                position.y = getSortCenterDimensions().y-((Point2D.Float)getSelectedElementAttribute("dimensions")).y;
+            }
             if (!this.getProject().getSortCenter().include(position)) {
                 JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
                 return;
             }
             
-            sortStation.setPosition(position);
+            setSelectedElementAttribute("position", position);
         }
 
 	public void DeleteStation() {

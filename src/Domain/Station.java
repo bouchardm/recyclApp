@@ -134,7 +134,17 @@ public abstract class Station extends RectangularNode
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
+        }
     }
     
      
@@ -177,9 +187,10 @@ public abstract class Station extends RectangularNode
         this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
       
-    public void addOutlet(Outlet outlet){
+    public void addOutlet()
+    {
         // add at the end of the list  
-        _outletList.add(outlet);
+        _outletList.add(new Outlet(this));
     }
     
     public void removeOulet(int index)

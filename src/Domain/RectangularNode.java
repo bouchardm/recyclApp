@@ -84,6 +84,17 @@ public abstract class RectangularNode extends Node
                 throw new IllegalArgumentException(String.format("no method for set %s", attribName));
         }
     }
+    
+    public Object getAttribute(String attribName)
+    {
+        switch (attribName)
+        {
+            case "dimensions":
+                return getDimensions();
+            default:
+                throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+        }
+    }
 
     
     

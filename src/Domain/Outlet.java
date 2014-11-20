@@ -9,7 +9,9 @@ public class Outlet extends IOlet
         public Outlet(Node parentNode)
         {
             super(parentNode);
-            
+            _relativePosition.x = 1;
+            _relativePosition.y = (float)Math.random();
+            setPosition(_relativePosition);
         }
         
         public MatterBasket getMatterBasket()

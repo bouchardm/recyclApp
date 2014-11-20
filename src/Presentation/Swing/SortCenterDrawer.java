@@ -9,6 +9,7 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import Domain.IOlet;
 import Domain.Inlet;
+import Domain.Outlet;
 import Domain.SortStation;
 import Domain.Station;
 import java.awt.Color;
@@ -165,6 +166,14 @@ public class SortCenterDrawer
                 _viewport.meterToPix(circle.y),
                 _viewport.meterToPixDim(circle.width),
                 _viewport.meterToPixDim(circle.height));
+        if (_controller.selectedElementIs(iolet))
+        {
+            g.setColor(_selectedContourColor);
+            g.drawOval(_viewport.meterToPix(circle.x),
+                _viewport.meterToPix(circle.y),
+                _viewport.meterToPixDim(circle.width),
+                _viewport.meterToPixDim(circle.height));
+        }
     }
     
     private void drawJunctions(Graphics g)
