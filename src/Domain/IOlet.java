@@ -5,6 +5,7 @@
  */
 package Domain;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -81,7 +82,15 @@ public class IOlet extends Element
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        switch (attribName)
+        {
+            case "position":
+                setPosition((Point2D.Float)value);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+        }
     }
 
     @Override
