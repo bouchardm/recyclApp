@@ -133,7 +133,17 @@ public abstract class Station extends RectangularNode
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
+        }
     }
     
      

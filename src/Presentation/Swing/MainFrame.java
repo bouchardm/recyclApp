@@ -608,7 +608,9 @@ public class MainFrame extends javax.swing.JFrame {
             {
                 position = viewport.snap(position);
             }
-            _controller.setSelectedElementAttribute("position", position);
+            
+            _controller.MouveStation(position);
+//            _controller.setSelectedElementAttribute("position", position);
 
             this.viewport.repaint();
         }

@@ -5,7 +5,7 @@
  */
 package Domain;
 
-import java.awt.Color;
+import TechnicalServices.Geometry.Segment2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -16,7 +16,7 @@ import java.awt.geom.Point2D;
 public class IOlet extends Element
 {
 
-    protected Node _node;
+    protected final Node _node;
     private Conveyor _conveyor;
     private Ellipse2D.Float _circle;
     private static float RADIUS = 0.1f;
@@ -29,8 +29,7 @@ public class IOlet extends Element
         _node = parentNode;
         _conveyor = null;
         _circle = new Ellipse2D.Float();
-        setPosition(new Point2D.Float(-1, -1));
-
+        _relativePosition = new Point2D.Float(-1, -1);
     }
 
     public boolean IsFree() {
@@ -45,7 +44,47 @@ public class IOlet extends Element
     
     public void setPosition(Point2D.Float pos)
     {
-        _relativePosition = pos;
+        if (_node instanceof RectangularNode)
+        {
+            Point2D.Float vector = new Point2D.Float(pos.x - _node.getCenter().x,
+                                        pos.y - _node.getCenter().y);
+            Point2D.Float rectDim = ((RectangularNode)_node).getDimensions();
+            float unitLength = (float)Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
+            float newLength = (float)(rectDim.x + rectDim.y);
+            vector.x =  newLength * vector.x / unitLength;
+            vector.y =  newLength * vector.y / unitLength;
+            
+            if (vector.x != vector.x || vector.y != vector.y) // check if NaN
+            {
+                return;
+            }
+            
+            Segment2D.Float intersectSeg = new Segment2D.Float(0, 0, vector.x, vector.y);
+            Segment2D.Float line = new Segment2D.Float();
+            Point2D.Float point = null;
+            if (vector.x >= 0)
+            {
+                line.setLine(rectDim.x/2, rectDim.y/2, rectDim.x/2, -rectDim.y/2);
+                point = line.intersectingPoint(intersectSeg);
+            }
+            if (point == null && vector.y >= 0)
+            {
+                line.setLine(-rectDim.x/2, rectDim.y/2, rectDim.x/2, rectDim.y/2);
+                point = line.intersectingPoint(intersectSeg);
+            }
+            if (point == null && vector.y <= 0)
+            {
+                line.setLine(-rectDim.x/2, -rectDim.y/2, rectDim.x/2, -rectDim.y/2);
+                point = line.intersectingPoint(intersectSeg);
+            }
+            if (point == null && vector.x <= 0)
+            {
+                line.setLine(-rectDim.x/2, rectDim.y/2, -rectDim.x/2, -rectDim.y/2);
+                point = line.intersectingPoint(intersectSeg);
+            }
+            _relativePosition.x = point.x * 1.2f;
+            _relativePosition.y = point.y * 1.2f;
+        }
     }
     
     public Ellipse2D.Float getCircle()
@@ -56,10 +95,6 @@ public class IOlet extends Element
 
     public Node getNode() {
         return _node;
-    }
-
-    public void setNode(Node newNode) {
-        _node = newNode;
     }
 
     public void setConveyor(Conveyor conveyor) {
@@ -95,6 +130,11 @@ public class IOlet extends Element
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch(attribName) {
+            case "dimensions":
+                return new Point2D.Float(RADIUS*2, RADIUS*2);
+            default:
+                throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+        }
     }
 }

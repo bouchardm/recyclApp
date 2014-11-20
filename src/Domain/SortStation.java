@@ -138,20 +138,26 @@ public class SortStation extends Station {
 
     @Override
     public Object getAttribute(String attribName) {
-        
-        switch(attribName) {
-            case "name":
-                return this.getName();
-            case "description":
-                return this.getDescription();
-            case "color":
-                return this.getColor();
-            case "speedMax":
-                return this.getKgHMax();
-            case "img":
-                return this.getImg();
-            default:
-                throw new NoSuchFieldError();
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                case "name":
+                    return this.getName();
+                case "description":
+                    return this.getDescription();
+                case "color":
+                    return this.getColor();
+                case "speedMax":
+                    return this.getKgHMax();
+                case "img":
+                    return this.getImg();
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
         }
     }
 
