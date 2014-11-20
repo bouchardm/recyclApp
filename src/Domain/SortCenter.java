@@ -147,9 +147,7 @@ public class SortCenter extends Element
                 //(comme on fait toujours le traitement à la destination, le
                 // entryPoint n'est jamais traité. Son matterBasket doit être
                 // mis à jour avant)
-                System.out.println(destination.getClass());
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
-                System.out.println("here");
                 equipmentToProcess.add(destination);
             }
                 
