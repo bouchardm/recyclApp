@@ -24,5 +24,7 @@ public abstract class Node extends Element
     }
     
     public abstract ArrayList<IOlet> getIOlets();
+    
+    public abstract void processMatterBasket(MatterBasket matterBasket);
         
 }

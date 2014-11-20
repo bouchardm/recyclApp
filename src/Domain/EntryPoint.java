@@ -7,8 +7,6 @@ import java.util.Collections;
 public class EntryPoint extends RectangularNode
 {
     private Outlet _outlet;
-    private MatterBasket _matterBasket;
-   
 
     public EntryPoint() {
         super();
@@ -16,11 +14,11 @@ public class EntryPoint extends RectangularNode
     }
 
     public void setMatterBasket(MatterBasket matterBasket) {
-        _matterBasket = matterBasket;
+        this._outlet.setMatterBasket(matterBasket);
     }
 
     public MatterBasket getMatterBasket() {
-        return _matterBasket;
+        return this._outlet.getMatterBasket();
     }
 
     public Outlet getOutlet() {
@@ -45,7 +43,11 @@ public class EntryPoint extends RectangularNode
     public ArrayList<IOlet> getIOlets() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
+    
+    //Généralement, appeller avec entryPoint.processMatterBasket(entryPoint.getMatterBasket());
+    @Override
+    public void processMatterBasket(MatterBasket matterBasket) {
+        this._outlet.setMatterBasket(matterBasket);
+    }
+    
 }

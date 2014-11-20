@@ -162,4 +162,9 @@ public class SortStation extends Station {
         iolets.addAll(getOutletList());
         return iolets;
     }
+    
+    @Override
+    public void setTransMatrix(TransMatrix tm) {
+        throw new IllegalArgumentException("On peut seulement ajouter une matrice de transformation à une station de transformation.");
+    }
 }

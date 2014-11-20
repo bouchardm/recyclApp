@@ -93,4 +93,30 @@ public class JunctionTest {
         assertFalse(instance.include(new Point2D.Float(0.25f, 0.25f)));
     }
     
+    /**
+     * Test of processMatterBasket
+     */
+    @Test
+    public void testProcessMatterBasket_success() {
+        Matter mat1 = new Matter("chose1", 11);
+        Matter mat2 = new Matter("chose2", 12);
+        Matter mat3 = new Matter("chose3", 13);
+        MatterBasket origmb = new MatterBasket();
+        origmb.addMatterQuantity(11, new Float(100));
+        origmb.addMatterQuantity(12, new Float(200));
+        origmb.addMatterQuantity(13, new Float(300));
+        MatterBasket mbToProcess = new MatterBasket();
+        mbToProcess.addMatterQuantity(11, new Float(10));
+        mbToProcess.addMatterQuantity(12, new Float(20));
+        mbToProcess.addMatterQuantity(13, new Float(30));
+        Junction junc = new Junction();
+        Outlet o1 = new Outlet(junc);
+        junc.setOutlet(o1);
+        o1.setMatterBasket(origmb);
+        junc.processMatterBasket(mbToProcess);
+        assertTrue((float)o1.getMatterBasket().getMatterQuantity(11)==(float)110);
+        assertTrue((float)o1.getMatterBasket().getMatterQuantity(12)==(float)220);
+        assertTrue((float)o1.getMatterBasket().getMatterQuantity(13)==(float)330);
+        assertTrue(o1.getMatterBasket().getNumberOfMatterInBasket()==3);        
+    }
 }

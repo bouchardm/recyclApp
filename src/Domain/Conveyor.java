@@ -8,7 +8,6 @@ public class Conveyor extends Element
 	private final Outlet _startPoint;
 	private final Inlet _endPoint;
 	private Object _iD;
-	private MatterBasket _matterBasket;
 	public SortCenter _sortCenter;
 	public Element _element;
 	public Outlet Outlet ;
@@ -41,6 +40,14 @@ public class Conveyor extends Element
             Point2D.Float p1 = _startPoint.getNode().getCenter();
             Point2D.Float p2 = _endPoint.getNode().getCenter();
             _line.setLine(p1.x, p1.y, p2.x, p2.y);
+        }
+        
+        public Outlet getStartOutlet() {
+            return this._startPoint;
+        }
+        
+        public Inlet getEndInlet() {
+            return this._endPoint;
         }
         
         

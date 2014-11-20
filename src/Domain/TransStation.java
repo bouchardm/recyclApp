@@ -9,8 +9,8 @@ import java.util.Map;
 public class TransStation extends Station {
 	private TransMatrix _transformMatrix;
 	
-
-    public void setTransformMatrix(TransMatrix newTransMatrix) {
+    @Override
+    public void setTransMatrix(TransMatrix newTransMatrix) {
         _transformMatrix = newTransMatrix;
     }
 
@@ -26,10 +26,8 @@ public class TransStation extends Station {
     //transforme le contenu du matterBasket et appel ensuite la méthode SortMatterBasket pour le trier aux outlets
     //precondition 1: il doit y avoir autant de matière dans le matterBasket que dans la transMatrix
     //precondition 2: chaque matiere doit avoir une quantité de transformation pour chaque matiere du matterBasket
-    public void transformMatterBasket(MatterBasket matterBasket) {
-        System.out.println("MB 1 : "+matterBasket.getQuantities().containsKey(1));
-        System.out.println("MB 2 : "+matterBasket.getQuantities().containsKey(2));
-        System.out.println("MB 3 : "+matterBasket.getQuantities().containsKey(3));
+    @Override
+    public void processMatterBasket(MatterBasket matterBasket) {
         //tester precondition 1
         if(matterBasket.getNumberOfMatterInBasket()!=this._transformMatrix.getMatterCount()) {
             throw new IllegalArgumentException("La quantité de matières dans le panier et dans la matrice n'est pas pareil.");
@@ -79,7 +77,7 @@ public class TransStation extends Station {
             //on change les quantités du matterBasket pour réfléter les nouvelles quantités
         }
         matterBasket.setQuantities(newQuantities);
-        this.sortMatterBasket(matterBasket);
+        super.processMatterBasket(matterBasket);
     }
 
     @Override

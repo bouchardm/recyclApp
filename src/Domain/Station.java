@@ -39,13 +39,16 @@ public abstract class Station extends RectangularNode
 //        this._selected = false; 
         this._img = null;
         _inlet = new Inlet(this);
-        _outletList = new ArrayList<Outlet>();
+        _outletList = new ArrayList<>();
         _sortMatrix = new SortMatrix();
     }
     
+    public abstract void setTransMatrix(TransMatrix tm);
+    
     //precondition 1: le nombre de matières dans matterBasket et la matrice doivent être identiques
     //precondition 2: le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
-    public void sortMatterBasket(MatterBasket matterBasket) {
+    @Override
+    public void processMatterBasket(MatterBasket matterBasket) {
         //precondition 1
         if (matterBasket.getQuantities().size()!=this.getSortMatrix().getMatterCount()) {
             throw new IllegalArgumentException("Le nombre de matières dans la liste de matière et la matrice de tri ne concorde pas.");
@@ -88,9 +91,7 @@ public abstract class Station extends RectangularNode
     }
     
     public SortMatrix getSortMatrix() {
-        SortMatrix sm = new SortMatrix();
-        sm.setSortMatrix(_sortMatrix.getSortMatrix());
-        return sm;
+        return _sortMatrix;
     }
     
 //    public void setExit(int nbExit) {
@@ -183,7 +184,7 @@ public abstract class Station extends RectangularNode
     
     public void removeOulet(int index)
     {
-    _outletList.remove(index);
+        _outletList.remove(index);
     }
     
     public int getOutletCount()

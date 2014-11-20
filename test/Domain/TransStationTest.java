@@ -48,7 +48,7 @@ public class TransStationTest {
         System.out.println("setTransformMatrix");
         TransMatrix newTransMatrix = null;
         TransStation instance = new TransStation();
-        instance.setTransformMatrix(newTransMatrix);
+        instance.setTransMatrix(newTransMatrix);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -71,7 +71,7 @@ public class TransStationTest {
      * Test of transformMatterBasket method, of class TransStation.
      */
     @Test
-    public void transformMatterBasket() {
+    public void processMatterBasket() {
         System.out.println("transformMatterBasket_success");
         //créer un matterBasket
         Matter mat1 = new Matter("chose1", 1);
@@ -121,7 +121,7 @@ public class TransStationTest {
         transMatrix.setTransMatrix(tMatrix);
         TransStation tstation = new TransStation();
         tstation.setSortMatrix(sorter);
-        tstation.setTransformMatrix(transMatrix);
+        tstation.setTransMatrix(transMatrix);
         //ajouter des outlets (3)
         Outlet o1 = new Outlet(tstation);
         Outlet o2 = new Outlet(tstation);
@@ -129,26 +129,17 @@ public class TransStationTest {
         tstation.addOutlet(o1);
         tstation.addOutlet(o2);
         tstation.addOutlet(o3);
-        tstation.transformMatterBasket(mb);
+        tstation.processMatterBasket(mb);
          //assert que c'est le résultat attendu
-        System.out.println(o1.getMatterBasket().getMatterQuantity(1));
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(1)==(float)80);
-        System.out.println(o1.getMatterBasket().getMatterQuantity(2));
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(2)<(float)243.05 && 
                 (float)o1.getMatterBasket().getMatterQuantity(2)>(float)242.95);
-        System.out.println(o1.getMatterBasket().getMatterQuantity(3));
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(3)==(float)118);
-        System.out.println(o2.getMatterBasket().getMatterQuantity(1));
         assertTrue((float)o2.getMatterBasket().getMatterQuantity(1)==(float)100);
-        System.out.println(o2.getMatterBasket().getMatterQuantity(2));
         assertTrue((float)o2.getMatterBasket().getMatterQuantity(2)==(float)162);
-        System.out.println(o2.getMatterBasket().getMatterQuantity(3));
         assertTrue((float)o2.getMatterBasket().getMatterQuantity(3)==(float)383.5);
-        System.out.println(o3.getMatterBasket().getMatterQuantity(1));
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(1)==(float)20);
-        System.out.println(o3.getMatterBasket().getMatterQuantity(2));
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(2)==(float)405);
-        System.out.println(o3.getMatterBasket().getMatterQuantity(3));
         assertTrue((float)o3.getMatterBasket().getMatterQuantity(3)==(float)88.5);
     }
     
@@ -206,7 +197,7 @@ public class TransStationTest {
         transMatrix.setTransMatrix(tMatrix);
         TransStation tstation = new TransStation();
         tstation.setSortMatrix(sorter);
-        tstation.setTransformMatrix(transMatrix);
+        tstation.setTransMatrix(transMatrix);
         //ajouter des outlets (3)
         Outlet o1 = new Outlet(tstation);
         Outlet o2 = new Outlet(tstation);
@@ -214,7 +205,7 @@ public class TransStationTest {
         tstation.addOutlet(o1);
         tstation.addOutlet(o2);
         tstation.addOutlet(o3);
-        tstation.transformMatterBasket(mb);
+        tstation.processMatterBasket(mb);
     }
     
          /**
@@ -271,7 +262,7 @@ public class TransStationTest {
         transMatrix.setTransMatrix(tMatrix);
         TransStation tstation = new TransStation();
         tstation.setSortMatrix(sorter);
-        tstation.setTransformMatrix(transMatrix);
+        tstation.setTransMatrix(transMatrix);
         //ajouter des outlets (3)
         Outlet o1 = new Outlet(tstation);
         Outlet o2 = new Outlet(tstation);
@@ -279,7 +270,7 @@ public class TransStationTest {
         tstation.addOutlet(o1);
         tstation.addOutlet(o2);
         tstation.addOutlet(o3);
-        tstation.transformMatterBasket(mb);
+        tstation.processMatterBasket(mb);
     }
     
 }

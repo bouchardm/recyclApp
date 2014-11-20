@@ -266,7 +266,7 @@ public class SortStationTest {
         System.out.println("# outlets: "+station.getOutletCount());
         System.out.println("# matters: "+mb.getNumberOfMatterInBasket());
         ////
-        station.sortMatterBasket(mb);
+        station.processMatterBasket(mb);
         
         //assert que c'est le résultat attendu
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(1)==(float)40);
@@ -321,7 +321,7 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasket(mb);
+        station.processMatterBasket(mb);
     }
     
      /**
@@ -361,21 +361,21 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasket(mb);
+        station.processMatterBasket(mb);
     }
 
-    /**
-     * Test of setExit method, of class SortStation.
-     */
-    @Test
-    public void testSetExit() {
-        System.out.println("setExit");
-        int nbExit = 0;
-        SortStation instance = new SortStation();
-        instance.setExit(nbExit);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of setExit method, of class SortStation.
+//     */
+//    @Test
+//    public void testSetExit() {
+//        System.out.println("setExit");
+//        int nbExit = 0;
+//        SortStation instance = new SortStation();
+//        instance.setExit(nbExit);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of getOutletList method, of class SortStation.
