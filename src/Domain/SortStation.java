@@ -141,6 +141,9 @@ public class SortStation extends Station {
 
     @Override
     public ArrayList<IOlet> getIOlets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IOlet> iolets = new ArrayList<>();
+        iolets.add(getInlet());
+        iolets.addAll(getOutletList());
+        return iolets;
     }
 }
