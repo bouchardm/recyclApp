@@ -128,8 +128,7 @@ public class SortCenterTest {
         Station tstation = sc.getStations().get(0);
         tstation.setSortMatrix(sorter);
         tstation.setTransMatrix(transMatrix);
-        Outlet o1 = new Outlet(tstation);
-        tstation.addOutlet(o1);
+        tstation.addOutlet();
         //ajouter les convoyeurs
         //convoyeur de EntryPoint à tstation
         sc.addConveyor(sc.getEntryPointOutlet(0), tstation.getInlet());
@@ -237,28 +236,22 @@ public class SortCenterTest {
         Station s0 = sc.getStations().get(0);
         s0.setSortMatrix(sorter);
         s0.setTransMatrix(transMatrix);
-        Outlet o1 = new Outlet(s0);
-        s0.addOutlet(o1);
+        s0.addOutlet();
         sc.addSortStation();                           //S1
         Station s1 = sc.getStations().get(1);
         s1.setSortMatrix(sorter);
-        Outlet o2 = new Outlet(s1);
-        s1.addOutlet(o2);
+        s1.addOutlet();
         sc.addSortStation();                           //S2
         Station s2 = sc.getStations().get(2);
         s2.setSortMatrix(sorter2);
-        Outlet o31 = new Outlet(s2);
-        s2.addOutlet(o31);
-        Outlet o32 = new Outlet(s2);
-        s2.addOutlet(o32);
+        s2.addOutlet();
+        s2.addOutlet();
         sc.addTransStation();                           //S3
         Station s3 = sc.getStations().get(3);
         s3.setSortMatrix(sorter2);
         s3.setTransMatrix(transMatrix);
-        Outlet o41 = new Outlet(s3);
-        s3.addOutlet(o41);
-        Outlet o42 = new Outlet(s3);
-        s3.addOutlet(o42);
+        s3.addOutlet();
+        s3.addOutlet();
         //créer la jonction et ses inlets/outlets
         sc.addJunction();
         Junction j1= sc.getJunction(0);
