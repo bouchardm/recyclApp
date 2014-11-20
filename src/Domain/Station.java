@@ -22,21 +22,21 @@ public abstract class Station extends RectangularNode
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
-    private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
+//    private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
     private String _name;
     private String _description;
     private float _speedMax;
 
-    private Boolean _selected; // la SortStation n'a pas à savoir ça
+//    private Boolean _selected; // la SortStation n'a pas à savoir ça
     
     public Station()
     {
-        this._name = "";
+        this._name = "Station";
         this._description = "";
         this._color = Color.RED;
         this._speedMax = 0;
-        this._selected = false; 
+//        this._selected = false; 
         this._img = null;
         _inlet = new Inlet(this);
         _outletList = new ArrayList<Outlet>();
@@ -99,7 +99,7 @@ public abstract class Station extends RectangularNode
     
     @Override
     public void setAttribute(String attribName, Object value)
-    {
+    {   
         try
         {
             super.setAttribute(attribName, value);
@@ -108,6 +108,21 @@ public abstract class Station extends RectangularNode
         {
             switch (attribName)
             {
+                case "img":
+                    this.setImg((String) value);
+                    break;
+                case "name":
+                    this.setName((String) value);
+                    break;
+                case "description":
+                    this.setDescription((String) value);
+                    break;
+                case "speedMax":
+                    this.setKgHMax((Float) value);
+                    break;
+                case "color":
+                    this.setColor((Color) value);
+                    break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }
@@ -179,15 +194,15 @@ public abstract class Station extends RectangularNode
     //ATTENTION: on ne devrait pas tenter de "setter" le nombre de outlets
     //en tant que tel. On devrait plutôt ajouter ou retirer de la liste les
     //outlets concernés
-    public void setExit(int nbExit) {
-        this._exit = new HashMap<Matter,Integer>();
-
-        this._exit.put(new Matter("todo: change", 0), 100);
-
-        for (int i = 1; i < nbExit; i++) {
-            this._exit.put(new Matter("todo: change", i), 0);
-        }
-    }
+//    public void setExit(int nbExit) {
+//        this._exit = new HashMap<Matter,Integer>();
+//
+//        this._exit.put(new Matter("todo: change", 0), 100);
+//
+//        for (int i = 1; i < nbExit; i++) {
+//            this._exit.put(new Matter("todo: change", i), 0);
+//        }
+//    }
     
 //        public void setExit(Map<Matter, Integer> _exit) {
 //        this._exit = _exit;

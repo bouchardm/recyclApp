@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SortStation extends Station {
 //    **les attributs sont hérités de Station**
@@ -136,7 +138,21 @@ public class SortStation extends Station {
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        switch(attribName) {
+            case "name":
+                return this.getName();
+            case "description":
+                return this.getDescription();
+            case "color":
+                return this.getColor();
+            case "speedMax":
+                return this.getKgHMax();
+            case "img":
+                return this.getImg();
+            default:
+                throw new NoSuchFieldError();
+        }
     }
 
     @Override

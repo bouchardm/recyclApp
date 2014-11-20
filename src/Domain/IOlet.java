@@ -41,8 +41,6 @@ public class IOlet extends Element
     public Ellipse2D.Float getCircle()
     {
         Point2D.Float center = getPosition();
-        Ellipse2D.Float c =new Ellipse2D.Float(center.x-RADIUS, center.y-RADIUS, RADIUS*2, RADIUS*2);
-        System.out.printf("%f, %f, %f, %f\n", c.x, c.y, c.width, c.height);
         return new Ellipse2D.Float(center.x-RADIUS, center.y-RADIUS, RADIUS*2, RADIUS*2);
     }
 
