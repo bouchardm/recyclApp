@@ -15,6 +15,10 @@ public class Inlet extends IOlet
             super(parentNode);
             _speedMax = null ; // Valeur initiale?
             _free = true;
+            _relativePosition = _node.getCenter();
+            _relativePosition.x = _relativePosition.x - 1;
+            _relativePosition.x = _relativePosition.y - 1;
+            setPosition(_relativePosition);
         }
         
        /* public boolean isFree()

@@ -15,10 +15,11 @@ import java.awt.geom.Point2D;
 public class IOlet extends Element
 {
 
-    private Node _node;
+    protected Node _node;
     private Conveyor _conveyor;
     private Ellipse2D.Float _circle;
     private static float RADIUS = 0.1f;
+    protected Point2D.Float _relativePosition;
 
     public IOlet(Node parentNode) {
         if (parentNode == null) {
@@ -27,6 +28,7 @@ public class IOlet extends Element
         _node = parentNode;
         _conveyor = null;
         _circle = new Ellipse2D.Float();
+        setPosition(new Point2D.Float(-1, -1));
 
     }
 
@@ -34,8 +36,15 @@ public class IOlet extends Element
         return (_conveyor == null);
     }
 
-    public Point2D.Float getPosition() {
-        return _node.getCenter();
+    public Point2D.Float getPosition()
+    {
+        return new Point2D.Float(_node.getCenter().x+_relativePosition.x,
+                            _node.getCenter().y+_relativePosition.y);
+    }
+    
+    public void setPosition(Point2D.Float pos)
+    {
+        _relativePosition = pos;
     }
     
     public Ellipse2D.Float getCircle()

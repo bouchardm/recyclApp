@@ -176,9 +176,10 @@ public abstract class Station extends RectangularNode
         this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
       
-    public void addOutlet(Outlet outlet){
+    public void addOutlet()
+    {
         // add at the end of the list  
-        _outletList.add(outlet);
+        _outletList.add(new Outlet(this));
     }
     
     public void removeOulet(int index)
