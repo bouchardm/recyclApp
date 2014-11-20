@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.ArrayList;
+
 public class ExitPoint extends RectangularNode
 {
     private Inlet _inlet;
@@ -27,6 +29,11 @@ public class ExitPoint extends RectangularNode
 
     @Override
     public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<IOlet> getIOlets() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -157,6 +157,11 @@ import javax.swing.JPanel;
         return (int)((meters * 50 * zoomFactor) + (MARGIN * zoomFactor));
     }
     
+    public int meterToPixDim(float meters)
+    {
+        return (int)((meters * 50 * zoomFactor) + (zoomFactor));
+    }
+    
     private void selectFromPoint(Point2D.Float point)
     {
         

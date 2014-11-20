@@ -7,19 +7,15 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.IOlet;
+import Domain.Inlet;
 import Domain.SortStation;
+import Domain.Station;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -108,7 +104,9 @@ public class SortCenterDrawer
     private void drawStations(Graphics g)
     {
         ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
-        for (int i = sortStationList.size() - 1; i >= 0; i--) {
+
+        for (int i = sortStationList.size() - 1; i >= 0; i--)
+        {
             this.drawStation(g, (SortStation) sortStationList.get(i));
         }
     }
@@ -122,6 +120,8 @@ public class SortCenterDrawer
         // TODO: Regarder pourquoi j'ai besoin de faire -1
         int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+        
+        ArrayList<IOlet> iolets = new ArrayList<>();
 
         // Dessin de la stations
         if (_controller.selectedElementIs(station))
@@ -139,6 +139,32 @@ public class SortCenterDrawer
         }
         
         g.drawString(station.getName(), positionMeterX, positionMeterY + dimensionMeterY + 20);
+        
+        if (station instanceof Station)
+        {
+            iolets.add(station.getInlet());
+        }
+        
+        iolets.addAll(station.getIOlets());
+        
+        for (IOlet iol: iolets)
+        {
+            drawIOlet(g, iol);
+        }
+    }
+    
+    private void drawIOlet(Graphics g, IOlet iolet)
+    {
+        g.setColor(Color.BLUE);
+        if (iolet instanceof Inlet)
+        {
+            g.setColor(Color.YELLOW);
+        }
+        Ellipse2D.Float circle = iolet.getCircle();
+        g.fillOval(_viewport.meterToPix(circle.x),
+                _viewport.meterToPix(circle.y),
+                _viewport.meterToPixDim(circle.width),
+                _viewport.meterToPixDim(circle.height));
     }
     
     private void drawJunctions(Graphics g)

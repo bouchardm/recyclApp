@@ -38,7 +38,8 @@ public abstract class Station extends RectangularNode
         this._speedMax = 0;
         this._selected = false; 
         this._img = null;
-        _outletList = new ArrayList<>();
+        _inlet = new Inlet(this);
+        _outletList = new ArrayList<Outlet>();
         _sortMatrix = new SortMatrix();
     }
     
@@ -191,6 +192,11 @@ public abstract class Station extends RectangularNode
 //        public void setExit(Map<Matter, Integer> _exit) {
 //        this._exit = _exit;
 //    }
+    
+    public Inlet getInlet()
+    {
+        return _inlet;
+    }
     
     public ArrayList<Outlet> getOutletList() {
         return _outletList;
