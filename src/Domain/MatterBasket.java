@@ -104,4 +104,8 @@ public class MatterBasket {
             return total;
         }
     }
+    
+    public int getNumberOfMatterInBasket() {
+        return _quantity.size();
+    }
 }

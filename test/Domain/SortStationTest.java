@@ -223,6 +223,7 @@ public class SortStationTest {
      */
     @Test
     public void testSortMatterBasketToOutlets_success() {
+        System.out.println("processMatterBasket_success");
         //créer un matterBasket
         Matter mat1 = new Matter("chose1", 1);
         Matter mat2 = new Matter("chose2", 2);
@@ -261,7 +262,12 @@ public class SortStationTest {
         station.addOutlet(o3);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        ///tests de tests
+        System.out.println("# outlets: "+station.getOutletCount());
+        System.out.println("# matters: "+mb.getNumberOfMatterInBasket());
+        ////
+        station.sortMatterBasket(mb);
+        
         //assert que c'est le résultat attendu
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(1)==(float)40);
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(2)==(float)300);
@@ -315,7 +321,7 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        station.sortMatterBasket(mb);
     }
     
      /**
@@ -355,7 +361,7 @@ public class SortStationTest {
         station.addOutlet(o2);
         //effectuer le sort
         station.setSortMatrix(sorter);
-        station.sortMatterBasketToOutlets(mb);
+        station.sortMatterBasket(mb);
     }
 
     /**

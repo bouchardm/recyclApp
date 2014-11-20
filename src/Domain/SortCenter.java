@@ -19,22 +19,24 @@ import java.util.Iterator;
  */
 public class SortCenter extends Element
 {
-    private ArrayList _conveyorList;
-    private ArrayList _entryPointList;
-    private ArrayList _exitPointList;
-    private ArrayList _sortStationList;
-    private ArrayList _transStationList;
-    private ArrayList _junctionList;
+    private ArrayList<Conveyor> _conveyorList;
+    private ArrayList<EntryPoint> _entryPointList;
+    private ArrayList<ExitPoint> _exitPointList;
+//    private ArrayList _sortStationList;
+//    private ArrayList _transStationList;
+    private ArrayList<Station> _stationList;
+    private ArrayList<Junction> _junctionList;
     private Float _size;
     private MatterList _matterList;
 
     public SortCenter() {
-        _conveyorList = new ArrayList<Conveyor>();
-        _entryPointList = new ArrayList<EntryPoint>();
-        _exitPointList = new ArrayList<ExitPoint>();
-        _sortStationList = new ArrayList<SortStation>();
-        _transStationList = new ArrayList<TransStation>();
-        _junctionList = new ArrayList<Junction>();
+        _conveyorList = new ArrayList<>();
+        _entryPointList = new ArrayList<>();
+        _exitPointList = new ArrayList<>();
+//        _sortStationList = new ArrayList<SortStation>();
+//        _transStationList = new ArrayList<TransStation>();
+        _stationList = new ArrayList<>();
+        _junctionList = new ArrayList<>();
         
         dimensions = new Point2D.Float(15f, 10f);
     }
@@ -43,7 +45,7 @@ public class SortCenter extends Element
         SortStation station = new SortStation();
 //        station.setPosition(aPosition);
 //        station.setExit(exit);
-        this._sortStationList.add(station);
+        this._stationList.add(station);
         return station;
     }
     
@@ -67,15 +69,15 @@ public class SortCenter extends Element
         return _conveyorList;
     }
     
-    public ArrayList getSortStation()
+    public ArrayList<Station> getStations()
     {
-        return _sortStationList;
+        return _stationList;
     }
     
-    public ArrayList getTransStation()
-    {
-        return _transStationList;
-    }
+//    public ArrayList getTransStation()
+//    {
+//        return _transStationList;
+//    }
     
 
     public void updateDesign() {
@@ -122,13 +124,13 @@ public class SortCenter extends Element
         dimensions.x = x;
         dimensions.y = y;
     }
+//      on a déjà getStations() plus haut qui fait la même chose
+//    public ArrayList getSortStationList() {
+//        return _sortStationList;
+//    }
     
-    public ArrayList getSortStationList() {
-        return _sortStationList;
-    }
-    
-    public SortStation getSortStationCursorIn(Point2D.Float position) {
-        ArrayList sortStationList = this.getSortStationList();
+    public SortStation getStationCursorIn(Point2D.Float position) {
+        ArrayList sortStationList = this.getStations();
         
         for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
             SortStation next = (SortStation)iterator.next();

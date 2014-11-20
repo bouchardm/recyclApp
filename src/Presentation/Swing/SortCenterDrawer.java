@@ -107,7 +107,7 @@ public class SortCenterDrawer
     
     private void drawStations(Graphics g)
     {
-        ArrayList sortStationList = this._controller.getProject().getSortCenter().getSortStationList();
+        ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
         for (int i = sortStationList.size() - 1; i >= 0; i--) {
             this.drawStation(g, (SortStation) sortStationList.get(i));
         }

@@ -619,13 +619,13 @@ public class MainFrame extends javax.swing.JFrame {
         _controller.selectElement(position);
         
         
-        SortStation sortStation = _controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
+        SortStation sortStation = _controller.getProject().getSortCenter().getStationCursorIn(position); // mauvais utilisation du contrôleur
         
         
         if (sortStation != null) {
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
                 sortStation, 
-                _controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+                _controller.getProject().getSortCenter().getStations(),// mauvais utilisation du contrôleur
                 this
             );
             
