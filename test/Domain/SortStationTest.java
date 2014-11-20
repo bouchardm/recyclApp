@@ -150,32 +150,6 @@ public class SortStationTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of isSelected method, of class SortStation.
-     */
-//    @Test
-//    public void testIsSelected() {
-//        System.out.println("isSelected");
-//        SortStation instance = new SortStation();
-//        Boolean expResult = null;
-//        Boolean result = instance.isSelected();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of setSelected method, of class SortStation.
-//     */
-//    @Test
-//    public void testSetSelected() {
-//        System.out.println("setSelected");
-//        Boolean _selected = null;
-//        SortStation instance = new SortStation();
-//        instance.setSelected(_selected);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of getImg method, of class SortStation.

@@ -81,5 +81,10 @@ public class TransStation extends Station {
         matterBasket.setQuantities(newQuantities);
         this.sortMatterBasket(matterBasket);
     }
+
+    @Override
+    public ArrayList<IOlet> getIOlets() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
 }
