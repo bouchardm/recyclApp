@@ -64,15 +64,11 @@ public class TransStation extends Station {
                     }
                     else {
                         //sinon, on fait l'ajout tout simplement
-                        System.out.println("here1");
                         float newMatterQty = transformQtyFactor*matterBasket.getMatterQuantity(currentMatterId);
-                        System.out.println("here2");
                         newQuantities.put(transformToMatterID, newMatterQty);
                     }                
                 }
                 catch (IllegalArgumentException e) {
-                    System.out.println("Matrix id : "+currentMatterId);
-                    System.out.println("MB id : "+matterBasket.getQuantities().containsKey(3));
                     throw new IllegalArgumentException("Une matière de la matrice de transformation n'est "
                             + "pas présente dans le panier de matières.");
                 }
@@ -81,8 +77,6 @@ public class TransStation extends Station {
                     
             
             //on change les quantités du matterBasket pour réfléter les nouvelles quantités
-            System.out.println("MB: "+matterBasket.getNumberOfMatterInBasket());
-            System.out.println("NQ: "+newQuantities.size());
         }
         matterBasket.setQuantities(newQuantities);
         this.sortMatterBasket(matterBasket);
