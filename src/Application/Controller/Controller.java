@@ -13,9 +13,13 @@ import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.MainFrame;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -31,7 +35,6 @@ public class Controller {
 	private Object _transformationMatrix;
 	private MatterList _matterList;
         private static int matterIDCounter = 0;
-	public MainFrame _mainFrame;
         
         private Element _selectedElement;
         
@@ -43,7 +46,10 @@ public class Controller {
         
         public boolean selectedElementIsFloor()
         {
-            return _selectedElement.equals(_project.getSortCenter());
+            if (_selectedElement != null) {
+                return _selectedElement.equals(_project.getSortCenter());
+            }
+            return false;
         }
         
         public void selectElement(Point2D.Float coords)
@@ -88,9 +94,23 @@ public class Controller {
             return _selectedElement != null && _selectedElement.equals(element);
         }
         
+        public boolean typeOfElementSelectedIs(Class ElementClass) {
+            return _selectedElement != null && _selectedElement.getClass() == ElementClass;
+        }
+        
+        public Map<String, Object> getSelectedElementAttributes() {
+            if (this.typeOfElementSelectedIs(SortStation.class)) {
+                return this.getStationSelected();
+            }
+            
+            return null;
+        }
+        
         public void setSelectedElementAttribute(String attribName, Object value)
         {
-            _selectedElement.setAttribute(attribName, value);
+            if (_selectedElement != null) {
+                _selectedElement.setAttribute(attribName, value);
+            }
         }
 
 
@@ -153,6 +173,24 @@ public class Controller {
 	public void RemoveMatrix() {
 		throw new UnsupportedOperationException();
 	}
+        
+        private Map<String, Object> getStationSelected() {
+            Map<String, Object> infoElement = new HashMap();
+            
+            String name = (String) this._selectedElement.getAttribute("name");
+            String description = (String) this._selectedElement.getAttribute("description");
+            Color color = (Color) this._selectedElement.getAttribute("color");
+            Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+            Image img = (Image) this._selectedElement.getAttribute("img");
+
+            infoElement.put("name", name);
+            infoElement.put("description", description);
+            infoElement.put("colod", color);
+            infoElement.put("speedMax", speedMax);
+            infoElement.put("img", img);
+
+            return infoElement;
+        }
 
 	public void EditMatrix() {
 		throw new UnsupportedOperationException();
@@ -183,7 +221,7 @@ public class Controller {
             }
             
             _selectedElement = this._project.getSortCenter().addSortStation();
-            ((SortStation)_selectedElement).setExit(value);
+//            ((SortStation)_selectedElement).setExit(value);
             ((SortStation)_selectedElement).setPosition(position);
 	}
         
@@ -193,16 +231,34 @@ public class Controller {
                 return;
             }
             
-            
             sortStation.setPosition(position);
         }
 
 	public void DeleteStation() {
-		throw new UnsupportedOperationException();
+            this.getProject().getSortCenter().getStations().remove(0);
 	}
 
-	public void EditStation() {
-		throw new UnsupportedOperationException();
+	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax) {
+            
+            if (name != null) {
+                this.setSelectedElementAttribute("name", name);
+            }
+            
+            if (description != null) {
+                this.setSelectedElementAttribute("description", description);
+            }
+            
+            if (color != null) {
+                this.setSelectedElementAttribute("color", color);
+            }
+            
+            if (imgSrc != null) {
+                this.setSelectedElementAttribute("img", imgSrc);
+            }
+            
+            if (speedMax != null) {
+                this.setSelectedElementAttribute("speedMax", speedMax);
+            }
 	}
 
 	public void AddExitPoint() {
