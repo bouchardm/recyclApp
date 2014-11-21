@@ -12,6 +12,8 @@ import Domain.IOlet;
 import Domain.Node;
 import Domain.Project;
 import Domain.SortCenter;
+import Domain.Inlet;
+import Domain.Outlet;
 import Presentation.Swing.AboutUs;
 import java.awt.Color;
 import java.awt.Image;
@@ -28,6 +30,7 @@ public class Controller {
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
+        private SortStation _sortStation;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
@@ -173,7 +176,7 @@ public class Controller {
 	}
 
 	public void AddConvoyer() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void RemoveConveyor() {
@@ -352,8 +355,25 @@ public class Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	public void addConveyor(Object aInlet, Object aOutlet) {
-		throw new UnsupportedOperationException();
+	public void addConveyor() 
+        {
+           
+           // JOptionPane.showMessageDialog(null, "Choisir un élément de départ.", null, 0); // TODO: notification visuelle...
+            this.getStationSelected();
+            
+            if ( _selectedElement instanceof SortStation)
+            {
+               //get element source outlet, verify its free
+                // get element destination inlet, verify its free
+                
+                //Addconveyor
+            }
+           
+            
+//            Inlet inlet = (Inlet)aInlet;
+//            Outlet outlet = (Outlet) aOutlet;
+//		this.getProject().getSortCenter().addConveyor(outlet, inlet);
+            
 	}
 
 	public void addJunction(Point aPosition) {

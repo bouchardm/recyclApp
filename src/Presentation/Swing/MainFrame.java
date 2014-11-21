@@ -475,7 +475,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddEntraceActionPerformed
 
     private void btnAddConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddConveyorActionPerformed
-        // TODO add your handling code here:
+        
+        _controller.addConveyor();
     }//GEN-LAST:event_btnAddConveyorActionPerformed
 
     private void btnAddJunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJunctionActionPerformed
