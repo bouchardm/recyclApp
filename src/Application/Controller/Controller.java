@@ -8,14 +8,19 @@ import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
+import Domain.IOlet;
+import Domain.Node;
 import Domain.Project;
 import Domain.SortCenter;
 import Presentation.Swing.AboutUs;
-import Presentation.Swing.MainFrame;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
@@ -23,14 +28,12 @@ public class Controller {
 	private Project _project;
 	private SortCenter _sortCenter;
 	private Conveyor _conveyor;
-//	private SortStation _station;
 	private ExitPoint _exitPoint;
 	private EntryPoint _entryPoint;
 	private Object _matterBasket;
 	private Object _transformationMatrix;
 	private MatterList _matterList;
         private static int matterIDCounter = 0;
-	public MainFrame _mainFrame;
         
         private Element _selectedElement;
         
@@ -40,27 +43,101 @@ public class Controller {
             _selectedElement = null;
         }
         
+        public boolean selectedElementIsFloor()
+        {
+            if (_selectedElement != null) {
+                return _selectedElement.equals(_project.getSortCenter());
+            }
+            return false;
+        }
+        
         public void selectElement(Point2D.Float coords)
         {
+            _selectedElement = null;
+            
             List<Element> elements = new ArrayList<Element>();
             
             elements.add(_project.getSortCenter());
             
-            _selectedElement = null;
+            elements.addAll(_project.getSortCenter().getJunctions());
+            elements.addAll(_project.getSortCenter().getStations());
+//            elements.addAll(_project.getSortCenter().getTransStation());
+            elements.addAll(_project.getSortCenter().getExitPoints());
+            elements.addAll(_project.getSortCenter().getEntryPoints());
+            elements.addAll(_project.getSortCenter().getConveyors());
             
-            if (elements.size() != 0)
+            ArrayList<IOlet> iolets;
+            
+            for (int i=elements.size()-1; i>-1; i--)
             {
-                _selectedElement = elements.get(elements.size()-1);
+                if (elements.get(i) instanceof Node)
+                {
+                    iolets = ((Node)elements.get(i)).getIOlets();
+                    
+                    for (IOlet iol: iolets)
+                    {
+                        if (iol.include(coords))
+                        {
+                            _selectedElement = iol;
+                            return;
+                        }
+                    }
+                }
+                if (elements.get(i).include(coords))
+                {
+                    _selectedElement = elements.get(i);
+                    return;
+                }
             }
         }
+        
+        public boolean isFloorSelected()
+        {
+            return _project.getSortCenter().equals(_selectedElement);
+        }
+                
 
         public void showAboutUs() {
             AboutUs view = new AboutUs();
             view.setVisible(true);
         }
+        
+        public boolean selectedElementIs(Element element)
+        {
+            return _selectedElement != null && _selectedElement.equals(element);
+        }
+        
+        public boolean typeOfElementSelectedIs(Class ElementClass) {
+            return _selectedElement != null && _selectedElement.getClass() == ElementClass;
+        }
+        
+        public Object getSelectedElementAttribute(String attribName)
+        {
+            return _selectedElement.getAttribute(attribName);
+        }
+        
+        public Map<String, Object> getSelectedElementAttributes() {
+            if (this.typeOfElementSelectedIs(SortStation.class)) {
+                return this.getStationSelected();
+            }
+            
+            return null;
+        }
+        
+        public void setSelectedElementAttribute(String attribName, Object value)
+        {
+            if (_selectedElement != null) {
+                _selectedElement.setAttribute(attribName, value);
+            }
+        }
 
 
         // ************ SortCenter ***************
+        
+        public Map<String, Object> getElementAttributes()
+        {
+            return null;
+        }
 
         public Point2D.Float getSortCenterDimensions()
         {
@@ -114,6 +191,24 @@ public class Controller {
 	public void RemoveMatrix() {
 		throw new UnsupportedOperationException();
 	}
+        
+        private Map<String, Object> getStationSelected() {
+            Map<String, Object> infoElement = new HashMap();
+            
+            String name = (String) this._selectedElement.getAttribute("name");
+            String description = (String) this._selectedElement.getAttribute("description");
+            Color color = (Color) this._selectedElement.getAttribute("color");
+            Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+            Image img = (Image) this._selectedElement.getAttribute("img");
+
+            infoElement.put("name", name);
+            infoElement.put("description", description);
+            infoElement.put("colod", color);
+            infoElement.put("speedMax", speedMax);
+            infoElement.put("img", img);
+
+            return infoElement;
+        }
 
 	public void EditMatrix() {
 		throw new UnsupportedOperationException();
@@ -143,25 +238,66 @@ public class Controller {
                 return;
             }
             
-            this._project.getSortCenter().addSortStation(position, value);
+            _selectedElement = this._project.getSortCenter().addSortStation();
+            for (int i=0; i<value; i++)
+            {
+                ((SortStation)_selectedElement).addOutlet();
+            }
+//            ((SortStation)_selectedElement).setExit(value);
+            ((SortStation)_selectedElement).setPosition(position);
 	}
         
-        public void MouveStation(SortStation sortStation, Point2D.Float position) {
+        public void MouveStation(Point2D.Float position) 
+        {
+            if (position.x < 0)
+            {
+                position.x = 0;
+            }
+            else if (position.x+((Point2D.Float)getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x)
+            {
+                position.x = getSortCenterDimensions().x-((Point2D.Float)getSelectedElementAttribute("dimensions")).x;
+            }
+            if (position.y < 0)
+            {
+                position.y = 0;
+            }
+            else if (position.y+((Point2D.Float)getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y)
+            {
+                position.y = getSortCenterDimensions().y-((Point2D.Float)getSelectedElementAttribute("dimensions")).y;
+            }
             if (!this.getProject().getSortCenter().include(position)) {
                 JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
                 return;
             }
             
-            
-            sortStation.setPosition(position);
+            setSelectedElementAttribute("position", position);
         }
 
 	public void DeleteStation() {
-		throw new UnsupportedOperationException();
+            this.getProject().getSortCenter().getStations().remove(0);
 	}
 
-	public void EditStation() {
-		throw new UnsupportedOperationException();
+	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax) {
+            
+            if (name != null) {
+                this.setSelectedElementAttribute("name", name);
+            }
+            
+            if (description != null) {
+                this.setSelectedElementAttribute("description", description);
+            }
+            
+            if (color != null) {
+                this.setSelectedElementAttribute("color", color);
+            }
+            
+            if (imgSrc != null) {
+                this.setSelectedElementAttribute("img", imgSrc);
+            }
+            
+            if (speedMax != null) {
+                this.setSelectedElementAttribute("speedMax", speedMax);
+            }
 	}
 
 	public void AddExitPoint() {

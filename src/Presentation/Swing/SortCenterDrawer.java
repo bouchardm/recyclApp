@@ -7,19 +7,16 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.IOlet;
+import Domain.Inlet;
+import Domain.Outlet;
 import Domain.SortStation;
+import Domain.Station;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -27,13 +24,15 @@ import javax.imageio.ImageIO;
  */
 public class SortCenterDrawer
 {
-    private Controller _recyclAppController;
+    private Controller _controller;
     private Viewport _viewport;
+    private Color _selectedContourColor;
 
     public SortCenterDrawer(Controller controller, Viewport viewport)
     {
-        this._recyclAppController = controller;
+        this._controller = controller;
         this._viewport = viewport;
+        _selectedContourColor = Color.MAGENTA;
     }
     
     public void draw(Graphics g)
@@ -51,9 +50,9 @@ public class SortCenterDrawer
     
     private void drawFloor(Graphics g)
     {
-        if (_recyclAppController != null)
+        if (_controller != null)
         {
-            Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+            Point2D.Float dim = _controller.getSortCenterDimensions();
             float zoomFactor = _viewport.getZoomFactor();
             int margin = (int)(_viewport.MARGIN * zoomFactor);
             int level = 240;
@@ -61,14 +60,19 @@ public class SortCenterDrawer
             int height = (int)(dim.y * 50 * zoomFactor);
             g.setColor(new Color(level, level, level));
             g.fillRect(margin, margin, width, height);
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.drawRect(margin, margin, width, height);
+            if (_controller.isFloorSelected())
+            {
+                g.setColor(_selectedContourColor);
+                g.drawRect(margin, margin, width, height);
+            }
         }
     }
     
     private void drawGrid(Graphics g)
     {
-        Point2D.Float dim = _recyclAppController.getSortCenterDimensions();
+        Point2D.Float dim = _controller.getSortCenterDimensions();
         
         Point2D.Float gridDim = _viewport.getGridDimensions();
         Point2D.Float gridOffset = _viewport.getGridOffset();
@@ -100,8 +104,10 @@ public class SortCenterDrawer
     
     private void drawStations(Graphics g)
     {
-        ArrayList sortStationList = this._recyclAppController.getProject().getSortCenter().getSortStationList();
-        for (int i = sortStationList.size() - 1; i >= 0; i--) {
+        ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
+
+        for (int i = sortStationList.size() - 1; i >= 0; i--)
+        {
             this.drawStation(g, (SortStation) sortStationList.get(i));
         }
     }
@@ -115,10 +121,13 @@ public class SortCenterDrawer
         // TODO: Regarder pourquoi j'ai besoin de faire -1
         int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+        
+        ArrayList<IOlet> iolets = new ArrayList<>();
 
         // Dessin de la stations
-        if (station.isSelected()) {
-            g.setColor(Color.black);
+        if (_controller.selectedElementIs(station))
+        {
+            g.setColor(_selectedContourColor);
             g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
         }
 
@@ -131,6 +140,40 @@ public class SortCenterDrawer
         }
         
         g.drawString(station.getName(), positionMeterX, positionMeterY + dimensionMeterY + 20);
+        
+        if (station instanceof Station)
+        {
+            iolets.add(station.getInlet());
+        }
+        
+        iolets.addAll(station.getIOlets());
+        
+        for (IOlet iol: iolets)
+        {
+            drawIOlet(g, iol);
+        }
+    }
+    
+    private void drawIOlet(Graphics g, IOlet iolet)
+    {
+        g.setColor(Color.BLUE);
+        if (iolet instanceof Inlet)
+        {
+            g.setColor(Color.YELLOW);
+        }
+        Ellipse2D.Float circle = iolet.getCircle();
+        g.fillOval(_viewport.meterToPix(circle.x),
+                _viewport.meterToPix(circle.y),
+                _viewport.meterToPixDim(circle.width),
+                _viewport.meterToPixDim(circle.height));
+        if (_controller.selectedElementIs(iolet))
+        {
+            g.setColor(_selectedContourColor);
+            g.drawOval(_viewport.meterToPix(circle.x),
+                _viewport.meterToPix(circle.y),
+                _viewport.meterToPixDim(circle.width),
+                _viewport.meterToPixDim(circle.height));
+        }
     }
     
     private void drawJunctions(Graphics g)

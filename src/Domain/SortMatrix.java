@@ -18,7 +18,7 @@ public class SortMatrix {
 
     public SortMatrix() {
         _sortMatrix = new HashMap<>();
-    }
+    }    
     
     //constructeur : recoit matterList et outletList en paramètre
     //crée une matrice qui met toutes les matières à la première sortie dans la liste
@@ -164,6 +164,23 @@ public class SortMatrix {
             copiedSortMatrix.put(key, copiedInnerList);
         }
         return copiedSortMatrix;
+    }
+    
+    //fait une copie profonde de la matrice en paramètre et la copie dans _sortMatrix
+    public void setSortMatrix(HashMap<Integer, ArrayList<Float>> newSortMatrix) {
+        this._sortMatrix.clear();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = newSortMatrix.entrySet().iterator();
+        while (smIter.hasNext()) {
+            ArrayList<Float> copiedArray = new ArrayList<>();
+            Map.Entry<Integer, ArrayList<Float>> currentEntry = smIter.next();
+            ArrayList<Float> arrayToCopy = currentEntry.getValue();
+            Iterator<Float> listIter = arrayToCopy.iterator();
+            while(listIter.hasNext()) {
+                float currentListItem = listIter.next();
+                copiedArray.add(currentListItem);
+            }
+            _sortMatrix.put(currentEntry.getKey(), copiedArray);
+        }
     }
     
     

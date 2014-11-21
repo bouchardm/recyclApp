@@ -45,6 +45,14 @@ public class Conveyor extends Element
             _line.setLine(p1.x, p1.y, p2.x, p2.y);
         }
         
+        public Outlet getStartOutlet() {
+            return this._startPoint;
+        }
+        
+        public Inlet getEndInlet() {
+            return this._endPoint;
+        }
+        
         
         public Node getStartNode()
         {
@@ -73,5 +81,15 @@ public class Conveyor extends Element
             updatePoints();
             return (Point2D.Float)_line.getP2();
         }
+
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
 }

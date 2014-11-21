@@ -1,6 +1,8 @@
 package Domain;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class MatterBasket {
 	private HashMap<Integer, Float> _quantity;   //string = nom matière, Float = quantité associée
@@ -8,6 +10,29 @@ public class MatterBasket {
     //constructeur sans paramètres : crée _quantity vide
     public MatterBasket() {
         _quantity = new HashMap<>();
+    }
+    
+    public HashMap<Integer, Float> getQuantities() {
+        HashMap<Integer, Float> copiedQuantities = new HashMap<>();
+        Iterator<Map.Entry<Integer, Float>> mbIter = _quantity.entrySet().iterator();
+        while(mbIter.hasNext()) {
+            Map.Entry<Integer, Float> currentEntry = mbIter.next();
+            int matterID = currentEntry.getKey();
+            float matterQty = currentEntry.getValue();
+            copiedQuantities.put(matterID, matterQty);
+        }
+        return copiedQuantities;
+    }
+    
+    public void setQuantities(HashMap<Integer, Float> newQuantities) {
+        _quantity.clear();
+        Iterator<Map.Entry<Integer,Float>> mbIter = newQuantities.entrySet().iterator();
+        while (mbIter.hasNext()) {
+            Map.Entry<Integer, Float> currentEntry = mbIter.next();
+            int matterID = currentEntry.getKey();
+            float matterQty = currentEntry.getValue();
+            _quantity.put(matterID, matterQty);
+        }
     }
     
     //constructeur avec paramètre: 
@@ -78,5 +103,9 @@ public class MatterBasket {
             }
             return total;
         }
+    }
+    
+    public int getNumberOfMatterInBasket() {
+        return _quantity.size();
     }
 }

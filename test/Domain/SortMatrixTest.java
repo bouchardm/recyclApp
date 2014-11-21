@@ -170,6 +170,31 @@ public class SortMatrixTest {
         assertFalse(sm2.size()==sm.getMatterCount());
     }
     
+    //setSortMatrix - succes
+    @Test
+    public void setSortMatrix() {
+        SortMatrix smtest = new SortMatrix();
+        assertTrue(smtest.getMatterCount()==0);
+        //créer un matterBasket
+        HashMap<Integer, ArrayList<Float>> mb = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.4));
+        innerList.add(new Float(0.5));
+        innerList.add(new Float(0.1));
+        mb.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.3));
+        innerList2.add(new Float(0.2));
+        innerList2.add(new Float(0.5));
+        mb.put(2, innerList2);
+        smtest.setSortMatrix(mb);
+        HashMap<Integer, ArrayList<Float>> tester = smtest.getSortMatrix();
+        assertTrue(tester.containsKey(1) && tester.containsKey(2));
+        assertTrue((float)tester.get(1).get(2)==(float)0.1);
+        assertTrue((float)tester.get(2).get(0)==(float)0.3);
+        
+    }
+    
     
     
     //removeOutletFromMatrix

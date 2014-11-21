@@ -14,7 +14,9 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,13 +31,13 @@ import javax.swing.JToggleButton;
 public class MainFrame extends javax.swing.JFrame {
     
     Controller _controller;
-    SortStation _sortStationSelected;
+//    SortStation _sortStationSelected;
     /**
      * Creates new form fenetre
      */
     public MainFrame() {
         _controller = new Controller();
-        _sortStationSelected = null;
+//        _sortStationSelected = null;
         initComponents();
         this.setLocationRelativeTo(null); // Centrer la fenêtre
     }
@@ -88,6 +90,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnAboutUs = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("RecyclApp");
 
         PanelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -197,7 +200,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnAddEntrace, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnOpen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(66, 66, 66))
+                .addGap(0, 0, 0))
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(snapCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 399, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 540, Short.MAX_VALUE)
                 .addComponent(cursorCoordsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(zoomOutButton)
@@ -320,8 +323,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
         viewport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewportMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                viewportMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 viewportMouseReleased(evt);
@@ -340,11 +343,11 @@ public class MainFrame extends javax.swing.JFrame {
         viewport.setLayout(viewportLayout);
         viewportLayout.setHorizontalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 803, Short.MAX_VALUE)
+            .addGap(0, 878, Short.MAX_VALUE)
         );
         viewportLayout.setVerticalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 503, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         viewportScrollPane.setViewportView(viewport);
@@ -445,7 +448,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -460,6 +463,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleName("RecyclApp");
+        getAccessibleContext().setAccessibleDescription("Logiciel de conception de centre de tri");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -513,7 +519,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAboutUsMousePressed
 
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
-        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", viewport.pixToMeter(evt.getX()), viewport.pixToMeter(evt.getY())));
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
     }//GEN-LAST:event_viewportMouseMoved
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
@@ -551,20 +558,31 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-        if (this.viewport.getCreationMode() == Viewport.CREATION_MODES.SORT_STATION) {
-            Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-            if (viewport.isSnapToGrid())
-            {
-                position = viewport.snap(position);
-            }
-            this._controller.AddStation(position);
-            
-            this.viewport.display();
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-            btnAddStation.setSelected(false);
+        switch (viewport.getCreationMode())
+        {
+            case NONE:
+                break;
+            case SORT_STATION:
+                Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+                if (viewport.isSnapToGrid())
+                {
+                    position = viewport.snap(position);
+                }
+                _controller.AddStation(position);
+
+                repaint();
+                viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                btnAddStation.setSelected(false);
+                break;
+            case TRANS_STATION:
+                break;
+            case JUNCTION:
+                break;
+            case CONVEYOR_1:
+                break;
+            case CONVEYOR_2:
+                break;
         }
-        
-        this._sortStationSelected = null;
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -582,18 +600,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        if (viewport.isSnapToGrid())
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+        
+        if (!_controller.selectedElementIsFloor())
         {
-            position = viewport.snap(position);
+            if (viewport.isSnapToGrid())
+            {
+                position = viewport.snap(position);
+            }
+            
+            _controller.MouveStation(position);
+//            _controller.setSelectedElementAttribute("position", position);
+
+            this.viewport.repaint();
         }
-        
-        if  (_sortStationSelected == null) {
-            this._sortStationSelected = this._controller.getProject().getSortCenter().getSortStationCursorIn(position);
-        } else {
-            this._controller.MouveStation(this._sortStationSelected, position);
-        }
-        
-        this.viewport.display();
     }//GEN-LAST:event_viewportMouseDragged
 
     private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
@@ -601,31 +621,38 @@ public class MainFrame extends javax.swing.JFrame {
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddStationMouseClicked
 
-    private void viewportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseClicked
-        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        this.cleanInformationPanel();
+    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
+        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        cleanInformationPanel();
+        _controller.selectElement(position);
         
-        SortStation sortStation = this._controller.getProject().getSortCenter().getSortStationCursorIn(position); // mauvais utilisation du contrôleur
-        
-        this._controller.getProject().getSortCenter().unselectAll(); // mauvais utilisation du contrôleur
-        
-        if (sortStation != null) {
-            sortStation.setSelected(true);
+        if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
+            Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
+            
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                sortStation, 
-                this._controller.getProject().getSortCenter().getSortStationList(),// mauvais utilisation du contrôleur
+                infoElement,
                 this
             );
             
             JPanel sortStationPanel = infoSortStationFrame.getPanel();
 
             sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            this.panelInformation.add(sortStationPanel);
+            panelInformation.add(sortStationPanel);
         }
         
         repaint();
-    }//GEN-LAST:event_viewportMouseClicked
+    }//GEN-LAST:event_viewportMousePressed
 
+    @Override
+    public void repaint()
+    {
+        super.repaint();
+    }
+    
+    private void displayPanel()
+    {
+        
+    }
     
     /**
      * @param args the command line arguments
@@ -686,8 +713,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem newMenu;
     private javax.swing.JMenuItem openMenu;
     private javax.swing.JPanel panelInformation;

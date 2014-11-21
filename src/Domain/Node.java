@@ -2,9 +2,9 @@ package Domain;
 
 
 import java.awt.Color;
-import java.awt.List;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public abstract class Node extends Element
 {
@@ -22,5 +22,9 @@ public abstract class Node extends Element
     public void setColor(Color _color) {
         this._color = _color;
     }
+    
+    public abstract ArrayList<IOlet> getIOlets();
+    
+    public abstract void processMatterBasket(MatterBasket matterBasket);
         
 }

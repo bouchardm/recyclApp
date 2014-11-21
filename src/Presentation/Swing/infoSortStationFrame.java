@@ -9,6 +9,8 @@ import Application.Controller.Controller;
 import Domain.SortStation;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -23,9 +25,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
-    private SortStation _sortStation;
-    private ArrayList _sortStationList;
     private MainFrame _parent;
+    private Color _stationColor;
+    
     
     /**
      * Creates new form infoSortStation
@@ -34,17 +36,15 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         initComponents();
     }
     
-    public infoSortStationFrame(SortStation sortStation, ArrayList sortStationList, MainFrame parent) {
+    public infoSortStationFrame(Map<String, Object> infoElement, MainFrame parent) {
         initComponents();
         
-        this._sortStation = sortStation;
-        this.setStationName(sortStation.getName());
-        this.setStationDescription(sortStation.getDescription());
-        this.setStationKgHMax(sortStation.getKgHMax());
-        this.setStationNbExit(sortStation.getExit().size());
+        this.setStationName((String) infoElement.get("name"));
+        this.setStationDescription((String) infoElement.get("description"));
+        this.setStationKgHMax((Float) infoElement.get("speedMax"));
+        this._stationColor = (Color) infoElement.get("color");
         
         this._parent = parent;
-        this._sortStationList = sortStationList;
     }
 
     public void setStationDescription(String txtStationDescription) {
@@ -57,10 +57,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
 
     public void setStationName(String txtStationName) {
         this.txtStationName.setText(txtStationName);
-    }
-
-    public void setStationNbExit(Integer txtStationNbExit) {
-        this.txtStationNbExit.setText(txtStationNbExit.toString());
     }
     
     public JPanel getPanel() {
@@ -83,13 +79,12 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         txtStationName = new javax.swing.JTextField();
         txtStationKgHMax = new javax.swing.JTextField();
         btnColorPciker = new javax.swing.JButton();
-        txtStationNbExit = new javax.swing.JTextField();
         btnImgStation = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,12 +136,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             }
         });
 
-        txtStationNbExit.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStationNbExitKeyPressed(evt);
-            }
-        });
-
         btnImgStation.setText("Image");
         btnImgStation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,32 +149,31 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
 
         jLabel2.setText("Description:");
 
-        jLabel3.setText("Nombre de sortie:");
-
         jLabel4.setText("Kg/h max:");
+
+        jButton1.setText("Configurer les sorties");
 
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformation2Layout.createSequentialGroup()
+            .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtStationName)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                    .addComponent(txtStationKgHMax)
-                    .addComponent(btnColorPciker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtStationNbExit, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnImgStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInformation2Layout.createSequentialGroup()
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtStationName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(txtStationKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnImgStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -207,15 +195,13 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addComponent(txtStationKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnColorPciker)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStationNbExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImgStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,18 +223,31 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     }//GEN-LAST:event_btnDeleteStationActionPerformed
 
     private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
-        this._sortStationList.remove(0);
+        this._parent._controller.DeleteStation();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
     }//GEN-LAST:event_btnDeleteStationMouseClicked
 
     private void txtStationNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNameKeyPressed
-        this._sortStation.setName(this.txtStationName.getText());
+        this._parent._controller.EditStation(
+            this.txtStationName.getText(), 
+            this.txtStationDescription.getText(), 
+            null, 
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText())
+        );
+        
         this._parent.repaint();
     }//GEN-LAST:event_txtStationNameKeyPressed
 
     private void txtStationDescriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationDescriptionKeyPressed
-        this._sortStation.setDescription(this.txtStationDescription.getText());
+        this._parent._controller.EditStation(
+            this.txtStationName.getText(), 
+            this.txtStationDescription.getText(), 
+            null, 
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText())
+        );
     }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
     private void txtStationKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationKgHMaxKeyPressed
@@ -258,23 +257,20 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         try {
             kgHMax = Float.parseFloat(strKgHMax);
         } catch (NumberFormatException e) {
-            kgHMax = this._sortStation.getKgHMax();
+            return;
         }
         
-        this._sortStation.setKgHMax(kgHMax);
+        this._parent._controller.EditStation(
+            this.txtStationName.getText(), 
+            this.txtStationDescription.getText(), 
+            null, 
+            null,
+            kgHMax
+        );
     }//GEN-LAST:event_txtStationKgHMaxKeyPressed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
-        String strNbExit = this.txtStationNbExit.getText();
-        
-        int nbExit;
-        try {
-            nbExit = Integer.parseInt(strNbExit);            
-        } catch (NumberFormatException e) {
-            nbExit = this._sortStation.getExit().size();
-        }
-        
-        this._sortStation.setExit(nbExit);
+
     }//GEN-LAST:event_txtStationNbExitKeyPressed
 
     private void btnColorPcikerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColorPcikerMouseClicked
@@ -282,8 +278,16 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     }//GEN-LAST:event_btnColorPcikerMouseClicked
 
     private void btnColorPcikerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPcikerActionPerformed
-        Color colorStation = JColorChooser.showDialog(null, "sdfsdf", this._sortStation.getColor());
-        this._sortStation.setColor(colorStation);
+        Color colorStation = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._stationColor);
+        
+        this._parent._controller.EditStation(
+            this.txtStationName.getText(), 
+            this.txtStationDescription.getText(), 
+            colorStation, 
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText())
+        );
+        
         this._parent.repaint();
     }//GEN-LAST:event_btnColorPcikerActionPerformed
 
@@ -294,7 +298,14 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         filePicker.setFileFilter(filter);
         int responce = filePicker.showOpenDialog(this._parent);
         if(responce == JFileChooser.APPROVE_OPTION) {
-           this._sortStation.setImg(filePicker.getSelectedFile().getAbsolutePath());
+            
+            this._parent._controller.EditStation(
+                this.txtStationName.getText(), 
+                this.txtStationDescription.getText(), 
+                null, 
+                filePicker.getSelectedFile().getAbsolutePath(),
+                Float.valueOf(this.txtStationKgHMax.getText())
+            );
         }
         this._parent.repaint();
     }//GEN-LAST:event_btnImgStationMouseClicked
@@ -339,17 +350,16 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JButton btnColorPciker;
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;
     private javax.swing.JTextField txtStationKgHMax;
     private javax.swing.JTextField txtStationName;
-    private javax.swing.JTextField txtStationNbExit;
     // End of variables declaration//GEN-END:variables
 
     
