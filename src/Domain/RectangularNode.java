@@ -9,10 +9,7 @@ package Domain;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-/**
- *
- * @author Dany
- */
+
 public abstract class RectangularNode extends Node
 {
     private Rectangle2D.Float _rect;
