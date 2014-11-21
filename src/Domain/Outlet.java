@@ -1,10 +1,5 @@
 package Domain;
 
-import junit.framework.Assert;
-
-
-//import Domain.Node;
-//import Domain.Conveyor;
 
 public class Outlet extends IOlet
 {
