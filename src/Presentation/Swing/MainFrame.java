@@ -597,7 +597,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddStation.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddStationMouseDragged
-
+   
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
