@@ -38,7 +38,6 @@ public class Controller {
         public Controller()
         {
             _project = new Project();
-            _selectedElement = null;
         }
         
         public boolean selectedElementIsFloor()
@@ -51,7 +50,7 @@ public class Controller {
         
         public void selectElement(Point2D.Float coords)
         {
-            _selectedElement = null;
+            _selectedElement = _project.getSortCenter();
             
             List<Element> elements = new ArrayList<Element>();
             
@@ -112,6 +111,7 @@ public class Controller {
         public Object getSelectedElementAttribute(String attribName)
         {
             return _selectedElement.getAttribute(attribName);
+            
         }
         
         public Map<String, Object> getSelectedElementAttributes() {

@@ -103,6 +103,8 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         outletTable = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
+        btnAddExit = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setTitle("Matrice de tri - RecyclApp");
 
@@ -139,17 +141,38 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             }
         });
 
+        btnAddExit.setText("Ajouter une sortie");
+        btnAddExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddExitMouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("Supprimer une sortie");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddExit)
+                        .addGap(0, 0, 0)
+                        .addComponent(jButton2)))
                 .addGap(0, 0, 0)
                 .addComponent(btnSave))
         );
@@ -178,19 +201,6 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");
         
         SortMatrix sortMatrix = (SortMatrix) infoStation.get("sortMatrix");
-        
-//        HashMap<Integer, ArrayList<Float>> matterForExit = sortMatrix.getSortMatrix();
-        
-//        ArrayList<Float> exits = new ArrayList<>();
-        
-//        exits.add(111f);
-//        exits.add(111f);
-//
-//        matterForExit.put(1, exits); // id of the matter, list de la répartition dans les sorties
-//        matterForExit.put(2, exits);
-//        
-//        
-//        sortMatrix.setSortMatrix(matterForExit);
         
         Object[][] tableData = Utility.getTableData(outletTable);
         
@@ -225,20 +235,12 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         
         sortMatrix.setSortMatrix(matterForExit);
         
-//        System.out.print(sortMatrix.getSortMatrix().get(1));
-        
-        
-        
-//        int nbMatter = sortMatrix.getSortMatrix().size();
-//        Object[][] matters = new Object[nbMatter][outletList.size() + 1];
-//        
-//        
-//        HashMap<Integer, ArrayList<Float>> sortMatrixMap = new HashMap<>();
-//            SortMatrix sorter = new SortMatrix();
-//        
-        
-            this._controller.EditStation(null, null, null, null, null, sortMatrix);
+        this._controller.EditStation(null, null, null, null, null, sortMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void btnAddExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddExitMouseClicked
+        
+    }//GEN-LAST:event_btnAddExitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -276,7 +278,9 @@ public class OutletMatterFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddExit;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable outletTable;
     // End of variables declaration//GEN-END:variables
