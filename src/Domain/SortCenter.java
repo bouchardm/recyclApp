@@ -65,6 +65,10 @@ public class SortCenter extends Element
         return _exitPointList;
     }
     
+    public void addMatterToMatterList(Matter matter) {
+        this._matterList.Add(matter);
+    }
+    
     public ArrayList getJunctions()
     {
         return _junctionList;
@@ -90,6 +94,13 @@ public class SortCenter extends Element
         return _stationList;
     }
     
+    public MatterList getMatterList() {
+        return _matterList;
+    }
+
+    public void setMatterList(MatterList _matterList) {
+        this._matterList = _matterList;
+    }
     
     //retourne la liste d'Outlet de la station à l'indice "index" de la liste
     public ArrayList<Outlet> getStationOutletList(int index){
@@ -108,6 +119,7 @@ public class SortCenter extends Element
     
 
     public void updateDesign() {
+        this.resetJunctionMatterBaskets();
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
@@ -147,9 +159,7 @@ public class SortCenter extends Element
                 //(comme on fait toujours le traitement à la destination, le
                 // entryPoint n'est jamais traité. Son matterBasket doit être
                 // mis à jour avant)
-                System.out.println(destination.getClass());
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
-                System.out.println("here");
                 equipmentToProcess.add(destination);
             }
                 
@@ -249,18 +259,6 @@ public class SortCenter extends Element
     public MatterBasket getExitPointMatterBasket(int index) {
         return _exitPointList.get(index).getMatterBasket();
     }
-            
-
-//    public void unselectAll() {
-//        ArrayList sortStationList = this.getSortStationList();
-//        
-//        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-//            SortStation next = (SortStation)iterator.next();
-//            
-////            next.setSelected(false);
-//        }
-//        
-//    }
 
     @Override
     public void setAttribute(String attribName, Object value) {
@@ -270,5 +268,14 @@ public class SortCenter extends Element
     @Override
     public Object getAttribute(String attribName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //méthode utilitaire avant de faire updateDesign
+    public void resetJunctionMatterBaskets() {
+        for (Junction currentJunction : _junctionList) {
+            MatterBasket emptyMatterBasket = new MatterBasket(this._matterList);
+            currentJunction.getOutlet().setMatterBasket(emptyMatterBasket);
+            
+        }
     }
 }

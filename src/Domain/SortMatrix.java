@@ -151,7 +151,12 @@ public class SortMatrix {
         }
     }
     
-    //retourne une copie profonde de _sortMatrix
+    /**
+     * retourne une copie profonde de _sortMatrix
+     * Integer : MatterId
+     * ArrayList<Float> % by outlet
+     * @return
+     */
     public HashMap<Integer, ArrayList<Float>> getSortMatrix()
     {
         HashMap<Integer, ArrayList<Float>> copiedSortMatrix = new HashMap<>();

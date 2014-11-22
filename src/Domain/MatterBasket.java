@@ -26,6 +26,7 @@ public class MatterBasket {
     
     public void setQuantities(HashMap<Integer, Float> newQuantities) {
         _quantity.clear();
+        _quantity = new HashMap<>();
         Iterator<Map.Entry<Integer,Float>> mbIter = newQuantities.entrySet().iterator();
         while (mbIter.hasNext()) {
             Map.Entry<Integer, Float> currentEntry = mbIter.next();
@@ -39,7 +40,7 @@ public class MatterBasket {
     //_quantity contient tous les matière de la liste avec une quantité associée de 0
     public MatterBasket( MatterList aMatterList) {
         _quantity = new HashMap<>();
-        if(aMatterList.GetCount()>0) { 
+        if(0<aMatterList.GetCount()) { 
             for(int i = 0; i<aMatterList.GetCount(); i++)
             {
                 if(aMatterList.GetCount()>0) {

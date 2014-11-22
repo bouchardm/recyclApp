@@ -620,10 +620,8 @@ public class MainFrame extends javax.swing.JFrame {
         _controller.selectElement(position);
 
         if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
-            Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
-
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                    infoElement,
+                _controller,
                     this
             );
 

@@ -29,7 +29,7 @@ public class ExitPoint extends RectangularNode
     }
     
     public void setMatterBasket(MatterBasket matterBasket) {
-        this._matterBasket = matterBasket;
+        this._matterBasket.setQuantities(matterBasket.getQuantities());
     }
 
     @Override

@@ -39,6 +39,7 @@ public abstract class Station extends RectangularNode
 //        this._selected = false; 
         this._img = null;
         _inlet = new Inlet(this);
+        
         _outletList = new ArrayList<>();
         _sortMatrix = new SortMatrix();
     }
@@ -141,8 +142,31 @@ public abstract class Station extends RectangularNode
         catch (IllegalArgumentException e)
         {
             switch(attribName) {
+                case "name":
+                    return this.getName();
+                case "description":
+                    return this.getDescription();
+                case "color":
+                    return this.getColor();
+                case "speedMax":
+                    return this.getKgHMax();
+                case "img":
+                    return this.getImg();
+                case "outletList":
+                    return this.getOutletList();
+                case "sortMatrix":
+                    return this.getSortMatrix();
+                case "matterQuantity": 
+                {
+                    float matterQuantity = 0;
+                    for (Outlet outlet : _outletList) {
+                        matterQuantity = matterQuantity + outlet.getMatterBasket().getTotalQuantity();
+                    }
+                    return matterQuantity;
+                }
+                    
                 default:
-                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+                    throw new NoSuchFieldError();
             }
         }
     }
@@ -202,23 +226,6 @@ public abstract class Station extends RectangularNode
     {
         return _outletList.size();
     }
-
-    //ATTENTION: on ne devrait pas tenter de "setter" le nombre de outlets
-    //en tant que tel. On devrait plutôt ajouter ou retirer de la liste les
-    //outlets concernés
-//    public void setExit(int nbExit) {
-//        this._exit = new HashMap<Matter,Integer>();
-//
-//        this._exit.put(new Matter("todo: change", 0), 100);
-//
-//        for (int i = 1; i < nbExit; i++) {
-//            this._exit.put(new Matter("todo: change", i), 0);
-//        }
-//    }
-    
-//        public void setExit(Map<Matter, Integer> _exit) {
-//        this._exit = _exit;
-//    }
     
     public Inlet getInlet()
     {
@@ -228,7 +235,7 @@ public abstract class Station extends RectangularNode
     public ArrayList<Outlet> getOutletList() {
         return _outletList;
     }
-    
+
     
     
 

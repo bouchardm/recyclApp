@@ -98,6 +98,7 @@ public class SortCenterDrawer {
     }
 
     private void drawStations(Graphics g) {
+        // TODO faire un refactor
         ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
 
         for (int i = sortStationList.size() - 1; i >= 0; i--) {
