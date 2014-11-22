@@ -7,6 +7,8 @@
 package Domain;
 
 import Application.Controller.Controller;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -35,6 +37,66 @@ public class Project
         _path = null;
         _sortCenter = new SortCenter();
         _isSaved = true;
+        
+        this._sortCenter.setMatterList(null);
+        
+        this.test();
+    }
+    
+    public void test() { // TODO : enlever pour la remise
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterList tmlist = new MatterList();
+        tmlist.Add(m1);
+        tmlist.Add(m2);
+
+        this._sortCenter.setMatterList(tmlist);
+
+        //construire le premier matterBasket en entrée
+
+        MatterBasket mb1 = new MatterBasket();
+        mb1.addMatterQuantity(m1.getID(), new Float(700));
+        mb1.addMatterQuantity(m2.getID(), new Float(1000));
+        //construire le deuxième matterBasket en entrée
+        MatterBasket mb2 = new MatterBasket();
+        mb2.addMatterQuantity(m1.getID(), new Float(1500));
+        mb2.addMatterQuantity(m2.getID(), new Float(1200));
+
+
+        //créer une matrice de tri pour les machines à une sortie
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(1));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(1));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        //créer la matrice de tri pour les machines à deux sorties
+        HashMap<Integer, ArrayList<Float>> smatrix2 = new HashMap<>();
+        ArrayList<Float> innerList21 = new ArrayList<>();
+        innerList21.add(new Float(0.5));
+        innerList21.add(new Float(0.5));
+        smatrix2.put(1, innerList21);
+        ArrayList<Float> innerList22 = new ArrayList<>();
+        innerList22.add(new Float(0.75));
+        innerList22.add(new Float(0.25));
+        smatrix2.put(2, innerList22);
+        SortMatrix sorter2 = new SortMatrix();
+        sorter2.setSortMatrix(smatrix2);
+
+        //créer les station
+
+        this._sortCenter.addSortStation();                           //S1
+        Station s1 = this._sortCenter.getStations().get(0);
+        s1.setSortMatrix(sorter);
+        s1.addOutlet();
+        this._sortCenter.addSortStation();                           //S2
+        Station s2 = this._sortCenter.getStations().get(1);
+        s2.setSortMatrix(sorter2);
+        s2.addOutlet();
+        s2.addOutlet();
     }
     
     public void loadProject(String path)
