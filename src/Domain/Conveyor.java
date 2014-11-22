@@ -15,7 +15,7 @@ public class Conveyor extends Element
         private Float _maxCapatity;
         private Line2D.Float _line;
         
-        private final static float _WIDTH = 0.2f;
+        private final static float _WIDTH = 0.5f;
         
         public Conveyor(Outlet startPoint, Inlet endPoint)
         {
@@ -26,6 +26,9 @@ public class Conveyor extends Element
             _line = new Line2D.Float();
             this._startPoint = startPoint;
             this._endPoint = endPoint;
+            
+            _startPoint.setConveyor(this);
+            _endPoint.setConveyor(this);
             _maxCapatity = DEFAULTCAPACITY;
             
             updatePoints();
@@ -35,13 +38,14 @@ public class Conveyor extends Element
         @Override
         public boolean include(Point2D.Float point)
         {
+            updatePoints();
             return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
         }
         
         private void updatePoints()
         {
-            Point2D.Float p1 = _startPoint.getNode().getCenter();
-            Point2D.Float p2 = _endPoint.getNode().getCenter();
+            Point2D.Float p1 = _startPoint.getPosition();
+            Point2D.Float p2 = _endPoint.getPosition();
             _line.setLine(p1.x, p1.y, p2.x, p2.y);
         }
         
