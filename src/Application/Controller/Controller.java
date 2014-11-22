@@ -18,6 +18,7 @@ import Domain.Project;
 import Domain.SortCenter;
 import Domain.Station;
 import Domain.TransMatrix;
+import Domain.TransStation;
 import Presentation.Swing.AboutUs;
 import java.awt.Color;
 import java.awt.Image;
@@ -117,6 +118,8 @@ public class Controller {
         public Map<String, Object> getSelectedElementAttributes() {
             if (this.typeOfElementSelectedIs(SortStation.class)) {
                 return this.getStationSelected();
+            } else if (this.typeOfElementSelectedIs(TransStation.class)) {
+                return this.getTransStationSelected();
             }
             
             return null;
@@ -219,11 +222,65 @@ public class Controller {
             infoElement.put("sortMatrix", sortMatrix);
             return infoElement;
         }
+        
+        private Map<String, Object> getTransStationSelected() {
+            Map<String, Object> infoElement = new HashMap();
+            
+            String name = (String) this._selectedElement.getAttribute("name");
+            String description = (String) this._selectedElement.getAttribute("description");
+            Color color = (Color) this._selectedElement.getAttribute("color");
+            Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+            Image img = (Image) this._selectedElement.getAttribute("img");
+            ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
+            TransMatrix transMatrix = (TransMatrix) this._selectedElement.getAttribute("transMatrix");
+            
+            infoElement.put("name", name);
+            infoElement.put("description", description);
+            infoElement.put("color", color);
+            infoElement.put("speedMax", speedMax);
+            infoElement.put("img", img);
+            infoElement.put("outletList", outletList);
+            infoElement.put("transMatrix", transMatrix);
+            return infoElement;
+        }
 
 	public void EditMatrix() {
 		throw new UnsupportedOperationException();
 	}
 
+        public void AddTransStation(Point2D.Float position) {
+            if (!this.getProject().getSortCenter().include(position)) {
+                JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+                return;
+            }
+            
+            int value;
+            try {
+                value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));            
+            } catch (NumberFormatException e) {
+                value = -1;
+            }
+            
+            if (value < 0) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
+                return;
+            }
+            
+            if (value > 1000) {
+                JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
+                return;
+            }
+            
+            _selectedElement = this._project.getSortCenter().addTransStation();
+            for (int i=0; i<value; i++)
+            {
+                ((TransStation)_selectedElement).addOutlet();
+            }
+            
+            ((TransStation)_selectedElement).setPosition(position);
+        }
+        
+        
 	public void AddStation(Point2D.Float position) {
             
             if (!this.getProject().getSortCenter().include(position)) {
@@ -377,6 +434,8 @@ public class Controller {
         public Project getProject() {
             return _project;
         }
+
+    
 
     
 }

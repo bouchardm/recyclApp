@@ -157,7 +157,7 @@ public abstract class Station extends RectangularNode
                 case "sortMatrix":
                     return this.getSortMatrix();
                 default:
-                    throw new NoSuchFieldError();
+                    throw new IllegalArgumentException();
             }
         }
     }

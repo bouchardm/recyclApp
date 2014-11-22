@@ -168,8 +168,10 @@ public class SortCenter extends Element
             
     }
 
-    public void addTransStation() {
-        this._stationList.add(new TransStation());
+    public TransStation addTransStation() {
+        TransStation station = new TransStation();
+        this._stationList.add(station);
+        return station;
     }
     
     public void setSortStationMatrix(int index, SortMatrix sm) {
