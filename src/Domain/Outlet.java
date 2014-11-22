@@ -12,17 +12,20 @@ public class Outlet extends IOlet
             _relativePosition.x = 1;
             _relativePosition.y = (float)Math.random();
             setPosition(_relativePosition);
+            _matterBasket = new MatterBasket();
         }
         
         public MatterBasket getMatterBasket()
         {
-            return _matterBasket;
+            MatterBasket mb = new MatterBasket();
+            mb.setQuantities(_matterBasket.getQuantities());
+            return mb;
         }
         
         
         public void setMatterBasket( MatterBasket matterBasket)
         {
-           _matterBasket = matterBasket;
+           _matterBasket.setQuantities(matterBasket.getQuantities());
         }
         
 }

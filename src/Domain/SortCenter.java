@@ -65,6 +65,10 @@ public class SortCenter extends Element
         return _exitPointList;
     }
     
+    public void addMatterToMatterList(Matter matter) {
+        this._matterList.Add(matter);
+    }
+    
     public ArrayList getJunctions()
     {
         return _junctionList;
@@ -108,6 +112,7 @@ public class SortCenter extends Element
     
 
     public void updateDesign() {
+        this.resetJunctionMatterBaskets();
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
@@ -268,5 +273,22 @@ public class SortCenter extends Element
     @Override
     public Object getAttribute(String attribName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //méthode utilitaire avant de faire updateDesign
+    public void resetJunctionMatterBaskets() {
+        for (Junction currentJunction : _junctionList) {
+            MatterBasket emptyMatterBasket = new MatterBasket(this._matterList);
+            currentJunction.getOutlet().setMatterBasket(emptyMatterBasket);
+            
+        }
+    }
+    
+    public MatterList getMatterList() {
+        return _matterList;
+    }
+    
+    public void setMatterList(MatterList matterList) {
+        _matterList = matterList;
     }
 }

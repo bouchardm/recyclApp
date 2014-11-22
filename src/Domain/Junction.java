@@ -89,7 +89,7 @@ public class Junction extends Node {
     //ajoute les quantités du matterBasket au matterBasket à son Outlet
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
-        if(_outlet.getMatterBasket()==null) {
+        if(_outlet.getMatterBasket()==null || _outlet.getMatterBasket().getNumberOfMatterInBasket()==0) {
             _outlet.setMatterBasket(matterBasket);
         }
         else {
@@ -106,7 +106,7 @@ public class Junction extends Node {
             }
             _outlet.setMatterBasket(newMatterBasket); 
         }
-        
-        
     }
+    
+
 }
