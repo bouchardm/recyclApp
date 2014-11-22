@@ -90,6 +90,13 @@ public class SortCenter extends Element
         return _stationList;
     }
     
+    public MatterList getMatterList() {
+        return _matterList;
+    }
+
+    public void setMatterList(MatterList _matterList) {
+        this._matterList = _matterList;
+    }
     
     //retourne la liste d'Outlet de la station à l'indice "index" de la liste
     public ArrayList<Outlet> getStationOutletList(int index){
@@ -249,18 +256,6 @@ public class SortCenter extends Element
     public MatterBasket getExitPointMatterBasket(int index) {
         return _exitPointList.get(index).getMatterBasket();
     }
-            
-
-//    public void unselectAll() {
-//        ArrayList sortStationList = this.getSortStationList();
-//        
-//        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-//            SortStation next = (SortStation)iterator.next();
-//            
-////            next.setSelected(false);
-//        }
-//        
-//    }
 
     @Override
     public void setAttribute(String attribName, Object value) {

@@ -9,9 +9,15 @@ import Domain.ExitPoint;
 import Domain.Conveyor;
 import Domain.Element;
 import Domain.IOlet;
+import Domain.Junction;
+import Domain.Matter;
+import Domain.MatterBasket;
 import Domain.Node;
+import Domain.Outlet;
 import Domain.Project;
 import Domain.SortCenter;
+import Domain.Station;
+import Domain.TransMatrix;
 import Presentation.Swing.AboutUs;
 import java.awt.Color;
 import java.awt.Image;
@@ -24,17 +30,9 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
-	private SortMatrix _sortMatrix;
 	private Project _project;
 	private SortCenter _sortCenter;
-	private Conveyor _conveyor;
-	private ExitPoint _exitPoint;
-	private EntryPoint _entryPoint;
-	private Object _matterBasket;
-	private Object _transformationMatrix;
-	private MatterList _matterList;
         private static int matterIDCounter = 0;
-        
         private Element _selectedElement;
         
         public Controller()
@@ -155,6 +153,14 @@ public class Controller {
 	public void CreateNewProject() {
 		throw new UnsupportedOperationException();
 	}
+        
+        public String getMatterName(int id) {
+            return this._project.getSortCenter().getMatterList().getMatterName(id);
+        }
+        
+        public int getMatterId(String matterName) {
+            return this._project.getSortCenter().getMatterList().getMatterID(matterName);
+        }
 
 	public void ExportImage() {
 		throw new UnsupportedOperationException();
@@ -200,13 +206,17 @@ public class Controller {
             Color color = (Color) this._selectedElement.getAttribute("color");
             Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
             Image img = (Image) this._selectedElement.getAttribute("img");
-
+            ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
+            SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
+            
+            
             infoElement.put("name", name);
             infoElement.put("description", description);
-            infoElement.put("colod", color);
+            infoElement.put("color", color);
             infoElement.put("speedMax", speedMax);
             infoElement.put("img", img);
-
+            infoElement.put("outletList", outletList);
+            infoElement.put("sortMatrix", sortMatrix);
             return infoElement;
         }
 
@@ -243,7 +253,7 @@ public class Controller {
             {
                 ((SortStation)_selectedElement).addOutlet();
             }
-//            ((SortStation)_selectedElement).setExit(value);
+            
             ((SortStation)_selectedElement).setPosition(position);
 	}
         
@@ -277,7 +287,7 @@ public class Controller {
             this.getProject().getSortCenter().getStations().remove(0);
 	}
 
-	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax) {
+	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, SortMatrix sorter) {
             
             if (name != null) {
                 this.setSelectedElementAttribute("name", name);
@@ -297,6 +307,10 @@ public class Controller {
             
             if (speedMax != null) {
                 this.setSelectedElementAttribute("speedMax", speedMax);
+            }
+            
+            if (sorter != null) {
+                ((SortStation)_selectedElement).setSortMatrix(sorter);
             }
 	}
 
