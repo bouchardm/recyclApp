@@ -278,12 +278,4 @@ public class SortCenter extends Element
             
         }
     }
-    
-    public MatterList getMatterList() {
-        return _matterList;
-    }
-    
-    public void setMatterList(MatterList matterList) {
-        _matterList = matterList;
-    }
 }

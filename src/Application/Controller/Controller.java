@@ -208,7 +208,7 @@ public class Controller {
             Image img = (Image) this._selectedElement.getAttribute("img");
             ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
             SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
-            
+            Float stationMatterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
             
             infoElement.put("name", name);
             infoElement.put("description", description);
@@ -217,6 +217,7 @@ public class Controller {
             infoElement.put("img", img);
             infoElement.put("outletList", outletList);
             infoElement.put("sortMatrix", sortMatrix);
+            infoElement.put("matterQuantity", stationMatterQuantity.toString());
             return infoElement;
         }
 
