@@ -3,14 +3,16 @@ package Domain;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+
+
 public class Conveyor extends Element
 {
-	private final Outlet _startPoint;
-	private final Inlet _endPoint;
+        private static final float DEFAULTCAPACITY = 10; // 10 kg/h
+	private Outlet _startPoint;
+	private Inlet _endPoint;
 	private Object _iD;
-	public SortCenter _sortCenter;
-	public Element _element;
-	public Outlet Outlet ;
+	private MatterBasket _matterBasket;
+        private Float _maxCapatity;
         private Line2D.Float _line;
         
         private final static float _WIDTH = 0.2f;
@@ -24,6 +26,8 @@ public class Conveyor extends Element
             _line = new Line2D.Float();
             this._startPoint = startPoint;
             this._endPoint = endPoint;
+            _maxCapatity = DEFAULTCAPACITY;
+            
             updatePoints();
         }
         
@@ -31,7 +35,6 @@ public class Conveyor extends Element
         @Override
         public boolean include(Point2D.Float point)
         {
-            float tmp = ((float)_line.ptSegDist(point));
             return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
         }
         
