@@ -44,12 +44,9 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
         
         String[] exits = new String[transMatrix.size() + 1];
+        String[][] matters = new String[transMatrix.size()][exits.length];
         
         exits[0] = "Recu / Transformé";
-        for (int i = 1; i < exits.length; i++) {
-            exits[i] = "Matière ";  
-        }
-        
         for (Map.Entry<Integer, HashMap<Integer, Float>> sfd : transMatrix.entrySet()) {
             Integer key = sfd.getKey();
             HashMap<Integer, Float> value = sfd.getValue();
@@ -63,16 +60,8 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
                 i++;
             }
         }
-        // {1={1=0.5, 2=0.5}, 2={1=0.25, 2=0.75}}
         
-        
-        // Nombre de matiere : sortMatrix.getSortMatrix().size()
-        // row : column
-        String[][] matters = new String[transMatrix.size()][exits.length];
-        
-//        System.out.println(hashMapSortMatrix);
         int i = 0;
-        
         for (Map.Entry<Integer, HashMap<Integer, Float>> entrySet : transMatrix.entrySet()) {
             Integer key = entrySet.getKey();
             HashMap<Integer, Float> value = entrySet.getValue();
@@ -96,7 +85,6 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         
         this.repaint();
         this.setLocationRelativeTo(null); // Centrer la fenêtre
-        
     }
     
     /**
@@ -169,14 +157,11 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void transMatrixTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transMatrixTableKeyTyped
-        
-        
-        
+
     }//GEN-LAST:event_transMatrixTableKeyTyped
 
     private void transMatrixTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transMatrixTableKeyPressed
-        
-        
+
     }//GEN-LAST:event_transMatrixTableKeyPressed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -218,7 +203,6 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
             
             transMatrix.put(matterId, exits);
         }
-        
         
         this._controller.EditStation(null, null, null, null, null, null, transMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked

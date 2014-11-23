@@ -59,7 +59,6 @@ public class Controller {
             
             elements.addAll(_project.getSortCenter().getJunctions());
             elements.addAll(_project.getSortCenter().getStations());
-//            elements.addAll(_project.getSortCenter().getTransStation());
             elements.addAll(_project.getSortCenter().getExitPoints());
             elements.addAll(_project.getSortCenter().getEntryPoints());
             elements.addAll(_project.getSortCenter().getConveyors());
@@ -112,7 +111,6 @@ public class Controller {
         public Object getSelectedElementAttribute(String attribName)
         {
             return _selectedElement.getAttribute(attribName);
-            
         }
         
         public Map<String, Object> getSelectedElementAttributes() {
@@ -211,7 +209,6 @@ public class Controller {
             Image img = (Image) this._selectedElement.getAttribute("img");
             ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
             HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
-            
             
             infoElement.put("name", name);
             infoElement.put("description", description);
@@ -370,12 +367,10 @@ public class Controller {
             
             if (sorter != null) {
                 this.setSelectedElementAttribute("sortMatrix", sorter);
-//                ((SortStation)_selectedElement).setSortMatrix(sorter);
             }
 	}
         
         public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
-            
             if (transMatrix != null) {
                 this.setSelectedElementAttribute("transMatrix", transMatrix);
             }
@@ -445,8 +440,4 @@ public class Controller {
         public Project getProject() {
             return _project;
         }
-
-    
-
-    
 }

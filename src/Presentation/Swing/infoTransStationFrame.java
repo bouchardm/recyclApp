@@ -337,12 +337,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     }//GEN-LAST:event_outletBtnActionPerformed
 
     private void btnTransMatrixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransMatrixMouseClicked
-        
-        //
-        
         JFrame transMatrixFrame = new OutletMatterTransformationFrame(this._controller, this._parent);
-        transMatrixFrame.setVisible(true);
-        
+        transMatrixFrame.setVisible(true);        
     }//GEN-LAST:event_btnTransMatrixMouseClicked
 
     /**

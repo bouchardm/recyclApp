@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -42,19 +43,15 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
         
         ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");     
+        HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
         
         String[] exits = new String[outletList.size() + 1];
+        String[][] matters = new String[hashMapSortMatrix.size()][exits.length];
         
         exits[0] = "Matière";
         for (int i = 1; i < exits.length; i++) {
             exits[i] = "sortie " + i;   
         }
-        
-//        SortMatrix sortMatrix = (SortMatrix) infoStation.get("sortMatrix");
-        HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
-        
-        String[][] matters = new String[hashMapSortMatrix.size()][exits.length];
-        
         
         int i = 0;
         for (Map.Entry<Integer, ArrayList<Float>> entrySet : hashMapSortMatrix.entrySet()) {
@@ -72,13 +69,12 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             i++;
         }
         
-        outletTable.setModel(new javax.swing.table.DefaultTableModel(
+        outletTable.setModel(new DefaultTableModel(
             matters, exits
         ));
         
         this.repaint();
         this.setLocationRelativeTo(null); // Centrer la fenêtre
-        
     }
     
     /**
@@ -167,9 +163,6 @@ public class OutletMatterFrame extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
-        
-//        ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");
-        
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
         
         Object[][] tableData = Utility.getTableData(outletTable);
@@ -192,13 +185,11 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                     exits.add(value);
                     sumExits += value;
                 }
-            }
-            
+            }    
             if (sumExits != 1) {
                 JOptionPane.showMessageDialog(null, "Le total des sorties doivents donnée 1.", null, 0);
                 return;
             }
-            
             sortMatrix.put(matterId, exits);
         }
         
