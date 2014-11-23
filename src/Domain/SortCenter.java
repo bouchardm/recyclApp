@@ -44,6 +44,15 @@ public class SortCenter extends Element
         return station;
     }
     
+    public void deleteStation(Station station) {
+        for (int i = 0; i < this._stationList.size(); i++) {
+            if (this._stationList.get(i).equals(station)) {
+                this._stationList.remove(i);
+                return;
+            }
+        }
+    }
+    
     public ArrayList getEntryPoints()
     {
         return _entryPointList;
@@ -159,7 +168,9 @@ public class SortCenter extends Element
                 //(comme on fait toujours le traitement à la destination, le
                 // entryPoint n'est jamais traité. Son matterBasket doit être
                 // mis à jour avant)
+                System.out.println(destination.getClass());
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
+                System.out.println("here");
                 equipmentToProcess.add(destination);
             }
                 
@@ -171,8 +182,10 @@ public class SortCenter extends Element
             
     }
 
-    public void addTransStation() {
-        this._stationList.add(new TransStation());
+    public TransStation addTransStation() {
+        TransStation station = new TransStation();
+        this._stationList.add(station);
+        return station;
     }
     
     public void setSortStationMatrix(int index, SortMatrix sm) {
@@ -278,4 +291,6 @@ public class SortCenter extends Element
             
         }
     }
+
+    
 }

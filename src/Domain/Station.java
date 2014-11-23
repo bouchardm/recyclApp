@@ -22,13 +22,10 @@ public abstract class Station extends RectangularNode
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
-//    private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
     private String _name;
     private String _description;
     private float _speedMax;
-
-//    private Boolean _selected; // la SortStation n'a pas à savoir ça
     
     public Station()
     {
@@ -95,10 +92,6 @@ public abstract class Station extends RectangularNode
         return _sortMatrix;
     }
     
-//    public void setExit(int nbExit) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-    
     @Override
     public void setAttribute(String attribName, Object value)
     {   
@@ -124,6 +117,11 @@ public abstract class Station extends RectangularNode
                     break;
                 case "color":
                     this.setColor((Color) value);
+                    break;
+                case "sortMatrix":
+                    SortMatrix sortMatrix = new SortMatrix();
+                    sortMatrix.setSortMatrix((HashMap<Integer, ArrayList<Float>>) value);
+                    this.setSortMatrix(sortMatrix);
                     break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
@@ -155,7 +153,7 @@ public abstract class Station extends RectangularNode
                 case "outletList":
                     return this.getOutletList();
                 case "sortMatrix":
-                    return this.getSortMatrix();
+                    return this.getSortMatrix().getSortMatrix();
                 case "matterQuantity": 
                 {
                     float matterQuantity = 0;
@@ -166,7 +164,7 @@ public abstract class Station extends RectangularNode
                 }
                     
                 default:
-                    throw new NoSuchFieldError();
+                    throw new IllegalArgumentException();
             }
         }
     }
