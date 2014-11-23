@@ -98,19 +98,15 @@ public class Project
 
         //créer les station
 
-        this._sortCenter.addSortStation();                           //S1
+        this._sortCenter.addSortStation(2);                           //S1
         Station s1 = this._sortCenter.getStations().get(0);
         s1.setSortMatrix(sorter);
-        s1.addOutlet();
-        s1.addOutlet();
         
         
-        this._sortCenter.addTransStation();                           //S2
+        
+        this._sortCenter.addTransStation(2);                           //S2
         TransStation s2 = (TransStation) this._sortCenter.getStations().get(1);
         s2.setSortMatrix(sorter2);
-        
-        s2.addOutlet();
-        s2.addOutlet();
         
             
         
