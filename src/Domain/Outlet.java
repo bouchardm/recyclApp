@@ -28,4 +28,8 @@ public class Outlet extends IOlet
            _matterBasket.setQuantities(matterBasket.getQuantities());
         }
         
+        public float getTotalMatterQuantity() {
+            return _matterBasket.getTotalQuantity();
+        }
+        
 }

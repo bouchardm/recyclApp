@@ -31,6 +31,11 @@ public class ExitPoint extends RectangularNode
     public void setMatterBasket(MatterBasket matterBasket) {
         this._matterBasket.setQuantities(matterBasket.getQuantities());
     }
+    
+    @Override
+    public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
+        this.setMatterBasket(matterBasket);
+    }
 
     @Override
     public void setAttribute(String attribName, Object value) {

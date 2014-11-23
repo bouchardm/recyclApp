@@ -108,5 +108,10 @@ public class Junction extends Node {
         }
     }
     
+    @Override
+    public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
+        this._outlet.setMatterBasket(matterBasket);
+    }
+    
 
 }

@@ -169,6 +169,10 @@ public abstract class Station extends RectangularNode
         }
     }
     
+    public float getTotalMatterAtOutlet(int outletIndex) {
+        return _outletList.get(outletIndex).getTotalMatterQuantity();
+    }
+    
      
     public String getName() {
         return _name;
@@ -232,6 +236,13 @@ public abstract class Station extends RectangularNode
     
     public ArrayList<Outlet> getOutletList() {
         return _outletList;
+    }
+    
+    @Override
+    public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
+        for(Outlet outlet : this._outletList) {
+            outlet.setMatterBasket(matterBasket);
+        }
     }
 
     

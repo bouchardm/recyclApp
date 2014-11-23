@@ -35,6 +35,7 @@ public class SortCenter extends Element
         _exitPointList = new ArrayList<>();
         _stationList = new ArrayList<>();
         _junctionList = new ArrayList<>();
+        _matterList = new MatterList();
         dimensions = new Point2D.Float(15f, 10f);
     }
     
@@ -51,6 +52,16 @@ public class SortCenter extends Element
                 return;
             }
         }
+    }
+    
+    //retourne la quantité totale de matière dans une station
+    public float getTotalMatterQuantityAtStation(int stationIndex) {
+        return (float)_stationList.get(stationIndex).getAttribute("matterQuantity");
+    }
+    
+    //retourne la quantité totale de matière à un outlet précis d'une station
+    public float getMatterQuantityAtStationOutlet(int stationIndex, int outletAtStationIndex) {
+        return _stationList.get(stationIndex).getTotalMatterAtOutlet(outletAtStationIndex);
     }
     
     public ArrayList getEntryPoints()
@@ -129,6 +140,12 @@ public class SortCenter extends Element
 
     public void updateDesign() {
         this.resetJunctionMatterBaskets();
+        //on crée une liste maître des nodes du centre de tri
+        ArrayList<Node> allNodes = new ArrayList<>(); //NEW
+        allNodes.addAll(this._entryPointList);
+        allNodes.addAll(this._exitPointList);
+        allNodes.addAll(this._junctionList);
+        allNodes.addAll(this._stationList);
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
@@ -146,6 +163,7 @@ public class SortCenter extends Element
         while(!equipmentToProcess.isEmpty()) {
             Node currentNode = equipmentToProcess.get(0);
             equipmentToProcess.remove(0);
+            allNodes.remove(currentNode); //NEW
             //prendre tous les convoyeurs qui ont le node courant comme point de départ
             //et les mettres dans une liste & les enlever de la liste à traiter
             Iterator<Map.Entry<Conveyor, Node>> convIter = conveyorToProcess.entrySet().iterator();
@@ -170,12 +188,16 @@ public class SortCenter extends Element
                 // mis à jour avant)
                 System.out.println(destination.getClass());
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
-                System.out.println("here");
                 equipmentToProcess.add(destination);
-            }
-                
-            
+            }   
         }
+        //NEW: maintenant, on doit "resetter" le panier de matières à n'importe quelle node
+        //qui n'est pas connectée au réseau (C'est à dire, tout ce qui reste dans allNodes)
+        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+        for(Node unconnectedNode : allNodes) {
+            unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
+        }
+        
 
             
 

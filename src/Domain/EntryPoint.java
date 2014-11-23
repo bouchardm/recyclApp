@@ -50,4 +50,9 @@ public class EntryPoint extends RectangularNode
         this._outlet.setMatterBasket(matterBasket);
     }
     
+    @Override
+    public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
+        this.setMatterBasket(matterBasket);
+    }
+    
 }
