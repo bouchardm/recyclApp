@@ -86,7 +86,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         txtStationKgHMax = new javax.swing.JTextField();
         btnColorPciker = new javax.swing.JButton();
         btnImgStation = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnTransMatrix = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -149,7 +149,12 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             }
         });
 
-        jButton4.setText("Matrice de tri");
+        btnTransMatrix.setText("Matrice de transformation");
+        btnTransMatrix.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTransMatrixMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Nom:");
 
@@ -177,7 +182,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                     .addComponent(txtStationKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImgStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTransMatrix, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -209,9 +214,9 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(outletBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnImgStation)
+                .addComponent(btnTransMatrix)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnImgStation)
                 .addContainerGap(199, Short.MAX_VALUE))
         );
 
@@ -331,6 +336,15 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         outletMatterFrame.setVisible(true);
     }//GEN-LAST:event_outletBtnActionPerformed
 
+    private void btnTransMatrixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransMatrixMouseClicked
+        
+        //
+        
+        JFrame transMatrixFrame = new OutletMatterTransformationFrame(this._controller, this._parent);
+        transMatrixFrame.setVisible(true);
+        
+    }//GEN-LAST:event_btnTransMatrixMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -373,7 +387,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     private javax.swing.JButton btnColorPciker;
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnTransMatrix;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

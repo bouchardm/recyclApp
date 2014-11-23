@@ -125,6 +125,9 @@ public abstract class Station extends RectangularNode
                 case "color":
                     this.setColor((Color) value);
                     break;
+                case "sortMatrix":
+                    this.setSortMatrix((SortMatrix) value);
+                    break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }

@@ -57,7 +57,7 @@
                       <Component id="txtStationKgHMax" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnColorPciker" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnImgStation" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jButton4" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnTransMatrix" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -94,9 +94,9 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="outletBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnImgStation" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTransMatrix" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnImgStation" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="199" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -157,10 +157,13 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnImgStationMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnTransMatrix">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Matrice de tri"/>
+            <Property name="text" type="java.lang.String" value="Matrice de transformation"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTransMatrixMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

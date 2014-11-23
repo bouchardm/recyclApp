@@ -105,6 +105,27 @@ public class TransStation extends Station {
             }
         }
     }
+
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                case "transMatrix":
+                    this.setTransMatrix((TransMatrix) value);
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
+    }
+    
+    
     
     
         

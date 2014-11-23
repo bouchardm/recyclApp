@@ -232,6 +232,7 @@ public class Controller {
             Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
             Image img = (Image) this._selectedElement.getAttribute("img");
             ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
+            SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
             TransMatrix transMatrix = (TransMatrix) this._selectedElement.getAttribute("transMatrix");
             
             infoElement.put("name", name);
@@ -240,6 +241,7 @@ public class Controller {
             infoElement.put("speedMax", speedMax);
             infoElement.put("img", img);
             infoElement.put("outletList", outletList);
+            infoElement.put("sortMatrix", sortMatrix);
             infoElement.put("transMatrix", transMatrix);
             return infoElement;
         }
@@ -367,9 +369,18 @@ public class Controller {
             }
             
             if (sorter != null) {
-                ((SortStation)_selectedElement).setSortMatrix(sorter);
+                this.setSelectedElementAttribute("sortMatrix", sorter);
+//                ((SortStation)_selectedElement).setSortMatrix(sorter);
             }
 	}
+        
+        public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, SortMatrix sorter, TransMatrix transMatrix) {
+            
+            if (transMatrix != null) {
+                this.setSelectedElementAttribute("transMatrix", transMatrix);
+            }
+            this.EditStation(name, description, color, imgSrc, speedMax, sorter);
+        }
 
 	public void AddExitPoint() {
 		throw new UnsupportedOperationException();
