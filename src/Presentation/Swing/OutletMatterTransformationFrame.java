@@ -8,20 +8,20 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import Domain.Outlet;
 import Domain.SortMatrix;
+import Domain.TransMatrix;
 import TechnicalServices.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
  *
  * @author Marcleking
  */
-public class OutletMatterFrame extends javax.swing.JFrame {
+public class OutletMatterTransformationFrame extends javax.swing.JFrame {
 
     private MainFrame _parent;
     private Controller _controller;
@@ -29,47 +29,57 @@ public class OutletMatterFrame extends javax.swing.JFrame {
     /**
      * Creates new form OutletMatterFrame
      */
-    public OutletMatterFrame() {
+    public OutletMatterTransformationFrame() {
         initComponents();
         this.setLocationRelativeTo(null); // Centrer la fenêtre
     }
 
-    public OutletMatterFrame(Controller _controller, MainFrame _parent) {
+    public OutletMatterTransformationFrame(Controller _controller, MainFrame _parent) {
         initComponents();
         
         this._controller = _controller;
         this._parent = _parent;
         
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
         
-        ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");     
-        HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
+        String[] exits = new String[transMatrix.size() + 1];
+        String[][] matters = new String[transMatrix.size()][exits.length];
         
-        String[] exits = new String[outletList.size() + 1];
-        String[][] matters = new String[hashMapSortMatrix.size()][exits.length];
+        exits[0] = "Recu / Transformé";
+        for (Map.Entry<Integer, HashMap<Integer, Float>> sfd : transMatrix.entrySet()) {
+            Integer key = sfd.getKey();
+            HashMap<Integer, Float> value = sfd.getValue();
+            int i = 1;
         
-        exits[0] = "Matière";
-        for (int i = 1; i < exits.length; i++) {
-            exits[i] = "sortie " + i;   
+            for (Map.Entry<Integer, Float> entrySet : value.entrySet()) {
+                Integer key1 = entrySet.getKey();
+                Float value1 = entrySet.getValue();
+
+                exits[i] = this._controller.getMatterName(key1); 
+                i++;
+            }
         }
         
         int i = 0;
-        for (Map.Entry<Integer, ArrayList<Float>> entrySet : hashMapSortMatrix.entrySet()) {
+        for (Map.Entry<Integer, HashMap<Integer, Float>> entrySet : transMatrix.entrySet()) {
             Integer key = entrySet.getKey();
-            ArrayList<Float> output = entrySet.getValue();
+            HashMap<Integer, Float> value = entrySet.getValue();
             
             matters[i][0] = this._controller.getMatterName(key); 
             
             int j = 1;
-            for (Iterator<Float> iterator = output.iterator(); iterator.hasNext();) {
-                Float next = iterator.next();
-                matters[i][j] = next.toString();
+            for (Map.Entry<Integer, Float> entrySet1 : value.entrySet()) {
+                Integer key1 = entrySet1.getKey();
+                Float value1 = entrySet1.getValue();
+                
+                matters[i][j] = value1.toString();
                 j++;
             }
             i++;
         }
         
-        outletTable.setModel(new DefaultTableModel(
+        transMatrixTable.setModel(new javax.swing.table.DefaultTableModel(
             matters, exits
         ));
         
@@ -87,12 +97,12 @@ public class OutletMatterFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        outletTable = new javax.swing.JTable();
+        transMatrixTable = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
 
         setTitle("Matrice de tri - RecyclApp");
 
-        outletTable.setModel(new javax.swing.table.DefaultTableModel(
+        transMatrixTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -103,15 +113,15 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        outletTable.addKeyListener(new java.awt.event.KeyAdapter() {
+        transMatrixTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                outletTableKeyPressed(evt);
+                transMatrixTableKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                outletTableKeyTyped(evt);
+                transMatrixTableKeyTyped(evt);
             }
         });
-        jScrollPane1.setViewportView(outletTable);
+        jScrollPane1.setViewportView(transMatrixTable);
 
         btnSave.setText("Appliquer");
         btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,16 +156,13 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void outletTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_outletTableKeyTyped
-        
-        
-        
-    }//GEN-LAST:event_outletTableKeyTyped
+    private void transMatrixTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transMatrixTableKeyTyped
 
-    private void outletTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_outletTableKeyPressed
-        
-        
-    }//GEN-LAST:event_outletTableKeyPressed
+    }//GEN-LAST:event_transMatrixTableKeyTyped
+
+    private void transMatrixTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transMatrixTableKeyPressed
+
+    }//GEN-LAST:event_transMatrixTableKeyPressed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
@@ -163,12 +170,13 @@ public class OutletMatterFrame extends javax.swing.JFrame {
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
-        HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
         
-        Object[][] tableData = Utility.getTableData(outletTable);
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
+        
+        Object[][] tableData = Utility.getTableData(transMatrixTable);
         
         for (int i = 0; i < tableData.length; i++) {
-            ArrayList<Float> exits = new ArrayList<>();
+            HashMap<Integer, Float> exits = new HashMap<>();
             int matterId = 0;
             Float sumExits = new Float(0);
             for (int j = 0; j < tableData[i].length; j++) {
@@ -182,18 +190,21 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Veuillez indiquez des nombres valides.", null, 0);
                         return;
                     }
-                    exits.add(value);
+                    
+                    exits.put(this._controller.getMatterId(transMatrixTable.getColumnName(j)), value);
                     sumExits += value;
                 }
-            }    
+            }
+            
             if (sumExits != 1) {
                 JOptionPane.showMessageDialog(null, "Le total des sorties doivents donnée 1.", null, 0);
                 return;
             }
-            sortMatrix.put(matterId, exits);
+            
+            transMatrix.put(matterId, exits);
         }
         
-        this._controller.EditStation(null, null, null, null, null, sortMatrix);
+        this._controller.EditStation(null, null, null, null, null, null, transMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked
 
     /**
@@ -213,20 +224,21 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OutletMatterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OutletMatterTransformationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OutletMatterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OutletMatterTransformationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OutletMatterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OutletMatterTransformationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OutletMatterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OutletMatterTransformationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OutletMatterFrame().setVisible(true);
+                new OutletMatterTransformationFrame().setVisible(true);
             }
         });
     }
@@ -234,6 +246,6 @@ public class OutletMatterFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable outletTable;
+    private javax.swing.JTable transMatrixTable;
     // End of variables declaration//GEN-END:variables
 }

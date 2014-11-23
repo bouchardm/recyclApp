@@ -102,11 +102,11 @@ public class SortCenterDrawer {
         ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
 
         for (int i = sortStationList.size() - 1; i >= 0; i--) {
-            this.drawStation(g, (SortStation) sortStationList.get(i));
+            this.drawStation(g, (Station) sortStationList.get(i));
         }
     }
 
-    private void drawStation(Graphics g, SortStation station) {
+    private void drawStation(Graphics g, Station station) {
         Point2D.Float dimension = station.getDimensions();
         Point2D.Float position = station.getPosition();
 

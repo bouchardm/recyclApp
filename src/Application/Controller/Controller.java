@@ -19,6 +19,7 @@ import Domain.Inlet;
 import Domain.Outlet;
 import Domain.Station;
 import Domain.TransMatrix;
+import Domain.TransStation;
 import Presentation.Swing.AboutUs;
 import java.awt.Color;
 import java.awt.Image;
@@ -26,12 +27,12 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
-
     private SortMatrix _sortMatrix;
     private Project _project;
     private SortCenter _sortCenter;
@@ -40,21 +41,23 @@ public class Controller {
     private static int matterIDCounter = 0;
     private Outlet _outlet;
     private Inlet _inlet;
-
     private Element _selectedElement;
-
-    public Controller() {
+        
+    public Controller()
+    {
         _project = new Project();
     }
-
-    public boolean selectedElementIsFloor() {
-        if (_selectedElement != null) {
-            return _selectedElement.equals(_project.getSortCenter());
+        
+        public boolean selectedElementIsFloor()
+        {
+            if (_selectedElement != null) {
+                return _selectedElement.equals(_project.getSortCenter());
+            }
+            return false;
         }
-        return false;
-    }
-
-    public void selectElement(Point2D.Float coords) {
+        
+        public void selectElement(Point2D.Float coords)
+        {
             _selectedElement = _project.getSortCenter();
 
         List<Element> elements = new ArrayList<Element>();
@@ -113,12 +116,14 @@ public class Controller {
     public Map<String, Object> getSelectedElementAttributes() {
         if (this.typeOfElementSelectedIs(SortStation.class)) {
             return this.getStationSelected();
+        } else if (this.typeOfElementSelectedIs(TransStation.class)) {
+            return this.getTransStationSelected();
         }
-
         return null;
     }
-
-    public void setSelectedElementAttribute(String attribName, Object value) {
+    
+    public void setSelectedElementAttribute(String attribName, Object value)
+    {
         if (_selectedElement != null) {
             _selectedElement.setAttribute(attribName, value);
         }
@@ -197,18 +202,42 @@ public class Controller {
         Color color = (Color) this._selectedElement.getAttribute("color");
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
         Image img = (Image) this._selectedElement.getAttribute("img");
-            ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
-            SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
-            Float stationMatterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
+        HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
             
         infoElement.put("name", name);
         infoElement.put("description", description);
-            infoElement.put("color", color);
+        infoElement.put("name", name);
+        infoElement.put("description", description);
+        infoElement.put("color", color);
         infoElement.put("speedMax", speedMax);
         infoElement.put("img", img);
-            infoElement.put("outletList", outletList);
-            infoElement.put("sortMatrix", sortMatrix);
-            infoElement.put("matterQuantity", stationMatterQuantity.toString());
+        infoElement.put("outletList", outletList);
+        infoElement.put("sortMatrix", sortMatrix);
+        return infoElement;
+    }
+        
+    private Map<String, Object> getTransStationSelected() {
+        Map<String, Object> infoElement = new HashMap();
+        
+        String name = (String) this._selectedElement.getAttribute("name");
+        String description = (String) this._selectedElement.getAttribute("description");
+        Color color = (Color) this._selectedElement.getAttribute("color");
+        Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+        Image img = (Image) this._selectedElement.getAttribute("img");
+        ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
+        HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
+        
+        infoElement.put("name", name);
+        infoElement.put("description", description);
+        infoElement.put("color", color);
+        infoElement.put("speedMax", speedMax);
+        infoElement.put("img", img);
+        infoElement.put("outletList", outletList);
+        infoElement.put("sortMatrix", sortMatrix);
+//        infoElement.put("matterQuantity", stationMatterQuantity.toString());
+        infoElement.put("transMatrix", transMatrix);
         return infoElement;
     }
 
@@ -216,8 +245,7 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void AddStation(Point2D.Float position) {
-
+    public void AddTransStation(Point2D.Float position) {
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
@@ -230,6 +258,39 @@ public class Controller {
             value = -1;
         }
 
+        if (value < 0) {
+            JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
+            return;
+        }
+
+        if (value > 1000) {
+            JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
+            return;
+        }
+
+        _selectedElement = this._project.getSortCenter().addTransStation();
+        for (int i=0; i<value; i++)
+        {
+            ((TransStation)_selectedElement).addOutlet();
+        }
+
+        ((TransStation)_selectedElement).setPosition(position);
+    }
+        
+        
+	public void AddStation(Point2D.Float position) {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+
+        int value;
+        try {
+            value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));
+        } catch (NumberFormatException e) {
+            value = -1;
+        }
+        
         if (value < 0) {
             JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
             return;
@@ -263,15 +324,14 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
         setSelectedElementAttribute("position", position);
     }
-
+    
     public void DeleteStation() {
-        this.getProject().getSortCenter().getStations().remove(0);
+        this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
     }
 
-	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, SortMatrix sorter) {
+    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {
 
         if (name != null) {
             this.setSelectedElementAttribute("name", name);
@@ -291,11 +351,18 @@ public class Controller {
 
         if (speedMax != null) {
             this.setSelectedElementAttribute("speedMax", speedMax);
-            }
-            
-            if (sorter != null) {
-                ((SortStation)_selectedElement).setSortMatrix(sorter);
         }
+
+        if (sorter != null) {
+            ((Station)_selectedElement).getSortMatrix().setSortMatrix(sorter);
+        }
+    }
+
+    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
+        if (transMatrix != null) {
+            this.setSelectedElementAttribute("transMatrix", transMatrix);
+        }
+        this.EditStation(name, description, color, imgSrc, speedMax, sorter);
     }
 
     public void AddExitPoint() {
@@ -360,7 +427,7 @@ public class Controller {
         } catch (Exception ex) {
             System.out.printf(ex.getMessage());
         }
-    }
+    }    
 
     public void addJunction(Point aPosition) {
         throw new UnsupportedOperationException();

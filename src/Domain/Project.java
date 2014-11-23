@@ -46,9 +46,14 @@ public class Project
     public void test() { // TODO : enlever pour la remise
         Matter m1 = new Matter("m1",1);
         Matter m2 = new Matter("m2",2);
+        Matter m3 = new Matter("m3",3);
+        Matter m4 = new Matter("m4",4);
+        
         MatterList tmlist = new MatterList();
         tmlist.Add(m1);
         tmlist.Add(m2);
+        tmlist.Add(m3);
+        tmlist.Add(m4);
 
         this._sortCenter.setMatterList(tmlist);
 
@@ -63,16 +68,21 @@ public class Project
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
 
 
-        //créer une matrice de tri pour les machines à une sortie
+        //créer une matrice de tri pour les machines à deux sortie
         HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
         ArrayList<Float> innerList = new ArrayList<>();
-        innerList.add(new Float(1));
+        innerList.add(new Float(.5));
+        innerList.add(new Float(.5));
         smatrix.put(1, innerList);
         ArrayList<Float> innerList2 = new ArrayList<>();
-        innerList2.add(new Float(1));
+        innerList2.add(new Float(.5));
+        innerList2.add(new Float(.5));
         smatrix.put(2, innerList2);
         SortMatrix sorter = new SortMatrix();
         sorter.setSortMatrix(smatrix);
+        
+        
+        
         //créer la matrice de tri pour les machines à deux sorties
         HashMap<Integer, ArrayList<Float>> smatrix2 = new HashMap<>();
         ArrayList<Float> innerList21 = new ArrayList<>();
@@ -92,11 +102,38 @@ public class Project
         Station s1 = this._sortCenter.getStations().get(0);
         s1.setSortMatrix(sorter);
         s1.addOutlet();
-        this._sortCenter.addSortStation();                           //S2
-        Station s2 = this._sortCenter.getStations().get(1);
+        s1.addOutlet();
+        
+        
+        this._sortCenter.addTransStation();                           //S2
+        TransStation s2 = (TransStation) this._sortCenter.getStations().get(1);
         s2.setSortMatrix(sorter2);
+        
         s2.addOutlet();
         s2.addOutlet();
+        
+            
+        
+        
+        // {1={1=0.35, 2=0.0}, 2={1=0.25, 2=0.75}}
+        HashMap<Integer, Float> catTransformQuantity = new HashMap<>();
+        HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
+        TransMatrix tmtest = new TransMatrix();
+        catTransformQuantity.put(3,new Float(.25));
+        catTransformQuantity.put(4,new Float(.75));
+        dogTransformQuantity.put(3,new Float(.5));
+        dogTransformQuantity.put(4,new Float(.5));
+        matterQuantities.put(1, dogTransformQuantity);
+        matterQuantities.put(2, catTransformQuantity);
+        tmtest.addMatterToTransMatrix(m3.getID(), dogTransformQuantity);
+        tmtest.addMatterToTransMatrix(m4.getID(), catTransformQuantity);
+        
+        
+        s2.setTransMatrix(tmtest);
+        
+        System.out.print(s2.getTransMatrix().getTransMatrix());
+        
     }
     
     public void loadProject(String path)

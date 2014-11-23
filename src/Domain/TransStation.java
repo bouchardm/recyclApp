@@ -21,6 +21,7 @@ public class TransStation extends Station {
     public TransStation() {
         super();
         _transformMatrix = new TransMatrix();
+        this.setColor(Color.green);
     }
     
     //transforme le contenu du matterBasket et appel ensuite la méthode SortMatterBasket pour le trier aux outlets
@@ -82,7 +83,52 @@ public class TransStation extends Station {
 
     @Override
     public ArrayList<IOlet> getIOlets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IOlet> iolets = new ArrayList<>();
+        iolets.add(getInlet());
+        iolets.addAll(getOutletList());
+        return iolets;
     }
+
+    @Override
+    public Object getAttribute(String attribName) {
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                case "transMatrix":
+                    return this.getTransMatrix().getTransMatrix();
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
+    }
+
+    @Override
+    public void setAttribute(String attribName, Object value) {
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                case "transMatrix":
+                    TransMatrix transMatrix = new TransMatrix();
+                    transMatrix.setTransMatrix((HashMap<Integer, HashMap<Integer, Float>>) value);
+                    this.setTransMatrix(transMatrix);
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
+    }
+    
+    
+    
+    
         
 }

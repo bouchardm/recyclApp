@@ -12,6 +12,7 @@ import Presentation.Swing.infoSortStationFrame;
 import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
+import Domain.TransStation;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelInformation = new javax.swing.JPanel();
+        btnAddTransStation = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openMenu = new javax.swing.JMenuItem();
@@ -196,12 +198,12 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btnUndo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(btnCreateNewProject, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(btnAddJunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddEntrace, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(btnAddStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(btnAddConveyor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
+            .addComponent(btnAddConveyor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +211,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnAddEntrace, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddStation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddConveyor, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,6 +389,24 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btnAddTransStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        btnAddTransStation.setToolTipText("Ajouter une station");
+        btnAddTransStation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddTransStationMouseClicked(evt);
+            }
+        });
+        btnAddTransStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btnAddTransStationMouseDragged(evt);
+            }
+        });
+        btnAddTransStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddTransStationActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Fichier");
 
         openMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
@@ -447,7 +467,9 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddTransStation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -457,7 +479,10 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnAddTransStation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(panelWrokspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -554,11 +579,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-        switch (viewport.getCreationMode()) {
+        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        if (viewport.isSnapToGrid())
+        {
+            position = viewport.snap(position);
+        }        
+        
+        
+        switch (viewport.getCreationMode())
+        {
             case NONE:
                 break;
             case SORT_STATION:
-                Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+                position = viewport.createPointInMeter(evt.getX(), evt.getY());
                 if (viewport.isSnapToGrid()) {
                     position = viewport.snap(position);
                 }
@@ -569,6 +602,10 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddStation.setSelected(false);
                 break;
             case TRANS_STATION:
+                _controller.AddTransStation(position);
+                repaint();
+                viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                btnAddTransStation.setSelected(false);
                 break;
             case JUNCTION:
                 break;
@@ -629,6 +666,16 @@ public class MainFrame extends javax.swing.JFrame {
 
             sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(TransStation.class)) {
+            infoTransStationFrame infoTransStationFrame = new infoTransStationFrame(
+                _controller,
+                this
+            );
+            
+            JPanel sortStationPanel = infoTransStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(sortStationPanel);
         }
         if (viewport.getCreationMode() == Viewport.CREATION_MODES.CONVEYOR_1) {
             if (this._controller.typeOfElementSelectedIs(Outlet.class)) {
@@ -684,6 +731,20 @@ public class MainFrame extends javax.swing.JFrame {
         this.viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_1);
     }//GEN-LAST:event_btnAddConveyorMouseClicked
 
+    private void btnAddTransStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddTransStationMouseClicked
+        btnAddTransStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
+    }//GEN-LAST:event_btnAddTransStationMouseClicked
+
+    private void btnAddTransStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddTransStationMouseDragged
+        btnAddTransStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
+    }//GEN-LAST:event_btnAddTransStationMouseDragged
+
+    private void btnAddTransStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransStationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddTransStationActionPerformed
+
     @Override
     public void repaint() {
         super.repaint();
@@ -736,6 +797,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAddEntrace;
     private javax.swing.JButton btnAddJunction;
     private javax.swing.JToggleButton btnAddStation;
+    private javax.swing.JToggleButton btnAddTransStation;
     private javax.swing.JButton btnCreateNewProject;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnRedo;
