@@ -331,6 +331,7 @@
             <Property name="toolTipText" type="java.lang.String" value="Ajouter une jonction"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddJunctionMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddJunctionActionPerformed"/>
           </Events>
         </Component>

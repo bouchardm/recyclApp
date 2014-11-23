@@ -118,6 +118,8 @@ public class Controller {
             return this.getStationSelected();
         } else if (this.typeOfElementSelectedIs(TransStation.class)) {
             return this.getTransStationSelected();
+        } else if (this.typeOfElementSelectedIs(Junction.class)) {
+            return this.getJunctionSelected();
         }
         return null;
     }
@@ -238,6 +240,16 @@ public class Controller {
         infoElement.put("sortMatrix", sortMatrix);
 //        infoElement.put("matterQuantity", stationMatterQuantity.toString());
         infoElement.put("transMatrix", transMatrix);
+        return infoElement;
+    }
+    
+    private Map<String, Object> getJunctionSelected() {
+        Map<String, Object> infoElement = new HashMap();
+        
+        Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+        
+        infoElement.put("speedMax", speedMax);
+        
         return infoElement;
     }
 
@@ -380,16 +392,18 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void AddJunction(Point2D.Float position) {
-        this.getProject().getSortCenter().addJunction();
-    }
-
     public void RemoveJunction() {
         throw new UnsupportedOperationException();
     }
 
-    public void EditJunction() {
-        throw new UnsupportedOperationException();
+    public void editJunction(Float speedMax) {
+        if (speedMax != null) {
+            this.setSelectedElementAttribute("speedMax", speedMax);
+        }
+    }
+    
+    public void deleteJunction() {
+        this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
     }
 
     public void AddMatter() {
@@ -420,8 +434,9 @@ public class Controller {
         }
     }    
 
-    public void addJunction(Point aPosition) {
-        throw new UnsupportedOperationException();
+    public void addJunction(Point2D.Float position) {
+        _selectedElement = this.getProject().getSortCenter().addJunction();
+        ((Junction) _selectedElement).setPosition(position);
     }
 
     public Project getProject() {

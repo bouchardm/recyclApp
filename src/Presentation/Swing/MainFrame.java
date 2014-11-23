@@ -12,6 +12,7 @@ import Presentation.Swing.infoSortStationFrame;
 import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
+import Domain.Junction;
 import Domain.TransStation;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -202,6 +203,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAddJunction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/junction.png"))); // NOI18N
         btnAddJunction.setToolTipText("Ajouter une jonction");
+        btnAddJunction.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddJunctionMouseClicked(evt);
+            }
+        });
         btnAddJunction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddJunctionActionPerformed(evt);
@@ -655,6 +661,7 @@ public class MainFrame extends javax.swing.JFrame {
         cleanInformationPanel();
         _controller.selectElement(position);
 
+        // Selection
         if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
             infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
                 _controller,
@@ -675,7 +682,14 @@ public class MainFrame extends javax.swing.JFrame {
 
             sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Junction.class)) {
+            infoJunctionFrame infoJunctionFrame = new infoJunctionFrame(this._controller, this);
+            JPanel infoJunctionPanel = infoJunctionFrame.getPanel();
+            infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoJunctionPanel);
         }
+        
+        // Création
         if (viewport.getCreationMode() == Viewport.CREATION_MODES.CONVEYOR_1) {
             if (this._controller.typeOfElementSelectedIs(Outlet.class)) {
 
@@ -719,6 +733,10 @@ public class MainFrame extends javax.swing.JFrame {
         } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.NONE) {
             // mettre tous les boutons
             btnAddConveyor.setSelected(false);
+        } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.JUNCTION) {
+            this._controller.addJunction(position);
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+            this.btnAddJunction.setSelected(false);
         }
 
         repaint();
@@ -747,6 +765,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnAddJunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJunctionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddJunctionActionPerformed
+
+    private void btnAddJunctionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddJunctionMouseClicked
+        btnAddJunction.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.JUNCTION);
+    }//GEN-LAST:event_btnAddJunctionMouseClicked
 
     @Override
     public void repaint() {

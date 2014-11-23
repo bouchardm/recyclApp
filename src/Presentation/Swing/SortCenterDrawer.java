@@ -16,6 +16,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -128,7 +130,7 @@ public class SortCenterDrawer {
         g.setColor(station.getColor());
 
         g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
-
+        
         if (station.getImg() != null) {
             g.drawImage(station.getImg(), positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         }
@@ -176,7 +178,28 @@ public class SortCenterDrawer {
     }
     
     private void drawJunction(Graphics g, Junction junction) {
-        this.drawTriangle(g, 20, 20, 20, 20);
+        int x = this._viewport.meterToPix(junction.getPosition().x);
+        int y = this._viewport.meterToPix(junction.getPosition().y);
+        
+        Point2D.Float position = junction.getPosition();
+        Point2D.Float dimension = junction.getDimensions();
+        
+        int positionMeterX = _viewport.meterToPix(position.x);
+        int positionMeterY = _viewport.meterToPix(position.y);
+        
+        int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
+        int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+        
+        Image img = Toolkit.getDefaultToolkit().getImage("src/image/junction.png");
+        
+        g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
+        ArrayList<IOlet> iolets = new ArrayList<IOlet>();
+        
+        iolets.addAll(junction.getIOlets());
+
+        for (IOlet iol : iolets) {
+            drawIOlet(g, iol);
+        }
     }
 
     private void drawConveyors(Graphics g) {
@@ -226,25 +249,6 @@ public class SortCenterDrawer {
         
               //  g.setStroke(new BasicStroke(10));
               //  g.draw(new Line2D.Float(30, 20, 80, 90));
-        g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
-                new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
-    }
-    
-    // Fortement inspiré de http://stackoverflow.com/questions/4112701/drawing-a-line-with-arrow-in-java
-    void drawTriangle(Graphics g1, int x1, int y1, int x2, int y2) {
-        int ARR_SIZE = 20;
-        Graphics2D g = (Graphics2D) g1.create();
-
-        double dx = x2 - x1, dy = y2 - y1;
-        double angle = Math.atan2(dy, dx);
-        int len = (int) Math.sqrt(dx * dx + dy * dy);
-        len -= 2;
-        AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
-        at.concatenate(AffineTransform.getRotateInstance(angle));
-        g.transform(at);
-        
-        g.setStroke(new BasicStroke(3));
-        
         g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
                 new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
     }

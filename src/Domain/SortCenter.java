@@ -236,8 +236,19 @@ public class SortCenter extends Element
         this._conveyorList.add(new Conveyor(aExit, aEntrance));
     }
 
-    public void addJunction() {
-        this._junctionList.add(new Junction());
+    public Junction addJunction() {
+        Junction junction = new Junction();
+        this._junctionList.add(junction);
+        return junction;
+    }
+    
+    public void deleteJunction(Junction junction) {
+        for (int i = 0; i < this._junctionList.size(); i++) {
+            if (this._junctionList.get(i).equals(junction)) {
+                this._junctionList.remove(i);
+                return;
+            }
+        }
     }
 
     //ajoute un nouveau entryPoint à la fin de la liste

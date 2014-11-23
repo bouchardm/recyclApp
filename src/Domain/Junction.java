@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 
-public class Junction extends Node {
+public class Junction extends RectangularNode {
     private ArrayList<Inlet> _inletList;
     private Outlet _outlet;
     private Point2D.Float _position;
-    private ArrayList _exit;
+    private Float _speedMax;
 
     public final static float RADIUS = 0.3f;
 
@@ -20,6 +20,17 @@ public class Junction extends Node {
         _position = new Point2D.Float(0, 0);
         _inletList = new ArrayList<>();
         _outlet = new Outlet(this);
+        _speedMax = 10f;
+        this.setDimensions(0.5f, 0.5f);
+        this.addInlet();
+    }
+    
+    public float getSpeedMax() {
+        return _speedMax;
+    }
+
+    public void setSpeedMax(Float _speedMax) {
+        this._speedMax = _speedMax;
     }
     
     public MatterBasket getMatterBasket() {
@@ -27,18 +38,18 @@ public class Junction extends Node {
     }
     
 
-    @Override
-    public Point2D.Float getPosition()
-    {
-        return _position;
-    }
-
-    @Override
-    public void setPosition(float x, float y)
-    {
-        _position.x = x;
-        _position.y = y;
-    }
+//    @Override
+//    public Point2D.Float getPosition()
+//    {
+//        return _position;
+//    }
+//
+//    @Override
+//    public void setPosition(float x, float y)
+//    {
+//        _position.x = x;
+//        _position.y = y;
+//    }
 
     public void addInlet()
     {
@@ -50,17 +61,17 @@ public class Junction extends Node {
         return this._inletList;
     }
 
-    @Override
-    public boolean include(Point2D.Float point)
-    {
-        return _position.distance(point) <= RADIUS;
-    }
-
-    @Override
-    public Point2D.Float getCenter()
-    {
-        return getPosition();
-    }
+//    @Override
+//    public boolean include(Point2D.Float point)
+//    {
+//        return _position.distance(point) <= RADIUS;
+//    }
+//
+//    @Override
+//    public Point2D.Float getCenter()
+//    {
+//        return getPosition();
+//    }
     
     public void setOutlet(Outlet outlet) {
         _outlet = outlet;
@@ -73,17 +84,48 @@ public class Junction extends Node {
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                case "speedMax":
+                    this.setSpeedMax((Float) value);
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
     }
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                case "speedMax":
+                    return this.getSpeedMax();
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
+        }
     }
 
     @Override
     public ArrayList<IOlet> getIOlets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IOlet> iolets = new ArrayList<>();
+        
+        iolets.addAll(getInletList());
+        iolets.add(getOutlet());
+        
+        return iolets;
     }
     
     //ajoute les quantités du matterBasket au matterBasket à son Outlet
