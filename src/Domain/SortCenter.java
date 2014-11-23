@@ -268,6 +268,7 @@ public class SortCenter extends Element
             verifyCycles(aExit.getNode());
         }
         catch(IllegalArgumentException e) {
+            this._conveyorList.remove(newConv);
             newConv.removeConveyor();
             throw new IllegalArgumentException("Ce convoyeur introduit un cycle.");
             
