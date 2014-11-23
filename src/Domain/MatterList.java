@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MatterList {
 
-	public ArrayList<Matter> _matterList;
+	private ArrayList<Matter> _matterList;
 
         public MatterList() {
             this._matterList = new ArrayList<>();
@@ -13,6 +13,10 @@ public class MatterList {
 	public Integer GetCount() {
             return this._matterList.size();
 	}
+        
+        public ArrayList<Matter> getList() {
+            return _matterList;
+        }
 
         public void Add(Matter aMatter) {
             for(int i = 0; i<_matterList.size(); i++)

@@ -63,19 +63,20 @@ public class TransMatrix {
     //par défaut, crée une matrice qui ne fait aucune transformation (ex: 100% de matière A reste matière A)
     public TransMatrix(MatterList matterList) {
         _transformMatrix = new HashMap<>();
-        HashMap<Integer, Float> transformQuantities = new HashMap<>();
-        for(int i = 0; i < matterList.GetCount(); i++) {
-            for(int j = 0; j< matterList.GetCount(); j++) {
+        
+        for(Matter inputMatter : matterList.getList()) {
+            HashMap<Integer, Float> transformQuantities = new HashMap<>();
+            for(Matter outputMatter : matterList.getList()) {
                 float transformIntoQty;
-                if (i==j) {
+                if (inputMatter.getID().intValue()==outputMatter.getID()) {
                     transformIntoQty = 1;
                 }
                 else {
                     transformIntoQty = 0;
                 }
-                transformQuantities.put(matterList.getMatterID(j), transformIntoQty);
+                transformQuantities.put(outputMatter.getID(), transformIntoQty);
             }
-            _transformMatrix.put(matterList.getMatterID(i), transformQuantities);
+            _transformMatrix.put(inputMatter.getID(), transformQuantities);
         }
     }
     

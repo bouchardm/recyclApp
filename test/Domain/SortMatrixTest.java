@@ -61,7 +61,7 @@ public class SortMatrixTest {
         ArrayList<Outlet> outletList = new ArrayList<>();
         outletList.add(o1);
         outletList.add(o2);
-        SortMatrix sorter = new SortMatrix(tmlist, outletList);
+        SortMatrix sorter = new SortMatrix(tmlist, outletList.size());
         //la matrice contient 2 éléments
         assertTrue(sorter.getMatterCount()==2);
         assertTrue(sorter.getSortMatrix().containsKey(1));

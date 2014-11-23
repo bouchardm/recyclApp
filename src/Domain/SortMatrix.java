@@ -22,11 +22,11 @@ public class SortMatrix {
     
     //constructeur : recoit matterList et outletList en paramètre
     //crée une matrice qui met toutes les matières à la première sortie dans la liste
-    public SortMatrix(MatterList aMatterList, ArrayList<Outlet> outletList) {
+    public SortMatrix(MatterList aMatterList, int numberOfOutlets) {
         _sortMatrix = new HashMap<>();
         for(int i = 0; i<aMatterList.GetCount(); i++) {
             ArrayList<Float> matrixOutlets = new ArrayList<>();
-            for (int j = 0; j<outletList.size(); j++) {
+            for (int j = 0; j<numberOfOutlets; j++) {
                 if(j==0) {
                     Float aQuantity;
                     aQuantity = new Float(1);

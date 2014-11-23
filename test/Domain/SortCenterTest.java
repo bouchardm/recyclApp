@@ -67,6 +67,57 @@ public class SortCenterTest {
         assertEquals(instance.getDimensions(), dimensions);
     }
     
+//    @Test
+//    public void addSortStationTest() {
+//        SortCenter sc = new SortCenter();
+//        Matter m1 = new Matter("m1",1);
+//        Matter m2 = new Matter("m2",2);
+//        sc.addMatterToMatterList(m1);
+//        sc.addMatterToMatterList(m2);
+//        SortStation ss = sc.addSortStation(2);
+//        //2 "colonnes" dans la matrice = 2 sorties
+//        assertTrue(ss.getSortMatrix().getSortMatrix().get(1).size()==2);
+//        //les 2 matières sont dans la matrice
+//        assertTrue(ss.getSortMatrix().getSortMatrix().containsKey(1));
+//        assertTrue(ss.getSortMatrix().getSortMatrix().containsKey(2));
+//        assertTrue(ss.getSortMatrix().getSortMatrix().size()==2);        
+//    }
+    
+    @Test
+    public void addTransStationTest() {
+        SortCenter sc = new SortCenter();
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        sc.addMatterToMatterList(m1);
+        sc.addMatterToMatterList(m2);
+        System.out.println("Matter "+sc.getMatterList().getMatterName(1)+", "+sc.getMatterList().getMatterName(2));
+        TransStation ts = sc.addTransStation(2);
+        //test sort matrix
+        //2 "colonnes" dans la matrice = 2 sorties
+        assertTrue(ts.getSortMatrix().getSortMatrix().get(1).size()==2);
+        //les 2 matières sont dans la matrice
+        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(1));
+        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(2));
+        assertTrue(ts.getSortMatrix().getSortMatrix().size()==2);  
+        //test trans matrix
+        //il y a le même nombre de lignes (matières à transformer) et colonnes (matière en quoi transformer)
+        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(1).size());
+        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(2).size());
+        //il y a le bon nombre de lignes (et donc de colonnes, vérifié juste ci-dessus)
+        assertTrue(ts.getTransMatrix().getMatterCount()==2);
+        //les bonnes matières sont dans les lignes
+        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(1));
+        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(2));
+        //les bonnes matières sont dans les colonnes
+        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(1));
+        assertTrue((float)ts.getTransMatrix().getTransMatrix().get(1).get(1)==(float)1);
+        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(2));
+        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(1));
+        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(2));
+        
+    }
+    
+    
     @Test
     public void updateDesignTest() {
         System.out.println("Update design test 1 : one entry point, one exit point, one conveyor (aucun tri, transfo).");
@@ -124,11 +175,10 @@ public class SortCenterTest {
         TransMatrix transMatrix = new TransMatrix();
         transMatrix.setTransMatrix(tMatrix);
         //créer la station
-        sc.addTransStation();
-        Station tstation = sc.getStations().get(0);
+        Station tstation = sc.addTransStation(1);
+//        Station tstation = sc.getStations().get(0);
         tstation.setSortMatrix(sorter);
         tstation.setTransMatrix(transMatrix);
-        tstation.addOutlet();
         //ajouter les convoyeurs
         //convoyeur de EntryPoint à tstation
         sc.addConveyor(sc.getEntryPointOutlet(0), tstation.getInlet());
@@ -239,26 +289,20 @@ public class SortCenterTest {
         TransMatrix transMatrix = new TransMatrix();
         transMatrix.setTransMatrix(tMatrix);
         //créer les station
-        sc.addTransStation();                           //S0
+        sc.addTransStation(1);                           //S0
         Station s0 = sc.getStations().get(0);
         s0.setSortMatrix(sorter);
         s0.setTransMatrix(transMatrix);
-        s0.addOutlet();
-        sc.addSortStation();                           //S1
+        sc.addSortStation(1);                           //S1
         Station s1 = sc.getStations().get(1);
         s1.setSortMatrix(sorter);
-        s1.addOutlet();
-        sc.addSortStation();                           //S2
+        sc.addSortStation(2);                           //S2
         Station s2 = sc.getStations().get(2);
         s2.setSortMatrix(sorter2);
-        s2.addOutlet();
-        s2.addOutlet();
-        sc.addTransStation();                           //S3
+        sc.addTransStation(2);                           //S3
         Station s3 = sc.getStations().get(3);
         s3.setSortMatrix(sorter2);
         s3.setTransMatrix(transMatrix);
-        s3.addOutlet();
-        s3.addOutlet();
         //créer la jonction et ses inlets/outlets
         sc.addJunction();
         Junction j1= sc.getJunction(0);
@@ -403,26 +447,20 @@ public class SortCenterTest {
         TransMatrix transMatrix = new TransMatrix();
         transMatrix.setTransMatrix(tMatrix);
         //créer les station
-        sc.addTransStation();                           //S0
+        sc.addTransStation(1);                           //S0
         Station s0 = sc.getStations().get(0);
         s0.setSortMatrix(sorter);
         s0.setTransMatrix(transMatrix);
-        s0.addOutlet();
-        sc.addSortStation();                           //S1
+        sc.addSortStation(1);                           //S1
         Station s1 = sc.getStations().get(1);
         s1.setSortMatrix(sorter);
-        s1.addOutlet();
-        sc.addSortStation();                           //S2
+        sc.addSortStation(2);                           //S2
         Station s2 = sc.getStations().get(2);
         s2.setSortMatrix(sorter2);
-        s2.addOutlet();
-        s2.addOutlet();
-        sc.addTransStation();                           //S3
+        sc.addTransStation(2);                           //S3
         Station s3 = sc.getStations().get(3);
         s3.setSortMatrix(sorter2);
         s3.setTransMatrix(transMatrix);
-        s3.addOutlet();
-        s3.addOutlet();
         //créer la jonction et ses inlets/outlets
         sc.addJunction();
         Junction j1= sc.getJunction(0);
@@ -591,26 +629,20 @@ public class SortCenterTest {
         TransMatrix transMatrix = new TransMatrix();
         transMatrix.setTransMatrix(tMatrix);
         //créer les station
-        sc.addTransStation();                           //S0
+        sc.addTransStation(1);                           //S0
         Station s0 = sc.getStations().get(0);
         s0.setSortMatrix(sorter);
         s0.setTransMatrix(transMatrix);
-        s0.addOutlet();
-        sc.addSortStation();                           //S1
+        sc.addSortStation(1);                           //S1
         Station s1 = sc.getStations().get(1);
         s1.setSortMatrix(sorter);
-        s1.addOutlet();
-        sc.addSortStation();                           //S2
+        sc.addSortStation(2);                           //S2
         Station s2 = sc.getStations().get(2);
         s2.setSortMatrix(sorter2);
-        s2.addOutlet();
-        s2.addOutlet();
-        sc.addTransStation();                           //S3
+        sc.addTransStation(2);                           //S3
         Station s3 = sc.getStations().get(3);
         s3.setSortMatrix(sorter2);
         s3.setTransMatrix(transMatrix);
-        s3.addOutlet();
-        s3.addOutlet();
         //créer la jonction et ses inlets/outlets
         sc.addJunction();
         Junction j1= sc.getJunction(0);
@@ -759,26 +791,20 @@ public class SortCenterTest {
         TransMatrix transMatrix = new TransMatrix();
         transMatrix.setTransMatrix(tMatrix);
         //créer les station
-        sc.addTransStation();                           //S0
+        sc.addTransStation(1);                           //S0
         Station s0 = sc.getStations().get(0);
         s0.setSortMatrix(sorter);
         s0.setTransMatrix(transMatrix);
-        s0.addOutlet();
-        sc.addSortStation();                           //S1
+        sc.addSortStation(1);                           //S1
         Station s1 = sc.getStations().get(1);
         s1.setSortMatrix(sorter);
-        s1.addOutlet();
-        sc.addSortStation();                           //S2
+        sc.addSortStation(2);                           //S2
         Station s2 = sc.getStations().get(2);
         s2.setSortMatrix(sorter2);
-        s2.addOutlet();
-        s2.addOutlet();
-        sc.addTransStation();                           //S3
+        sc.addTransStation(2);                           //S3
         Station s3 = sc.getStations().get(3);
         s3.setSortMatrix(sorter2);
         s3.setTransMatrix(transMatrix);
-        s3.addOutlet();
-        s3.addOutlet();
         //créer la jonction et ses inlets/outlets
         sc.addJunction();
         Junction j1= sc.getJunction(0);

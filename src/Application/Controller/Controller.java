@@ -268,12 +268,7 @@ public class Controller {
             return;
         }
 
-        _selectedElement = this._project.getSortCenter().addTransStation();
-        for (int i=0; i<value; i++)
-        {
-            ((TransStation)_selectedElement).addOutlet();
-        }
-
+        _selectedElement = this._project.getSortCenter().addTransStation(value);
         ((TransStation)_selectedElement).setPosition(position);
     }
         
@@ -301,11 +296,7 @@ public class Controller {
             return;
         }
 
-        _selectedElement = this._project.getSortCenter().addSortStation();
-        for (int i = 0; i < value; i++) {
-            ((SortStation) _selectedElement).addOutlet();
-        }
-            
+        _selectedElement = this._project.getSortCenter().addSortStation(value);
         ((SortStation) _selectedElement).setPosition(position);
     }
 
