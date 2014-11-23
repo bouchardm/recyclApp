@@ -125,11 +125,7 @@ public class Project
         tmtest.addMatterToTransMatrix(m3.getID(), dogTransformQuantity);
         tmtest.addMatterToTransMatrix(m4.getID(), catTransformQuantity);
         
-        
         s2.setTransMatrix(tmtest);
-        
-        System.out.print(s2.getTransMatrix().getTransMatrix());
-        
     }
     
     public void loadProject(String path)
