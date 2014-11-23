@@ -273,7 +273,7 @@ public class Controller {
     }
         
         
-	public void AddStation(Point2D.Float position) {
+    public void AddStation(Point2D.Float position) {
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
@@ -380,8 +380,8 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void AddJunction() {
-        throw new UnsupportedOperationException();
+    public void AddJunction(Point2D.Float position) {
+        this.getProject().getSortCenter().addJunction();
     }
 
     public void RemoveJunction() {
