@@ -124,7 +124,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="PanelButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelWrokspace" pref="872" max="32767" attributes="0"/>
+              <Component id="panelWrokspace" pref="858" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel3" max="32767" attributes="0"/>
@@ -161,17 +161,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="btnRedo" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnUndo" alignment="1" pref="0" max="32767" attributes="0"/>
-              <Component id="btnCreateNewProject" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnSave" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnAddEntrace" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnAddStation" alignment="1" pref="0" max="32767" attributes="0"/>
-              <Component id="btnOpen" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="jButton5" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnAddJunction" alignment="0" pref="47" max="32767" attributes="0"/>
-              <Component id="btnAddConveyor" alignment="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnAddTransStation" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnRedo" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnUndo" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnCreateNewProject" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnOpen" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnSave" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton5" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddEntrace" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddStation" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddTransStation" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddConveyor" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnAddJunction" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -185,7 +190,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAddConveyor" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnAddJunction" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="btnAddJunction" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton5" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -212,17 +217,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddEntraceActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAddJunction">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/junction.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Ajouter une jonction"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddJunctionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
@@ -329,6 +323,17 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddTransStationActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JToggleButton" name="btnAddJunction">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/junction.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ajouter une jonction"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddJunctionActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelWrokspace">
@@ -367,7 +372,7 @@
                       <Component id="yGridDimFTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="snapCheckBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="530" max="32767" attributes="0"/>
+                      <EmptySpace pref="516" max="32767" attributes="0"/>
                       <Component id="cursorCoordsLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="zoomOutButton" min="-2" max="-2" attributes="0"/>
@@ -496,7 +501,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="965" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1058" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

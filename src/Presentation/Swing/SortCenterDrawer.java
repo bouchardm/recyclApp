@@ -9,6 +9,7 @@ import Application.Controller.Controller;
 import Domain.IOlet;
 import Domain.Inlet;
 import Domain.Conveyor;
+import Domain.Junction;
 import Domain.SortStation;
 import Domain.Station;
 import java.awt.BasicStroke;
@@ -112,7 +113,7 @@ public class SortCenterDrawer {
 
         int positionMeterX = _viewport.meterToPix(position.x);
         int positionMeterY = _viewport.meterToPix(position.y);
-        // TODO: Regarder pourquoi j'ai besoin de faire -1
+        
         int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
 
@@ -165,6 +166,17 @@ public class SortCenterDrawer {
     }
 
     private void drawJunctions(Graphics g) {
+        
+        g.setColor(Color.blue);
+        
+        ArrayList<Junction> junctionsList = this._controller.getProject().getSortCenter().getJunctions();
+        for (Junction junction : junctionsList) {
+            this.drawJunction(g, junction);
+        }
+    }
+    
+    private void drawJunction(Graphics g, Junction junction) {
+        this.drawTriangle(g, 20, 20, 20, 20);
     }
 
     private void drawConveyors(Graphics g) {
@@ -179,8 +191,7 @@ public class SortCenterDrawer {
         int x1, x2, y1, y2;
         Point2D.Float position1 = conveyor.getStartOutlet().getPosition();
         Point2D.Float position2 = conveyor.getEndInlet().getPosition();
-
-
+        
         x1 = _viewport.meterToPix(position1.x);
         y1 = _viewport.meterToPix(position1.y);
         x2 = _viewport.meterToPix(position2.x);
@@ -188,7 +199,7 @@ public class SortCenterDrawer {
 
         drawArrow(g, x1, y1, x2, y2);
         
-                g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);
 
         if (_controller.selectedElementIs(conveyor)) {
             g.setColor(_selectedContourColor);
@@ -215,6 +226,25 @@ public class SortCenterDrawer {
         
               //  g.setStroke(new BasicStroke(10));
               //  g.draw(new Line2D.Float(30, 20, 80, 90));
+        g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
+                new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+    }
+    
+    // Fortement inspiré de http://stackoverflow.com/questions/4112701/drawing-a-line-with-arrow-in-java
+    void drawTriangle(Graphics g1, int x1, int y1, int x2, int y2) {
+        int ARR_SIZE = 20;
+        Graphics2D g = (Graphics2D) g1.create();
+
+        double dx = x2 - x1, dy = y2 - y1;
+        double angle = Math.atan2(dy, dx);
+        int len = (int) Math.sqrt(dx * dx + dy * dy);
+        len -= 2;
+        AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+        at.concatenate(AffineTransform.getRotateInstance(angle));
+        g.transform(at);
+        
+        g.setStroke(new BasicStroke(3));
+        
         g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
                 new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
     }
