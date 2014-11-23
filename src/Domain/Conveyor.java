@@ -23,6 +23,10 @@ public class Conveyor extends Element
             {
                 throw new IllegalArgumentException("startPoint and endPoint cannot be null");
             }
+            if (startPoint.getNode()==endPoint.getNode())
+            {
+                throw new IllegalArgumentException("startPoint and endPoint cannot be connected to same Node.");
+            }
             _line = new Line2D.Float();
             this._startPoint = startPoint;
             this._endPoint = endPoint;
@@ -84,6 +88,11 @@ public class Conveyor extends Element
         {
             updatePoints();
             return (Point2D.Float)_line.getP2();
+        }
+        
+        public void removeConveyor() {
+            _startPoint = null;
+            _endPoint = null;
         }
 
     @Override

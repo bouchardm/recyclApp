@@ -200,11 +200,38 @@ public class SortCenter extends Element
         for(Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
         }
+    }
+    
+    //vérifie le réseau pour voir si l'introduction de ce convoyeur introduit un cycle
+    public void verifyCycles(Node startNode) {
+        ArrayList<Node> visitedNodes = new ArrayList<>();
+        ArrayList<Node> nodesToCheck = new ArrayList<>();
+        nodesToCheck.add(startNode);
+        while(!nodesToCheck.isEmpty()) {
+            Node currentNode = nodesToCheck.get(0);
+            nodesToCheck.remove(currentNode);
+            visitedNodes.add(currentNode);
+            ArrayList<Conveyor> conveyorsToCheck = new ArrayList<>();
+            for(Conveyor convIter : this._conveyorList) {
+                if(convIter.getStartNode()==currentNode) {
+                    conveyorsToCheck.add(convIter);
+                }
+            }
+            for(Conveyor convCheck : conveyorsToCheck) {
+                Node destination = convCheck.getEndNode();
+                if(visitedNodes.contains(destination)) {
+                    throw new IllegalArgumentException("Le réseau contient un cycle.");
+                }
+                else {
+                    nodesToCheck.add(destination);
+                    
+                    
+                }
+            }
+        }
+
+            
         
-
-            
-
-            
     }
 
     public TransStation addTransStation(int numberOfOutlets) {
@@ -233,7 +260,20 @@ public class SortCenter extends Element
     }
 
     public void addConveyor(Outlet aExit, Inlet aEntrance) {
-        this._conveyorList.add(new Conveyor(aExit, aEntrance));
+        
+        Conveyor newConv = new Conveyor(aExit, aEntrance);
+        try {
+            
+            this._conveyorList.add(newConv);
+            verifyCycles(aExit.getNode());
+        }
+        catch(IllegalArgumentException e) {
+            newConv.removeConveyor();
+            throw new IllegalArgumentException("Ce convoyeur introduit un cycle.");
+            
+            
+        }
+        
     }
 
     public void addJunction() {
