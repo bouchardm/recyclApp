@@ -293,6 +293,20 @@ public class SortCenterTest {
         MatterBasket newMb2 = sc.getExitPointMatterBasket(2);
         //matterBasket de la jonction
         MatterBasket juncMb = sc.getJunctionMatterBasket(0);
+        //matterBasket de la station 0
+        //outlet 0
+        
+        //matterBasket de la station 1
+        //outlet 0
+        
+        //matterBasket de la station 2
+        //outlet 0
+        //outlet 1
+        
+        //matterBasket de la station 3
+        //outlet 0
+        //outlet 1
+        
         //confirmer qu'on a tous les bonnes quantités à la fin
         assertTrue(newMb0.getNumberOfMatterInBasket()==2);
         assertTrue(newMb1.getNumberOfMatterInBasket()==2);
