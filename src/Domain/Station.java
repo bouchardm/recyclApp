@@ -22,13 +22,10 @@ public abstract class Station extends RectangularNode
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
-//    private Map<Matter,Integer> _exit; // c'est outlet qui contient la proportion des matières et c'est implémenté avec MatterBasket
 
     private String _name;
     private String _description;
     private float _speedMax;
-
-//    private Boolean _selected; // la SortStation n'a pas à savoir ça
     
     public Station()
     {
@@ -94,10 +91,6 @@ public abstract class Station extends RectangularNode
     public SortMatrix getSortMatrix() {
         return _sortMatrix;
     }
-    
-//    public void setExit(int nbExit) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     
     @Override
     public void setAttribute(String attribName, Object value)

@@ -26,6 +26,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -340,7 +341,7 @@ public class Controller {
         }
 
 	public void DeleteStation() {
-            this.getProject().getSortCenter().getStations().remove(0);
+            this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
 	}
 
 	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {

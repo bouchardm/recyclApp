@@ -44,6 +44,15 @@ public class SortCenter extends Element
         return station;
     }
     
+    public void deleteStation(Station station) {
+        for (int i = 0; i < this._stationList.size(); i++) {
+            if (this._stationList.get(i).equals(station)) {
+                this._stationList.remove(i);
+                return;
+            }
+        }
+    }
+    
     public ArrayList getEntryPoints()
     {
         return _entryPointList;
