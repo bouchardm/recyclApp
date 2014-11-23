@@ -68,16 +68,21 @@ public class Project
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
 
 
-        //créer une matrice de tri pour les machines à une sortie
+        //créer une matrice de tri pour les machines à deux sortie
         HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
         ArrayList<Float> innerList = new ArrayList<>();
-        innerList.add(new Float(1));
+        innerList.add(new Float(.5));
+        innerList.add(new Float(.5));
         smatrix.put(1, innerList);
         ArrayList<Float> innerList2 = new ArrayList<>();
-        innerList2.add(new Float(1));
+        innerList2.add(new Float(.5));
+        innerList2.add(new Float(.5));
         smatrix.put(2, innerList2);
         SortMatrix sorter = new SortMatrix();
         sorter.setSortMatrix(smatrix);
+        
+        
+        
         //créer la matrice de tri pour les machines à deux sorties
         HashMap<Integer, ArrayList<Float>> smatrix2 = new HashMap<>();
         ArrayList<Float> innerList21 = new ArrayList<>();
@@ -97,6 +102,9 @@ public class Project
         Station s1 = this._sortCenter.getStations().get(0);
         s1.setSortMatrix(sorter);
         s1.addOutlet();
+        s1.addOutlet();
+        
+        
         this._sortCenter.addTransStation();                           //S2
         TransStation s2 = (TransStation) this._sortCenter.getStations().get(1);
         s2.setSortMatrix(sorter2);

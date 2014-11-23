@@ -41,17 +41,16 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         this._parent = _parent;
         
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
-        TransMatrix transMatrix = (TransMatrix) infoStation.get("transMatrix");
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
         
-        String[] exits = new String[transMatrix.getTransMatrix().size() + 1];
+        String[] exits = new String[transMatrix.size() + 1];
         
         exits[0] = "Recu / Transformé";
         for (int i = 1; i < exits.length; i++) {
             exits[i] = "Matière ";  
         }
         
-        HashMap<Integer, HashMap<Integer, Float>> sdf = transMatrix.getTransMatrix();
-        for (Map.Entry<Integer, HashMap<Integer, Float>> sfd : sdf.entrySet()) {
+        for (Map.Entry<Integer, HashMap<Integer, Float>> sfd : transMatrix.entrySet()) {
             Integer key = sfd.getKey();
             HashMap<Integer, Float> value = sfd.getValue();
             int i = 1;
@@ -69,13 +68,12 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         
         // Nombre de matiere : sortMatrix.getSortMatrix().size()
         // row : column
-        String[][] matters = new String[transMatrix.getMatterCount()][exits.length];
+        String[][] matters = new String[transMatrix.size()][exits.length];
         
-        HashMap<Integer, HashMap<Integer, Float>> hashMapSortMatrix = transMatrix.getTransMatrix();
 //        System.out.println(hashMapSortMatrix);
         int i = 0;
         
-        for (Map.Entry<Integer, HashMap<Integer, Float>> entrySet : hashMapSortMatrix.entrySet()) {
+        for (Map.Entry<Integer, HashMap<Integer, Float>> entrySet : transMatrix.entrySet()) {
             Integer key = entrySet.getKey();
             HashMap<Integer, Float> value = entrySet.getValue();
             
@@ -188,11 +186,10 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
         
-        TransMatrix transMatrix = (TransMatrix) infoStation.get("transMatrix");
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
         
         Object[][] tableData = Utility.getTableData(transMatrixTable);
         
-        HashMap<Integer, HashMap<Integer, Float>> transMatrixMap = transMatrix.getTransMatrix();
         for (int i = 0; i < tableData.length; i++) {
             HashMap<Integer, Float> exits = new HashMap<>();
             int matterId = 0;
@@ -219,10 +216,9 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
                 return;
             }
             
-            transMatrixMap.put(matterId, exits);
+            transMatrix.put(matterId, exits);
         }
         
-        transMatrix.setTransMatrix(transMatrixMap);
         
         this._controller.EditStation(null, null, null, null, null, null, transMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked

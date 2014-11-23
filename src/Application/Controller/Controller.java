@@ -210,7 +210,7 @@ public class Controller {
             Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
             Image img = (Image) this._selectedElement.getAttribute("img");
             ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
-            SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
+            HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
             
             
             infoElement.put("name", name);
@@ -232,8 +232,8 @@ public class Controller {
             Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
             Image img = (Image) this._selectedElement.getAttribute("img");
             ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
-            SortMatrix sortMatrix = (SortMatrix) this._selectedElement.getAttribute("sortMatrix");
-            TransMatrix transMatrix = (TransMatrix) this._selectedElement.getAttribute("transMatrix");
+            HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
+            HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
             
             infoElement.put("name", name);
             infoElement.put("description", description);
@@ -346,7 +346,7 @@ public class Controller {
             this.getProject().getSortCenter().getStations().remove(0);
 	}
 
-	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, SortMatrix sorter) {
+	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {
             
             if (name != null) {
                 this.setSelectedElementAttribute("name", name);
@@ -374,7 +374,7 @@ public class Controller {
             }
 	}
         
-        public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, SortMatrix sorter, TransMatrix transMatrix) {
+        public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
             
             if (transMatrix != null) {
                 this.setSelectedElementAttribute("transMatrix", transMatrix);

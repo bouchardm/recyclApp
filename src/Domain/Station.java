@@ -126,7 +126,9 @@ public abstract class Station extends RectangularNode
                     this.setColor((Color) value);
                     break;
                 case "sortMatrix":
-                    this.setSortMatrix((SortMatrix) value);
+                    SortMatrix sortMatrix = new SortMatrix();
+                    sortMatrix.setSortMatrix((HashMap<Integer, ArrayList<Float>>) value);
+                    this.setSortMatrix(sortMatrix);
                     break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
@@ -158,7 +160,7 @@ public abstract class Station extends RectangularNode
                 case "outletList":
                     return this.getOutletList();
                 case "sortMatrix":
-                    return this.getSortMatrix();
+                    return this.getSortMatrix().getSortMatrix();
                 default:
                     throw new IllegalArgumentException();
             }

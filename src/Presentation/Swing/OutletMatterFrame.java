@@ -50,11 +50,11 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             exits[i] = "sortie " + i;   
         }
         
-        SortMatrix sortMatrix = (SortMatrix) infoStation.get("sortMatrix");
+//        SortMatrix sortMatrix = (SortMatrix) infoStation.get("sortMatrix");
+        HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
         
-        String[][] matters = new String[sortMatrix.getMatterCount()][exits.length];
+        String[][] matters = new String[hashMapSortMatrix.size()][exits.length];
         
-        HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = sortMatrix.getSortMatrix();
         
         int i = 0;
         for (Map.Entry<Integer, ArrayList<Float>> entrySet : hashMapSortMatrix.entrySet()) {
@@ -168,13 +168,12 @@ public class OutletMatterFrame extends javax.swing.JFrame {
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
         
-        ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");
+//        ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");
         
-        SortMatrix sortMatrix = (SortMatrix) infoStation.get("sortMatrix");
+        HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
         
         Object[][] tableData = Utility.getTableData(outletTable);
         
-        HashMap<Integer, ArrayList<Float>> matterForExit = sortMatrix.getSortMatrix();
         for (int i = 0; i < tableData.length; i++) {
             ArrayList<Float> exits = new ArrayList<>();
             int matterId = 0;
@@ -200,10 +199,8 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                 return;
             }
             
-            matterForExit.put(matterId, exits);
+            sortMatrix.put(matterId, exits);
         }
-        
-        sortMatrix.setSortMatrix(matterForExit);
         
         this._controller.EditStation(null, null, null, null, null, sortMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked

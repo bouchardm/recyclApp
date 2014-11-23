@@ -99,7 +99,7 @@ public class TransStation extends Station {
         {
             switch(attribName) {
                 case "transMatrix":
-                    return this.getTransMatrix();
+                    return this.getTransMatrix().getTransMatrix();
                 default:
                     throw new IllegalArgumentException();
             }
@@ -117,7 +117,9 @@ public class TransStation extends Station {
             switch (attribName)
             {
                 case "transMatrix":
-                    this.setTransMatrix((TransMatrix) value);
+                    TransMatrix transMatrix = new TransMatrix();
+                    transMatrix.setTransMatrix((HashMap<Integer, HashMap<Integer, Float>>) value);
+                    this.setTransMatrix(transMatrix);
                     break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
