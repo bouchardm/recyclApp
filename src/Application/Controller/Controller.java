@@ -116,6 +116,8 @@ public class Controller {
     public Map<String, Object> getSelectedElementAttributes() {
         if (this.typeOfElementSelectedIs(SortStation.class)) {
             return this.getStationSelected();
+        } else if (this.typeOfElementSelectedIs(TransStation.class)) {
+            return this.getTransStationSelected();
         }
         return null;
     }
@@ -324,11 +326,12 @@ public class Controller {
         }
         setSelectedElementAttribute("position", position);
     }
-	public void DeleteStation() {
+    
+    public void DeleteStation() {
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
-	}
+    }
 
-	public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {
+    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {
 
         if (name != null) {
             this.setSelectedElementAttribute("name", name);
@@ -351,7 +354,7 @@ public class Controller {
         }
 
         if (sorter != null) {
-            ((SortStation)_selectedElement).getSortMatrix().setSortMatrix(sorter);
+            ((Station)_selectedElement).getSortMatrix().setSortMatrix(sorter);
         }
     }
 
