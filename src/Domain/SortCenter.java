@@ -79,6 +79,15 @@ public class SortCenter extends Element
         return _entryPointList.get(index).getOutlet();
     }
     
+    public void deleteEntryPoint(EntryPoint entryPoint) {
+        for (int i = 0; i < this._entryPointList.size(); i++) {
+            if (this._entryPointList.get(i).equals(entryPoint)) {
+                this._entryPointList.remove(i);
+                return;
+            }
+        }
+    }
+    
     //retourne l'Inlet d'un point de sortie à l'index "index" de la liste
     public Inlet getExitPointInlet(int index) {
         return _exitPointList.get(index).getInlet();
@@ -293,8 +302,10 @@ public class SortCenter extends Element
     }
 
     //ajoute un nouveau entryPoint à la fin de la liste
-    public void addEntryPoint() {
-        this._entryPointList.add(new EntryPoint());
+    public EntryPoint addEntryPoint() {
+        EntryPoint entryPoint = new EntryPoint();
+        this._entryPointList.add(entryPoint);
+        return entryPoint;
     }
 
     //ajoute un nouveau exitPoint à la fin de la liste

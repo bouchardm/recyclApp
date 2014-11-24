@@ -9,6 +9,7 @@ import Application.Controller.Controller;
 import Domain.IOlet;
 import Domain.Inlet;
 import Domain.Conveyor;
+import Domain.EntryPoint;
 import Domain.Junction;
 import Domain.SortStation;
 import Domain.Station;
@@ -49,6 +50,7 @@ public class SortCenterDrawer {
         drawConveyors(g);
         drawStations(g);
         drawJunctions(g);
+        drawEntryPoints(g);
    
     }
 
@@ -178,9 +180,6 @@ public class SortCenterDrawer {
     }
     
     private void drawJunction(Graphics g, Junction junction) {
-        int x = this._viewport.meterToPix(junction.getPosition().x);
-        int y = this._viewport.meterToPix(junction.getPosition().y);
-        
         Point2D.Float position = junction.getPosition();
         Point2D.Float dimension = junction.getDimensions();
         
@@ -251,5 +250,35 @@ public class SortCenterDrawer {
               //  g.draw(new Line2D.Float(30, 20, 80, 90));
         g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
                 new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+    }
+
+    private void drawEntryPoints(Graphics g) {
+        ArrayList<EntryPoint> entryPoints = this._controller.getProject().getSortCenter().getEntryPoints();
+        
+        for (EntryPoint entryPoint : entryPoints) {
+            drawEntryPoint(g, entryPoint);
+        }
+    }
+
+    private void drawEntryPoint(Graphics g, EntryPoint entryPoint) {
+        Point2D.Float position = entryPoint.getPosition();
+        Point2D.Float dimension = entryPoint.getDimensions();
+        
+        int positionMeterX = _viewport.meterToPix(position.x);
+        int positionMeterY = _viewport.meterToPix(position.y);
+        
+        int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
+        int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+        
+        Image img = Toolkit.getDefaultToolkit().getImage("src/image/entry.png");
+        
+        g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
+        ArrayList<IOlet> iolets = new ArrayList<IOlet>();
+        
+        iolets.addAll(entryPoint.getIOlets());
+
+        for (IOlet iol : iolets) {
+            drawIOlet(g, iol);
+        }
     }
 }

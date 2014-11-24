@@ -27,7 +27,7 @@ import javax.swing.JPanel;
     public enum VIEW_MODES { ICONIC, TEXTUAL };
     private VIEW_MODES viewmode = VIEW_MODES.ICONIC;
     
-    public  enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE};
+    public  enum CREATION_MODES {SORT_STATION, TRANS_STATION, JUNCTION, CONVEYOR_1, CONVEYOR_2, NONE, ENTRY};
     private CREATION_MODES creationMode = CREATION_MODES.NONE;
     
     private boolean _showGrid;

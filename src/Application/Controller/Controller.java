@@ -313,21 +313,21 @@ public class Controller {
     }
 
     public void MoveStation(Point2D.Float position) {
-        if (position.x < 0) {
-            position.x = 0;
-        } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
-            position.x = getSortCenterDimensions().x - ((Point2D.Float) getSelectedElementAttribute("dimensions")).x;
-        }
-        if (position.y < 0) {
-            position.y = 0;
-        } else if (position.y + ((Point2D.Float) getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y) {
-            position.y = getSortCenterDimensions().y - ((Point2D.Float) getSelectedElementAttribute("dimensions")).y;
-        }
-        if (!this.getProject().getSortCenter().include(position)) {
-            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
-            return;
-        }
-        setSelectedElementAttribute("position", position);
+//        if (position.x < 0) {
+//            position.x = 0;
+//        } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
+//            position.x = getSortCenterDimensions().x - ((Point2D.Float) getSelectedElementAttribute("dimensions")).x;
+//        }
+//        if (position.y < 0) {
+//            position.y = 0;
+//        } else if (position.y + ((Point2D.Float) getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y) {
+//            position.y = getSortCenterDimensions().y - ((Point2D.Float) getSelectedElementAttribute("dimensions")).y;
+//        }
+//        if (!this.getProject().getSortCenter().include(position)) {
+//            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+//            return;
+//        }
+//        setSelectedElementAttribute("position", position);
     }
     
     public void DeleteStation() {
@@ -380,12 +380,13 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void AddEntryPoint() {
-        throw new UnsupportedOperationException();
+    public void AddEntryPoint(Point2D.Float position) {
+         _selectedElement = this._project.getSortCenter().addEntryPoint();
+        ((EntryPoint) _selectedElement).setPosition(position);
     }
 
-    public void RemoveEntryPoint() {
-        throw new UnsupportedOperationException();
+    public void deleteEntryPoint() {
+        this.getProject().getSortCenter().deleteEntryPoint((EntryPoint) _selectedElement);
     }
 
     public void EditEntryPoint() {

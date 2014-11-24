@@ -31,17 +31,42 @@ public class EntryPoint extends RectangularNode
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            super.setAttribute(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
     }
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            return super.getAttribute(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
+        }
     }
 
     @Override
     public ArrayList<IOlet> getIOlets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IOlet> iolets = new ArrayList<>();
+        
+        iolets.add(this.getOutlet());
+        
+        return iolets;
     }
     
     //Généralement, appeller avec entryPoint.processMatterBasket(entryPoint.getMatterBasket());
