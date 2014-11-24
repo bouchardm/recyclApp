@@ -51,6 +51,9 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this._stationColor = (Color) infoElement.get("color");
         this.setCurrentStationQuantity( (String)infoElement.get("matterQuantity"));
         
+        this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
+        this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
+        
         this._parent = parent;
     }
 
@@ -98,6 +101,8 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         outletBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        txtXDimension = new javax.swing.JTextField();
+        txtYDimension = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,6 +182,18 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("jLabel5");
 
+        txtXDimension.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtXDimensionKeyPressed(evt);
+            }
+        });
+
+        txtYDimension.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtYDimensionKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -198,7 +215,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addGroup(panelInformation2Layout.createSequentialGroup()
+                                .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -227,7 +248,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addComponent(btnImgStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
@@ -265,7 +290,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             null, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
         
         this._parent.repaint();
@@ -278,7 +303,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             null, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
     }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
@@ -298,7 +323,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             null, 
             null,
             kgHMax,
-            null
+            null, null, null
         );
     }//GEN-LAST:event_txtStationKgHMaxKeyPressed
 
@@ -319,7 +344,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             colorStation, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
         
         this._parent.repaint();
@@ -339,7 +364,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 null, 
                 filePicker.getSelectedFile().getAbsolutePath(),
                 Float.valueOf(this.txtStationKgHMax.getText()),
-                null
+                null, null, null
             );
         }
         this._parent.repaint();
@@ -349,6 +374,30 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         JFrame outletMatterFrame = new OutletMatterFrame(this._controller, this._parent);
         outletMatterFrame.setVisible(true);
     }//GEN-LAST:event_outletBtnActionPerformed
+
+    private void txtXDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXDimensionKeyPressed
+        float dimensionX;
+        try {
+            dimensionX = Float.parseFloat(this.txtXDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+        
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(dimensionX), Float.valueOf(this.txtYDimension.getText()));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtXDimensionKeyPressed
+
+    private void txtYDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYDimensionKeyPressed
+        float dimensionY;
+        try {
+            dimensionY = Float.parseFloat(this.txtYDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+        
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(this.txtXDimension.getText()), Float.valueOf(dimensionY));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtYDimensionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -402,6 +451,8 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JTextArea txtStationDescription;
     private javax.swing.JTextField txtStationKgHMax;
     private javax.swing.JTextField txtStationName;
+    private javax.swing.JTextField txtXDimension;
+    private javax.swing.JTextField txtYDimension;
     // End of variables declaration//GEN-END:variables
 
     

@@ -203,6 +203,8 @@ public class Controller {
         Image img = (Image) this._selectedElement.getAttribute("img");
         ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
+        Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
+        Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
 
         infoElement.put("name", name);
         infoElement.put("description", description);
@@ -213,6 +215,8 @@ public class Controller {
         infoElement.put("img", img);
         infoElement.put("outletList", outletList);
         infoElement.put("sortMatrix", sortMatrix);
+        infoElement.put("dimensionX", dimensionX);
+        infoElement.put("dimensionY", dimensionY);
         return infoElement;
     }
 
@@ -227,7 +231,9 @@ public class Controller {
         ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
-
+        Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
+        Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
+        
         infoElement.put("name", name);
         infoElement.put("description", description);
         infoElement.put("color", color);
@@ -237,6 +243,8 @@ public class Controller {
         infoElement.put("sortMatrix", sortMatrix);
 //        infoElement.put("matterQuantity", stationMatterQuantity.toString());
         infoElement.put("transMatrix", transMatrix);
+        infoElement.put("dimensionX", dimensionX);
+        infoElement.put("dimensionY", dimensionY);
         return infoElement;
     }
 
@@ -303,6 +311,8 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
             return;
         }
+        
+        
 
         _selectedElement = this._project.getSortCenter().addSortStation(value);
         ((SortStation) _selectedElement).setPosition(position);
@@ -330,7 +340,7 @@ public class Controller {
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
     }
 
-    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter) {
+    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY) {
 
         if (name != null) {
             this.setSelectedElementAttribute("name", name);
@@ -355,13 +365,21 @@ public class Controller {
         if (sorter != null) {
             ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
         }
+        
+        if (dimensionX != null) {
+            this.setSelectedElementAttribute("dimensionX", dimensionX);
+        }
+        
+        if (dimensionY != null) {
+            this.setSelectedElementAttribute("dimensionY", dimensionY);
+        }
     }
 
-    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
+    public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
             this.setSelectedElementAttribute("transMatrix", transMatrix);
         }
-        this.EditStation(name, description, color, imgSrc, speedMax, sorter);
+        this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
 
     public void AddExitPoint() {

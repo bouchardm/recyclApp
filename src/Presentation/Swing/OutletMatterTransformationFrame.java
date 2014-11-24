@@ -204,7 +204,7 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
             transMatrix.put(matterId, exits);
         }
         
-        this._controller.EditStation(null, null, null, null, null, null, transMatrix);
+        this._controller.EditStation(null, null, null, null, null, null, null, null, transMatrix);
     }//GEN-LAST:event_btnSaveMouseClicked
 
     /**
