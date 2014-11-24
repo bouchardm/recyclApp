@@ -12,6 +12,7 @@ import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
 import Domain.Junction;
+import Domain.Node;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -81,6 +82,13 @@ public class MainFrame extends javax.swing.JFrame {
         newMenu = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        menuAddEntree = new javax.swing.JMenuItem();
+        menuAddSortStation = new javax.swing.JMenuItem();
+        menuAddTransStation = new javax.swing.JMenuItem();
+        menuAddConveyor = new javax.swing.JMenuItem();
+        menuAddJunction = new javax.swing.JMenuItem();
+        menuAddExitPoint = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -438,6 +446,70 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu3.setText("Ajouter");
+
+        menuAddEntree.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddEntree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/entry.png"))); // NOI18N
+        menuAddEntree.setText("Entrée");
+        menuAddEntree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddEntreeActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddEntree);
+
+        menuAddSortStation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddSortStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        menuAddSortStation.setText("Station de tri");
+        menuAddSortStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddSortStationActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddSortStation);
+
+        menuAddTransStation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddTransStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
+        menuAddTransStation.setText("Station de transformation");
+        menuAddTransStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddTransStationActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddTransStation);
+
+        menuAddConveyor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddConveyor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/conveyor.png"))); // NOI18N
+        menuAddConveyor.setText("Convoyeur");
+        menuAddConveyor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddConveyorActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddConveyor);
+
+        menuAddJunction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddJunction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/junction.png"))); // NOI18N
+        menuAddJunction.setText("Jonction");
+        menuAddJunction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddJunctionActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddJunction);
+
+        menuAddExitPoint.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuAddExitPoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/exit.png"))); // NOI18N
+        menuAddExitPoint.setText("Sortie");
+        menuAddExitPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddExitPointActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddExitPoint);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu2.setText("Édition");
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
@@ -605,23 +677,23 @@ public class MainFrame extends javax.swing.JFrame {
             case CONVEYOR_1:
                 if (this._controller.typeOfElementSelectedIs(Outlet.class)) {
 
-                _controller.setOutlet();
-                if (!_controller.getOutlet().IsFree()) {
-                    JOptionPane.showMessageDialog(null, "La sortie sélectionnée n'est pas libre", null, 0);
-                    this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-                    btnAddConveyor.setSelected(false);
-                    viewport.setConnectingArrow(null);
-                    return;
-                }
-                else
-                {
-                    viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_2);
-                    Line2D.Float line = new Line2D.Float(viewport.pixToMeter(evt.getX()),
-                                    viewport.pixToMeter(evt.getY()),
-                                    viewport.pixToMeter(evt.getX()),
-                                    viewport.pixToMeter(evt.getY()));
-                    viewport.setConnectingArrow(line);
-                }
+                    _controller.setOutlet();
+                    if (!_controller.getOutlet().IsFree()) {
+                        JOptionPane.showMessageDialog(null, "La sortie sélectionnée n'est pas libre", null, 0);
+                        this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                        btnAddConveyor.setSelected(false);
+                        viewport.setConnectingArrow(null);
+                        return;
+                    }
+                    else
+                    {
+                        viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_2);
+                        Line2D.Float line = new Line2D.Float(viewport.pixToMeter(evt.getX()),
+                                        viewport.pixToMeter(evt.getY()),
+                                        viewport.pixToMeter(evt.getX()),
+                                        viewport.pixToMeter(evt.getY()));
+                        viewport.setConnectingArrow(line);
+                    }
 
                 } else {
                     btnAddConveyor.setSelected(false);
@@ -634,11 +706,9 @@ public class MainFrame extends javax.swing.JFrame {
                 if (this._controller.typeOfElementSelectedIs(Inlet.class)) {
                     viewport.setConnectingArrow(null);
                     _controller.setInlet();
-                    boolean isJunction = false;
-                    if(_controller.getInlet().getNode().getClass()== Junction.class )
-                    {
-                    isJunction = true;
-                    }
+            
+                    boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class ||
+                            _controller.getInlet().getNode().getClass() == ExitPoint.class;
                     if ( !isJunction && !_controller.getInlet().IsFree()) {
                         JOptionPane.showMessageDialog(null, "L'entrée sélectionnée n'est pas libre", null, 0);
                         this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
@@ -853,6 +923,36 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddExitActionPerformed
 
+    private void menuAddEntreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEntreeActionPerformed
+        btnAddEntry.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.ENTRY);
+    }//GEN-LAST:event_menuAddEntreeActionPerformed
+
+    private void menuAddSortStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddSortStationActionPerformed
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_menuAddSortStationActionPerformed
+
+    private void menuAddTransStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddTransStationActionPerformed
+        btnAddTransStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
+    }//GEN-LAST:event_menuAddTransStationActionPerformed
+
+    private void menuAddConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddConveyorActionPerformed
+        btnAddConveyor.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_1);
+    }//GEN-LAST:event_menuAddConveyorActionPerformed
+
+    private void menuAddJunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddJunctionActionPerformed
+        btnAddJunction.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.JUNCTION);
+    }//GEN-LAST:event_menuAddJunctionActionPerformed
+
+    private void menuAddExitPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddExitPointActionPerformed
+        btnAddExit.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.EXIT);
+    }//GEN-LAST:event_menuAddExitPointActionPerformed
+
     @Override
     public void repaint() {
         super.repaint();
@@ -914,6 +1014,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
@@ -921,6 +1022,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenuItem menuAddConveyor;
+    private javax.swing.JMenuItem menuAddEntree;
+    private javax.swing.JMenuItem menuAddExitPoint;
+    private javax.swing.JMenuItem menuAddJunction;
+    private javax.swing.JMenuItem menuAddSortStation;
+    private javax.swing.JMenuItem menuAddTransStation;
     private javax.swing.JMenuItem newMenu;
     private javax.swing.JMenuItem openMenu;
     private javax.swing.JPanel panelInformation;

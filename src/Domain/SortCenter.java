@@ -59,7 +59,7 @@ public class SortCenter extends Element {
         }
     }
 
-    public void deleteConveyor(Station station) {
+    public void deleteConveyor(Node station) {
 
         ArrayList<IOlet> iolets = station.getIOlets();
         for (int i = 0; i < iolets.size(); i++) {
@@ -77,8 +77,8 @@ public class SortCenter extends Element {
 
     }
 
-    // DeleteConvyeor from a junction
-    public void deleteConveyor(Junction junction) {
+//     DeleteConvyeor from a junction
+    public void deleteConveyorFromJunction(Junction junction) {
 
         ArrayList<IOlet> iolets = junction.getIOlets();
         for (int i = 0; i < iolets.size(); i++) {
@@ -91,7 +91,7 @@ public class SortCenter extends Element {
                     if (_conveyorList.get(k).equals(aConveyor)) {
                         _conveyorList.get(k).removeConveyor();
                         _conveyorList.remove(k);
-                        break;
+//                        break;
                     }
 
                 }
@@ -122,6 +122,7 @@ public class SortCenter extends Element {
     public void deleteEntryPoint(EntryPoint entryPoint) {
         for (int i = 0; i < this._entrytPointList.size(); i++) {
             if (this._entrytPointList.get(i).equals(entryPoint)) {
+                this.deleteConveyor(entryPoint);
                 this._entrytPointList.remove(i);
                 return;
             }
@@ -130,6 +131,7 @@ public class SortCenter extends Element {
     
     public void deleteExitPoint(ExitPoint exitPoint)
     {
+        this.deleteConveyor(exitPoint);
         _exitPointList.remove(exitPoint);
     }
 
@@ -328,6 +330,7 @@ public class SortCenter extends Element {
         for (int i = 0; i < this._junctionList.size(); i++) {
             if (this._junctionList.get(i).equals(junction)) {
                 deleteConveyor(junction);
+                deleteConveyorFromJunction(junction);
                 this._junctionList.remove(i);
                 return;
             }
