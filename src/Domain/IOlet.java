@@ -8,6 +8,7 @@ package Domain;
 import TechnicalServices.Geometry.Segment2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +19,7 @@ public class IOlet extends Element
 
     protected final Node _node;
     private Conveyor _conveyor;
+    private ArrayList<Conveyor> _conveyorList;
     private Ellipse2D.Float _circle;
     private static float RADIUS = 0.1f;
     protected Point2D.Float _relativePosition;
@@ -30,6 +32,7 @@ public class IOlet extends Element
         _conveyor = null;
         _circle = new Ellipse2D.Float();
         _relativePosition = new Point2D.Float(-1, -1);
+        _conveyorList = new ArrayList<>();
     }
 
     public boolean IsFree() {
@@ -137,4 +140,14 @@ public class IOlet extends Element
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }
     }
+    
+       public void addConveyor(Conveyor conveyor)
+        {
+            _conveyorList.add(conveyor);
+        }
+       
+       public ArrayList<Conveyor> getConveyorList()
+       {
+       return _conveyorList;
+       }
 }

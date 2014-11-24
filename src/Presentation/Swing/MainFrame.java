@@ -716,19 +716,19 @@ public class MainFrame extends javax.swing.JFrame {
         } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.CONVEYOR_2) {
             if (this._controller.typeOfElementSelectedIs(Inlet.class)) {
                 _controller.setInlet();
-
-                if (!_controller.getOutlet().IsFree()) {
+                boolean isJunction = false;
+                if(_controller.getInlet().getNode().getClass()== Junction.class )
+                {
+                isJunction = true;
+                }
+                if ( !isJunction && !_controller.getInlet().IsFree()) {
                     JOptionPane.showMessageDialog(null, "L'entrée sélectionnée n'est pas libre", null, 0);
                     this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-
                     return;
                 }
                 _controller.addConveyor();
-
             }
-
             viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-
             btnAddConveyor.setSelected(false);
 
         } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.NONE) {
