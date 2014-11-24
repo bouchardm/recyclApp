@@ -87,6 +87,11 @@ public class IOlet extends Element
             }
             _relativePosition.x = point.x * 1.2f;
             _relativePosition.y = point.y * 1.2f;
+            
+            if (_conveyor != null)
+            {
+                _conveyor.updatePoints();
+            }
         }
     }
     

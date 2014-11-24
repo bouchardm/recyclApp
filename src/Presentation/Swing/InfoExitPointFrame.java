@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Marcleking
  */
-public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
+public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private MainFrame _parent;
     private Controller _controller;
@@ -33,11 +33,11 @@ public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
     /**
      * Creates new form infoSortStation
      */
-    public infoEntryPointFrame() {
+    public InfoExitPointFrame() {
         initComponents();
     }
     
-    public infoEntryPointFrame(Controller controller, MainFrame parent) {
+    public InfoExitPointFrame(Controller controller, MainFrame parent) {
         initComponents();
         
         this._controller = controller;
@@ -68,11 +68,6 @@ public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         panelInformation2.setPreferredSize(new java.awt.Dimension(216, 2));
 
         btnDeleteStation.setText("Supprimer");
-        btnDeleteStation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteStationMouseClicked(evt);
-            }
-        });
         btnDeleteStation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteStationActionPerformed(evt);
@@ -111,14 +106,10 @@ public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
-
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
-        this._controller.deleteEntryPoint();
+        this._controller.deleteExitPoint();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
-    }//GEN-LAST:event_btnDeleteStationMouseClicked
+    }//GEN-LAST:event_btnDeleteStationActionPerformed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
@@ -141,13 +132,13 @@ public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(infoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoExitPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(infoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoExitPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(infoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoExitPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(infoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoExitPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -169,7 +160,7 @@ public class infoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new infoEntryPointFrame().setVisible(true);
+                new InfoExitPointFrame().setVisible(true);
             }
         });
     }

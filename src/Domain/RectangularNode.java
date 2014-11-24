@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 
 public abstract class RectangularNode extends Node
@@ -36,6 +37,11 @@ public abstract class RectangularNode extends Node
     
     public void setPosition(Point2D.Float position) {
         setPosition(position.x, position.y);
+        ArrayList<IOlet> iolets = getIOlets();
+        for (IOlet iolet : iolets)
+        {
+            iolet.setPosition(iolet.getPosition());
+        }
     }
     
     @Override

@@ -318,23 +318,32 @@ public class Controller {
         ((SortStation) _selectedElement).setPosition(position);
     }
 
-    public void MoveStation(Point2D.Float position) {
-//        if (position.x < 0) {
-//            position.x = 0;
-//        } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
-//            position.x = getSortCenterDimensions().x - ((Point2D.Float) getSelectedElementAttribute("dimensions")).x;
-//        }
-//        if (position.y < 0) {
-//            position.y = 0;
-//        } else if (position.y + ((Point2D.Float) getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y) {
-//            position.y = getSortCenterDimensions().y - ((Point2D.Float) getSelectedElementAttribute("dimensions")).y;
-//        }
-//        if (!this.getProject().getSortCenter().include(position)) {
-//            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
-//            return;
-//        }
-//        setSelectedElementAttribute("position", position);
+        public void moveStation(Point2D.Float position) 
+    {
+        if (position.x < 0)
+        {
+            position.x = 0;
+        }
+        else if (position.x+((Point2D.Float)getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x)
+        {
+            position.x = getSortCenterDimensions().x-((Point2D.Float)getSelectedElementAttribute("dimensions")).x;
+        }
+        if (position.y < 0)
+        {
+            position.y = 0;
+        }
+        else if (position.y+((Point2D.Float)getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y)
+        {
+            position.y = getSortCenterDimensions().y-((Point2D.Float)getSelectedElementAttribute("dimensions")).y;
+        }
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+        
+        setSelectedElementAttribute("position", position);
     }
+
 
     public void DeleteStation() {
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
@@ -412,8 +421,14 @@ public class Controller {
 
     }
 
-    public void deleteEntryPoint() {
+    public void deleteEntryPoint() // Pourquoi un delete EntryPoint ... Element plutôt
+    {
         this.getProject().getSortCenter().deleteEntryPoint((EntryPoint) _selectedElement);
+    }
+    
+    public void deleteExitPoint()
+    {
+        this.getProject().getSortCenter().deleteExitPoint((ExitPoint) _selectedElement);
     }
 
     public void EditEntryPoint() {

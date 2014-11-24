@@ -22,7 +22,7 @@ import java.util.Map;
 public class SortCenter extends Element {
 
     private ArrayList<Conveyor> _conveyorList;
-    private ArrayList<EntryPoint> _entryPointList;
+    private ArrayList<EntryPoint> _entrytPointList;
     private ArrayList<ExitPoint> _exitPointList;
     private ArrayList<Station> _stationList;
     private ArrayList<Junction> _junctionList;
@@ -31,7 +31,7 @@ public class SortCenter extends Element {
 
     public SortCenter() {
         _conveyorList = new ArrayList<>();
-        _entryPointList = new ArrayList<>();
+        _entrytPointList = new ArrayList<>();
         _exitPointList = new ArrayList<>();
         _stationList = new ArrayList<>();
         _junctionList = new ArrayList<>();
@@ -111,21 +111,26 @@ public class SortCenter extends Element {
     }
 
     public ArrayList getEntryPoints() {
-        return _entryPointList;
+        return _entrytPointList;
     }
 
     //retourne l'Outlet d'un point d'entrée à l'index "index" de la liste
     public Outlet getEntryPointOutlet(int index) {
-        return _entryPointList.get(index).getOutlet();
+        return _entrytPointList.get(index).getOutlet();
     }
 
     public void deleteEntryPoint(EntryPoint entryPoint) {
-        for (int i = 0; i < this._entryPointList.size(); i++) {
-            if (this._entryPointList.get(i).equals(entryPoint)) {
-                this._entryPointList.remove(i);
+        for (int i = 0; i < this._entrytPointList.size(); i++) {
+            if (this._entrytPointList.get(i).equals(entryPoint)) {
+                this._entrytPointList.remove(i);
                 return;
             }
         }
+    }
+    
+    public void deleteExitPoint(ExitPoint exitPoint)
+    {
+        _exitPointList.remove(exitPoint);
     }
 
     //retourne l'Inlet d'un point de sortie à l'index "index" de la liste
@@ -190,14 +195,14 @@ public class SortCenter extends Element {
         this.resetJunctionMatterBaskets();
         //on crée une liste maître des nodes du centre de tri
         ArrayList<Node> allNodes = new ArrayList<>(); //NEW
-        allNodes.addAll(this._entryPointList);
+        allNodes.addAll(this._entrytPointList);
         allNodes.addAll(this._exitPointList);
         allNodes.addAll(this._junctionList);
         allNodes.addAll(this._stationList);
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
-        for (Node node : _entryPointList) {
+        for (Node node : _entrytPointList) {
             equipmentToProcess.add(node);
         }
         //for all Conveyors
@@ -332,7 +337,7 @@ public class SortCenter extends Element {
     //ajoute un nouveau entryPoint à la fin de la liste
     public EntryPoint addEntryPoint() {
         EntryPoint entryPoint = new EntryPoint();
-        this._entryPointList.add(entryPoint);
+        this._entrytPointList.add(entryPoint);
         return entryPoint;
     }
 
@@ -385,7 +390,7 @@ public class SortCenter extends Element {
 
     //change le matter basket du point d'entrée "index" pour le matterbasket en entrée
     public void setEntryPointMatterBasket(int index, MatterBasket matterBasket) {
-        _entryPointList.get(index).setMatterBasket(matterBasket);
+        _entrytPointList.get(index).setMatterBasket(matterBasket);
     }
 
     //obtient le matterbasket de la sortie à "index"

@@ -7,27 +7,16 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.EntryPoint;
-import java.awt.geom.Point2D;
-import javax.swing.AbstractButton;
-import Presentation.Swing.infoSortStationFrame;
+import Domain.ExitPoint;
 import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
 import Domain.Junction;
 import Domain.TransStation;
-import java.awt.Color;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 /**
  *
@@ -58,7 +47,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelButton = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
         btnCreateNewProject = new javax.swing.JButton();
         btnUndo = new javax.swing.JButton();
         btnRedo = new javax.swing.JButton();
@@ -101,14 +89,6 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("RecyclApp");
 
         PanelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/exit.png"))); // NOI18N
-        jButton5.setToolTipText("Ajouter une sortie");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         btnCreateNewProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/new.png"))); // NOI18N
         btnCreateNewProject.setToolTipText("Créé un nouveau projet");
@@ -239,7 +219,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btnCreateNewProject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddTransStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddConveyor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -258,8 +237,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnAddConveyor, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddExit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -313,7 +290,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         xGridDimFTextField.setValue(1.00f);
         xGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00 m"))));
-        xGridDimFTextField.setText("1,00 m");
+        xGridDimFTextField.setText("0,50 m");
         xGridDimFTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xGridDimFTextFieldActionPerformed(evt);
@@ -322,7 +299,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         yGridDimFTextField.setValue(1.00f);
         yGridDimFTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00 m"))));
-        yGridDimFTextField.setText("1,00 m");
+        yGridDimFTextField.setText("0,50 m");
         yGridDimFTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 yGridDimFTextFieldActionPerformed(evt);
@@ -517,10 +494,6 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRedoActionPerformed
@@ -663,8 +636,8 @@ public class MainFrame extends javax.swing.JFrame {
                 position = viewport.snap(position);
             }
 
-//            _controller.MoveStation(position);
-            _controller.setSelectedElementAttribute("position", position);
+            _controller.moveStation(position);
+//            _controller.setSelectedElementAttribute("position", position);
 
             this.viewport.repaint();
         }
@@ -708,10 +681,16 @@ public class MainFrame extends javax.swing.JFrame {
             infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoJunctionPanel);
         } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
-            infoEntryPointFrame infoEntryPointFrame = new infoEntryPointFrame(this._controller, this);
+            IfoEntryPointFrame infoEntryPointFrame = new IfoEntryPointFrame(this._controller, this);
             JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
             infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoEntryPointPanel);
+        }
+        else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
+            InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
+            JPanel InfoExitPointPanel = infoExitPointFrame.getPanel();
+            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(InfoExitPointPanel);
         }
         
         // Création
@@ -872,7 +851,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUndo;
     private javax.swing.JLabel cursorCoordsLabel;
     private javax.swing.JCheckBox gridCheckBox;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

@@ -50,7 +50,7 @@ public class Conveyor extends Element
             return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
         }
         
-        private void updatePoints()
+        public void updatePoints()
         {
             Point2D.Float p1 = _startPoint.getPosition();
             Point2D.Float p2 = _endPoint.getPosition();

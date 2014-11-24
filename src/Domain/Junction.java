@@ -19,9 +19,10 @@ public class Junction extends RectangularNode {
     {
         _position = new Point2D.Float(0, 0);
         _inletList = new ArrayList<>();
-        _outlet = new Outlet(this);
         _speedMax = 10f;
         this.setDimensions(0.5f, 0.5f);
+        _outlet = new Outlet(this);
+        _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
         this.addInlet();
     }
     
@@ -73,9 +74,9 @@ public class Junction extends RectangularNode {
 //        return getPosition();
 //    }
     
-    public void setOutlet(Outlet outlet) {
-        _outlet = outlet;
-    }
+//    public void setOutlet(Outlet outlet) {
+//        _outlet = outlet;
+//    }
     
     public Outlet getOutlet() {
         return _outlet;

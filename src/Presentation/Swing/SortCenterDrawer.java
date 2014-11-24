@@ -51,7 +51,6 @@ public class SortCenterDrawer {
         drawJunctions(g);
         drawEntryPoints(g);
         drawExitPoints(g);
-   
     }
 
     private void drawFloor(Graphics g) {
@@ -65,11 +64,15 @@ public class SortCenterDrawer {
             g.setColor(new Color(level, level, level));
             g.fillRect(margin, margin, width, height);
             g.setColor(Color.BLACK);
-            g.drawRect(margin, margin, width, height);
-            if (_controller.isFloorSelected()) {
-                g.setColor(_selectedContourColor);
-                g.drawRect(margin, margin, width, height);
+            
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            
+            if (_controller.isFloorSelected())
+            {
+                g2.setColor(_selectedContourColor);
             }
+            g2.drawRect(margin, margin, width, height);
         }
     }
 
@@ -161,7 +164,9 @@ public class SortCenterDrawer {
                 _viewport.meterToPixDim(circle.width),
                 _viewport.meterToPixDim(circle.height));
         if (_controller.selectedElementIs(iolet)) {
-            g.setColor(_selectedContourColor);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(_selectedContourColor);
             g.drawOval(_viewport.meterToPix(circle.x),
                     _viewport.meterToPix(circle.y),
                     _viewport.meterToPixDim(circle.width),
@@ -195,6 +200,13 @@ public class SortCenterDrawer {
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(junction.getIOlets());
+        
+        if (_controller.selectedElementIs(junction)) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(_selectedContourColor);
+            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        }
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);
@@ -219,13 +231,13 @@ public class SortCenterDrawer {
         x2 = _viewport.meterToPix(position2.x);
         y2 = _viewport.meterToPix(position2.y);
 
-        drawArrow(g, x1, y1, x2, y2);
-        
         g.setColor(Color.BLACK);
 
         if (_controller.selectedElementIs(conveyor)) {
             g.setColor(_selectedContourColor);
         }
+        
+        drawArrow(g, x1, y1, x2, y2);
 
     }
 
@@ -276,6 +288,13 @@ public class SortCenterDrawer {
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(entryPoint.getIOlets());
+        
+        if (_controller.selectedElementIs(entryPoint)) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(_selectedContourColor);
+            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        }
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);
@@ -306,6 +325,13 @@ public class SortCenterDrawer {
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(exitPoint.getIOlets());
+        
+        if (_controller.selectedElementIs(exitPoint)) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(_selectedContourColor);
+            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        }
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);

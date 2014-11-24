@@ -11,7 +11,7 @@ public class Grid {
         public Grid()
         {
             _status = null;
-            _dimensions = new Point2D.Float(1, 1);
+            _dimensions = new Point2D.Float(0.5f, 0.5f);
             _offset = new Point2D.Float(0, 0);
         }
         
