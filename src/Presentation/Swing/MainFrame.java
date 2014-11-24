@@ -13,6 +13,7 @@ import Domain.Outlet;
 import Domain.Inlet;
 import Domain.Junction;
 import Domain.TransStation;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
@@ -529,6 +530,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void viewportMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseMoved
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+        Line2D.Float connectingArrow = viewport.getConnectingArrow();
+        
+        if (connectingArrow != null)
+        {
+            connectingArrow.x2 = viewport.pixToMeter(evt.getX());
+            connectingArrow.y2 = viewport.pixToMeter(evt.getY());
+            viewport.setConnectingArrow(connectingArrow);
+            viewport.repaint();
+        }
     }//GEN-LAST:event_viewportMouseMoved
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
@@ -697,25 +707,35 @@ public class MainFrame extends javax.swing.JFrame {
         if (viewport.getCreationMode() == Viewport.CREATION_MODES.CONVEYOR_1) {
             if (this._controller.typeOfElementSelectedIs(Outlet.class)) {
 
-                _controller.setOutlet();
-                if (!_controller.getOutlet().IsFree()) {
-                    JOptionPane.showMessageDialog(null, "La sortie sélectionnée n'est pas libre", null, 0);
-                    this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-                    btnAddConveyor.setSelected(false);
-                    return;
-                } else {
-                    viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_2);
-                }
+            _controller.setOutlet();
+            if (!_controller.getOutlet().IsFree()) {
+                JOptionPane.showMessageDialog(null, "La sortie sélectionnée n'est pas libre", null, 0);
+                this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                btnAddConveyor.setSelected(false);
+                viewport.setConnectingArrow(null);
+                return;
+            }
+            else
+            {
+                viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_2);
+                Line2D.Float line = new Line2D.Float(viewport.pixToMeter(evt.getX()),
+                                viewport.pixToMeter(evt.getY()),
+                                viewport.pixToMeter(evt.getX()),
+                                viewport.pixToMeter(evt.getY()));
+                viewport.setConnectingArrow(line);
+            }
 
             } else {
                 btnAddConveyor.setSelected(false);
                 this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                viewport.setConnectingArrow(null);
 
             }
 
             return;
         } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.CONVEYOR_2) {
             if (this._controller.typeOfElementSelectedIs(Inlet.class)) {
+                viewport.setConnectingArrow(null);
                 _controller.setInlet();
                 boolean isJunction = false;
                 if(_controller.getInlet().getNode().getClass()== Junction.class )

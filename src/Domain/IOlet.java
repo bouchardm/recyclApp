@@ -139,6 +139,8 @@ public class IOlet extends Element
     @Override
     public Object getAttribute(String attribName) {
         switch(attribName) {
+            case "position":
+                return getPosition();
             case "dimensions":
                 return new Point2D.Float(RADIUS*2, RADIUS*2);
             default:

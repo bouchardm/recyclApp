@@ -21,6 +21,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -33,12 +34,15 @@ public class SortCenterDrawer {
     private Controller _controller;
     private Viewport _viewport;
     private Color _selectedContourColor;
+    private Line2D.Float _connectingArrow;
 
     public SortCenterDrawer(Controller controller, Viewport viewport) {
         this._controller = controller;
         this._viewport = viewport;
         _selectedContourColor = Color.MAGENTA;
+        _connectingArrow = null;
     }
+    
 
     public void draw(Graphics g) {
         drawFloor(g);
@@ -51,6 +55,10 @@ public class SortCenterDrawer {
         drawJunctions(g);
         drawEntryPoints(g);
         drawExitPoints(g);
+        if (_connectingArrow != null)
+        {            
+            drawConnectingArrow(g);
+        }
     }
 
     private void drawFloor(Graphics g) {
@@ -240,6 +248,19 @@ public class SortCenterDrawer {
         drawArrow(g, x1, y1, x2, y2);
 
     }
+    
+    private void drawConnectingArrow(Graphics g)
+    {
+        int x1, x2, y1, y2;
+        x1 = _viewport.meterToPix(_connectingArrow.x1);
+        y1 = _viewport.meterToPix(_connectingArrow.y1);
+        x2 = _viewport.meterToPix(_connectingArrow.x2);
+        y2 = _viewport.meterToPix(_connectingArrow.y2);
+
+        g.setColor(Color.BLACK);
+        
+        drawArrow(g, x1, y1, x2, y2);
+    }
 
     // Source: http://stackoverflow.com/questions/4112701/drawing-a-line-with-arrow-in-java
     void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
@@ -262,6 +283,11 @@ public class SortCenterDrawer {
               //  g.draw(new Line2D.Float(30, 20, 80, 90));
         g.fillPolygon(new int[]{len, len - ARR_SIZE, len - ARR_SIZE, len},
                 new int[]{0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+    }
+    
+    public void setConnectingArrow(Line2D.Float line)
+    {
+        _connectingArrow = line;
     }
 
     private void drawEntryPoints(Graphics g) {

@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import javax.swing.JPanel;
@@ -35,6 +36,7 @@ import javax.swing.JPanel;
     public static int MARGIN = 50;
     
     private final Grid _grid;
+    private Line2D.Float _connectingArrow;
     
     
     public Viewport()
@@ -82,6 +84,16 @@ import javax.swing.JPanel;
         return _grid.snap(point);
     }
     
+    public void setConnectingArrow(Line2D.Float line)
+    {
+        _connectingArrow = line;
+    }
+    
+    public Line2D.Float getConnectingArrow()
+    {
+        return _connectingArrow;
+    }
+    
     
     @Override
     protected void paintComponent(Graphics g)
@@ -90,6 +102,7 @@ import javax.swing.JPanel;
        {
            super.paintComponent(g);
            _drawer = new SortCenterDrawer(_mainFrame._controller, this);
+           _drawer.setConnectingArrow(_connectingArrow);
            _drawer.draw(g);
        }
     }

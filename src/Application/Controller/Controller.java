@@ -497,7 +497,6 @@ public class Controller {
 
     public Outlet getOutlet() {
         return _outlet;
-
     }
 
     public Inlet getInlet() {
