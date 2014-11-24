@@ -471,7 +471,7 @@ public class Controller {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
 
         } catch (Exception ex) {
-            System.out.printf(ex.getMessage());
+            JOptionPane.showMessageDialog(null,ex.getMessage(), null, 0);
         }
     }
 
