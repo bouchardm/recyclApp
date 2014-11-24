@@ -337,8 +337,10 @@ public class SortCenter extends Element {
     }
 
     //ajoute un nouveau exitPoint à la fin de la liste
-    public void addExitPoint() {
-        this._exitPointList.add(new ExitPoint());
+    public ExitPoint addExitPoint() {
+        ExitPoint exitPoint = new ExitPoint();
+        this._exitPointList.add(exitPoint);
+        return exitPoint;
     }
 
     private Point2D.Float dimensions;

@@ -398,6 +398,19 @@ public class Controller {
          _selectedElement = this._project.getSortCenter().addEntryPoint();
         ((EntryPoint) _selectedElement).setPosition(position);
     }
+    
+    public void AddExitPoint(Point2D.Float position)
+    {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+
+        _selectedElement = getProject().getSortCenter().addExitPoint();
+
+        _selectedElement.setAttribute("position", position);
+
+    }
 
     public void deleteEntryPoint() {
         this.getProject().getSortCenter().deleteEntryPoint((EntryPoint) _selectedElement);

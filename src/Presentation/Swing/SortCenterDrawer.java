@@ -10,8 +10,8 @@ import Domain.IOlet;
 import Domain.Inlet;
 import Domain.Conveyor;
 import Domain.EntryPoint;
+import Domain.ExitPoint;
 import Domain.Junction;
-import Domain.SortStation;
 import Domain.Station;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -21,7 +21,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -51,6 +50,7 @@ public class SortCenterDrawer {
         drawStations(g);
         drawJunctions(g);
         drawEntryPoints(g);
+        drawExitPoints(g);
    
     }
 
@@ -276,6 +276,36 @@ public class SortCenterDrawer {
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(entryPoint.getIOlets());
+
+        for (IOlet iol : iolets) {
+            drawIOlet(g, iol);
+        }
+    }
+    
+    private void drawExitPoints(Graphics g) {
+        ArrayList<ExitPoint> exitPoints = this._controller.getProject().getSortCenter().getExitPoints();
+        
+        for (ExitPoint exitPoint : exitPoints) {
+            drawExitPoint(g, exitPoint);
+        }
+    }
+    
+    private void drawExitPoint(Graphics g, ExitPoint exitPoint) {
+        Point2D.Float position = exitPoint.getPosition();
+        Point2D.Float dimension = exitPoint.getDimensions();
+        
+        int positionMeterX = _viewport.meterToPix(position.x);
+        int positionMeterY = _viewport.meterToPix(position.y);
+        
+        int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
+        int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
+        
+        Image img = Toolkit.getDefaultToolkit().getImage("src/image/exit.png");
+        
+        g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
+        ArrayList<IOlet> iolets = new ArrayList<IOlet>();
+        
+        iolets.addAll(exitPoint.getIOlets());
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);

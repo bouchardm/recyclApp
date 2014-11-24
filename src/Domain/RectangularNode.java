@@ -6,6 +6,8 @@
 
 package Domain;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -13,11 +15,15 @@ import java.awt.geom.Rectangle2D;
 public abstract class RectangularNode extends Node
 {
     private Rectangle2D.Float _rect;
+    protected Image _img;
     
     
     public RectangularNode()
     {
         _rect = new Rectangle2D.Float(0, 0, 1, 1);
+        _img = null;
+        this._name = "";
+        this._description = "";
     }
     
     
@@ -37,6 +43,14 @@ public abstract class RectangularNode extends Node
     {
         Point2D.Float pos = new Point2D.Float(_rect.x, _rect.y);
         return pos;
+    }
+    
+    public Image getImg() {
+        return _img;
+    }
+
+    public void setImg(String src) {
+        this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
 
     @Override
