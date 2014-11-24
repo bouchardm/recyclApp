@@ -33,6 +33,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Controller {
+
     private SortMatrix _sortMatrix;
     private Project _project;
     private SortCenter _sortCenter;
@@ -42,34 +43,30 @@ public class Controller {
     private Outlet _outlet;
     private Inlet _inlet;
     private Element _selectedElement;
-        
-    public Controller()
-    {
+
+    public Controller() {
         _project = new Project();
     }
-        
-        public boolean selectedElementIsFloor()
-        {
-            if (_selectedElement != null) {
-                return _selectedElement.equals(_project.getSortCenter());
-            }
-            return false;
+
+    public boolean selectedElementIsFloor() {
+        if (_selectedElement != null) {
+            return _selectedElement.equals(_project.getSortCenter());
         }
-        
-        public void selectElement(Point2D.Float coords)
-        {
-            _selectedElement = _project.getSortCenter();
+        return false;
+    }
+
+    public void selectElement(Point2D.Float coords) {
+        _selectedElement = _project.getSortCenter();
 
         List<Element> elements = new ArrayList<Element>();
 
         elements.add(_project.getSortCenter());
- elements.addAll(_project.getSortCenter().getConveyors());
+        elements.addAll(_project.getSortCenter().getConveyors());
         elements.addAll(_project.getSortCenter().getJunctions());
         elements.addAll(_project.getSortCenter().getStations());
 //            elements.addAll(_project.getSortCenter().getTransStation());
         elements.addAll(_project.getSortCenter().getExitPoints());
         elements.addAll(_project.getSortCenter().getEntryPoints());
-       
 
         ArrayList<IOlet> iolets;
 
@@ -110,7 +107,7 @@ public class Controller {
 
     public Object getSelectedElementAttribute(String attribName) {
         return _selectedElement.getAttribute(attribName);
-            
+
     }
 
     public Map<String, Object> getSelectedElementAttributes() {
@@ -123,9 +120,8 @@ public class Controller {
         }
         return null;
     }
-    
-    public void setSelectedElementAttribute(String attribName, Object value)
-    {
+
+    public void setSelectedElementAttribute(String attribName, Object value) {
         if (_selectedElement != null) {
             _selectedElement.setAttribute(attribName, value);
         }
@@ -151,14 +147,14 @@ public class Controller {
     public void CreateNewProject() {
         throw new UnsupportedOperationException();
     }
-        
-        public String getMatterName(int id) {
-            return this._project.getSortCenter().getMatterList().getMatterName(id);
-        }
-        
-        public int getMatterId(String matterName) {
-            return this._project.getSortCenter().getMatterList().getMatterID(matterName);
-        }
+
+    public String getMatterName(int id) {
+        return this._project.getSortCenter().getMatterList().getMatterName(id);
+    }
+
+    public int getMatterId(String matterName) {
+        return this._project.getSortCenter().getMatterList().getMatterID(matterName);
+    }
 
     public void ExportImage() {
         throw new UnsupportedOperationException();
@@ -206,7 +202,7 @@ public class Controller {
         Image img = (Image) this._selectedElement.getAttribute("img");
         ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
-            
+
         infoElement.put("name", name);
         infoElement.put("description", description);
         infoElement.put("name", name);
@@ -218,10 +214,10 @@ public class Controller {
         infoElement.put("sortMatrix", sortMatrix);
         return infoElement;
     }
-        
+
     private Map<String, Object> getTransStationSelected() {
         Map<String, Object> infoElement = new HashMap();
-        
+
         String name = (String) this._selectedElement.getAttribute("name");
         String description = (String) this._selectedElement.getAttribute("description");
         Color color = (Color) this._selectedElement.getAttribute("color");
@@ -230,7 +226,7 @@ public class Controller {
         ArrayList outletList = (ArrayList<Outlet>) this._selectedElement.getAttribute("outletList");
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
-        
+
         infoElement.put("name", name);
         infoElement.put("description", description);
         infoElement.put("color", color);
@@ -242,14 +238,14 @@ public class Controller {
         infoElement.put("transMatrix", transMatrix);
         return infoElement;
     }
-    
+
     private Map<String, Object> getJunctionSelected() {
         Map<String, Object> infoElement = new HashMap();
-        
+
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
-        
+
         infoElement.put("speedMax", speedMax);
-        
+
         return infoElement;
     }
 
@@ -281,10 +277,9 @@ public class Controller {
         }
 
         _selectedElement = this._project.getSortCenter().addTransStation(value);
-        ((TransStation)_selectedElement).setPosition(position);
+        ((TransStation) _selectedElement).setPosition(position);
     }
-        
-        
+
     public void AddStation(Point2D.Float position) {
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
@@ -297,7 +292,7 @@ public class Controller {
         } catch (NumberFormatException e) {
             value = -1;
         }
-        
+
         if (value < 0) {
             JOptionPane.showMessageDialog(null, "Veuillez saisir un entier positif.", null, 0);
             return;
@@ -329,7 +324,7 @@ public class Controller {
         }
         setSelectedElementAttribute("position", position);
     }
-    
+
     public void DeleteStation() {
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
     }
@@ -357,7 +352,7 @@ public class Controller {
         }
 
         if (sorter != null) {
-            ((Station)_selectedElement).getSortMatrix().setSortMatrix(sorter);
+            ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
         }
     }
 
@@ -401,7 +396,7 @@ public class Controller {
             this.setSelectedElementAttribute("speedMax", speedMax);
         }
     }
-    
+
     public void deleteJunction() {
         this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
     }
@@ -424,15 +419,13 @@ public class Controller {
 
     public void addConveyor() {
 
-//        Inlet inlet = this.getInlet();
-//        Outlet outlet = this.getOutlet();
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-            JOptionPane.showMessageDialog(null, "Succès!", null, 0);
+
         } catch (Exception ex) {
             System.out.printf(ex.getMessage());
         }
-    }    
+    }
 
     public void addJunction(Point2D.Float position) {
         _selectedElement = this.getProject().getSortCenter().addJunction();
