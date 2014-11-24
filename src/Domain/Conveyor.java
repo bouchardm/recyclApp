@@ -29,10 +29,14 @@ public class Conveyor extends Element
             }
             _line = new Line2D.Float();
             this._startPoint = startPoint;
-            this._endPoint = endPoint;
-            
+            this._endPoint = endPoint;           
             _startPoint.setConveyor(this);
-            _endPoint.setConveyor(this);
+            
+            if (endPoint.getNode().getClass() != Junction.class)
+                _endPoint.setConveyor(this);
+            else
+                _endPoint.addConveyor(this);
+           
             _maxCapatity = DEFAULTCAPACITY;
             
             updatePoints();

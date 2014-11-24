@@ -46,6 +46,7 @@ public class Controller {
 
     public Controller() {
         _project = new Project();
+      
     }
 
     public boolean selectedElementIsFloor() {

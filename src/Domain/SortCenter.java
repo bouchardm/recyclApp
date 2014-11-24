@@ -76,18 +76,23 @@ public class SortCenter extends Element {
 
     }
 
+    // DeleteConvyeor from a junction
     public void deleteConveyor(Junction junction) {
 
         ArrayList<IOlet> iolets = junction.getIOlets();
         for (int i = 0; i < iolets.size(); i++) {
-            Conveyor aConveyor = iolets.get(i).getConveyor();
 
-            for (int j = 0; j < this._conveyorList.size(); j++) {
-                if (_conveyorList.get(j).equals(aConveyor)) {
-                    _conveyorList.remove(j);
-                    break;
+            ArrayList<Conveyor> aConveyorList = iolets.get(i).getConveyorList();
+            for (int j = 0; j < aConveyorList.size(); j++) {
+
+                Conveyor aConveyor = aConveyorList.get(j);
+                for (int k = 0; k < this._conveyorList.size(); k++) {
+                    if (_conveyorList.get(k).equals(aConveyor)) {
+                        _conveyorList.remove(k);
+                        break;
+                    }
+
                 }
-
             }
         }
 
@@ -111,7 +116,7 @@ public class SortCenter extends Element {
     public Outlet getEntryPointOutlet(int index) {
         return _entryPointList.get(index).getOutlet();
     }
-    
+
     public void deleteEntryPoint(EntryPoint entryPoint) {
         for (int i = 0; i < this._entryPointList.size(); i++) {
             if (this._entryPointList.get(i).equals(entryPoint)) {
@@ -120,7 +125,7 @@ public class SortCenter extends Element {
             }
         }
     }
-    
+
     //retourne l'Inlet d'un point de sortie à l'index "index" de la liste
     public Inlet getExitPointInlet(int index) {
         return _exitPointList.get(index).getInlet();
