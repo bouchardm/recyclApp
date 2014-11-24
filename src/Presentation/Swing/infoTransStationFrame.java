@@ -50,6 +50,9 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
         this._stationColor = (Color) infoElement.get("color");
         
+        this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
+        this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
+        
         this._parent = parent;
     }
 
@@ -91,6 +94,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         outletBtn = new javax.swing.JButton();
+        txtYDimension = new javax.swing.JTextField();
+        txtXDimension = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +174,18 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             }
         });
 
+        txtYDimension.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtYDimensionKeyPressed(evt);
+            }
+        });
+
+        txtXDimension.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtXDimensionKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -191,6 +208,12 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(outletBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(panelInformation2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInformation2Layout.setVerticalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +240,11 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 .addComponent(btnTransMatrix)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImgStation)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +278,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             null, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
         
         this._parent.repaint();
@@ -264,7 +291,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             null, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
     }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
@@ -284,7 +311,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             null, 
             null,
             kgHMax,
-            null
+            null, null, null
         );
     }//GEN-LAST:event_txtStationKgHMaxKeyPressed
 
@@ -305,7 +332,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             colorStation, 
             null,
             Float.valueOf(this.txtStationKgHMax.getText()),
-            null
+            null, null, null
         );
         
         this._parent.repaint();
@@ -325,7 +352,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 null, 
                 filePicker.getSelectedFile().getAbsolutePath(),
                 Float.valueOf(this.txtStationKgHMax.getText()),
-                null
+                null, null, null
             );
         }
         this._parent.repaint();
@@ -340,6 +367,30 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         JFrame transMatrixFrame = new OutletMatterTransformationFrame(this._controller, this._parent);
         transMatrixFrame.setVisible(true);        
     }//GEN-LAST:event_btnTransMatrixMouseClicked
+
+    private void txtYDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYDimensionKeyPressed
+        float dimensionY;
+        try {
+            dimensionY = Float.parseFloat(this.txtYDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(this.txtXDimension.getText()), Float.valueOf(dimensionY));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtYDimensionKeyPressed
+
+    private void txtXDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXDimensionKeyPressed
+        float dimensionX;
+        try {
+            dimensionX = Float.parseFloat(this.txtXDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(dimensionX), Float.valueOf(this.txtYDimension.getText()));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtXDimensionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -393,6 +444,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     private javax.swing.JTextArea txtStationDescription;
     private javax.swing.JTextField txtStationKgHMax;
     private javax.swing.JTextField txtStationName;
+    private javax.swing.JTextField txtXDimension;
+    private javax.swing.JTextField txtYDimension;
     // End of variables declaration//GEN-END:variables
 
     

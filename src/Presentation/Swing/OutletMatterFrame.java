@@ -193,7 +193,7 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             sortMatrix.put(matterId, exits);
         }
         
-        this._controller.EditStation(null, null, null, null, null, sortMatrix);
+        this._controller.EditStation(null, null, null, null, null, sortMatrix, null, null);
     }//GEN-LAST:event_btnSaveMouseClicked
 
     /**

@@ -6,6 +6,7 @@
 
 package Domain;
 
+import Presentation.Swing.Viewport;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -123,6 +124,12 @@ public abstract class Station extends RectangularNode
                     sortMatrix.setSortMatrix((HashMap<Integer, ArrayList<Float>>) value);
                     this.setSortMatrix(sortMatrix);
                     break;
+                case "dimensionX":
+                    this.setDimensions(this.getDimensions().y, (Float) value);
+                    break;
+                case "dimensionY":
+                    this.setDimensions((Float) value, this.getDimensions().x);
+                    break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }
@@ -162,7 +169,10 @@ public abstract class Station extends RectangularNode
                     }
                     return matterQuantity;
                 }
-                    
+                case "dimensionX":
+                    return this.getDimensions().x;
+                case "dimensionY":
+                    return this.getDimensions().y;
                 default:
                     throw new IllegalArgumentException();
             }
