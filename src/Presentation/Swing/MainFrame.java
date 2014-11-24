@@ -729,8 +729,6 @@ public class MainFrame extends javax.swing.JFrame {
 
             viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
 
-            _controller.addConveyor();
-
             btnAddConveyor.setSelected(false);
 
         } else if (viewport.getCreationMode() == Viewport.CREATION_MODES.NONE) {

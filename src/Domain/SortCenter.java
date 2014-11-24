@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Domain;
 
 import Application.Controller.Controller;
@@ -14,13 +13,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
+//import jdk.nashorn.internal.objects.NativeArray;
 
 /**
  *
  * @author Dany
  */
-public class SortCenter extends Element
-{
+public class SortCenter extends Element {
+
     private ArrayList<Conveyor> _conveyorList;
     private ArrayList<EntryPoint> _entryPointList;
     private ArrayList<ExitPoint> _exitPointList;
@@ -38,7 +38,7 @@ public class SortCenter extends Element
         _matterList = new MatterList();
         dimensions = new Point2D.Float(15f, 10f);
     }
-    
+
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
@@ -48,34 +48,67 @@ public class SortCenter extends Element
         this._stationList.add(station);
         return station;
     }
-    
+
     public void deleteStation(Station station) {
         for (int i = 0; i < this._stationList.size(); i++) {
             if (this._stationList.get(i).equals(station)) {
+                deleteConveyor(station);
                 this._stationList.remove(i);
                 return;
             }
         }
     }
-    
+
+    public void deleteConveyor(Station station) {
+
+        ArrayList<IOlet> iolets = station.getIOlets();
+        for (int i = 0; i < iolets.size(); i++) {
+            Conveyor aConveyor = iolets.get(i).getConveyor();
+
+            for (int j = 0; j < this._conveyorList.size(); j++) {
+                if (_conveyorList.get(j).equals(aConveyor)) {
+                    _conveyorList.remove(j);
+                    break;
+                }
+
+            }
+        }
+
+    }
+
+    public void deleteConveyor(Junction junction) {
+
+        ArrayList<IOlet> iolets = junction.getIOlets();
+        for (int i = 0; i < iolets.size(); i++) {
+            Conveyor aConveyor = iolets.get(i).getConveyor();
+
+            for (int j = 0; j < this._conveyorList.size(); j++) {
+                if (_conveyorList.get(j).equals(aConveyor)) {
+                    _conveyorList.remove(j);
+                    break;
+                }
+
+            }
+        }
+
+    }
+
     //retourne la quantité totale de matière dans une station
     public float getTotalMatterQuantityAtStation(int stationIndex) {
-        return (float)_stationList.get(stationIndex).getAttribute("matterQuantity");
+        return (float) _stationList.get(stationIndex).getAttribute("matterQuantity");
     }
-    
+
     //retourne la quantité totale de matière à un outlet précis d'une station
     public float getMatterQuantityAtStationOutlet(int stationIndex, int outletAtStationIndex) {
         return _stationList.get(stationIndex).getTotalMatterAtOutlet(outletAtStationIndex);
     }
-    
-    public ArrayList getEntryPoints()
-    {
+
+    public ArrayList getEntryPoints() {
         return _entryPointList;
     }
-    
+
     //retourne l'Outlet d'un point d'entrée à l'index "index" de la liste
-    public Outlet getEntryPointOutlet(int index)
-    {
+    public Outlet getEntryPointOutlet(int index) {
         return _entryPointList.get(index).getOutlet();
     }
     
@@ -92,41 +125,37 @@ public class SortCenter extends Element
     public Inlet getExitPointInlet(int index) {
         return _exitPointList.get(index).getInlet();
     }
-    
-    public ArrayList getExitPoints()
-    {
+
+    public ArrayList getExitPoints() {
         return _exitPointList;
     }
-    
+
     public void addMatterToMatterList(Matter matter) {
         this._matterList.Add(matter);
     }
-    
-    public ArrayList getJunctions()
-    {
+
+    public ArrayList getJunctions() {
         return _junctionList;
     }
-    
+
     //retourne la jonction à l'indice "index" de la liste
     public Junction getJunction(int index) {
         return _junctionList.get(index);
     }
-    
-    public ArrayList getConveyors()
-    {
+
+    public ArrayList getConveyors() {
         return _conveyorList;
     }
-    
+
     //retourne le matterBasket de la jonction à l'indice "index"
     public MatterBasket getJunctionMatterBasket(int index) {
         return this._junctionList.get(index).getMatterBasket();
     }
-    
-    public ArrayList<Station> getStations()
-    {
+
+    public ArrayList<Station> getStations() {
         return _stationList;
     }
-    
+
     public MatterList getMatterList() {
         return _matterList;
     }
@@ -134,22 +163,21 @@ public class SortCenter extends Element
     public void setMatterList(MatterList _matterList) {
         this._matterList = _matterList;
     }
-    
+
     //retourne la liste d'Outlet de la station à l'indice "index" de la liste
-    public ArrayList<Outlet> getStationOutletList(int index){
+    public ArrayList<Outlet> getStationOutletList(int index) {
         return this._stationList.get(index).getOutletList();
     }
-    
+
     //retourne la liste d'Inlet d'une jonction à l'indice "index" de la liste
     public ArrayList<Inlet> getJunctionInletList(int index) {
         return this._junctionList.get(index).getInletList();
     }
-    
+
     //retourne l'Outlet d'une jonction à l'indice "index" de la liste
     public Outlet getJunctionOutlet(int index) {
         return this._junctionList.get(index).getOutlet();
     }
-    
 
     public void updateDesign() {
         this.resetJunctionMatterBaskets();
@@ -162,18 +190,18 @@ public class SortCenter extends Element
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
-        for(Node node : _entryPointList) {
+        for (Node node : _entryPointList) {
             equipmentToProcess.add(node);
         }
         //for all Conveyors
         //on ajoute tous les convoyeurs à traiter à un map jumelant le convoyeur
-            //et son point de départ <Conveyor, StartNode>
+        //et son point de départ <Conveyor, StartNode>
         HashMap<Conveyor, Node> conveyorToProcess = new HashMap<>();
-        for(Conveyor conveyor : _conveyorList) {
+        for (Conveyor conveyor : _conveyorList) {
             Node conveyorStartNode = conveyor.getStartNode();
             conveyorToProcess.put(conveyor, conveyorStartNode);
         }
-        while(!equipmentToProcess.isEmpty()) {
+        while (!equipmentToProcess.isEmpty()) {
             Node currentNode = equipmentToProcess.get(0);
             equipmentToProcess.remove(0);
             allNodes.remove(currentNode); //NEW
@@ -181,17 +209,17 @@ public class SortCenter extends Element
             //et les mettres dans une liste & les enlever de la liste à traiter
             Iterator<Map.Entry<Conveyor, Node>> convIter = conveyorToProcess.entrySet().iterator();
             ArrayList<Conveyor> currentConveyors = new ArrayList<>();
-            while(convIter.hasNext()) {
+            while (convIter.hasNext()) {
                 Map.Entry<Conveyor, Node> currentConveyorEntry = convIter.next();
                 Conveyor currentConveyor = currentConveyorEntry.getKey();
                 Node currentConveyorOrigin = currentConveyorEntry.getValue();
-                if(currentConveyor.getStartNode()==currentNode) {
+                if (currentConveyor.getStartNode() == currentNode) {
                     currentConveyors.add(currentConveyor);
                     convIter.remove();
                 }
             }
             //pour chaque convoyeur à traiter,
-            for(int convCtr = 0; convCtr<currentConveyors.size(); convCtr++) {
+            for (int convCtr = 0; convCtr < currentConveyors.size(); convCtr++) {
                 //trouver la destination
                 Conveyor processingConveyor = currentConveyors.get(convCtr);
                 Node destination = processingConveyor.getEndNode();
@@ -201,52 +229,47 @@ public class SortCenter extends Element
                 // mis à jour avant)
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
                 equipmentToProcess.add(destination);
-            }   
+            }
         }
         //NEW: maintenant, on doit "resetter" le panier de matières à n'importe quelle node
         //qui n'est pas connectée au réseau (C'est à dire, tout ce qui reste dans allNodes)
         MatterBasket emptyBasket = new MatterBasket(this._matterList);
-        for(Node unconnectedNode : allNodes) {
+        for (Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
         }
     }
-    
+
     //vérifie le réseau pour voir si l'introduction de ce convoyeur introduit un cycle
     public void verifyCycles(Node startNode) {
         ArrayList<Node> visitedNodes = new ArrayList<>();
         ArrayList<Node> nodesToCheck = new ArrayList<>();
         nodesToCheck.add(startNode);
-        while(!nodesToCheck.isEmpty()) {
+        while (!nodesToCheck.isEmpty()) {
             Node currentNode = nodesToCheck.get(0);
             nodesToCheck.remove(currentNode);
             visitedNodes.add(currentNode);
             ArrayList<Conveyor> conveyorsToCheck = new ArrayList<>();
-            for(Conveyor convIter : this._conveyorList) {
-                if(convIter.getStartNode()==currentNode) {
+            for (Conveyor convIter : this._conveyorList) {
+                if (convIter.getStartNode() == currentNode) {
                     conveyorsToCheck.add(convIter);
                 }
             }
-            for(Conveyor convCheck : conveyorsToCheck) {
+            for (Conveyor convCheck : conveyorsToCheck) {
                 Node destination = convCheck.getEndNode();
-                if(visitedNodes.contains(destination)) {
+                if (visitedNodes.contains(destination)) {
                     throw new IllegalArgumentException("Le réseau contient un cycle.");
-                }
-                else {
+                } else {
                     nodesToCheck.add(destination);
-                    
-                    
+
                 }
             }
         }
 
-            
-        
     }
 
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
-        for (int i=0; i<numberOfOutlets; i++)
-        {
+        for (int i = 0; i < numberOfOutlets; i++) {
             station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
@@ -254,36 +277,33 @@ public class SortCenter extends Element
         this._stationList.add(station);
         return station;
     }
-    
+
     public void setSortStationMatrix(int index, SortMatrix sm) {
         this._stationList.get(index).setSortMatrix(sm);
     }
-    
+
     public void setTransStationMatrix(int index, TransMatrix tm) {
-        if(this._stationList.get(index).getClass() != TransStation.class) {
+        if (this._stationList.get(index).getClass() != TransStation.class) {
             throw new IllegalArgumentException("Ce n'est pas une station de transformation.");
-        }
-        else {
+        } else {
             this._stationList.get(index).setTransMatrix(tm);
         }
     }
 
     public void addConveyor(Outlet aExit, Inlet aEntrance) {
-        
+
         Conveyor newConv = new Conveyor(aExit, aEntrance);
         try {
-            
+
             this._conveyorList.add(newConv);
             verifyCycles(aExit.getNode());
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             this._conveyorList.remove(newConv);
             newConv.removeConveyor();
             throw new IllegalArgumentException("Ce convoyeur introduit un cycle.");
-            
-            
+
         }
-        
+
     }
 
     public Junction addJunction() {
@@ -291,10 +311,11 @@ public class SortCenter extends Element
         this._junctionList.add(junction);
         return junction;
     }
-    
+
     public void deleteJunction(Junction junction) {
         for (int i = 0; i < this._junctionList.size(); i++) {
             if (this._junctionList.get(i).equals(junction)) {
+                deleteConveyor(junction);
                 this._junctionList.remove(i);
                 return;
             }
@@ -312,24 +333,20 @@ public class SortCenter extends Element
     public void addExitPoint() {
         this._exitPointList.add(new ExitPoint());
     }
-    
+
     private Point2D.Float dimensions;
-    
+
     @Override
-    public boolean include(Point2D.Float point)
-    {
-        return (0 <= point.x && point.x <= dimensions.x) && 
-                (0 <= point.y && point.y <= dimensions.y);
+    public boolean include(Point2D.Float point) {
+        return (0 <= point.x && point.x <= dimensions.x)
+                && (0 <= point.y && point.y <= dimensions.y);
     }
-    
-    
-    public Point2D.Float getDimensions()
-    {
+
+    public Point2D.Float getDimensions() {
         return dimensions;
     }
-    
-    public void setDimensions(Float x, Float y)
-    {
+
+    public void setDimensions(Float x, Float y) {
         dimensions.x = x;
         dimensions.y = y;
     }
@@ -337,31 +354,31 @@ public class SortCenter extends Element
 //    public ArrayList getSortStationList() {
 //        return _sortStationList;
 //    }
-    
+
     public SortStation getStationCursorIn(Point2D.Float position) {
         ArrayList sortStationList = this.getStations();
-        
-        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {            
-            SortStation next = (SortStation)iterator.next();
+
+        for (Iterator iterator = sortStationList.iterator(); iterator.hasNext();) {
+            SortStation next = (SortStation) iterator.next();
 
             if (next.include(position)) {
                 // Change la position de l'element déplacer dans la list
                 int i = sortStationList.indexOf(next);
                 if (i > 0) {
-                    Collections.swap(sortStationList, i, i-1);
+                    Collections.swap(sortStationList, i, i - 1);
                 }
                 return next;
             }
         }
-        
+
         return null;
     }
-    
+
     //change le matter basket du point d'entrée "index" pour le matterbasket en entrée
     public void setEntryPointMatterBasket(int index, MatterBasket matterBasket) {
         _entryPointList.get(index).setMatterBasket(matterBasket);
     }
-    
+
     //obtient le matterbasket de la sortie à "index"
     public MatterBasket getExitPointMatterBasket(int index) {
         return _exitPointList.get(index).getMatterBasket();
@@ -376,15 +393,14 @@ public class SortCenter extends Element
     public Object getAttribute(String attribName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     //méthode utilitaire avant de faire updateDesign
     public void resetJunctionMatterBaskets() {
         for (Junction currentJunction : _junctionList) {
             MatterBasket emptyMatterBasket = new MatterBasket(this._matterList);
             currentJunction.getOutlet().setMatterBasket(emptyMatterBasket);
-            
+
         }
     }
 
-    
 }
