@@ -67,6 +67,7 @@ public class SortCenter extends Element {
 
             for (int j = 0; j < this._conveyorList.size(); j++) {
                 if (_conveyorList.get(j).equals(aConveyor)) {
+                    _conveyorList.get(j).removeConveyor();
                     _conveyorList.remove(j);
                     break;
                 }
@@ -88,6 +89,7 @@ public class SortCenter extends Element {
                 Conveyor aConveyor = aConveyorList.get(j);
                 for (int k = 0; k < this._conveyorList.size(); k++) {
                     if (_conveyorList.get(k).equals(aConveyor)) {
+                        _conveyorList.get(k).removeConveyor();
                         _conveyorList.remove(k);
                         break;
                     }

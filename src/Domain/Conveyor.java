@@ -95,7 +95,10 @@ public class Conveyor extends Element
         }
         
         public void removeConveyor() {
+           _startPoint.removeConveyor();
+           _endPoint.removeConveyor();
             _startPoint = null;
+            
             _endPoint = null;
         }
 
