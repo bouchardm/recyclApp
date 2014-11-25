@@ -761,6 +761,7 @@ public class MainFrame extends javax.swing.JFrame {
                         this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
                         btnAddConveyor.setSelected(false);
                         viewport.setConnectingArrow(null);
+                        repaint();
                         return;
                     } else {
                         viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_2);
@@ -772,6 +773,7 @@ public class MainFrame extends javax.swing.JFrame {
                     }
 
                 } else {
+                    JOptionPane.showMessageDialog(null, "Choisir une sortie en premier", null, 0);
                     btnAddConveyor.setSelected(false);
                     this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
                     viewport.setConnectingArrow(null);
@@ -786,14 +788,20 @@ public class MainFrame extends javax.swing.JFrame {
                     boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class
                             || _controller.getInlet().getNode().getClass() == ExitPoint.class;
                     if (!isJunction && !_controller.getInlet().IsFree()) {
+                        viewport.setConnectingArrow(null);
                         JOptionPane.showMessageDialog(null, "L'entrée sélectionnée n'est pas libre", null, 0);
                         this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                        repaint();
                         return;
                     }
                     _controller.addConveyor();
                 }
-
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Choisir une entrée", null, 0);
+                }
                 viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+                viewport.setConnectingArrow(null);
                 btnAddConveyor.setSelected(false);
                 break;
             case ENTRY:

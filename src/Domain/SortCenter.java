@@ -5,10 +5,6 @@
  */
 package Domain;
 
-import Application.Controller.Controller;
-import Presentation.Swing.IfoEntryPointFrame;
-import Presentation.Swing.InfoExitPointFrame;
-import java.awt.List;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
