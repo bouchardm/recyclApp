@@ -172,7 +172,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
 
         jLabel4.setText("Kg/h max:");
 
-        outletBtn.setText("Configurer les sorties");
+        outletBtn.setText("Matrice de tri");
         outletBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outletBtnActionPerformed(evt);

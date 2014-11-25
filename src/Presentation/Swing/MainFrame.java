@@ -152,7 +152,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
-        btnAddStation.setToolTipText("Ajouter une station");
+        btnAddStation.setToolTipText("Ajouter une station de tri");
         btnAddStation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddStationMouseClicked(evt);
@@ -179,7 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnAddTransStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
-        btnAddTransStation.setToolTipText("Ajouter une station");
+        btnAddTransStation.setToolTipText("Ajouter une station de transformation");
         btnAddTransStation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddTransStationMouseClicked(evt);
