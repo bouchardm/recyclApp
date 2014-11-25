@@ -59,7 +59,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         
         matterQuantities matterQuantitiesTable = new matterQuantities(listMatter, controller);
         matterQuantitiesTable.setSize(300, 300);
-        matterQuantitiesTable.setLocation(2, 475);
+        matterQuantitiesTable.setLocation(2, 530);
         this.panelInformation2.add(matterQuantitiesTable);
         
         pack();

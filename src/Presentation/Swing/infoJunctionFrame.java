@@ -51,7 +51,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
         
         matterQuantities matterQuantitiesTable = new matterQuantities(listMatter, controller);
         matterQuantitiesTable.setSize(300, 300);
-        matterQuantitiesTable.setLocation(2, 475);
+        matterQuantitiesTable.setLocation(2, 300);
         this.panelInformation2.add(matterQuantitiesTable);
         
         pack();
