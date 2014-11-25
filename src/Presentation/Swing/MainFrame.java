@@ -713,7 +713,7 @@ public class MainFrame extends javax.swing.JFrame {
             infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoJunctionPanel);
         } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
-            IfoEntryPointFrame infoEntryPointFrame = new IfoEntryPointFrame(this._controller, this);
+            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
             JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
             infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoEntryPointPanel);

@@ -49,7 +49,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this.setStationDescription((String) infoElement.get("description"));
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
         this._stationColor = (Color) infoElement.get("color");
-        this.setCurrentStationQuantity( (String)infoElement.get("matterQuantity"));
+        this.setCurrentStationQuantity(((Float)infoElement.get("matterQuantity")).toString());
         
         this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
         this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
@@ -70,7 +70,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     }
     
     public void setCurrentStationQuantity(String txtCurrentQuantity) {
-        this.jLabel5.setText(txtCurrentQuantity);
+        this.lblMatter.setText(txtCurrentQuantity);
     }
     
     public JPanel getPanel() {
@@ -100,7 +100,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         jLabel4 = new javax.swing.JLabel();
         outletBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblMatter = new javax.swing.JLabel();
         txtXDimension = new javax.swing.JTextField();
         txtYDimension = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -182,8 +182,8 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         jLabel3.setText("Kg/h passant par cette station :");
         jLabel3.setName("kghStation"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("jLabel5");
+        lblMatter.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblMatter.setText("jLabel5");
 
         txtXDimension.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -224,7 +224,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
+                            .addComponent(lblMatter)
                             .addComponent(jLabel6)
                             .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(panelInformation2Layout.createSequentialGroup()
@@ -276,7 +276,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(lblMatter)
                 .addGap(27, 27, 27))
         );
 
@@ -465,11 +465,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMatter;
     private javax.swing.JButton outletBtn;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;
