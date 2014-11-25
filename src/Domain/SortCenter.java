@@ -45,6 +45,11 @@ public class SortCenter extends Element {
         _img = null;
         int level = 240;
         setColor(new Color(level, level, level));
+        Matter m1 = new Matter("P1",1);
+        Matter m2 = new Matter("P2",2);
+        _matterList.Add(m1);
+        _matterList.Add(m2);
+       
     }
 
     public SortStation addSortStation(int numberOfOutlets) {
@@ -130,7 +135,7 @@ public class SortCenter extends Element {
         return _stationList.get(stationIndex).getTotalMatterAtOutlet(outletAtStationIndex);
     }
 
-    public ArrayList getEntryPoints() {
+    public ArrayList<EntryPoint> getEntryPoints() {
         return _entrytPointList;
     }
 
@@ -368,6 +373,10 @@ public class SortCenter extends Element {
     public EntryPoint addEntryPoint() {
         EntryPoint entryPoint = new EntryPoint();
         this._entrytPointList.add(entryPoint);
+        MatterBasket mb = new MatterBasket(this._matterList);
+        mb.setMatterQuantity(1, new Float(1000));
+        mb.setMatterQuantity(2, new Float(1000));
+        entryPoint.processMatterBasket(mb);
         return entryPoint;
     }
 
