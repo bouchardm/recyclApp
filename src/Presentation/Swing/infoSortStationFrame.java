@@ -7,6 +7,7 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.SortStation;
+import TechnicalServices.Utility;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         initComponents();
         
         this._controller = controller;
+        this._parent = parent;
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
         
@@ -49,12 +51,19 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this.setStationDescription((String) infoElement.get("description"));
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
         this._stationColor = (Color) infoElement.get("color");
-        this.setCurrentStationQuantity(((Float)infoElement.get("matterQuantity")).toString());
-        
         this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
         this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
         
-        this._parent = parent;
+        
+        HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoElement.get("matterQuantities");
+        
+        matterQuantities matterQuantitiesTable = new matterQuantities(listMatter, controller);
+        matterQuantitiesTable.setSize(300, 300);
+        matterQuantitiesTable.setLocation(2, 475);
+        this.panelInformation2.add(matterQuantitiesTable);
+        
+        pack();
+        
     }
 
     public void setStationDescription(String txtStationDescription) {
@@ -67,10 +76,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
 
     public void setStationName(String txtStationName) {
         this.txtStationName.setText(txtStationName);
-    }
-    
-    public void setCurrentStationQuantity(String txtCurrentQuantity) {
-        this.lblMatter.setText(txtCurrentQuantity);
     }
     
     public JPanel getPanel() {
@@ -99,8 +104,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         outletBtn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        lblMatter = new javax.swing.JLabel();
         txtXDimension = new javax.swing.JTextField();
         txtYDimension = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -179,12 +182,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             }
         });
 
-        jLabel3.setText("Kg/h passant par cette station :");
-        jLabel3.setName("kghStation"); // NOI18N
-
-        lblMatter.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblMatter.setText("jLabel5");
-
         txtXDimension.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtXDimensionKeyPressed(evt);
@@ -223,8 +220,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(lblMatter)
                             .addComponent(jLabel6)
                             .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(panelInformation2Layout.createSequentialGroup()
@@ -273,11 +268,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(lblMatter)
-                .addGap(27, 27, 27))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -288,11 +279,129 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInformation2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelInformation2, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
+
+    }//GEN-LAST:event_txtStationNbExitKeyPressed
+
+    private void txtYDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYDimensionKeyPressed
+        float dimensionY;
+        try {
+            dimensionY = Float.parseFloat(this.txtYDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(this.txtXDimension.getText()), Float.valueOf(dimensionY));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtYDimensionKeyPressed
+
+    private void txtXDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXDimensionKeyPressed
+        float dimensionX;
+        try {
+            dimensionX = Float.parseFloat(this.txtXDimension.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(dimensionX), Float.valueOf(this.txtYDimension.getText()));
+        this._parent.repaint();
+    }//GEN-LAST:event_txtXDimensionKeyPressed
+
+    private void outletBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outletBtnActionPerformed
+        JFrame outletMatterFrame = new OutletMatterFrame(this._controller, this._parent);
+        outletMatterFrame.setVisible(true);
+    }//GEN-LAST:event_outletBtnActionPerformed
+
+    private void btnImgStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImgStationMouseClicked
+        JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG, GIF & PNG Images", "jpg", "gif", "png");
+        filePicker.setFileFilter(filter);
+        int responce = filePicker.showOpenDialog(this._parent);
+        if(responce == JFileChooser.APPROVE_OPTION) {
+
+            this._controller.EditStation(
+                this.txtStationName.getText(),
+                this.txtStationDescription.getText(),
+                null,
+                filePicker.getSelectedFile().getAbsolutePath(),
+                Float.valueOf(this.txtStationKgHMax.getText()),
+                null, null, null
+            );
+        }
+        this._parent.repaint();
+    }//GEN-LAST:event_btnImgStationMouseClicked
+
+    private void btnColorPcikerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPcikerActionPerformed
+        Color colorStation = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._stationColor);
+
+        this._controller.EditStation(
+            this.txtStationName.getText(),
+            this.txtStationDescription.getText(),
+            colorStation,
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText()),
+            null, null, null
+        );
+
+        this._parent.repaint();
+    }//GEN-LAST:event_btnColorPcikerActionPerformed
+
+    private void btnColorPcikerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColorPcikerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnColorPcikerMouseClicked
+
+    private void txtStationKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationKgHMaxKeyPressed
+        String strKgHMax = this.txtStationKgHMax.getText();
+
+        float kgHMax;
+        try {
+            kgHMax = Float.parseFloat(strKgHMax);
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        this._controller.EditStation(
+            this.txtStationName.getText(),
+            this.txtStationDescription.getText(),
+            null,
+            null,
+            kgHMax,
+            null, null, null
+        );
+    }//GEN-LAST:event_txtStationKgHMaxKeyPressed
+
+    private void txtStationNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNameKeyPressed
+        this._controller.EditStation(
+            this.txtStationName.getText(),
+            this.txtStationDescription.getText(),
+            null,
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText()),
+            null, null, null
+        );
+
+        this._parent.repaint();
+    }//GEN-LAST:event_txtStationNameKeyPressed
+
+    private void txtStationDescriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationDescriptionKeyPressed
+        this._controller.EditStation(
+            this.txtStationName.getText(),
+            this.txtStationDescription.getText(),
+            null,
+            null,
+            Float.valueOf(this.txtStationKgHMax.getText()),
+            null, null, null
+        );
+    }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
     private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
         // TODO add your handling code here:
@@ -303,122 +412,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this._parent.cleanInformationPanel();
         this._parent.repaint();
     }//GEN-LAST:event_btnDeleteStationMouseClicked
-
-    private void txtStationNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNameKeyPressed
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            null, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
-        
-        this._parent.repaint();
-    }//GEN-LAST:event_txtStationNameKeyPressed
-
-    private void txtStationDescriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationDescriptionKeyPressed
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            null, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
-    }//GEN-LAST:event_txtStationDescriptionKeyPressed
-
-    private void txtStationKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationKgHMaxKeyPressed
-        String strKgHMax = this.txtStationKgHMax.getText();
-        
-        float kgHMax;
-        try {
-            kgHMax = Float.parseFloat(strKgHMax);
-        } catch (NumberFormatException e) {
-            return;
-        }
-        
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            null, 
-            null,
-            kgHMax,
-            null, null, null
-        );
-    }//GEN-LAST:event_txtStationKgHMaxKeyPressed
-
-    private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
-
-    }//GEN-LAST:event_txtStationNbExitKeyPressed
-
-    private void btnColorPcikerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColorPcikerMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnColorPcikerMouseClicked
-
-    private void btnColorPcikerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPcikerActionPerformed
-        Color colorStation = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._stationColor);
-        
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            colorStation, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
-        
-        this._parent.repaint();
-    }//GEN-LAST:event_btnColorPcikerActionPerformed
-
-    private void btnImgStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImgStationMouseClicked
-        JFileChooser filePicker = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG, GIF & PNG Images", "jpg", "gif", "png");
-        filePicker.setFileFilter(filter);
-        int responce = filePicker.showOpenDialog(this._parent);
-        if(responce == JFileChooser.APPROVE_OPTION) {
-            
-            this._controller.EditStation(
-                this.txtStationName.getText(), 
-                this.txtStationDescription.getText(), 
-                null, 
-                filePicker.getSelectedFile().getAbsolutePath(),
-                Float.valueOf(this.txtStationKgHMax.getText()),
-                null, null, null
-            );
-        }
-        this._parent.repaint();
-    }//GEN-LAST:event_btnImgStationMouseClicked
-
-    private void outletBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outletBtnActionPerformed
-        JFrame outletMatterFrame = new OutletMatterFrame(this._controller, this._parent);
-        outletMatterFrame.setVisible(true);
-    }//GEN-LAST:event_outletBtnActionPerformed
-
-    private void txtXDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtXDimensionKeyPressed
-        float dimensionX;
-        try {
-            dimensionX = Float.parseFloat(this.txtXDimension.getText());
-        } catch (NumberFormatException e) {
-            return;
-        }
-        
-        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(dimensionX), Float.valueOf(this.txtYDimension.getText()));
-        this._parent.repaint();
-    }//GEN-LAST:event_txtXDimensionKeyPressed
-
-    private void txtYDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYDimensionKeyPressed
-        float dimensionY;
-        try {
-            dimensionY = Float.parseFloat(this.txtYDimension.getText());
-        } catch (NumberFormatException e) {
-            return;
-        }
-        
-        this._controller.EditStation(null, null, null, null, null, null, Float.valueOf(this.txtXDimension.getText()), Float.valueOf(dimensionY));
-        this._parent.repaint();
-    }//GEN-LAST:event_txtYDimensionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -463,13 +456,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMatter;
     private javax.swing.JButton outletBtn;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;

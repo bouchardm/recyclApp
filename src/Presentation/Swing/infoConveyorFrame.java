@@ -45,13 +45,16 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
         
-        this.setCurrentStationQuantity(((Float)infoElement.get("matterQuantity")).toString());
-        
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
-    }
-    
-    public void setCurrentStationQuantity(String txtCurrentQuantity) {
-        this.lblMatter.setText(txtCurrentQuantity);
+        
+        HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoElement.get("matterQuantities");
+        
+        matterQuantities matterQuantitiesTable = new matterQuantities(listMatter, controller);
+        matterQuantitiesTable.setSize(300, 300);
+        matterQuantitiesTable.setLocation(2, 475);
+        this.panelInformation2.add(matterQuantitiesTable);
+        
+        pack();
     }
 
     public void setStationKgHMax(Float txtStationKgHMax) {
@@ -75,8 +78,6 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
         btnDeleteConveyor = new javax.swing.JButton();
         txtConveyorKgHMax = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        lblMatter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,12 +104,6 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
         jLabel4.setText("Kg/h max:");
 
-        jLabel3.setText("Kg/h passant par cette station :");
-        jLabel3.setName("kghStation"); // NOI18N
-
-        lblMatter.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblMatter.setText("jLabel5");
-
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -116,14 +111,11 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteConveyor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteConveyor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
-                        .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(lblMatter))
-                        .addGap(0, 41, Short.MAX_VALUE)))
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -135,11 +127,7 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(lblMatter)
-                .addGap(20, 20, 20))
+                .addContainerGap(498, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,9 +223,7 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteConveyor;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel lblMatter;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextField txtConveyorKgHMax;
     // End of variables declaration//GEN-END:variables

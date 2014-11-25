@@ -49,12 +49,20 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         this.setStationDescription((String) infoElement.get("description"));
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
         this._stationColor = (Color) infoElement.get("color");
-        this.setCurrentStationQuantity(((Float)infoElement.get("matterQuantity")).toString());
         
         this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
         this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
         
         this._parent = parent;
+        
+        HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoElement.get("matterQuantities");
+        
+        matterQuantities matterQuantitiesTable = new matterQuantities(listMatter, controller);
+        matterQuantitiesTable.setSize(300, 300);
+        matterQuantitiesTable.setLocation(2, 475);
+        this.panelInformation2.add(matterQuantitiesTable);
+        
+        pack();
     }
 
     public void setStationDescription(String txtStationDescription) {
@@ -67,10 +75,6 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
 
     public void setStationName(String txtStationName) {
         this.txtStationName.setText(txtStationName);
-    }
-    
-    public void setCurrentStationQuantity(String txtCurrentQuantity) {
-        this.lblMatter.setText(txtCurrentQuantity);
     }
     
     public JPanel getPanel() {
@@ -104,8 +108,6 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        lblMatter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -202,12 +204,6 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
 
         jLabel6.setText("Hauteur");
 
-        jLabel7.setText("Kg/h passant par cette station :");
-        jLabel7.setName("kghStation"); // NOI18N
-
-        lblMatter.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblMatter.setText("jLabel5");
-
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -236,10 +232,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel7)
-                            .addComponent(lblMatter))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 93, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -278,11 +272,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(lblMatter)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -479,9 +469,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMatter;
     private javax.swing.JButton outletBtn;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;
