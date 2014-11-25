@@ -34,11 +34,7 @@ import javax.swing.JOptionPane;
 
 public class Controller {
 
-    private SortMatrix _sortMatrix;
     private Project _project;
-    private SortCenter _sortCenter;
-    private Conveyor _conveyor;
-    private SortStation _sortStation;
     private static int matterIDCounter = 0;
     private Outlet _outlet;
     private Inlet _inlet;
@@ -46,7 +42,7 @@ public class Controller {
 
     public Controller() {
         _project = new Project();
-        _sortCenter = new SortCenter();
+//        _sortCenter = new SortCenter();
     }
 
     public boolean selectedElementIsFloor() {
@@ -211,6 +207,7 @@ public class Controller {
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
         Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
         Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
 
         infoElement.put("name", name);
         infoElement.put("description", description);
@@ -223,6 +220,7 @@ public class Controller {
         infoElement.put("sortMatrix", sortMatrix);
         infoElement.put("dimensionX", dimensionX);
         infoElement.put("dimensionY", dimensionY);
+        infoElement.put("matterQuantity", matterQuantity);
         return infoElement;
     }
 
@@ -239,6 +237,7 @@ public class Controller {
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
         Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
         Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
         
         infoElement.put("name", name);
         infoElement.put("description", description);
@@ -251,6 +250,7 @@ public class Controller {
         infoElement.put("transMatrix", transMatrix);
         infoElement.put("dimensionX", dimensionX);
         infoElement.put("dimensionY", dimensionY);
+        infoElement.put("matterQuantity", matterQuantity);
         return infoElement;
     }
 
@@ -400,7 +400,7 @@ public class Controller {
 
         if (sorter != null) {
             ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
-            this._sortCenter.updateDesign();
+            this._project.getSortCenter().updateDesign();
         }
         
         if (dimensionX != null) {
@@ -415,7 +415,7 @@ public class Controller {
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
             this.setSelectedElementAttribute("transMatrix", transMatrix);
-            this._sortCenter.updateDesign();
+            this._project.getSortCenter().updateDesign();
         }
         this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
@@ -502,7 +502,7 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-            this._sortCenter.updateDesign();
+            this._project.getSortCenter().updateDesign();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
