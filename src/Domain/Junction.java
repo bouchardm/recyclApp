@@ -26,6 +26,17 @@ public class Junction extends RectangularNode {
         this.addInlet();
     }
     
+    public Junction(MatterList matterList)
+    {
+        _position = new Point2D.Float(0, 0);
+        _inletList = new ArrayList<>();
+        _speedMax = 10f;
+        this.setDimensions(0.5f, 0.5f);
+        _outlet = new Outlet(this, matterList);
+        _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
+        this.addInlet();
+    }
+    
     public float getSpeedMax() {
         return _speedMax;
     }

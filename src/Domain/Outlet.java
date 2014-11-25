@@ -15,6 +15,15 @@ public class Outlet extends IOlet
             _matterBasket = new MatterBasket();
         }
         
+        public Outlet(Node parentNode, MatterList matterList)
+        {
+            super(parentNode);
+            _relativePosition.x = 1;
+            _relativePosition.y = (float)Math.random();
+            setPosition(_relativePosition);
+            this._matterBasket = new MatterBasket(matterList);
+        }
+        
         public MatterBasket getMatterBasket()
         {
             MatterBasket mb = new MatterBasket();

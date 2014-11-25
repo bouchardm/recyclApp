@@ -42,7 +42,7 @@ public class SortCenter extends Element {
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet();
+            station.addOutlet(this._matterList);
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
@@ -284,7 +284,7 @@ public class SortCenter extends Element {
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet();
+            station.addOutlet(this._matterList);
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));
@@ -321,7 +321,7 @@ public class SortCenter extends Element {
     }
 
     public Junction addJunction() {
-        Junction junction = new Junction();
+        Junction junction = new Junction(this._matterList);
         this._junctionList.add(junction);
         return junction;
     }
