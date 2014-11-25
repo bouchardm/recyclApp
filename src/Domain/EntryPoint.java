@@ -12,16 +12,7 @@ public class EntryPoint extends RectangularNode
     public EntryPoint() {
         super();
         _outlet = new Outlet(this);
-        Matter m1 = new Matter("m1",1);
-        Matter m2 = new Matter("m2",2);
-        
-        MatterList tmlist = new MatterList();
-        tmlist.Add(m1);
-        tmlist.Add(m2);
-        MatterBasket mb = new MatterBasket(tmlist);
-        mb.setMatterQuantity(1, new Float(700));
-        mb.setMatterQuantity(2, new Float(1000));
-        this.processMatterBasket(mb);
+
     }
 
 
