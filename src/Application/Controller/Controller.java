@@ -175,13 +175,8 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void AddConvoyer() {
+  
 
-    }
-
-    public void RemoveConveyor() {
-        throw new UnsupportedOperationException();
-    }
 
     public void EditConveyor(Float speedMax) {
         if (speedMax != null) {

@@ -101,6 +101,8 @@ public class SortCenter extends Element {
     }
     
     public void deleteConveyor(Conveyor conveyor) {
+       int index = this._conveyorList.indexOf(conveyor);
+        _conveyorList.get(index).removeConveyor();
         this._conveyorList.remove(conveyor);
     }
 
