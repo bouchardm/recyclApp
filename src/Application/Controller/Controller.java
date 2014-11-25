@@ -433,8 +433,13 @@ public class Controller {
     }
 
     public void AddEntryPoint(Point2D.Float position) {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+        
          _selectedElement = this._project.getSortCenter().addEntryPoint();
-        ((EntryPoint) _selectedElement).setPosition(position);
+         _selectedElement.setAttribute("position", position);
     }
     
     public void AddExitPoint(Point2D.Float position)
@@ -448,6 +453,17 @@ public class Controller {
 
         _selectedElement.setAttribute("position", position);
 
+    }
+    
+    
+    public void addJunction(Point2D.Float position) {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+        
+        _selectedElement = this.getProject().getSortCenter().addJunction();
+        _selectedElement.setAttribute("position", position);
     }
 
     public void deleteEntryPoint() // Pourquoi un delete EntryPoint ... Element plutôt
@@ -507,11 +523,6 @@ public class Controller {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
-    }
-
-    public void addJunction(Point2D.Float position) {
-        _selectedElement = this.getProject().getSortCenter().addJunction();
-        ((Junction) _selectedElement).setPosition(position);
     }
 
     public Project getProject() {
