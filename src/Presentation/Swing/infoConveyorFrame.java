@@ -6,8 +6,10 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
 /**
@@ -18,6 +20,7 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
     private MainFrame _parent;
     private Controller _controller;
+    private Color _color;
     
     
     /**
@@ -36,6 +39,8 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
         
         this.setStationKgHMax((Float) infoElement.get("speedMax"));
+        
+        this._color = (Color) infoElement.get("color");
         
         HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoElement.get("matterQuantities");
         
@@ -68,6 +73,7 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
         btnDeleteConveyor = new javax.swing.JButton();
         txtConveyorKgHMax = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnColorPciker = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +100,18 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
         jLabel4.setText("Kg/h max:");
 
+        btnColorPciker.setText("Couleur");
+        btnColorPciker.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnColorPcikerMouseClicked(evt);
+            }
+        });
+        btnColorPciker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorPcikerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -105,7 +123,8 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
                     .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -117,7 +136,9 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(498, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnColorPciker)
+                .addContainerGap(469, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,12 +175,24 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
             return;
         }
         
-        this._controller.EditConveyor(kgHMax);
+        this._controller.EditConveyor(kgHMax, null);
     }//GEN-LAST:event_txtConveyorKgHMaxKeyPressed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
     }//GEN-LAST:event_txtStationNbExitKeyPressed
+
+    private void btnColorPcikerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColorPcikerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnColorPcikerMouseClicked
+
+    private void btnColorPcikerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPcikerActionPerformed
+        Color colorStation = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._color);
+
+        this._controller.EditConveyor(null, colorStation);
+
+        this._parent.repaint();
+    }//GEN-LAST:event_btnColorPcikerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +245,7 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnColorPciker;
     private javax.swing.JButton btnDeleteConveyor;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel panelInformation2;

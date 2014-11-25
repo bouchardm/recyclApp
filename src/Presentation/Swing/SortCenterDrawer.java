@@ -246,7 +246,7 @@ public class SortCenterDrawer {
         x2 = _viewport.meterToPix(position2.x);
         y2 = _viewport.meterToPix(position2.y);
 
-        g.setColor(Color.BLACK);
+        g.setColor(conveyor.getColor());
 
         if (_controller.selectedElementIs(conveyor)) {
             g.setColor(_selectedContourColor);

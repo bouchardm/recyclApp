@@ -1,5 +1,6 @@
 package Domain;
 
+import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
@@ -11,6 +12,7 @@ public class Conveyor extends Element {
     private Object _iD;
     private MatterBasket _matterBasket;
     private Float _speedMax;
+    private Color _color;
     private Line2D.Float _line;
     private final static float _WIDTH = 0.5f;
     
@@ -41,6 +43,7 @@ public class Conveyor extends Element {
             _endPoint.addConveyor(this);
 
         _speedMax = DEFAULTCAPACITY;
+        this._color = Color.BLACK;
 
         updatePoints();
     }
@@ -112,6 +115,9 @@ public class Conveyor extends Element {
             case "speedMax":
                 this.setSpeedMax((Float) value);
                 break;
+            case "color":
+                this._color = (Color) value;
+                break;
             default:
                 throw new IllegalArgumentException(String.format("no method for set %s", attribName));
         }
@@ -124,6 +130,8 @@ public class Conveyor extends Element {
                 return this.getSpeedMax();
             case "matterQuantities":
                 return this.getStartOutlet().getMatterBasket().getQuantities();
+            case "color":
+                return this._color;
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }
@@ -137,6 +145,12 @@ public class Conveyor extends Element {
         this._speedMax = _speedMax;
     }
 
+    public void setColor(Color _color) {
+        this._color = _color;
+    }
     
+    public Color getColor() {
+        return this._color;
+    }
         
 }

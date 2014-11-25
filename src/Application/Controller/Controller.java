@@ -184,13 +184,14 @@ public class Controller {
     public void SetSizeSortCenter() {
         throw new UnsupportedOperationException();
     }
-
-  
-
-
-    public void EditConveyor(Float speedMax) {
+    
+    public void EditConveyor(Float speedMax, Color color) {
         if (speedMax != null) {
             this.setSelectedElementAttribute("speedMax", speedMax);
+        }
+        
+        if (color != null) {
+            this.setSelectedElementAttribute("color", color);
         }
     }
 
@@ -278,9 +279,11 @@ public class Controller {
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
         HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
+        Color color = (Color) this._selectedElement.getAttribute("color");
         
         infoElement.put("speedMax", speedMax);
         infoElement.put("matterQuantities", matterQuantities);
+        infoElement.put("color", color);
 
         return infoElement;
     }
