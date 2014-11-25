@@ -6,7 +6,7 @@
 package Domain;
 
 import Application.Controller.Controller;
-import Presentation.Swing.IfoEntryPointFrame;
+import Presentation.Swing.InfoEntryPointFrame;
 import Presentation.Swing.InfoExitPointFrame;
 import java.awt.List;
 import java.awt.geom.Point2D;
@@ -48,6 +48,7 @@ public class SortCenter extends Element {
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
+        this.updateDesign();
         return station;
     }
 
@@ -56,6 +57,7 @@ public class SortCenter extends Element {
             if (this._stationList.get(i).equals(station)) {
                 deleteConveyor(station);
                 this._stationList.remove(i);
+                this.updateDesign();
                 return;
             }
         }
@@ -76,6 +78,8 @@ public class SortCenter extends Element {
 
             }
         }
+        
+        this.updateDesign();
 
     }
 
@@ -99,6 +103,7 @@ public class SortCenter extends Element {
                 }
             }
         }
+        this.updateDesign();
 
     }
     
@@ -106,6 +111,7 @@ public class SortCenter extends Element {
        int index = this._conveyorList.indexOf(conveyor);
         _conveyorList.get(index).removeConveyor();
         this._conveyorList.remove(conveyor);
+        this.updateDesign();
     }
 
     //retourne la quantité totale de matière dans une station
@@ -132,6 +138,7 @@ public class SortCenter extends Element {
             if (this._entrytPointList.get(i).equals(entryPoint)) {
                 this.deleteConveyor(entryPoint);
                 this._entrytPointList.remove(i);
+                this.updateDesign();
                 return;
             }
         }
@@ -141,6 +148,7 @@ public class SortCenter extends Element {
     {
         this.deleteConveyor(exitPoint);
         _exitPointList.remove(exitPoint);
+        this.updateDesign();
     }
 
     //retourne l'Inlet d'un point de sortie à l'index "index" de la liste
@@ -297,11 +305,13 @@ public class SortCenter extends Element {
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));
         this._stationList.add(station);
+        this.updateDesign();
         return station;
     }
 
     public void setSortStationMatrix(int index, SortMatrix sm) {
         this._stationList.get(index).setSortMatrix(sm);
+        this.updateDesign();
     }
 
     public void setTransStationMatrix(int index, TransMatrix tm) {
@@ -309,6 +319,7 @@ public class SortCenter extends Element {
             throw new IllegalArgumentException("Ce n'est pas une station de transformation.");
         } else {
             this._stationList.get(index).setTransMatrix(tm);
+            this.updateDesign();
         }
     }
 
@@ -319,6 +330,7 @@ public class SortCenter extends Element {
 
             this._conveyorList.add(newConv);
             verifyCycles(aExit.getNode());
+            this.updateDesign();
         } catch (IllegalArgumentException e) {
             this._conveyorList.remove(newConv);
             newConv.removeConveyor();
@@ -331,6 +343,7 @@ public class SortCenter extends Element {
     public Junction addJunction() {
         Junction junction = new Junction(this._matterList);
         this._junctionList.add(junction);
+        this.updateDesign();
         return junction;
     }
 
@@ -340,6 +353,7 @@ public class SortCenter extends Element {
                 deleteConveyor(junction);
                 deleteConveyorFromJunction(junction);
                 this._junctionList.remove(i);
+                this.updateDesign();
                 return;
             }
         }
@@ -358,6 +372,7 @@ public class SortCenter extends Element {
         ExitPoint exitPoint = new ExitPoint();
         
         this._exitPointList.add(exitPoint);
+        this.updateDesign();
         return exitPoint;
     }
 
