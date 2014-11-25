@@ -173,7 +173,7 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
         
-        String[][] tableData = (String[][]) Utility.getTableData(transMatrixTable);
+        Object[][] tableData = Utility.getTableData(transMatrixTable);
         
         for (int i = 0; i < tableData.length; i++) {
             HashMap<Integer, Float> exits = new HashMap<>();
@@ -185,10 +185,10 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
                 } else {
                     Float value = null;
                     try {
-                        if (tableData[i][j] == "") {
+                        if (((String) tableData[i][j]).equals("")) {
                             value = 0f;
                         } else {
-                            value = new Float(tableData[i][j]);
+                            value = new Float((String) tableData[i][j]);
                         }
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Veuillez indiquez des nombres valides.", null, 0);

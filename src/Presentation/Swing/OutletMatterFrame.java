@@ -178,7 +178,7 @@ public class OutletMatterFrame extends javax.swing.JFrame {
                     Float value = null;
                     
                     try {
-                        if (tableData[i][j] == "") {
+                        if (((String) tableData[i][j]).equals("")) {
                             value = 0f;
                         } else {
                             value = new Float((String) tableData[i][j]);
