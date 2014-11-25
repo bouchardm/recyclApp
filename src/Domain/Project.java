@@ -40,6 +40,7 @@ public class Project
         
         this._sortCenter.setMatterList(null);
         this._sortCenter.addEntryPoint();
+        this.test();
     }
     
     public void test() { // TODO : enlever pour la remise

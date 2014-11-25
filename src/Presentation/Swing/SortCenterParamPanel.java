@@ -6,66 +6,53 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
-import Domain.SortStation;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.geom.Point2D;
 import java.util.Map;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Marcleking
  */
-public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
+public class SortCenterParamPanel extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private MainFrame _parent;
     private Controller _controller;
-    private Color _stationColor;
+    private Color _elementColor;
     
     
     /**
      * Creates new form infoSortStation
      */
-    public infoTransStationFrame() {
+    public SortCenterParamPanel() {
         initComponents();
     }
     
-    public infoTransStationFrame(Controller controller, MainFrame parent) {
+    public SortCenterParamPanel(Controller controller, MainFrame parent) {
         initComponents();
         
         this._controller = controller;
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
         
-        this.setStationName((String) infoElement.get("name"));
-        this.setStationDescription((String) infoElement.get("description"));
-        this.setStationKgHMax((Float) infoElement.get("speedMax"));
-        this._stationColor = (Color) infoElement.get("color");
-        
-        this.txtXDimension.setText(((Float) infoElement.get("dimensionX")).toString());
-        this.txtYDimension.setText(((Float) infoElement.get("dimensionY")).toString());
+//        this.setElementName((String) infoElement.get("name"));
+        this.setStationDescription((String) _controller.getSelectedElementAttribute("description"));
+        this._elementColor = (Color) _controller.getSelectedElementAttribute("color");
+        Point2D.Float point = (Point2D.Float)_controller.getSelectedElementAttribute("dimensions");
+        this.txtXDimension.setText(Float.toString(point.x));
+        this.txtYDimension.setText(Float.toString(point.y));
         
         this._parent = parent;
     }
 
-    public void setStationDescription(String txtStationDescription) {
+    public void setStationDescription(String txtStationDescription)
+    {
         this.txtStationDescription.setText(txtStationDescription);
-    }
-
-    public void setStationKgHMax(Float txtStationKgHMax) {
-        this.txtStationKgHMax.setText(txtStationKgHMax.toString());
-    }
-
-    public void setStationName(String txtStationName) {
-        this.txtStationName.setText(txtStationName);
     }
     
     public JPanel getPanel() {
@@ -82,18 +69,11 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     private void initComponents() {
 
         panelInformation2 = new javax.swing.JPanel();
-        btnDeleteStation = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtStationDescription = new javax.swing.JTextArea();
-        txtStationName = new javax.swing.JTextField();
-        txtStationKgHMax = new javax.swing.JTextField();
         btnColorPciker = new javax.swing.JButton();
         btnImgStation = new javax.swing.JButton();
-        btnTransMatrix = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        outletBtn = new javax.swing.JButton();
         txtYDimension = new javax.swing.JTextField();
         txtXDimension = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -105,18 +85,6 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         panelInformation2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelInformation2.setPreferredSize(new java.awt.Dimension(216, 2));
 
-        btnDeleteStation.setText("Supprimer");
-        btnDeleteStation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteStationMouseClicked(evt);
-            }
-        });
-        btnDeleteStation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteStationActionPerformed(evt);
-            }
-        });
-
         txtStationDescription.setColumns(20);
         txtStationDescription.setRows(5);
         txtStationDescription.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -125,18 +93,6 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             }
         });
         jScrollPane1.setViewportView(txtStationDescription);
-
-        txtStationName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStationNameKeyPressed(evt);
-            }
-        });
-
-        txtStationKgHMax.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStationKgHMaxKeyPressed(evt);
-            }
-        });
 
         btnColorPciker.setText("Couleur");
         btnColorPciker.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,26 +112,13 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 btnImgStationMouseClicked(evt);
             }
         });
-
-        btnTransMatrix.setText("Matrice de transformation");
-        btnTransMatrix.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTransMatrixMouseClicked(evt);
+        btnImgStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImgStationActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Nom:");
 
         jLabel2.setText("Description:");
-
-        jLabel4.setText("Kg/h max:");
-
-        outletBtn.setText("Configurer les sorties");
-        outletBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outletBtnActionPerformed(evt);
-            }
-        });
 
         txtYDimension.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -202,24 +145,17 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtStationName, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                    .addComponent(txtStationKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImgStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTransMatrix, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(outletBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addGroup(panelInformation2Layout.createSequentialGroup()
                                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,39 +167,24 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStationKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnColorPciker)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(outletBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTransMatrix)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImgStation)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInformation2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -280,28 +201,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtStationNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNameKeyPressed
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            null, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
-        
-        this._parent.repaint();
-    }//GEN-LAST:event_txtStationNameKeyPressed
-
     private void txtStationDescriptionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationDescriptionKeyPressed
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            null, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
+        _controller.setSelectedElementAttribute("description", txtStationDescription.getText());
     }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
@@ -313,38 +214,22 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     }//GEN-LAST:event_btnColorPcikerMouseClicked
 
     private void btnColorPcikerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPcikerActionPerformed
-        Color colorStation = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._stationColor);
-        
-        this._controller.EditStation(
-            this.txtStationName.getText(), 
-            this.txtStationDescription.getText(), 
-            colorStation, 
-            null,
-            Float.valueOf(this.txtStationKgHMax.getText()),
-            null, null, null
-        );
+        Color elementColor = JColorChooser.showDialog(null, "Veuillez choisir la couleur de la station", this._elementColor);
+        _controller.setSelectedElementAttribute("color", elementColor);
+//        this._controller.EditStation(
+//            this.txtStationName.getText(), 
+//            this.txtStationDescription.getText(), 
+//            elementColor, 
+//            null,
+//            Float.valueOf(this.txtStationKgHMax.getText()),
+//            null, null, null
+//        );
         
         this._parent.repaint();
     }//GEN-LAST:event_btnColorPcikerActionPerformed
 
     private void btnImgStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImgStationMouseClicked
-        JFileChooser filePicker = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG, GIF & PNG Images", "jpg", "gif", "png");
-        filePicker.setFileFilter(filter);
-        int responce = filePicker.showOpenDialog(this._parent);
-        if(responce == JFileChooser.APPROVE_OPTION) {
-            
-            this._controller.EditStation(
-                this.txtStationName.getText(), 
-                this.txtStationDescription.getText(), 
-                null, 
-                filePicker.getSelectedFile().getAbsolutePath(),
-                Float.valueOf(this.txtStationKgHMax.getText()),
-                null, null, null
-            );
-        }
-        this._parent.repaint();
+        
     }//GEN-LAST:event_btnImgStationMouseClicked
 
     private void txtYDimensionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYDimensionKeyPressed
@@ -371,45 +256,25 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         this._parent.repaint();
     }//GEN-LAST:event_txtXDimensionKeyPressed
 
-    private void btnTransMatrixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransMatrixMouseClicked
-        JFrame transMatrixFrame = new OutletMatterTransformationFrame(this._controller, this._parent);
-        transMatrixFrame.setVisible(true);
-    }//GEN-LAST:event_btnTransMatrixMouseClicked
-
-    private void outletBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outletBtnActionPerformed
-        JFrame outletMatterFrame = new OutletMatterFrame(this._controller, this._parent);
-        outletMatterFrame.setVisible(true);
-    }//GEN-LAST:event_outletBtnActionPerformed
-
-    private void txtStationKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationKgHMaxKeyPressed
-        String strKgHMax = this.txtStationKgHMax.getText();
-
-        float kgHMax;
-        try {
-            kgHMax = Float.parseFloat(strKgHMax);
-        } catch (NumberFormatException e) {
-            return;
+    private void btnImgStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgStationActionPerformed
+    JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG, GIF & PNG Images", "jpg", "gif", "png");
+        filePicker.setFileFilter(filter);
+        int responce = filePicker.showOpenDialog(this._parent);
+        if(responce == JFileChooser.APPROVE_OPTION) {
+            _controller.setSelectedElementAttribute("image", filePicker.getSelectedFile().getAbsolutePath());
+//            this._controller.EditStation(
+//                this.txtStationName.getText(), 
+//                this.txtStationDescription.getText(), 
+//                null, 
+//                filePicker.getSelectedFile().getAbsolutePath(),
+//                Float.valueOf(this.txtStationKgHMax.getText()),
+//                null, null, null
+//            );
         }
-
-        this._controller.EditStation(
-            this.txtStationName.getText(),
-            this.txtStationDescription.getText(),
-            null,
-            null,
-            kgHMax,
-            null, null, null
-        );
-    }//GEN-LAST:event_txtStationKgHMaxKeyPressed
-
-    private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
-
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
-        this._controller.DeleteStation();
-        this._parent.cleanInformationPanel();
         this._parent.repaint();
-    }//GEN-LAST:event_btnDeleteStationMouseClicked
+    }//GEN-LAST:event_btnImgStationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,13 +293,13 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(infoTransStationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SortCenterParamPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(infoTransStationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SortCenterParamPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(infoTransStationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SortCenterParamPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(infoTransStationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SortCenterParamPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -444,28 +309,21 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new infoTransStationFrame().setVisible(true);
+                new SortCenterParamPanel().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnColorPciker;
-    private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
-    private javax.swing.JButton btnTransMatrix;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton outletBtn;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;
-    private javax.swing.JTextField txtStationKgHMax;
-    private javax.swing.JTextField txtStationName;
     private javax.swing.JTextField txtXDimension;
     private javax.swing.JTextField txtYDimension;
     // End of variables declaration//GEN-END:variables

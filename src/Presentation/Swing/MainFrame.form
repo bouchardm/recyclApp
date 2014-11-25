@@ -275,7 +275,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAddJunction" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnAddExit" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="btnAddExit" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnSave" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>

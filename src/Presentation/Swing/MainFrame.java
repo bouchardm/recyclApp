@@ -12,7 +12,7 @@ import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
 import Domain.Junction;
-import Domain.Node;
+import Domain.SortCenter;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -247,7 +247,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddExit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddExit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -814,6 +814,12 @@ public class MainFrame extends javax.swing.JFrame {
             JPanel InfoExitPointPanel = infoExitPointFrame.getPanel();
             InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(InfoExitPointPanel);
+        }
+        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
+            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
+            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
+            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(SortCenterParamPanel);
         }
 
         // Déplacer dans viewportMouseReleased
