@@ -334,7 +334,6 @@ public class SortCenter extends Element {
 
         Conveyor newConv = new Conveyor(aExit, aEntrance);
         try {
-
             this._conveyorList.add(newConv);
             verifyCycles(aExit.getNode());
             this.updateDesign();

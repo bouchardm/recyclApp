@@ -538,9 +538,10 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-            this._project.getSortCenter().updateDesign();
+//            this._project.getSortCenter().updateDesign();
 
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
     }
