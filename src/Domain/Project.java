@@ -22,10 +22,6 @@ public class Project
     private SortCenter _sortCenter;
     private Boolean _isSaved;
     
-    // public Vector<ProjectController> _projectController = new Vector<ProjectController>();
-    public Controller _recyclAppController;
-    public SortCenter _sortCenter2;
-    
     public Project()
     {
         newProject();
@@ -46,14 +42,10 @@ public class Project
     public void test() { // TODO : enlever pour la remise
         Matter m1 = new Matter("m1",1);
         Matter m2 = new Matter("m2",2);
-        Matter m3 = new Matter("m3",3);
-        Matter m4 = new Matter("m4",4);
         
         MatterList tmlist = new MatterList();
         tmlist.Add(m1);
         tmlist.Add(m2);
-        tmlist.Add(m3);
-        tmlist.Add(m4);
 
         this._sortCenter.setMatterList(tmlist);
         
@@ -114,14 +106,14 @@ public class Project
         HashMap<Integer, Float> dogTransformQuantity = new HashMap<>();
         HashMap<Integer, HashMap<Integer, Float>> matterQuantities = new HashMap<>();
         TransMatrix tmtest = new TransMatrix();
-        catTransformQuantity.put(3,new Float(.25));
-        catTransformQuantity.put(4,new Float(.75));
-        dogTransformQuantity.put(3,new Float(.5));
-        dogTransformQuantity.put(4,new Float(.5));
+        catTransformQuantity.put(1,new Float(.25));
+        catTransformQuantity.put(2,new Float(.75));
+        dogTransformQuantity.put(1,new Float(.5));
+        dogTransformQuantity.put(2,new Float(.5));
         matterQuantities.put(1, dogTransformQuantity);
         matterQuantities.put(2, catTransformQuantity);
-        tmtest.addMatterToTransMatrix(m3.getID(), dogTransformQuantity);
-        tmtest.addMatterToTransMatrix(m4.getID(), catTransformQuantity);
+        tmtest.addMatterToTransMatrix(m1.getID(), dogTransformQuantity);
+        tmtest.addMatterToTransMatrix(m2.getID(), catTransformQuantity);
         
         s2.setTransMatrix(tmtest);
     }

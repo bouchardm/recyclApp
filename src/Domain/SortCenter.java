@@ -8,6 +8,10 @@ package Domain;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import Application.Controller.Controller;
+import Presentation.Swing.InfoEntryPointFrame;
+import Presentation.Swing.InfoExitPointFrame;
+import java.awt.List;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,6 +110,8 @@ public class SortCenter extends Element {
     }
     
     public void deleteConveyor(Conveyor conveyor) {
+       int index = this._conveyorList.indexOf(conveyor);
+        _conveyorList.get(index).removeConveyor();
         this._conveyorList.remove(conveyor);
     }
 
@@ -355,7 +361,9 @@ public class SortCenter extends Element {
 
     //ajoute un nouveau exitPoint à la fin de la liste
     public ExitPoint addExitPoint() {
+        
         ExitPoint exitPoint = new ExitPoint();
+        
         this._exitPointList.add(exitPoint);
         return exitPoint;
     }
