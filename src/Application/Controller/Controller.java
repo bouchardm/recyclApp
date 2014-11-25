@@ -46,7 +46,7 @@ public class Controller {
 
     public Controller() {
         _project = new Project();
-      
+        _sortCenter = new SortCenter();
     }
 
     public boolean selectedElementIsFloor() {
@@ -118,6 +118,10 @@ public class Controller {
             return this.getTransStationSelected();
         } else if (this.typeOfElementSelectedIs(Junction.class)) {
             return this.getJunctionSelected();
+        } else if (this.typeOfElementSelectedIs(Conveyor.class)) {
+            return this.getConveyorSelected();
+        } else if (this.typeOfElementSelectedIs(EntryPoint.class)) {
+            return this.getEntryPointSelected();
         }
         return null;
     }
@@ -181,8 +185,10 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void EditConveyor() {
-        throw new UnsupportedOperationException();
+    public void EditConveyor(Float speedMax) {
+        if (speedMax != null) {
+            this.setSelectedElementAttribute("speedMax", speedMax);
+        }
     }
 
     public void AddMatrix() {
@@ -257,7 +263,28 @@ public class Controller {
 
         return infoElement;
     }
+    
+    private Map<String, Object> getConveyorSelected() {
+        Map<String, Object> infoElement = new HashMap();
 
+        Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+
+        infoElement.put("speedMax", speedMax);
+
+        return infoElement;
+    }
+
+    private Map<String, Object> getEntryPointSelected () {
+        Map<String, Object> infoElement = new HashMap();
+
+        MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
+
+        infoElement.put("matterBasket", matterBasket);
+
+        return infoElement;
+    }
+
+    
     public void EditMatrix() {
         throw new UnsupportedOperationException();
     }
@@ -373,6 +400,7 @@ public class Controller {
 
         if (sorter != null) {
             ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
+            this._sortCenter.updateDesign();
         }
         
         if (dimensionX != null) {
@@ -387,6 +415,7 @@ public class Controller {
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
             this.setSelectedElementAttribute("transMatrix", transMatrix);
+            this._sortCenter.updateDesign();
         }
         this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
@@ -448,6 +477,10 @@ public class Controller {
     public void deleteJunction() {
         this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
     }
+    
+    public void deleteConveyor() {
+        this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
+    }
 
     public void AddMatter() {
         throw new UnsupportedOperationException();
@@ -469,9 +502,10 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
+            this._sortCenter.updateDesign();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage(), null, 0);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
     }
 

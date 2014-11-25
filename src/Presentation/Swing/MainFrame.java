@@ -6,6 +6,7 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.Conveyor;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.SortStation;
@@ -141,14 +142,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
         btnAddStation.setToolTipText("Ajouter une station");
-        btnAddStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btnAddStationMouseDragged(evt);
-            }
-        });
         btnAddStation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddStationMouseClicked(evt);
+            }
+        });
+        btnAddStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btnAddStationMouseDragged(evt);
             }
         });
         btnAddStation.addActionListener(new java.awt.event.ActionListener() {
@@ -648,7 +649,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+       Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         if (viewport.isSnapToGrid())
         {
             position = viewport.snap(position);
@@ -694,19 +695,19 @@ public class MainFrame extends javax.swing.JFrame {
                                         viewport.pixToMeter(evt.getY()));
                         viewport.setConnectingArrow(line);
                     }
-
+                    
                 } else {
                     btnAddConveyor.setSelected(false);
                     this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
                     viewport.setConnectingArrow(null);
-
+                    
                 }
                 break;
             case CONVEYOR_2:
                 if (this._controller.typeOfElementSelectedIs(Inlet.class)) {
                     viewport.setConnectingArrow(null);
                     _controller.setInlet();
-            
+                    
                     boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class ||
                             _controller.getInlet().getNode().getClass() == ExitPoint.class;
                     if ( !isJunction && !_controller.getInlet().IsFree()) {
@@ -714,8 +715,9 @@ public class MainFrame extends javax.swing.JFrame {
                         this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
                         return;
                     }
-                    _controller.addConveyor();
+                        _controller.addConveyor();
                 }
+                
                 viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
                 btnAddConveyor.setSelected(false);
                 break;
@@ -734,7 +736,8 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddExit.setSelected(false);
                 break;
         }
-        repaint();
+        repaint();                                      
+
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -765,12 +768,6 @@ public class MainFrame extends javax.swing.JFrame {
             this.viewport.repaint();
         }
     }//GEN-LAST:event_viewportMouseDragged
-
-    private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
-        btnAddStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-
-    }//GEN-LAST:event_btnAddStationMouseClicked
 
     private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
@@ -804,7 +801,7 @@ public class MainFrame extends javax.swing.JFrame {
             infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoJunctionPanel);
         } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
-            IfoEntryPointFrame infoEntryPointFrame = new IfoEntryPointFrame(this._controller, this);
+            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
             JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
             infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(infoEntryPointPanel);
@@ -812,6 +809,11 @@ public class MainFrame extends javax.swing.JFrame {
         else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
             InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
             JPanel InfoExitPointPanel = infoExitPointFrame.getPanel();
+            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(InfoExitPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
+            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
+            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
             InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(InfoExitPointPanel);
         }
@@ -958,6 +960,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddExit.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.EXIT);
     }//GEN-LAST:event_menuAddExitPointActionPerformed
+
+    private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_btnAddStationMouseClicked
 
     @Override
     public void repaint() {

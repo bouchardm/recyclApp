@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Marcleking
  */
-public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
+public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private MainFrame _parent;
     private Controller _controller;
@@ -33,17 +33,23 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
     /**
      * Creates new form infoSortStation
      */
-    public IfoEntryPointFrame() {
+    public infoConveyorFrame() {
         initComponents();
     }
     
-    public IfoEntryPointFrame(Controller controller, MainFrame parent) {
+    public infoConveyorFrame(Controller controller, MainFrame parent) {
         initComponents();
         
         this._controller = controller;
         this._parent = parent;
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
+        
+        this.setStationKgHMax((Float) infoElement.get("speedMax"));
+    }
+
+    public void setStationKgHMax(Float txtStationKgHMax) {
+        this.txtConveyorKgHMax.setText(txtStationKgHMax.toString());
     }
     
     public JPanel getPanel() {
@@ -60,24 +66,34 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
     private void initComponents() {
 
         panelInformation2 = new javax.swing.JPanel();
-        btnDeleteStation = new javax.swing.JButton();
+        btnDeleteConveyor = new javax.swing.JButton();
+        txtConveyorKgHMax = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelInformation2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelInformation2.setPreferredSize(new java.awt.Dimension(216, 2));
 
-        btnDeleteStation.setText("Supprimer");
-        btnDeleteStation.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDeleteConveyor.setText("Supprimer");
+        btnDeleteConveyor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteStationMouseClicked(evt);
+                btnDeleteConveyorMouseClicked(evt);
             }
         });
-        btnDeleteStation.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteConveyor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteStationActionPerformed(evt);
+                btnDeleteConveyorActionPerformed(evt);
             }
         });
+
+        txtConveyorKgHMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtConveyorKgHMaxKeyPressed(evt);
+            }
+        });
+
+        jLabel4.setText("Kg/h max:");
 
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
@@ -85,15 +101,24 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDeleteConveyor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelInformation2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 145, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(544, Short.MAX_VALUE))
+                .addComponent(btnDeleteConveyor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtConveyorKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(498, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,15 +135,28 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
+    private void btnDeleteConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteConveyorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
+    }//GEN-LAST:event_btnDeleteConveyorActionPerformed
 
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
-        this._controller.deleteEntryPoint();
+    private void btnDeleteConveyorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteConveyorMouseClicked
+        this._controller.deleteConveyor();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
-    }//GEN-LAST:event_btnDeleteStationMouseClicked
+    }//GEN-LAST:event_btnDeleteConveyorMouseClicked
+
+    private void txtConveyorKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConveyorKgHMaxKeyPressed
+        String strKgHMax = this.txtConveyorKgHMax.getText();
+        
+        float kgHMax;
+        try {
+            kgHMax = Float.parseFloat(strKgHMax);
+        } catch (NumberFormatException e) {
+            return;
+        }
+        
+        this._controller.EditConveyor(kgHMax);
+    }//GEN-LAST:event_txtConveyorKgHMaxKeyPressed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
@@ -141,13 +179,13 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(infoConveyorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(infoConveyorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(infoConveyorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(infoConveyorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -169,14 +207,16 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IfoEntryPointFrame().setVisible(true);
+                new infoConveyorFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteStation;
+    private javax.swing.JButton btnDeleteConveyor;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel panelInformation2;
+    private javax.swing.JTextField txtConveyorKgHMax;
     // End of variables declaration//GEN-END:variables
 
     
