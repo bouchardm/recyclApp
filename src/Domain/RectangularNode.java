@@ -97,6 +97,9 @@ public abstract class RectangularNode extends Node
             case "position":
                 setPosition((Point2D.Float)value);
                 break;
+            case "image":
+                setImg((String)value);
+                break;
             default:
                 throw new IllegalArgumentException(String.format("no method for set %s", attribName));
         }
@@ -108,6 +111,8 @@ public abstract class RectangularNode extends Node
         {
             case "dimensions":
                 return getDimensions();
+            case "image":
+                return getImg();
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }

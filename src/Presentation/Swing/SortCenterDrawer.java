@@ -12,6 +12,7 @@ import Domain.Conveyor;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Junction;
+import Domain.SortCenter;
 import Domain.Station;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -69,7 +70,12 @@ public class SortCenterDrawer {
             int level = 240;
             int width = (int) (dim.x * 50 * zoomFactor);
             int height = (int) (dim.y * 50 * zoomFactor);
-            g.setColor(new Color(level, level, level));
+            Color color = _controller.getProject().getSortCenter().getColor();
+            if (_controller.isFloorSelected())
+            {
+                color = (Color)_controller.getSelectedElementAttribute("color");
+            }
+            g.setColor(color);
             g.fillRect(margin, margin, width, height);
             g.setColor(Color.BLACK);
             

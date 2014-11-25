@@ -5,6 +5,9 @@
  */
 package Domain;
 
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import Application.Controller.Controller;
 import Presentation.Swing.InfoEntryPointFrame;
 import Presentation.Swing.InfoExitPointFrame;
@@ -29,6 +32,7 @@ public class SortCenter extends Element {
     private ArrayList<Junction> _junctionList;
     private Float _size;
     private MatterList _matterList;
+    private Image _img;
 
     public SortCenter() {
         _conveyorList = new ArrayList<>();
@@ -38,6 +42,9 @@ public class SortCenter extends Element {
         _junctionList = new ArrayList<>();
         _matterList = new MatterList();
         dimensions = new Point2D.Float(15f, 10f);
+        _img = null;
+        int level = 240;
+        setColor(new Color(level, level, level));
     }
 
     public SortStation addSortStation(int numberOfOutlets) {
@@ -326,7 +333,6 @@ public class SortCenter extends Element {
 
         Conveyor newConv = new Conveyor(aExit, aEntrance);
         try {
-
             this._conveyorList.add(newConv);
             verifyCycles(aExit.getNode());
             this.updateDesign();
@@ -391,10 +397,20 @@ public class SortCenter extends Element {
         dimensions.x = x;
         dimensions.y = y;
     }
-//      on a déjà getStations() plus haut qui fait la même chose
-//    public ArrayList getSortStationList() {
-//        return _sortStationList;
-//    }
+    
+    public void setDimensions(Point2D.Float point) {
+        dimensions.x = point.x;
+        dimensions.y = point.y;
+    }
+    
+    public Image getImg()
+    {
+        return _img;
+    }
+    
+    public void setImg(String src) {
+        this._img = Toolkit.getDefaultToolkit().getImage(src);
+    }
 
     public SortStation getStationCursorIn(Point2D.Float position) {
         ArrayList sortStationList = this.getStations();
@@ -427,12 +443,44 @@ public class SortCenter extends Element {
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            super.setAttrib(attribName, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch (attribName)
+            {
+                case "dimensionX":
+                    setDimensions((Float)value, dimensions.y);
+                    break;
+                case "dimensionY":
+                    setDimensions(dimensions.x, (Float)value);
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+            }
+        }
     }
 
     @Override
-    public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getAttribute(String attribName)
+    {
+        try
+        {
+            return super.getAttrib(attribName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            switch(attribName) {
+                case "dimensions":
+                return this.getDimensions();
+                case "img":
+                    return this.getImg();
+                default:
+                    throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+            }
+        }
     }
 
     //méthode utilitaire avant de faire updateDesign

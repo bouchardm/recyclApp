@@ -35,7 +35,9 @@ public class Project
         _isSaved = true;
         
         this._sortCenter.setMatterList(null);
-        this._sortCenter.addEntryPoint();
+        EntryPoint ep = this._sortCenter.addEntryPoint();
+        
+        
         
         this.test();
     }

@@ -84,6 +84,15 @@ public class Controller {
             }
         }
     }
+    
+    public Object getOutletAttribute(String attribName)
+    {
+        if (_outlet != null)
+        {
+            return _outlet.getAttribute(attribName);
+        }
+        return null;
+    }
 
     public boolean isFloorSelected() {
         return _project.getSortCenter().equals(_selectedElement);
@@ -118,6 +127,9 @@ public class Controller {
             return this.getConveyorSelected();
         } else if (this.typeOfElementSelectedIs(EntryPoint.class)) {
             return this.getEntryPointSelected();
+        }
+        else if (this.typeOfElementSelectedIs(ExitPoint.class)) {
+            return this.getExitPointSelected();
         }
         return null;
     }
@@ -283,6 +295,15 @@ public class Controller {
         return infoElement;
     }
 
+        private Map<String, Object> getExitPointSelected () {
+        Map<String, Object> infoElement = new HashMap();
+
+        MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
+
+        infoElement.put("matterBasket", matterBasket);
+
+        return infoElement;
+    }
     
     public void EditMatrix() {
         throw new UnsupportedOperationException();
@@ -432,8 +453,13 @@ public class Controller {
     }
 
     public void AddEntryPoint(Point2D.Float position) {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+        
          _selectedElement = this._project.getSortCenter().addEntryPoint();
-        ((EntryPoint) _selectedElement).setPosition(position);
+         _selectedElement.setAttribute("position", position);
     }
     
     public void AddExitPoint(Point2D.Float position)
@@ -447,6 +473,17 @@ public class Controller {
 
         _selectedElement.setAttribute("position", position);
 
+    }
+    
+    
+    public void addJunction(Point2D.Float position) {
+        if (!this.getProject().getSortCenter().include(position)) {
+            JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
+            return;
+        }
+        
+        _selectedElement = this.getProject().getSortCenter().addJunction();
+        _selectedElement.setAttribute("position", position);
     }
 
     public void deleteEntryPoint() // Pourquoi un delete EntryPoint ... Element plutôt
@@ -501,16 +538,12 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-            this._project.getSortCenter().updateDesign();
+//            this._project.getSortCenter().updateDesign();
 
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
-    }
-
-    public void addJunction(Point2D.Float position) {
-        _selectedElement = this.getProject().getSortCenter().addJunction();
-        ((Junction) _selectedElement).setPosition(position);
     }
 
     public Project getProject() {

@@ -9,13 +9,12 @@ public abstract class Element
 {
     private Integer _iD;
     protected String _name;
-    protected Image _img;
     protected String _description;
     protected Color _color;
     
     public abstract boolean include(Point2D.Float point);
-    public abstract void setAttribute(String attribName, Object value);
     public abstract Object getAttribute(String attribName);
+    public abstract void setAttribute(String attribName, Object value);
     public Element()
     {
         // todo
@@ -49,7 +48,7 @@ public abstract class Element
         _description = description;
     }
     
-    protected Object getAttrib(String attribName)
+    public Object getAttrib(String attribName)
     {
         switch (attribName)
         {

@@ -53,12 +53,8 @@ public class SortStation extends Station {
         catch (IllegalArgumentException e)
         {
             switch(attribName) {
-                case "name":
-                    return this.getName();
-                case "description":
-                    return this.getDescription();
-                case "color":
-                    return this.getColor();
+                case "dimensions":
+                    return getDimensions();
                 case "speedMax":
                     return this.getKgHMax();
                 case "img":

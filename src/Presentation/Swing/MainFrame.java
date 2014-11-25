@@ -13,7 +13,7 @@ import Domain.SortStation;
 import Domain.Outlet;
 import Domain.Inlet;
 import Domain.Junction;
-import Domain.Node;
+import Domain.SortCenter;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -259,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddJunction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddExit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddExit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -617,6 +617,9 @@ public class MainFrame extends javax.swing.JFrame {
         Line2D.Float connectingArrow = viewport.getConnectingArrow();
 
         if (connectingArrow != null) {
+            Point2D.Float p1 = (Point2D.Float)_controller.getOutletAttribute("position");
+            connectingArrow.x1 = p1.x;
+            connectingArrow.y1 = p1.y;
             connectingArrow.x2 = viewport.pixToMeter(evt.getX());
             connectingArrow.y2 = viewport.pixToMeter(evt.getY());
             viewport.setConnectingArrow(connectingArrow);
@@ -680,7 +683,8 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
 
-        if (!_controller.selectedElementIsFloor()) {
+        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
+        {
             if (viewport.isSnapToGrid()) {
                 position = viewport.snap(position);
             }
@@ -738,6 +742,12 @@ public class MainFrame extends javax.swing.JFrame {
             JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
             InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(InfoExitPointPanel);
+        }
+        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
+            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
+            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
+            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(SortCenterParamPanel);
         }
 
         if (viewport.isSnapToGrid()) {
@@ -797,8 +807,8 @@ public class MainFrame extends javax.swing.JFrame {
                     viewport.setConnectingArrow(null);
                     _controller.setInlet();
 
-                    boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class
-                            || _controller.getInlet().getNode().getClass() == ExitPoint.class;
+                    boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class;
+                    // || _controller.getInlet().getNode().getClass() == ExitPoint.class;
                     if (!isJunction && !_controller.getInlet().IsFree()) {
                         viewport.setConnectingArrow(null);
                         JOptionPane.showMessageDialog(null, "L'entrée sélectionnée n'est pas libre", null, 0);
@@ -807,9 +817,7 @@ public class MainFrame extends javax.swing.JFrame {
                         return;
                     }
                     _controller.addConveyor();
-                }
-                else
-                {
+                } else {
                     JOptionPane.showMessageDialog(null, "Choisir une entrée", null, 0);
                 }
                 viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
