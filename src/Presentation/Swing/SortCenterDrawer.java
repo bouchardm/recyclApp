@@ -353,7 +353,8 @@ public class SortCenterDrawer {
         int dimensionMeterX = _viewport.meterToPix(dimension.x - 1);
         int dimensionMeterY = _viewport.meterToPix(dimension.y - 1);
         
-        Image img = Toolkit.getDefaultToolkit().getImage("src/image/exit.png");
+        ClassLoader cl = this.getClass().getClassLoader();
+        Image img = Toolkit.getDefaultToolkit().getImage(cl.getResource("image/exit.png"));
         
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();

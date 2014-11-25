@@ -9,13 +9,16 @@ import Application.Controller.Controller;
 import Domain.MatterBasket;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Marcleking
  */
-public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
+public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private MainFrame _parent;
     private Controller _controller;
@@ -54,9 +57,10 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             i++;
         }
 
-        matterTable.setModel(new javax.swing.table.DefaultTableModel(data, nameCol));
+        matterTable.setModel(new DefaultTableModel(data, nameCol));
+        
 
-        this.repaint();
+//        this.repaint();
     }
 
     public JPanel getPanel() {
