@@ -12,7 +12,7 @@ public class Conveyor extends Element
 	private Inlet _endPoint;
 	private Object _iD;
 	private MatterBasket _matterBasket;
-        private Float _maxCapatity;
+        private Float _speedMax;
         private Line2D.Float _line;
         
         private final static float _WIDTH = 0.5f;
@@ -37,7 +37,7 @@ public class Conveyor extends Element
             else
                 _endPoint.addConveyor(this);
            
-            _maxCapatity = DEFAULTCAPACITY;
+            _speedMax = DEFAULTCAPACITY;
             
             updatePoints();
         }
@@ -104,12 +104,34 @@ public class Conveyor extends Element
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch (attribName)
+        {
+            case "speedMax":
+                this.setSpeedMax((Float) value);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("no method for set %s", attribName));
+        }
     }
 
     @Override
     public Object getAttribute(String attribName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch(attribName) {
+            case "speedMax":
+                return this.getSpeedMax();
+            default:
+                throw new IllegalArgumentException(String.format("no method for get %s", attribName));
+        }
     }
+
+    public Float getSpeedMax() {
+        return _speedMax;
+    }
+
+    public void setSpeedMax(Float _speedMax) {
+        this._speedMax = _speedMax;
+    }
+
+    
         
 }

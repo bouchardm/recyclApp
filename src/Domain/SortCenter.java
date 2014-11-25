@@ -99,6 +99,10 @@ public class SortCenter extends Element {
         }
 
     }
+    
+    public void deleteConveyor(Conveyor conveyor) {
+        this._conveyorList.remove(conveyor);
+    }
 
     //retourne la quantité totale de matière dans une station
     public float getTotalMatterQuantityAtStation(int stationIndex) {

@@ -6,6 +6,7 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.Conveyor;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.SortStation;
@@ -812,6 +813,11 @@ public class MainFrame extends javax.swing.JFrame {
         else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
             InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
             JPanel InfoExitPointPanel = infoExitPointFrame.getPanel();
+            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(InfoExitPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
+            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
+            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
             InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(InfoExitPointPanel);
         }

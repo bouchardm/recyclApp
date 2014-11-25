@@ -118,6 +118,8 @@ public class Controller {
             return this.getTransStationSelected();
         } else if (this.typeOfElementSelectedIs(Junction.class)) {
             return this.getJunctionSelected();
+        } else if (this.typeOfElementSelectedIs(Conveyor.class)) {
+            return this.getConveyorSelected();
         }
         return null;
     }
@@ -181,8 +183,10 @@ public class Controller {
         throw new UnsupportedOperationException();
     }
 
-    public void EditConveyor() {
-        throw new UnsupportedOperationException();
+    public void EditConveyor(Float speedMax) {
+        if (speedMax != null) {
+            this.setSelectedElementAttribute("speedMax", speedMax);
+        }
     }
 
     public void AddMatrix() {
@@ -249,6 +253,16 @@ public class Controller {
     }
 
     private Map<String, Object> getJunctionSelected() {
+        Map<String, Object> infoElement = new HashMap();
+
+        Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+
+        infoElement.put("speedMax", speedMax);
+
+        return infoElement;
+    }
+    
+    private Map<String, Object> getConveyorSelected() {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
@@ -447,6 +461,10 @@ public class Controller {
 
     public void deleteJunction() {
         this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
+    }
+    
+    public void deleteConveyor() {
+        this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
 
     public void AddMatter() {
