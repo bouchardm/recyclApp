@@ -46,7 +46,7 @@ public class Controller {
 
     public Controller() {
         _project = new Project();
-      
+        _sortCenter = new SortCenter();
     }
 
     public boolean selectedElementIsFloor() {
@@ -387,6 +387,7 @@ public class Controller {
 
         if (sorter != null) {
             ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
+            this._sortCenter.updateDesign();
         }
         
         if (dimensionX != null) {
@@ -401,6 +402,7 @@ public class Controller {
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
             this.setSelectedElementAttribute("transMatrix", transMatrix);
+            this._sortCenter.updateDesign();
         }
         this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
@@ -487,9 +489,10 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
+            this._sortCenter.updateDesign();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage(), null, 0);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
     }
 

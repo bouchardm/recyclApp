@@ -3,10 +3,8 @@ package Domain;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
+public class Conveyor extends Element {
 
-
-public class Conveyor extends Element
-{
     private static final float DEFAULTCAPACITY = 10; // 10 kg/h
     private Outlet _startPoint;
     private Inlet _endPoint;
@@ -14,18 +12,27 @@ public class Conveyor extends Element
     private MatterBasket _matterBasket;
     private Float _speedMax;
     private Line2D.Float _line;
-
     private final static float _WIDTH = 0.5f;
-
+    
     public Conveyor(Outlet startPoint, Inlet endPoint)
     {
-        if (startPoint == null || endPoint == null)
+        if (startPoint == null || endPoint == null) 
         {
             throw new IllegalArgumentException("startPoint and endPoint cannot be null");
         }
-        if (startPoint.getNode()==endPoint.getNode())
+        if (startPoint.getNode() == endPoint.getNode())
         {
             throw new IllegalArgumentException("startPoint and endPoint cannot be connected to same Node.");
+        }
+        _line = new Line2D.Float();
+        this._startPoint = startPoint;
+        this._endPoint = endPoint;
+        _startPoint.setConveyor(this);
+
+        if (endPoint.getNode().getClass() != Junction.class) {
+            _endPoint.setConveyor(this);
+        } else {
+            _endPoint.addConveyor(this);
         }
         _line = new Line2D.Float();
         this._startPoint = startPoint;
