@@ -672,7 +672,8 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
 
-        if (!_controller.selectedElementIsFloor()) {
+        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
+        {
             if (viewport.isSnapToGrid()) {
                 position = viewport.snap(position);
             }
