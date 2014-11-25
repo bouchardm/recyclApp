@@ -126,8 +126,8 @@ public class Conveyor extends Element {
         switch(attribName) {
             case "speedMax":
                 return this.getSpeedMax();
-            case "matterQuantity":
-                return this.getStartOutlet().getTotalMatterQuantity();
+            case "matterQuantities":
+                return this.getStartOutlet().getMatterBasket().getQuantities();
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }

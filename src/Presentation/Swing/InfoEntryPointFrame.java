@@ -8,6 +8,7 @@ package Presentation.Swing;
 import Application.Controller.Controller;
 import Domain.MatterBasket;
 import Domain.SortStation;
+import TechnicalServices.Utility;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,28 +50,7 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         MatterBasket matterBasket = (MatterBasket) infoElement.get("matterBasket");
         HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
         
-        String[] headers = new String[2];
-        headers[0] = "Matière";
-        headers[1] = "Quantités (kg/h)";
-        
-        String[][] matters = new String[listMatter.size()][headers.length];
-        
-        int i = 0;
-        for (Map.Entry<Integer, Float> entrySet : listMatter.entrySet()) {
-            Integer key = entrySet.getKey();
-            Float value = entrySet.getValue();
-            
-            
-            matters[i][0] = this._controller.getMatterName(key);
-            matters[i][1] = value.toString();
-            
-            i++;
-        }
-        
-        tblInfoInputMatter.setModel(new javax.swing.table.DefaultTableModel(
-            matters, headers
-        ));
-        
+        tblInfoInputMatter.setModel(Utility.generateTableFromMatterBasket(listMatter, controller));
     }
     
     public JPanel getPanel() {

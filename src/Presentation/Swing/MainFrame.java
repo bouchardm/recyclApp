@@ -18,6 +18,8 @@ import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,6 +30,7 @@ import javax.swing.JPanel;
 public class MainFrame extends javax.swing.JFrame {
 
     Controller _controller;
+    ButtonGroup buttonGroup;
 
 //    SortStation _sortStationSelected;
     /**
@@ -37,6 +40,14 @@ public class MainFrame extends javax.swing.JFrame {
         _controller = new Controller();
 //        _sortStationSelected = null;
         initComponents();
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(btnAddEntry);
+        buttonGroup.add(btnAddStation);
+        buttonGroup.add(btnAddTransStation);
+        buttonGroup.add(btnAddConveyor);
+        buttonGroup.add(btnAddJunction);
+        buttonGroup.add(btnAddExit);
+
         this.setLocationRelativeTo(null); // Centrer la fenêtre
     }
 
@@ -732,7 +743,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
         }
-
+        
+        this.buttonGroup.clearSelection();
         switch (viewport.getCreationMode()) {
             case NONE:
                 btnAddConveyor.setSelected(false);

@@ -63,6 +63,8 @@ public class SortStation extends Station {
                     return this.getKgHMax();
                 case "img":
                     return this.getImg();
+                case "matterQuantities":
+                    return this.getAllMatterQuantitiesAtOutlets();
                 default:
                     throw new IllegalArgumentException(String.format("no method for get %s", attribName));
             }
