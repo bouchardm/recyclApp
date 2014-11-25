@@ -216,6 +216,11 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddEntryMouseClicked(evt);
             }
         });
+        btnAddEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEntryActionPerformed(evt);
+            }
+        });
 
         btnAddExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/exit.png"))); // NOI18N
         btnAddExit.setToolTipText("Ajouter un point de sortie");
@@ -920,6 +925,10 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddStation.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
     }//GEN-LAST:event_btnAddStationMouseClicked
+
+    private void btnAddEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEntryActionPerformed
+        
+    }//GEN-LAST:event_btnAddEntryActionPerformed
 
     @Override
     public void repaint() {

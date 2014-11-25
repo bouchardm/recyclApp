@@ -99,7 +99,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         txtStationKgHMax = new javax.swing.JTextField();
         btnColorPciker = new javax.swing.JButton();
         btnImgStation = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -167,8 +166,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             }
         });
 
-        jButton4.setText("Matrice de tri");
-
         jLabel1.setText("Nom:");
 
         jLabel2.setText("Description:");
@@ -213,7 +210,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                     .addComponent(txtStationKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImgStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(outletBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,13 +248,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addComponent(txtStationKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnColorPciker)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(outletBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImgStation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outletBtn)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -453,7 +447,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JButton btnColorPciker;
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
