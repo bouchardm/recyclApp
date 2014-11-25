@@ -739,9 +739,9 @@ public class MainFrame extends javax.swing.JFrame {
             panelInformation.add(infoEntryPointPanel);
         } else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
             InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
-            JPanel InfoExitPointPanel = infoExitPointFrame.getPanel();
-            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(InfoExitPointPanel);
+            JPanel infoExitPointPanel = infoExitPointFrame.getPanel();
+            infoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoExitPointPanel);
         } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
             infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
             JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();

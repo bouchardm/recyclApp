@@ -57,6 +57,7 @@
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="btnColorPciker" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -71,7 +72,9 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtConveyorKgHMax" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="498" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnColorPciker" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="469" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -95,6 +98,15 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Kg/h max:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnColorPciker">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Couleur"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnColorPcikerMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnColorPcikerActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
