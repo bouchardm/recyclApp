@@ -7,19 +7,9 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.MatterBasket;
-import Domain.SortStation;
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JColorChooser;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -29,39 +19,50 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
 
     private MainFrame _parent;
     private Controller _controller;
-    
-    
+
     /**
      * Creates new form infoSortStation
      */
     public InfoExitPointFrame() {
         initComponents();
     }
-    
+
     public InfoExitPointFrame(Controller controller, MainFrame parent) {
         initComponents();
-        
+
         this._controller = controller;
         this._parent = parent;
-        
+
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
-     
-        MatterBasket matterBasket = (MatterBasket)infoElement.get("matterBasket");
-       
-       int size = matterBasket.getNumberOfMatterInBasket();
- 
-//        String[] name = new String[size] + 1f ;
-//        String[] quantity = new String[size] + 1f ;
-       
-      //  this.matterTable.setModel();
-        
-        
+
+        MatterBasket matterBasket = (MatterBasket) infoElement.get("matterBasket");
+
+        int size = matterBasket.getNumberOfMatterInBasket();
+
+        String[] nameCol = {"Matière" , "Quantité"};
+      
+            
+        String[][] data = new String[size + 1][size + 1];
+
+        HashMap<Integer, Float> matterHashMap = matterBasket.getQuantities();
+        int i = 0;
+        for (Map.Entry<Integer, Float> iter : matterHashMap.entrySet()) {
+            Integer matterID = iter.getKey();
+            data[i][0] =  _controller.getProject().getSortCenter().getMatterList().getMatterName(matterID);
+            data[i][1] = iter.getValue().toString();
+           
+            i++;
+        }
+
+        matterTable.setModel(new javax.swing.table.DefaultTableModel(data, nameCol));
+
+        this.repaint();
     }
-    
+
     public JPanel getPanel() {
         return this.panelInformation2;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,5 +214,4 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    
 }
