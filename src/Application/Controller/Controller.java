@@ -42,7 +42,6 @@ public class Controller {
 
     public Controller() {
         _project = new Project();
-//        _sortCenter = new SortCenter();
     }
 
     public boolean selectedElementIsFloor() {
@@ -140,11 +139,6 @@ public class Controller {
         }
     }
 
-    // ************ SortCenter ***************
-    public Map<String, Object> getElementAttributes() {
-        return null;
-    }
-
     public Point2D.Float getSortCenterDimensions() {
         return _project.getSortCenter().getDimensions();
     }
@@ -184,9 +178,6 @@ public class Controller {
     public void SetSizeSortCenter() {
         throw new UnsupportedOperationException();
     }
-
-  
-
 
     public void EditConveyor(Float speedMax) {
         if (speedMax != null) {
@@ -253,7 +244,6 @@ public class Controller {
         infoElement.put("img", img);
         infoElement.put("outletList", outletList);
         infoElement.put("sortMatrix", sortMatrix);
-//        infoElement.put("matterQuantity", stationMatterQuantity.toString());
         infoElement.put("transMatrix", transMatrix);
         infoElement.put("dimensionX", dimensionX);
         infoElement.put("dimensionY", dimensionY);
