@@ -256,8 +256,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
-
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        
         infoElement.put("speedMax", speedMax);
+        infoElement.put("matterQuantity", matterQuantity);
 
         return infoElement;
     }
@@ -266,8 +268,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
 
         infoElement.put("speedMax", speedMax);
+        infoElement.put("matterQuantity", matterQuantity);
 
         return infoElement;
     }

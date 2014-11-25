@@ -124,6 +124,8 @@ public class Junction extends RectangularNode {
             switch(attribName) {
                 case "speedMax":
                     return this.getSpeedMax();
+                case "matterQuantity":
+                    return this.getOutlet().getTotalMatterQuantity();
                 default:
                     throw new IllegalArgumentException(String.format("no method for get %s", attribName));
             }
