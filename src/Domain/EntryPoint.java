@@ -54,6 +54,8 @@ public class EntryPoint extends RectangularNode
         catch (IllegalArgumentException e)
         {
             switch(attribName) {
+                case "matterBasket":
+                    return this.getMatterBasket();
                 default:
                     throw new IllegalArgumentException(String.format("no method for get %s", attribName));
             }

@@ -57,17 +57,15 @@ public class Project
         tmlist.Add(m4);
 
         this._sortCenter.setMatterList(tmlist);
+        
 
         //construire le premier matterBasket en entrée
 
         MatterBasket mb1 = new MatterBasket();
         mb1.addMatterQuantity(m1.getID(), new Float(700));
         mb1.addMatterQuantity(m2.getID(), new Float(1000));
-        //construire le deuxième matterBasket en entrée
-        MatterBasket mb2 = new MatterBasket();
-        mb2.addMatterQuantity(m1.getID(), new Float(1500));
-        mb2.addMatterQuantity(m2.getID(), new Float(1200));
 
+        this._sortCenter.setEntryPointMatterBasket(0, mb1);
 
         //créer une matrice de tri pour les machines à deux sortie
         HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();

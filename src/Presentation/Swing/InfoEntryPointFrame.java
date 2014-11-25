@@ -6,6 +6,7 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.MatterBasket;
 import Domain.SortStation;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Marcleking
  */
-public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
+public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est un Frame. Cette classe contient une méthode main()??
 
     private MainFrame _parent;
     private Controller _controller;
@@ -33,17 +34,43 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
     /**
      * Creates new form infoSortStation
      */
-    public IfoEntryPointFrame() {
+    public InfoEntryPointFrame() {
         initComponents();
     }
     
-    public IfoEntryPointFrame(Controller controller, MainFrame parent) {
+    public InfoEntryPointFrame(Controller controller, MainFrame parent) {
         initComponents();
         
         this._controller = controller;
         this._parent = parent;
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
+        
+        MatterBasket matterBasket = (MatterBasket) infoElement.get("matterBasket");
+        HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
+        
+        String[] headers = new String[2];
+        headers[0] = "Matière";
+        headers[1] = "Quantités (kg/h)";
+        
+        String[][] matters = new String[listMatter.size()][headers.length];
+        
+        int i = 0;
+        for (Map.Entry<Integer, Float> entrySet : listMatter.entrySet()) {
+            Integer key = entrySet.getKey();
+            Float value = entrySet.getValue();
+            
+            
+            matters[i][0] = this._controller.getMatterName(key);
+            matters[i][1] = value.toString();
+            
+            i++;
+        }
+        
+        tblInfoInputMatter.setModel(new javax.swing.table.DefaultTableModel(
+            matters, headers
+        ));
+        
     }
     
     public JPanel getPanel() {
@@ -61,6 +88,8 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
 
         panelInformation2 = new javax.swing.JPanel();
         btnDeleteStation = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblInfoInputMatter = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,13 +108,30 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             }
         });
 
+        tblInfoInputMatter.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblInfoInputMatter);
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addGroup(panelInformation2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -93,7 +139,9 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(544, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,14 +189,30 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoEntryPointFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -169,14 +233,16 @@ public class IfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IfoEntryPointFrame().setVisible(true);
+                new InfoEntryPointFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelInformation2;
+    private javax.swing.JTable tblInfoInputMatter;
     // End of variables declaration//GEN-END:variables
 
     

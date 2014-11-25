@@ -120,6 +120,8 @@ public class Controller {
             return this.getJunctionSelected();
         } else if (this.typeOfElementSelectedIs(Conveyor.class)) {
             return this.getConveyorSelected();
+        } else if (this.typeOfElementSelectedIs(EntryPoint.class)) {
+            return this.getEntryPointSelected();
         }
         return null;
     }
@@ -272,6 +274,17 @@ public class Controller {
         return infoElement;
     }
 
+    private Map<String, Object> getEntryPointSelected () {
+        Map<String, Object> infoElement = new HashMap();
+
+        MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
+
+        infoElement.put("matterBasket", matterBasket);
+
+        return infoElement;
+    }
+
+    
     public void EditMatrix() {
         throw new UnsupportedOperationException();
     }
