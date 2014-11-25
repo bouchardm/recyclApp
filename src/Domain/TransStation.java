@@ -100,6 +100,8 @@ public class TransStation extends Station {
             switch(attribName) {
                 case "transMatrix":
                     return this.getTransMatrix().getTransMatrix();
+                case "matterQuantities":
+                    return this.getAllMatterQuantitiesAtOutlets();
                 default:
                     throw new IllegalArgumentException();
             }

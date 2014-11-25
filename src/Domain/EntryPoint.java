@@ -7,11 +7,14 @@ import java.util.Collections;
 public class EntryPoint extends RectangularNode
 {
     private Outlet _outlet;
+    private String _name;
 
     public EntryPoint() {
         super();
         _outlet = new Outlet(this);
+
     }
+
 
     public void setMatterBasket(MatterBasket matterBasket) {
         this._outlet.setMatterBasket(matterBasket);

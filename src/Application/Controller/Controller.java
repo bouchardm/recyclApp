@@ -205,7 +205,7 @@ public class Controller {
         HashMap<Integer, ArrayList<Float>> sortMatrix = (HashMap<Integer, ArrayList<Float>>) this._selectedElement.getAttribute("sortMatrix");
         Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
         Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
-        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
 
         infoElement.put("name", name);
         infoElement.put("description", description);
@@ -218,7 +218,7 @@ public class Controller {
         infoElement.put("sortMatrix", sortMatrix);
         infoElement.put("dimensionX", dimensionX);
         infoElement.put("dimensionY", dimensionY);
-        infoElement.put("matterQuantity", matterQuantity);
+        infoElement.put("matterQuantities", matterQuantities);
         return infoElement;
     }
 
@@ -235,7 +235,7 @@ public class Controller {
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) this._selectedElement.getAttribute("transMatrix");
         Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
         Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
-        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
         
         infoElement.put("name", name);
         infoElement.put("description", description);
@@ -247,7 +247,7 @@ public class Controller {
         infoElement.put("transMatrix", transMatrix);
         infoElement.put("dimensionX", dimensionX);
         infoElement.put("dimensionY", dimensionY);
-        infoElement.put("matterQuantity", matterQuantity);
+        infoElement.put("matterQuantities", matterQuantities);
         return infoElement;
     }
 
@@ -255,10 +255,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
-        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
         
         infoElement.put("speedMax", speedMax);
-        infoElement.put("matterQuantity", matterQuantity);
+        infoElement.put("matterQuantities", matterQuantities);
 
         return infoElement;
     }
@@ -267,10 +267,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
-        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
-
+        HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
+        
         infoElement.put("speedMax", speedMax);
-        infoElement.put("matterQuantity", matterQuantity);
+        infoElement.put("matterQuantities", matterQuantities);
 
         return infoElement;
     }
@@ -528,9 +528,10 @@ public class Controller {
 
         try {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-            this._project.getSortCenter().updateDesign();
+//            this._project.getSortCenter().updateDesign();
 
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
     }

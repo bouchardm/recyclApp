@@ -124,6 +124,8 @@ public class Junction extends RectangularNode {
             switch(attribName) {
                 case "speedMax":
                     return this.getSpeedMax();
+                case "matterQuantities":
+                    return this.getOutlet().getMatterBasket().getQuantities();
                 case "matterQuantity":
                     return this.getOutlet().getTotalMatterQuantity();
                 default:

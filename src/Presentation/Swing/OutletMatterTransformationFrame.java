@@ -185,7 +185,11 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
                 } else {
                     Float value = null;
                     try {
-                        value = new Float((String) tableData[i][j]);
+                        if (((String) tableData[i][j]).equals("")) {
+                            value = 0f;
+                        } else {
+                            value = new Float((String) tableData[i][j]);
+                        }
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Veuillez indiquez des nombres valides.", null, 0);
                         return;

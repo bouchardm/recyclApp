@@ -167,6 +167,8 @@ public abstract class Station extends RectangularNode
                         matterQuantity = matterQuantity + outlet.getMatterBasket().getTotalQuantity();
                     }
                     return matterQuantity;
+                case "matterQuantities":
+                    return this.getAllMatterQuantitiesAtOutlets();
                 case "dimensionX":
                     return this.getDimensions().x;
                 case "dimensionY":
@@ -251,5 +253,24 @@ public abstract class Station extends RectangularNode
         for(Outlet outlet : this._outletList) {
             outlet.setMatterBasket(matterBasket);
         }
+    }
+    
+    public HashMap<Integer, Float> getAllMatterQuantitiesAtOutlets() {
+        ArrayList<Outlet> outletList = this._outletList;
+        HashMap<Integer, Float> totalMB = new HashMap<>();
+
+        for(Outlet outlet : outletList) {
+            HashMap<Integer, Float> currentMB = outlet.getMatterBasket().getQuantities();
+            for(Map.Entry<Integer, Float> iter : currentMB.entrySet()) {
+                if(totalMB.containsKey(iter.getKey())) {
+                    float newQty = (float)iter.getValue()+totalMB.get(iter.getKey());
+                    totalMB.remove(iter.getKey());
+                    totalMB.put(iter.getKey(), newQty);
+                } else {
+                    totalMB.put(iter.getKey(), iter.getValue());
+                }
+            }
+        }
+        return totalMB;
     }
 }

@@ -20,10 +20,6 @@ public class Conveyor extends Element {
         {
             throw new IllegalArgumentException("startPoint and endPoint cannot be null");
         }
-        if (startPoint.getNode() == endPoint.getNode())
-        {
-            throw new IllegalArgumentException("startPoint and endPoint cannot be connected to same Node.");
-        }
         _line = new Line2D.Float();
         this._startPoint = startPoint;
         this._endPoint = endPoint;
@@ -126,8 +122,8 @@ public class Conveyor extends Element {
         switch(attribName) {
             case "speedMax":
                 return this.getSpeedMax();
-            case "matterQuantity":
-                return this.getStartOutlet().getTotalMatterQuantity();
+            case "matterQuantities":
+                return this.getStartOutlet().getMatterBasket().getQuantities();
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }
