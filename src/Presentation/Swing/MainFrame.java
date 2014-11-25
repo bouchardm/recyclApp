@@ -708,8 +708,7 @@ public class MainFrame extends javax.swing.JFrame {
                     viewport.setConnectingArrow(null);
                     _controller.setInlet();
                     
-                    boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class ||
-                            _controller.getInlet().getNode().getClass() == ExitPoint.class;
+                    boolean isJunction = _controller.getInlet().getNode().getClass() == Junction.class;
                     if ( !isJunction && !_controller.getInlet().IsFree()) {
                         JOptionPane.showMessageDialog(null, "L'entrée sélectionnée n'est pas libre", null, 0);
                         this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
