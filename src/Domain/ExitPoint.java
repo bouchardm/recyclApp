@@ -3,47 +3,43 @@ package Domain;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class ExitPoint extends RectangularNode
-{
+public class ExitPoint extends RectangularNode {
+
     private Inlet _inlet;
     private MatterBasket _matterBasket;
     private float _speedMax;
-   // private position 
-    
-    public ExitPoint()
-    {
+    // private position 
+
+    public ExitPoint() {
         _inlet = new Inlet(this);
         _matterBasket = new MatterBasket();
+
     }
-        
-    public Inlet getInlet()
-    {
+
+    public Inlet getInlet() {
         return _inlet;
     }
 
-    public void setInlet(Inlet inlet)
-    {
-    _inlet = inlet;
+    public void setInlet(Inlet inlet) {
+        _inlet = inlet;
     }
-    
-    public float getKgHMax()
-    {
+
+    public float getKgHMax() {
         return _speedMax;
     }
-    
-    public void setKgHMax(float speedMax)
-    {
+
+    public void setKgHMax(float speedMax) {
         _speedMax = speedMax;
     }
-    
-    public MatterBasket getMatterBasket(){
+
+    public MatterBasket getMatterBasket() {
         return this._matterBasket;
     }
-    
+
     public void setMatterBasket(MatterBasket matterBasket) {
         this._matterBasket.setQuantities(matterBasket.getQuantities());
     }
-    
+
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
         this.setMatterBasket(matterBasket);
@@ -51,14 +47,10 @@ public class ExitPoint extends RectangularNode
 
     @Override
     public void setAttribute(String attribName, Object value) {
-        try
-        {
+        try {
             super.setAttribute(attribName, value);
-        }
-        catch (IllegalArgumentException e)
-        {
-            switch (attribName)
-            {
+        } catch (IllegalArgumentException e) {
+            switch (attribName) {
                 case "img":
                     this.setImg((String) value);
                     break;
@@ -81,15 +73,15 @@ public class ExitPoint extends RectangularNode
     }
 
     @Override
-    public Object getAttribute(String attribName)
-    {
-        try
-        {
+    public Object getAttribute(String attribName) {
+        try {
             return super.getAttribute(attribName);
-        }
-        catch (IllegalArgumentException e)
-        {
-            switch(attribName) {
+        } catch (IllegalArgumentException e) {
+            switch (attribName) {
+                case "matterBasket":
+                    return this.getMatterBasket();
+                    
+
                 case "speedMax":
                     return this.getKgHMax();
                 default:
@@ -99,13 +91,12 @@ public class ExitPoint extends RectangularNode
     }
 
     @Override
-    public ArrayList<IOlet> getIOlets()
-    {
+    public ArrayList<IOlet> getIOlets() {
         ArrayList<IOlet> iolets = new ArrayList<>();
         iolets.add(_inlet);
         return iolets;
     }
-    
+
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
         this.setMatterBasket(matterBasket);

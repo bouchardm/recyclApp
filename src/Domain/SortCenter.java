@@ -6,6 +6,8 @@
 package Domain;
 
 import Application.Controller.Controller;
+import Presentation.Swing.IfoEntryPointFrame;
+import Presentation.Swing.InfoExitPointFrame;
 import java.awt.List;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -352,7 +354,9 @@ public class SortCenter extends Element {
 
     //ajoute un nouveau exitPoint à la fin de la liste
     public ExitPoint addExitPoint() {
+        
         ExitPoint exitPoint = new ExitPoint();
+        
         this._exitPointList.add(exitPoint);
         return exitPoint;
     }

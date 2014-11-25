@@ -6,6 +6,7 @@
 package Presentation.Swing;
 
 import Application.Controller.Controller;
+import Domain.MatterBasket;
 import Domain.SortStation;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -44,6 +45,17 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
         this._parent = parent;
         
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
+     
+        MatterBasket matterBasket = (MatterBasket)infoElement.get("matterBasket");
+       
+       int size = matterBasket.getNumberOfMatterInBasket();
+ 
+//        String[] name = new String[size] + 1f ;
+//        String[] quantity = new String[size] + 1f ;
+       
+      //  this.matterTable.setModel();
+        
+        
     }
     
     public JPanel getPanel() {
@@ -58,9 +70,12 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         panelInformation2 = new javax.swing.JPanel();
         btnDeleteStation = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        matterTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,13 +89,34 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             }
         });
 
+        matterTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Matière", "Quantité"
+            }
+        ));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, matterTable, org.jdesktop.beansbinding.ObjectProperty.create(), matterTable, org.jdesktop.beansbinding.BeanProperty.create("selectedElements"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane1.setViewportView(matterTable);
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformation2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -88,7 +124,9 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(544, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -101,6 +139,8 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelInformation2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,7 +207,10 @@ public class InfoExitPointFrame extends javax.swing.JFrame { // Pourquoi c'est u
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable matterTable;
     private javax.swing.JPanel panelInformation2;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     

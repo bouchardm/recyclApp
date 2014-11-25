@@ -425,7 +425,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
+        
         _selectedElement = getProject().getSortCenter().addExitPoint();
 
         _selectedElement.setAttribute("position", position);
