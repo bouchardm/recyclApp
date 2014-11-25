@@ -128,6 +128,9 @@ public class Controller {
         } else if (this.typeOfElementSelectedIs(EntryPoint.class)) {
             return this.getEntryPointSelected();
         }
+        else if (this.typeOfElementSelectedIs(ExitPoint.class)) {
+            return this.getExitPointSelected();
+        }
         return null;
     }
 
@@ -262,8 +265,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
-
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
+        
         infoElement.put("speedMax", speedMax);
+        infoElement.put("matterQuantity", matterQuantity);
 
         return infoElement;
     }
@@ -272,8 +277,10 @@ public class Controller {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
+        Float matterQuantity = (Float) this._selectedElement.getAttribute("matterQuantity");
 
         infoElement.put("speedMax", speedMax);
+        infoElement.put("matterQuantity", matterQuantity);
 
         return infoElement;
     }
@@ -288,6 +295,15 @@ public class Controller {
         return infoElement;
     }
 
+        private Map<String, Object> getExitPointSelected () {
+        Map<String, Object> infoElement = new HashMap();
+
+        MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
+
+        infoElement.put("matterBasket", matterBasket);
+
+        return infoElement;
+    }
     
     public void EditMatrix() {
         throw new UnsupportedOperationException();

@@ -161,14 +161,12 @@ public abstract class Station extends RectangularNode
                     return this.getOutletList();
                 case "sortMatrix":
                     return this.getSortMatrix().getSortMatrix();
-                case "matterQuantity": 
-                {
+                case "matterQuantity":
                     float matterQuantity = 0;
                     for (Outlet outlet : _outletList) {
                         matterQuantity = matterQuantity + outlet.getMatterBasket().getTotalQuantity();
                     }
                     return matterQuantity;
-                }
                 case "dimensionX":
                     return this.getDimensions().x;
                 case "dimensionY":
@@ -254,9 +252,4 @@ public abstract class Station extends RectangularNode
             outlet.setMatterBasket(matterBasket);
         }
     }
-
-    
-    
-
-    
 }
