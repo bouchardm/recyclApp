@@ -83,39 +83,82 @@ public class SortCenterTest {
 //        assertTrue(ss.getSortMatrix().getSortMatrix().size()==2);        
 //    }
     
+//    @Test
+//    public void addTransStationTest() {
+//        SortCenter sc = new SortCenter();
+//        Matter m1 = new Matter("m1",1);
+//        Matter m2 = new Matter("m2",2);
+//        sc.addMatterToMatterList(m1);
+//        sc.addMatterToMatterList(m2);
+//        System.out.println("Matter "+sc.getMatterList().getMatterName(1)+", "+sc.getMatterList().getMatterName(2));
+//        TransStation ts = sc.addTransStation(2);
+//        //test sort matrix
+//        //2 "colonnes" dans la matrice = 2 sorties
+//        assertTrue(ts.getSortMatrix().getSortMatrix().get(1).size()==2);
+//        //les 2 matières sont dans la matrice
+//        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(1));
+//        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(2));
+//        assertTrue(ts.getSortMatrix().getSortMatrix().size()==2);  
+//        //test trans matrix
+//        //il y a le même nombre de lignes (matières à transformer) et colonnes (matière en quoi transformer)
+//        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(1).size());
+//        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(2).size());
+//        //il y a le bon nombre de lignes (et donc de colonnes, vérifié juste ci-dessus)
+//        assertTrue(ts.getTransMatrix().getMatterCount()==2);
+//        //les bonnes matières sont dans les lignes
+//        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(1));
+//        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(2));
+//        //les bonnes matières sont dans les colonnes
+//        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(1));
+//        assertTrue((float)ts.getTransMatrix().getTransMatrix().get(1).get(1)==(float)1);
+//        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(2));
+//        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(1));
+//        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(2));
+//        
+//    }
+    
     @Test
-    public void addTransStationTest() {
+    public void getTotalEntryPointsMatterBasketTest_Valid() {
+        System.out.println("TotalEP MB test : valid");
+        Matter m1 = new Matter("m1",11);
+        Matter m2 = new Matter("m2",12);
+        Matter m3 = new Matter("m3",13);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(100));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        mb.addMatterQuantity(m3.getID(), new Float(500));
+        MatterBasket mb2 = new MatterBasket();
+        mb2.addMatterQuantity(m1.getID(), new Float(200));
+        mb2.addMatterQuantity(m2.getID(), new Float(2000));
+        mb2.addMatterQuantity(m3.getID(), new Float(1000));
         SortCenter sc = new SortCenter();
-        Matter m1 = new Matter("m1",1);
-        Matter m2 = new Matter("m2",2);
-        sc.addMatterToMatterList(m1);
-        sc.addMatterToMatterList(m2);
-        System.out.println("Matter "+sc.getMatterList().getMatterName(1)+", "+sc.getMatterList().getMatterName(2));
-        TransStation ts = sc.addTransStation(2);
-        //test sort matrix
-        //2 "colonnes" dans la matrice = 2 sorties
-        assertTrue(ts.getSortMatrix().getSortMatrix().get(1).size()==2);
-        //les 2 matières sont dans la matrice
-        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(1));
-        assertTrue(ts.getSortMatrix().getSortMatrix().containsKey(2));
-        assertTrue(ts.getSortMatrix().getSortMatrix().size()==2);  
-        //test trans matrix
-        //il y a le même nombre de lignes (matières à transformer) et colonnes (matière en quoi transformer)
-        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(1).size());
-        assertTrue(ts.getTransMatrix().getMatterCount()==ts.getTransMatrix().getTransMatrix().get(2).size());
-        //il y a le bon nombre de lignes (et donc de colonnes, vérifié juste ci-dessus)
-        assertTrue(ts.getTransMatrix().getMatterCount()==2);
-        //les bonnes matières sont dans les lignes
-        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(1));
-        assertTrue(ts.getTransMatrix().getTransMatrix().containsKey(2));
-        //les bonnes matières sont dans les colonnes
-        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(1));
-        assertTrue((float)ts.getTransMatrix().getTransMatrix().get(1).get(1)==(float)1);
-        assertTrue(ts.getTransMatrix().getTransMatrix().get(1).containsKey(2));
-        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(1));
-        assertTrue(ts.getTransMatrix().getTransMatrix().get(2).containsKey(2));
-        
+        sc.addEntryPoint();
+        sc.addEntryPoint();
+        sc.getEntryPoints().get(0).setMatterBasket(mb);
+        sc.getEntryPoints().get(1).setMatterBasket(mb2);
+        MatterBasket totalMB = sc.getTotalEntryPointsMatterBasket();
+        float grandTotal = totalMB.getTotalQuantity();
+        assertTrue(grandTotal==4800);    
     }
+    
+    @Test
+    public void getTotalEntryPointsMatterBasketTest_NoMatterNoEntryPoints() {
+        System.out.println("TotalEP MB test : no matter, no ep");
+        SortCenter sc = new SortCenter();
+        assertTrue(sc.getTotalEntryPointsMatterBasket().getTotalQuantity()==0);    
+    }
+    
+    @Test
+    public void getTotalEntryPointsMatterBasketTest_NoMatter2EntryPoints() {
+        System.out.println("TotalEP MB test : no matter, no ep");
+        SortCenter sc = new SortCenter();
+        sc.addEntryPoint();
+        sc.addEntryPoint();
+        assertTrue(sc.getTotalEntryPointsMatterBasket().getTotalQuantity()==0);    
+    }
+    
+    
+    
     
     
     @Test
@@ -193,24 +236,24 @@ public class SortCenterTest {
         
     }
     
-    @Test
-    public void updateDesignTest3() {
-        System.out.println("Update design test 3 : design sans convoyeurs reliés à la sortie (sortie vide).");
-        //construire matterBasket
-        Matter m1 = new Matter("m1",11);
-        Matter m2 = new Matter("m2",12);
-        MatterBasket mb = new MatterBasket();
-        mb.addMatterQuantity(m1.getID(), new Float(100));
-        mb.addMatterQuantity(m2.getID(), new Float(1000));
-        SortCenter sc = new SortCenter();
-        sc.addEntryPoint();
-        sc.addExitPoint();
-       //conveyor end points
-        sc.setEntryPointMatterBasket(0, mb);
-        sc.updateDesign();
-        MatterBasket newMb = sc.getExitPointMatterBasket(0);
-        assertTrue(newMb.getNumberOfMatterInBasket()==0);
-    }
+//    @Test
+//    public void updateDesignTest3() {
+//        System.out.println("Update design test 3 : design sans convoyeurs reliés à la sortie (sortie vide).");
+//        //construire matterBasket
+//        Matter m1 = new Matter("m1",11);
+//        Matter m2 = new Matter("m2",12);
+//        MatterBasket mb = new MatterBasket();
+//        mb.addMatterQuantity(m1.getID(), new Float(100));
+//        mb.addMatterQuantity(m2.getID(), new Float(1000));
+//        SortCenter sc = new SortCenter();
+//        sc.addEntryPoint();
+//        sc.addExitPoint();
+//       //conveyor end points
+//        sc.setEntryPointMatterBasket(0, mb);
+//        sc.updateDesign();
+//        MatterBasket newMb = sc.getExitPointMatterBasket(0);
+//        assertTrue(newMb.getNumberOfMatterInBasket()==0);
+//    }
     
     @Test
     public void updateDesignTest4() {

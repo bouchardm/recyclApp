@@ -110,8 +110,9 @@ public class JunctionTest {
         mbToProcess.addMatterQuantity(12, new Float(20));
         mbToProcess.addMatterQuantity(13, new Float(30));
         Junction junc = new Junction();
-        Outlet o1 = new Outlet(junc);
-        junc.setOutlet(o1);
+//        Outlet o1 = new Outlet(junc);
+//        junc.setOutlet(o1);
+        Outlet o1 = junc.getOutlet();
         o1.setMatterBasket(origmb);
         junc.processMatterBasket(mbToProcess);
         assertTrue((float)o1.getMatterBasket().getMatterQuantity(11)==(float)110);

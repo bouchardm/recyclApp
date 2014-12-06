@@ -297,7 +297,7 @@ public class SortCenter extends Element {
             }
             for (Conveyor convCheck : conveyorsToCheck) {
                 Node destination = convCheck.getEndNode();
-                if (visitedNodes.contains(destination)) {
+                if (visitedNodes.contains(destination) && destination.getClass() != Junction.class) {
                     throw new IllegalArgumentException("Le réseau contient un cycle.");
                 } else {
                     nodesToCheck.add(destination);
@@ -307,6 +307,65 @@ public class SortCenter extends Element {
         }
 
     }
+    //retourne un panier de matière contenant le grand total de chaque matière
+    //en entrée au centre
+    public MatterBasket getTotalEntryPointsMatterBasket(){
+        MatterBasket totalMB = new MatterBasket();
+        for(EntryPoint ep : this._entrytPointList) {
+            HashMap<Integer,Float> epMatterQuantities = ep.getMatterBasket().getQuantities();
+            Iterator<Map.Entry<Integer,Float>> iter = epMatterQuantities.entrySet().iterator();
+            while(iter.hasNext()) {
+                Map.Entry<Integer, Float> entry = iter.next();
+                if(totalMB.contains(entry.getKey())){
+                    int currentKey = entry.getKey();
+                    float originalQty = totalMB.getMatterQuantity(currentKey);
+                    float newQty = originalQty + epMatterQuantities.get(currentKey);
+                    totalMB.removeMatterQuantity(currentKey);
+                    totalMB.addMatterQuantity(currentKey, newQty);
+                }
+                else {
+                    int currentKey = entry.getKey();
+                    float currentQty = entry.getValue();
+                    totalMB.addMatterQuantity(currentKey, currentQty);
+                }
+            }
+            
+        }
+        return totalMB;
+    }
+    
+    //Taux de récupération (point 13 livrable 4) 
+    //la masse de ce produit en ce point est quel % de ce qui est rentré dans l’usine
+    public float getRecoveryRate(Element elem) {
+        float recoveryRate=0;
+        //version convoyeur
+        if(elem instanceof Conveyor)
+        {
+            
+        }
+        //version station
+        else if(elem instanceof Station) {
+            
+        }
+        //version jonction
+        else if(elem instanceof Junction) {
+            
+        }
+        //version EP
+        else if(elem instanceof EntryPoint) {
+            
+        }
+        //version XP
+        else if (elem instanceof ExitPoint) {
+            
+        }
+        return recoveryRate;
+    }
+    
+    
+    
+    
+    
 
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
@@ -373,11 +432,16 @@ public class SortCenter extends Element {
     public EntryPoint addEntryPoint() {
         EntryPoint entryPoint = new EntryPoint();
         this._entrytPointList.add(entryPoint);
+        this.setNewEntryPointMatterBasket(entryPoint);
+        
+        return entryPoint;
+    }
+    
+    public void setNewEntryPointMatterBasket(EntryPoint entryPoint) {
         MatterBasket mb = new MatterBasket(this._matterList);
         mb.setMatterQuantity(1, new Float(1000));
         mb.setMatterQuantity(2, new Float(1000));
         entryPoint.processMatterBasket(mb);
-        return entryPoint;
     }
 
     //ajoute un nouveau exitPoint à la fin de la liste

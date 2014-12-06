@@ -12,6 +12,10 @@ public class MatterBasket {
         _quantity = new HashMap<>();
     }
     
+    public boolean contains(int matterID) {
+        return _quantity.containsKey(matterID);
+    }
+    
     public HashMap<Integer, Float> getQuantities() {
         HashMap<Integer, Float> copiedQuantities = new HashMap<>();
         Iterator<Map.Entry<Integer, Float>> mbIter = _quantity.entrySet().iterator();
