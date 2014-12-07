@@ -10,7 +10,7 @@ public class MatterList {
             this._matterList = new ArrayList<>();
         }
         
-	public Integer GetCount() {
+	public Integer getCount() {
             return this._matterList.size();
 	}
         
@@ -18,7 +18,7 @@ public class MatterList {
             return _matterList;
         }
 
-        public void Add(Matter aMatter) {
+        public void addMatterToList(Matter aMatter) {
             for(int i = 0; i<_matterList.size(); i++)
             {
                 if (_matterList.get(i).compareMatter(aMatter)) {
@@ -29,7 +29,7 @@ public class MatterList {
 	}
 
         //efface la matière ayant le même ID number que celui passé en paramètre
-	public void Remove(int matterID) {
+	public void remove(int matterID) {
             int i;
             for(i=0; i<_matterList.size(); i++)
             {
@@ -49,8 +49,8 @@ public class MatterList {
         
         //retourne une matière selon son index dans la liste (pas nécessairement son numéro d'ID)
         //exception : IllegalArgumentException si l'index est invalide
-	public Matter GetMatter(int index) {
-            if(this.GetCount()==0) {
+	public Matter getMatter(int index) {
+            if(this.getCount()==0) {
                 throw new IllegalArgumentException("Impossible de trouver la matière : la liste des matières est vide.");
             }
             if(index < 0 || index >_matterList.size()) {
@@ -71,7 +71,7 @@ public class MatterList {
         }
 
 	//retourne l'index dans la liste d'une matière (pas le numéro d'ID)
-        public int GetIndex(String matterName) {
+        public int getIndex(String matterName) {
             for(int i = 0; i<_matterList.size(); i++)
             {
                 if(_matterList.get(i).getName().compareToIgnoreCase(matterName)==0)

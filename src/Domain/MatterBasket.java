@@ -44,11 +44,11 @@ public class MatterBasket {
     //_quantity contient tous les matière de la liste avec une quantité associée de 0
     public MatterBasket( MatterList aMatterList) {
         _quantity = new HashMap<>();
-        if(0<aMatterList.GetCount()) { 
-            for(int i = 0; i<aMatterList.GetCount(); i++)
+        if(0<aMatterList.getCount()) { 
+            for(int i = 0; i<aMatterList.getCount(); i++)
             {
-                if(aMatterList.GetCount()>0) {
-                    _quantity.put(aMatterList.GetMatter(i).getID(),new Float(0));
+                if(aMatterList.getCount()>0) {
+                    _quantity.put(aMatterList.getMatter(i).getID(),new Float(0));
                 }
             }
         }

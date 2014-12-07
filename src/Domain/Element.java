@@ -4,6 +4,7 @@ package Domain;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public abstract class Element
 {
@@ -11,6 +12,7 @@ public abstract class Element
     protected String _name;
     protected String _description;
     protected Color _color;
+    protected ArrayList<String> _errorMessages;
     
     public abstract boolean include(Point2D.Float point);
     public abstract Object getAttribute(String attribName);
@@ -19,6 +21,19 @@ public abstract class Element
     {
         // todo
     }
+    
+    public ArrayList<String> getErrorMessages(){
+        return this._errorMessages;
+    }
+    
+    public void addErrorMessage(String errorMessage){
+        this._errorMessages.add(errorMessage);
+    }
+    
+    public void clearErrorMessages() {
+        this._errorMessages.clear();
+    }
+
     
     public String getName() {
         return _name;

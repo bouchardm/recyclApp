@@ -3,6 +3,7 @@ package Domain;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class Conveyor extends Element {
 
@@ -22,6 +23,7 @@ public class Conveyor extends Element {
         {
             throw new IllegalArgumentException("startPoint and endPoint cannot be null");
         }
+        _errorMessages = new ArrayList<>();
         _line = new Line2D.Float();
         this._startPoint = startPoint;
         this._endPoint = endPoint;

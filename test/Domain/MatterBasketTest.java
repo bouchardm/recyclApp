@@ -47,7 +47,7 @@ public class MatterBasketTest {
         System.out.println("getMatterQuantity: success.");
         Matter tm1 = new Matter("tomate",11);
         MatterList tml1 = new MatterList();
-        tml1.Add(tm1);
+        tml1.addMatterToList(tm1);
         MatterBasket mb1 = new MatterBasket(tml1);
         assertTrue(mb1.getMatterQuantity(11)==0);  
     }
@@ -59,7 +59,7 @@ public class MatterBasketTest {
         System.out.println("getMatterQuantity: fails : matter not in basket.");
         Matter tm1 = new Matter("tomate",11);
         MatterList tml1 = new MatterList();
-        tml1.Add(tm1);
+        tml1.addMatterToList(tm1);
         MatterBasket mb1 = new MatterBasket(tml1);
         mb1.getMatterQuantity(15);
     }
@@ -94,8 +94,8 @@ public class MatterBasketTest {
         Matter m1 = new Matter("m1", 14);
         Matter m2 = new Matter("m2", 17);
         MatterList mList = new MatterList();
-        mList.Add(m1);
-        mList.Add(m2);
+        mList.addMatterToList(m1);
+        mList.addMatterToList(m2);
         Float aQuantity = new Float(150);
         MatterBasket mb = new MatterBasket(mList);
         mb.addMatterQuantity(17, aQuantity);

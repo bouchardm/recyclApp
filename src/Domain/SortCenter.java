@@ -47,15 +47,15 @@ public class SortCenter extends Element {
         setColor(new Color(level, level, level));
         Matter m1 = new Matter("P1",1);
         Matter m2 = new Matter("P2",2);
-        _matterList.Add(m1);
-        _matterList.Add(m2);
+        _matterList.addMatterToList(m1);
+        _matterList.addMatterToList(m2);
        
     }
 
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
@@ -172,7 +172,7 @@ public class SortCenter extends Element {
     }
 
     public void addMatterToMatterList(Matter matter) {
-        this._matterList.Add(matter);
+        this._matterList.addMatterToList(matter);
     }
 
     public ArrayList getJunctions() {
@@ -274,7 +274,8 @@ public class SortCenter extends Element {
         }
         //NEW: maintenant, on doit "resetter" le panier de matières à n'importe quelle node
         //qui n'est pas connectée au réseau (C'est à dire, tout ce qui reste dans allNodes)
-        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+//        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+        MatterBasket emptyBasket = new MatterBasket();
         for (Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
         }
@@ -386,7 +387,7 @@ public class SortCenter extends Element {
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));

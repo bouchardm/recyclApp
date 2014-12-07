@@ -29,6 +29,8 @@ public class TransStation extends Station {
     //precondition 2: chaque matiere doit avoir une quantité de transformation pour chaque matiere du matterBasket
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
+        //on commence par éliminer les messages d'erreurs courant s'il y en a pour la station
+        this.clearErrorMessages();
         //tester precondition 1
         if(matterBasket.getNumberOfMatterInBasket()!=this._transformMatrix.getMatterCount()) {
             throw new IllegalArgumentException("La quantité de matières dans le panier et dans la matrice n'est pas pareil.");

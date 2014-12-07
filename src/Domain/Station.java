@@ -10,6 +10,7 @@ import Presentation.Swing.Viewport;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ public abstract class Station extends RectangularNode
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
+    private BigDecimal _usageRate;
 
     private String _name;
     private String _description;
@@ -40,6 +42,8 @@ public abstract class Station extends RectangularNode
         
         _outletList = new ArrayList<>();
         _sortMatrix = new SortMatrix();
+        _errorMessages = new ArrayList<>();
+        _usageRate = new BigDecimal(0);
     }
     
     public abstract void setTransMatrix(TransMatrix tm);
@@ -48,6 +52,8 @@ public abstract class Station extends RectangularNode
     //precondition 2: le nombre de sorties du sortStation doit être pareil au nombres de sorties dans la matrice
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
+        //on commence par éliminer les messages d'erreurs courant s'il y en a pour la station
+        this.clearErrorMessages();
         //precondition 1
         if (matterBasket.getQuantities().size()!=this.getSortMatrix().getMatterCount()) {
             throw new IllegalArgumentException("Le nombre de matières dans la liste de matière et la matrice de tri ne concorde pas.");
@@ -64,6 +70,10 @@ public abstract class Station extends RectangularNode
         //on va chercher la matrice de tri
         HashMap<Integer, ArrayList<Float>> sortMatrix = this.getSortMatrix().getSortMatrix();
         for(int i=0; i<this.getOutletList().size(); i++) {
+            //l'outlet qu'on traite
+            Outlet currentOutlet = this.getOutletList().get(i);
+            //on commence par enlever tous ses messages d'erreurs
+            currentOutlet.clearErrorMessages();
             //créer un nouveau basket pour la sortie en question
             MatterBasket sortedBasketForOutlet = new MatterBasket();
             //extraire de matterBasket les matières à traiter
@@ -80,7 +90,17 @@ public abstract class Station extends RectangularNode
                 sortedBasketForOutlet.addMatterQuantity(currentMatterID, newQtyForMatterBasket);
             }
             //setMatterBasket de la sortie
-            this.getOutletList().get(i).setMatterBasket(sortedBasketForOutlet);  
+            
+            currentOutlet.setMatterBasket(sortedBasketForOutlet);  
+            if(!currentOutlet.hasConveyor() && sortedBasketForOutlet.getTotalQuantity()>0) {
+                currentOutlet.addErrorMessage("La sortie "+(i+1)+" de la station "+this._name+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
+            } 
+        }
+        if(this._speedMax!=0) {
+            this._usageRate = new BigDecimal((float)this.getTotalMatterQuantity()/this._speedMax);
+        }
+        if(this._usageRate.compareTo(new BigDecimal(1))>0 || (this.getTotalMatterQuantity()>0 && 0==this._speedMax)) {
+            this.addErrorMessage("La station "+this._name+" reçoit une quantité de matière supérieure à sa capacité.");
         }
     }
     
@@ -183,6 +203,14 @@ public abstract class Station extends RectangularNode
         return _outletList.get(outletIndex).getTotalMatterQuantity();
     }
     
+    public float getTotalMatterQuantity() {
+        float totalQty = 0;
+        for (int i = 0; i<this._outletList.size(); i++) {
+            totalQty = totalQty + _outletList.get(i).getTotalMatterQuantity();
+        }
+        return totalQty;
+    }
+    
      
     public String getName() {
         return _name;
@@ -223,10 +251,10 @@ public abstract class Station extends RectangularNode
         this._img = Toolkit.getDefaultToolkit().getImage(src);
     }
       
-    public void addOutlet(MatterList matterList)
+    public void addOutlet()
     {
         // add at the end of the list  
-        _outletList.add(new Outlet(this, matterList));
+        _outletList.add(new Outlet(this));
     }
     
     public void removeOulet(int index)
