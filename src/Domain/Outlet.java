@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.ArrayList;
+
 public class Outlet extends IOlet
 {
 	//private Conveyor _conveyor;
@@ -13,6 +15,7 @@ public class Outlet extends IOlet
             _relativePosition.y = (float)Math.random();
             setPosition(_relativePosition);
             _matterBasket = new MatterBasket();
+            _errorMessages = new ArrayList<>();
         }
         
         public Outlet(Node parentNode, MatterList matterList)
@@ -39,6 +42,15 @@ public class Outlet extends IOlet
         
         public float getTotalMatterQuantity() {
             return _matterBasket.getTotalQuantity();
+        }
+        
+        public boolean hasConveyor() {
+            if(this.getConveyor()==null){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
         
 }

@@ -24,7 +24,7 @@ public class SortMatrix {
     //crée une matrice qui met toutes les matières à la première sortie dans la liste
     public SortMatrix(MatterList aMatterList, int numberOfOutlets) {
         _sortMatrix = new HashMap<>();
-        for(int i = 0; i<aMatterList.GetCount(); i++) {
+        for(int i = 0; i<aMatterList.getCount(); i++) {
             ArrayList<Float> matrixOutlets = new ArrayList<>();
             for (int j = 0; j<numberOfOutlets; j++) {
                 if(j==0) {

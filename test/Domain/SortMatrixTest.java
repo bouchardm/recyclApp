@@ -53,8 +53,8 @@ public class SortMatrixTest {
         Matter tm1 = new Matter("matter1", 1);
         Matter tm2 = new Matter("matter2", 2);
         MatterList tmlist = new MatterList();
-        tmlist.Add(tm1);
-        tmlist.Add(tm2);
+        tmlist.addMatterToList(tm1);
+        tmlist.addMatterToList(tm2);
         SortStation st = new SortStation();
         Outlet o1 = new Outlet(st);
         Outlet o2 = new Outlet(st);

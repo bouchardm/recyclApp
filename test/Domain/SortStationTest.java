@@ -217,6 +217,123 @@ public class SortStationTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
+    @Test
+    public void errorMessageCapacityTest() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(1, new Float(1000));
+        mb.addMatterQuantity(2, new Float(1000));
+        Station st = new SortStation();
+        st.addOutlet();
+        st.addOutlet();
+        st.setKgHMax(2000);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        
+        st.setSortMatrix(sorter);
+        st.processMatterBasket(mb);
+        assertTrue(st.getErrorMessages().isEmpty());
+        
+    }
+    
+    @Test
+    public void errorMessageCapacityTest_overCapacity() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(1, new Float(1000));
+        mb.addMatterQuantity(2, new Float(1000));
+        Station st = new SortStation();
+        st.addOutlet();
+        st.addOutlet();
+        st.setKgHMax(1999);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        
+        st.setSortMatrix(sorter);
+        st.processMatterBasket(mb);
+        assertTrue(!st.getErrorMessages().isEmpty());   
+    }
+    
+    @Test
+    public void errorMessageOutletTest_outletGoesNowhere() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(1, new Float(1000));
+        mb.addMatterQuantity(2, new Float(1000));
+        Station st = new SortStation();
+        st.addOutlet();
+        st.addOutlet();
+        st.setKgHMax(1999);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        
+        st.setSortMatrix(sorter);
+        st.processMatterBasket(mb);
+        assertTrue(!st.getOutletList().get(0).getErrorMessages().isEmpty());   
+    }
+    
+    @Test
+    public void errorMessageOutletTest_outletGoesSomewhere() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(1, new Float(1000));
+        mb.addMatterQuantity(2, new Float(1000));
+        Station st = new SortStation();
+        st.addOutlet();
+        st.addOutlet();
+        Station st2 = new SortStation();
+        Conveyor conv = new Conveyor(st.getOutletList().get(0), st2.getInlet());
+        st.setKgHMax(1999);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        
+        st.setSortMatrix(sorter);
+        st.processMatterBasket(mb);
+        assertTrue(st.getOutletList().get(0).getErrorMessages().isEmpty());   
+    }
+    
+    
 
     /**
      * Test of sortMatterBasketToOutlets method, of class SortStation.

@@ -649,8 +649,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();
@@ -809,8 +809,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();
@@ -991,8 +991,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();
@@ -1153,8 +1153,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();
@@ -1378,8 +1378,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();
@@ -1489,8 +1489,8 @@ public class SortCenterTest {
         mb2.addMatterQuantity(m2.getID(), new Float(1200));
         //matterList
         MatterList mlist = new MatterList();
-        mlist.Add(m1);
-        mlist.Add(m2);
+        mlist.addMatterToList(m1);
+        mlist.addMatterToList(m2);
         
         //construire centre de tri
         SortCenter sc = new SortCenter();

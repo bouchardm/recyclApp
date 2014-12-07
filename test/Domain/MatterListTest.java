@@ -47,9 +47,9 @@ public class MatterListTest {
         Matter testMatter = new Matter("tomate", 1);
         Matter testMatter2 = new Matter("patate", 2);
         MatterList testList = new MatterList();
-        testList.Add(testMatter);
-        testList.Add(testMatter2);
-        assertTrue(testList.GetCount()==2);
+        testList.addMatterToList(testMatter);
+        testList.addMatterToList(testMatter2);
+        assertTrue(testList.getCount()==2);
     }
     
     /*
@@ -60,9 +60,9 @@ public class MatterListTest {
         System.out.println("AddTest");
         Matter testMatter = new Matter("tomate", 1);
         MatterList testList = new MatterList();
-        testList.Add(testMatter);
-        assertTrue(testList.GetMatter(0).getName().compareTo("tomate")==0);
-        assertTrue(testList.GetMatter(0).getID()==1);
+        testList.addMatterToList(testMatter);
+        assertTrue(testList.getMatter(0).getName().compareTo("tomate")==0);
+        assertTrue(testList.getMatter(0).getID()==1);
     }
     /*
     Test Add : fail - Matière déjà dans la liste - ID
@@ -73,8 +73,8 @@ public class MatterListTest {
         Matter m1 = new Matter("pere noel",3);
         Matter m2 = new Matter("autre chose", 3);
         MatterList testList = new MatterList();
-        testList.Add(m1);
-        testList.Add(m2);
+        testList.addMatterToList(m1);
+        testList.addMatterToList(m2);
     }
     /*
     Test Add : fail - Matière déjà dans la liste - Nom
@@ -85,8 +85,8 @@ public class MatterListTest {
         Matter m1 = new Matter("pere noel",3);
         Matter m2 = new Matter("pere noel",55);
         MatterList testList = new MatterList();
-        testList.Add(m1);
-        testList.Add(m2);
+        testList.addMatterToList(m1);
+        testList.addMatterToList(m2);
     }
     
     /*
@@ -97,9 +97,9 @@ public class MatterListTest {
         System.out.println("GetMatter: fails (get deleted matter)");
         Matter testMatter = new Matter("tomate", 1);
         MatterList testList = new MatterList();
-        testList.Add(testMatter);
-        testList.Remove(1);
-        testList.GetMatter(0);
+        testList.addMatterToList(testMatter);
+        testList.remove(1);
+        testList.getMatter(0);
     }
     
     /*
@@ -110,9 +110,9 @@ public class MatterListTest {
         System.out.println("Remove test: success");
         Matter testMatter = new Matter("tomate",1);
         MatterList testList = new MatterList();
-        testList.Add(testMatter);
-        testList.Remove(1);
-        assertTrue(testList.GetCount()==0);
+        testList.addMatterToList(testMatter);
+        testList.remove(1);
+        assertTrue(testList.getCount()==0);
     }
     
     /*
@@ -123,8 +123,8 @@ public class MatterListTest {
         System.out.println("Remove test: fails (remove matter : ID not in list)");
         Matter testMatter = new Matter("tomate",2);
         MatterList testList = new MatterList();
-        testList.Add(testMatter);
-        testList.Remove(0);
+        testList.addMatterToList(testMatter);
+        testList.remove(0);
     }
     
     /*
@@ -134,7 +134,7 @@ public class MatterListTest {
     public void RemoveTest_invalidName_ThrowsIllegalArgumentException() {
         System.out.println("Remove test: fails (remove matter when list is empty)");
         MatterList testList = new MatterList();
-        testList.Remove(0);
+        testList.remove(0);
     }
     /*
     Test GetMatter : succès à la position initiale
@@ -144,8 +144,8 @@ public class MatterListTest {
         System.out.println("GetMatter test: success at original position");
         Matter tm1 = new Matter("tomate",10);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        assertTrue(testList.GetMatter(0).compareMatter(tm1));
+        testList.addMatterToList(tm1);
+        assertTrue(testList.getMatter(0).compareMatter(tm1));
     }
     
     /*
@@ -157,10 +157,10 @@ public class MatterListTest {
         Matter tm1 = new Matter("tomate",10);
         Matter tm2 = new Matter("autre", 55);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.Add(tm2);
-        testList.Remove(10);
-        assertTrue(testList.GetMatter(0).compareMatter(tm2));
+        testList.addMatterToList(tm1);
+        testList.addMatterToList(tm2);
+        testList.remove(10);
+        assertTrue(testList.getMatter(0).compareMatter(tm2));
     }
     /*
     Test GetMatter : échoue : index invalide
@@ -170,8 +170,8 @@ public class MatterListTest {
         System.out.println("GetMatter test: fails. Invalid index");
         Matter tm1 = new Matter("tomate",10);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.GetMatter(2);
+        testList.addMatterToList(tm1);
+        testList.getMatter(2);
     }
     
     /*
@@ -181,7 +181,7 @@ public class MatterListTest {
     public void GetMatterTest_EmptyList_ThrowsIllegalArgumentException() {
         System.out.println("GetMatter test: fails. Empty list");
         MatterList testList = new MatterList();
-        testList.GetMatter(0);
+        testList.getMatter(0);
     }
     
     /*
@@ -192,8 +192,8 @@ public class MatterListTest {
         System.out.println("GetIndex test: success");
         Matter tm1 = new Matter("tomate",22);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        assertTrue(testList.GetIndex("tomate")==0);
+        testList.addMatterToList(tm1);
+        assertTrue(testList.getIndex("tomate")==0);
     }
     
     /*
@@ -204,8 +204,8 @@ public class MatterListTest {
         System.out.println("GetIndex failure: invalid name");
         Matter tm1 = new Matter("tomate",22);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.GetIndex("zebre");
+        testList.addMatterToList(tm1);
+        testList.getIndex("zebre");
     }
     
     /*
@@ -215,7 +215,7 @@ public class MatterListTest {
     public void GetIndexTest_Fail_EmptyList() {
         System.out.println("GetIndex failure: empty list");
         MatterList testList = new MatterList();
-        testList.GetIndex("zebre");
+        testList.getIndex("zebre");
     }
     
     
@@ -229,8 +229,8 @@ public class MatterListTest {
         Matter tm1 = new Matter("tomate",10);
         Matter tm2 = new Matter("autre", 55);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.Add(tm2);
+        testList.addMatterToList(tm1);
+        testList.addMatterToList(tm2);
         assertTrue(testList.getMatterID("autre")==55);
     }
     
@@ -253,8 +253,8 @@ public class MatterListTest {
         Matter tm1 = new Matter("tomate",10);
         Matter tm2 = new Matter("autre", 55);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.Add(tm2);
+        testList.addMatterToList(tm1);
+        testList.addMatterToList(tm2);
         testList.getMatterID("cyclops");
     }
     
@@ -267,8 +267,8 @@ public class MatterListTest {
         Matter tm1 = new Matter("tomate",10);
         Matter tm2 = new Matter("autre", 55);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.Add(tm2);
+        testList.addMatterToList(tm1);
+        testList.addMatterToList(tm2);
         assertTrue(testList.getMatterID(1)==55);
     }
     
@@ -281,8 +281,8 @@ public class MatterListTest {
         Matter tm1 = new Matter("tomate",10);
         Matter tm2 = new Matter("autre", 55);
         MatterList testList = new MatterList();
-        testList.Add(tm1);
-        testList.Add(tm2);
+        testList.addMatterToList(tm1);
+        testList.addMatterToList(tm2);
         testList.getMatterID(3);
     }
 }

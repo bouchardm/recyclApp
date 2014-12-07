@@ -47,8 +47,8 @@ public class SortCenter extends Element {
         setColor(new Color(level, level, level));
         Matter m1 = new Matter("P1",1);
         Matter m2 = new Matter("P2",2);
-        _matterList.Add(m1);
-        _matterList.Add(m2);
+        _matterList.addMatterToList(m1);
+        _matterList.addMatterToList(m2);
        
     }
 
@@ -172,7 +172,7 @@ public class SortCenter extends Element {
     }
 
     public void addMatterToMatterList(Matter matter) {
-        this._matterList.Add(matter);
+        this._matterList.addMatterToList(matter);
     }
 
     public ArrayList getJunctions() {
