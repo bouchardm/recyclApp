@@ -206,6 +206,151 @@ public class SortCenterTest {
         assertTrue(inRecovM3B2.equals(actualM3B2)); 
     }
     
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_TransStation() {
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        TransStation ts = sc.addTransStation(1);
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1000));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        ep.setMatterBasket(mb);
+        HashMap<Integer, Float> transformQty1 = new HashMap<>();
+        transformQty1.put(1,new Float(1.00));
+        transformQty1.put(2, new Float(0.00));
+        HashMap<Integer, Float> transformQty2 = new HashMap<>();
+        transformQty2.put(1, new Float(1.0));
+        transformQty2.put(2, new Float(0.0));
+        HashMap<Integer, HashMap<Integer, Float>> tMatrix = new HashMap<>();
+        tMatrix.put(1, transformQty1);
+        tMatrix.put(2, transformQty2);
+        TransMatrix transMatrix = new TransMatrix();
+        transMatrix.setTransMatrix(tMatrix);
+        ts.setTransMatrix(transMatrix);
+        Conveyor conv = sc.addConveyor(ep.getOutlet(), ts.getInlet());
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(ts);
+        assertTrue(recov.get(1)==1);
+        assertTrue(recov.get(2)==0);
+    }
+    
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_ExitPoint() {
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        TransStation ts = sc.addTransStation(1);
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1000));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        ep.setMatterBasket(mb);
+        HashMap<Integer, Float> transformQty1 = new HashMap<>();
+        transformQty1.put(1,new Float(1.00));
+        transformQty1.put(2, new Float(0.00));
+        HashMap<Integer, Float> transformQty2 = new HashMap<>();
+        transformQty2.put(1, new Float(1.0));
+        transformQty2.put(2, new Float(0.0));
+        HashMap<Integer, HashMap<Integer, Float>> tMatrix = new HashMap<>();
+        tMatrix.put(1, transformQty1);
+        tMatrix.put(2, transformQty2);
+        TransMatrix transMatrix = new TransMatrix();
+        transMatrix.setTransMatrix(tMatrix);
+        ts.setTransMatrix(transMatrix);
+        Conveyor conv = sc.addConveyor(ep.getOutlet(), ts.getInlet());
+        ExitPoint xp = sc.addExitPoint();
+        Conveyor conv2 = sc.addConveyor(ts.getOutletList().get(0), xp.getInlet());
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(xp);
+        assertTrue(recov.get(1)==1);
+        assertTrue(recov.get(2)==0);
+    }
+    
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_Junction() {
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        TransStation ts = sc.addTransStation(1);
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1000));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        ep.setMatterBasket(mb);
+        HashMap<Integer, Float> transformQty1 = new HashMap<>();
+        transformQty1.put(1,new Float(1.00));
+        transformQty1.put(2, new Float(0.00));
+        HashMap<Integer, Float> transformQty2 = new HashMap<>();
+        transformQty2.put(1, new Float(1.0));
+        transformQty2.put(2, new Float(0.0));
+        HashMap<Integer, HashMap<Integer, Float>> tMatrix = new HashMap<>();
+        tMatrix.put(1, transformQty1);
+        tMatrix.put(2, transformQty2);
+        TransMatrix transMatrix = new TransMatrix();
+        transMatrix.setTransMatrix(tMatrix);
+        ts.setTransMatrix(transMatrix);
+        Conveyor conv = sc.addConveyor(ep.getOutlet(), ts.getInlet());
+        Junction jc = sc.addJunction();
+        Conveyor conv2 = sc.addConveyor(ts.getOutletList().get(0), jc.getInletList().get(0));
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(jc);
+        assertTrue(recov.get(1)==1);
+        assertTrue(recov.get(2)==0);
+    }
+    
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_EntryPoints() {
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        EntryPoint ep2 = sc.addEntryPoint();
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1000));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        MatterBasket mb2 = new MatterBasket();
+        mb2.addMatterQuantity(m1.getID(), new Float(1000));
+        mb2.addMatterQuantity(m2.getID(), new Float(1000));
+        ep.setMatterBasket(mb);
+        ep2.setMatterBasket(mb2);
+        sc.updateDesign();
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(ep);
+        HashMap<Integer, Float> recov2 = sc.getRecoveryRateForMatterBasketAtElement(ep2);
+        assertTrue(recov.get(1)==0.25);
+        assertTrue(recov.get(2)==0.25);
+        assertTrue(recov2.get(1)==0.25);
+        assertTrue(recov2.get(2)==0.25);
+    }
+    
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_SortStation() {
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        Station st = sc.addSortStation(2);
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1000));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        ep.setMatterBasket(mb);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        
+        st.setSortMatrix(sorter);
+        Conveyor conv = sc.addConveyor(ep.getOutlet(), st.getInlet());
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(st);
+        assertTrue(recov.get(1)==0.5);
+        assertTrue(recov.get(2)==0.5);
+    }
+    
      @Test
     public void getRecoveryRateForMatterBasketAtElement_ConveyorEntryExit_emptyBaskets() {
         System.out.println("Recovery rate for Conveyor: empty MB");
