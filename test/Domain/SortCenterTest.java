@@ -7,14 +7,15 @@
 package Domain;
 
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -157,7 +158,87 @@ public class SortCenterTest {
         assertTrue(sc.getTotalEntryPointsMatterBasket().getTotalQuantity()==0);    
     }
     
+    @Test
+    public void getRecoveryRateForMatterBasketAtElement_Conveyor() {
+        System.out.println("Recovery rate for Conveyor");
+        Matter m1 = new Matter("m1",11);
+        Matter m2 = new Matter("m2",12);
+        Matter m3 = new Matter("m3",13);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(100));
+        mb.addMatterQuantity(m2.getID(), new Float(1000));
+        mb.addMatterQuantity(m3.getID(), new Float(500));
+        MatterBasket mb2 = new MatterBasket();
+        mb2.addMatterQuantity(m1.getID(), new Float(200));
+        mb2.addMatterQuantity(m2.getID(), new Float(2000));
+        mb2.addMatterQuantity(m3.getID(), new Float(1000));
+        SortCenter sc = new SortCenter();
+        sc.addEntryPoint();
+        sc.addEntryPoint();
+        sc.getEntryPoints().get(0).setMatterBasket(mb);
+        sc.getEntryPoints().get(1).setMatterBasket(mb2);
+        sc.addExitPoint();
+        sc.addExitPoint();
+        MatterBasket totalMB = sc.getTotalEntryPointsMatterBasket();
+        float grandTotal = totalMB.getTotalQuantity();
+        assertTrue(grandTotal==4800); 
+        Conveyor conv = sc.addConveyor(sc.getEntryPointOutlet(0), sc.getExitPointInlet(0));
+        Conveyor conv2 = sc.addConveyor(sc.getEntryPointOutlet(1), sc.getExitPointInlet(1));
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(conv);
+        HashMap<Integer,Float> recov2 = sc.getRecoveryRateForMatterBasketAtElement(conv2);
+        BigDecimal inRecovM1B1 = new BigDecimal(recov.get(11));
+        BigDecimal actualM1B1 = new BigDecimal((float)100/4800);
+        assertTrue(inRecovM1B1.equals(actualM1B1));
+        BigDecimal inRecovM2B1 = new BigDecimal(recov.get(12));
+        BigDecimal actualM2B1 = new BigDecimal((float)1000/4800);
+        assertTrue(inRecovM2B1.equals(actualM2B1));
+        BigDecimal inRecovM3B1 = new BigDecimal(recov.get(13));
+        BigDecimal actualM3B1 = new BigDecimal((float)500/4800);
+        assertTrue(inRecovM3B1.equals(actualM3B1));
+        BigDecimal inRecovM1B2 = new BigDecimal(recov2.get(11));
+        BigDecimal actualM1B2 = new BigDecimal((float)200/4800);
+        assertTrue(inRecovM1B2.equals(actualM1B2));
+        BigDecimal inRecovM2B2 = new BigDecimal(recov2.get(12));
+        BigDecimal actualM2B2 = new BigDecimal((float)2000/4800);
+        assertTrue(inRecovM2B2.equals(actualM2B2));
+        BigDecimal inRecovM3B2 = new BigDecimal(recov2.get(13));
+        BigDecimal actualM3B2 = new BigDecimal((float)1000/4800);
+        assertTrue(inRecovM3B2.equals(actualM3B2)); 
+    }
     
+     @Test
+    public void getRecoveryRateForMatterBasketAtElement_ConveyorEntryExit_emptyBaskets() {
+        System.out.println("Recovery rate for Conveyor: empty MB");
+        MatterBasket mb = new MatterBasket();
+        MatterBasket mb2 = new MatterBasket();
+        SortCenter sc = new SortCenter();
+        sc.addEntryPoint();
+        sc.addEntryPoint();
+        sc.getEntryPoints().get(0).setMatterBasket(mb);
+        sc.getEntryPoints().get(1).setMatterBasket(mb2);
+        sc.addExitPoint();
+        sc.addExitPoint();
+        MatterBasket totalMB = sc.getTotalEntryPointsMatterBasket();
+        float grandTotal = totalMB.getTotalQuantity();
+        assertTrue(grandTotal==0); 
+        Conveyor conv = sc.addConveyor(sc.getEntryPointOutlet(0), sc.getExitPointInlet(0));
+        Conveyor conv2 = sc.addConveyor(sc.getEntryPointOutlet(1), sc.getExitPointInlet(1));
+        //Conveyor
+        HashMap<Integer,Float> recov = sc.getRecoveryRateForMatterBasketAtElement(conv);
+        HashMap<Integer,Float> recov2 = sc.getRecoveryRateForMatterBasketAtElement(conv2);
+        assertTrue(recov.isEmpty() && recov2.isEmpty());
+        //EntryPoint
+        recov = sc.getRecoveryRateForMatterBasketAtElement(sc.getEntryPoints().get(0));
+        recov2 = sc.getRecoveryRateForMatterBasketAtElement(sc.getEntryPoints().get(1));
+        assertTrue(recov.isEmpty() && recov2.isEmpty());
+        //ExitPoint
+        ArrayList<ExitPoint> xplist = sc.getExitPoints();
+        ExitPoint xp = xplist.get(0);
+        recov = sc.getRecoveryRateForMatterBasketAtElement(xp);
+        xp = xplist.get(1);
+        recov2 = sc.getRecoveryRateForMatterBasketAtElement(xp);
+        assertTrue(recov.isEmpty() && recov2.isEmpty());
+    }
     
     
     

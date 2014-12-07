@@ -334,32 +334,48 @@ public class SortCenter extends Element {
         return totalMB;
     }
     
-    //Taux de récupération (point 13 livrable 4) 
-    //la masse de ce produit en ce point est quel % de ce qui est rentré dans l’usine
-    public float getRecoveryRate(Element elem) {
-        float recoveryRate=0;
+    /**
+     * 
+     * @param elem
+     * @return un hashmap           clé :       matterID
+     *                              valeur :    Taux de récupération
+     * Taux récupération : déf:
+     * la masse d'un produit en un point est quel % de ce qui est rentré dans l’usine
+     */
+    public HashMap<Integer,Float> getRecoveryRateForMatterBasketAtElement(Element elem) {
+        HashMap<Integer,Float> recoveryRates = new HashMap<>();
+        MatterBasket totalMB = this.getTotalEntryPointsMatterBasket();
+        HashMap<Integer,Float> elemQties = new HashMap<>();
         //version convoyeur
-        if(elem instanceof Conveyor)
-        {
-            
+        if(elem instanceof Conveyor){
+            elemQties = ((Conveyor)elem).getMatterBasket().getQuantities();
         }
         //version station
         else if(elem instanceof Station) {
-            
+            elemQties = ((Station)elem).getAllMatterQuantitiesAtOutlets();
         }
         //version jonction
         else if(elem instanceof Junction) {
-            
+            elemQties = ((Junction)elem).getMatterBasket().getQuantities();
         }
         //version EP
         else if(elem instanceof EntryPoint) {
-            
+            elemQties = ((EntryPoint)elem).getMatterBasket().getQuantities();
         }
         //version XP
         else if (elem instanceof ExitPoint) {
-            
+            elemQties = ((ExitPoint)elem).getMatterBasket().getQuantities();
         }
-        return recoveryRate;
+        if(!elemQties.isEmpty()) {
+            Iterator<Map.Entry<Integer,Float>> iter = elemQties.entrySet().iterator();
+            while(iter.hasNext()) {
+                Map.Entry<Integer,Float> entry = iter.next();
+                float recoveryRateForMatter = entry.getValue()/totalMB.getTotalQuantity();
+                int matterIDForRecovery = entry.getKey();
+                recoveryRates.put(matterIDForRecovery, recoveryRateForMatter);
+            }
+        }
+        return recoveryRates;
     }
     
     
@@ -393,19 +409,21 @@ public class SortCenter extends Element {
         }
     }
 
-    public void addConveyor(Outlet aExit, Inlet aEntrance) {
+    public Conveyor addConveyor(Outlet aExit, Inlet aEntrance) {
 
         Conveyor newConv = new Conveyor(aExit, aEntrance);
         try {
             this._conveyorList.add(newConv);
             verifyCycles(aExit.getNode());
             this.updateDesign();
+            return newConv;
         } catch (IllegalArgumentException e) {
             this._conveyorList.remove(newConv);
             newConv.removeConveyor();
             throw new IllegalArgumentException("Ce convoyeur introduit un cycle.");
 
         }
+        
 
     }
 
