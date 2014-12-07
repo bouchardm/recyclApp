@@ -529,6 +529,10 @@ public class Controller {
     public void addStation(Point aPosition) {
         throw new UnsupportedOperationException();
     }
+    
+    public HashMap<Integer, Float> getPurityRateForMatterBasketAtSlectedElement() {
+        return this._project.getSortCenter().getPurityRateForMatterBasketAtElement(this._selectedElement);
+    }
 
     public void addConveyor() {
 
