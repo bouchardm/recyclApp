@@ -55,7 +55,7 @@ public class SortCenter extends Element {
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
@@ -274,7 +274,8 @@ public class SortCenter extends Element {
         }
         //NEW: maintenant, on doit "resetter" le panier de matières à n'importe quelle node
         //qui n'est pas connectée au réseau (C'est à dire, tout ce qui reste dans allNodes)
-        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+//        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+        MatterBasket emptyBasket = new MatterBasket();
         for (Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
         }
@@ -386,7 +387,7 @@ public class SortCenter extends Element {
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));
