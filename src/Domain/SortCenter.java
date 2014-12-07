@@ -471,6 +471,55 @@ public class SortCenter extends Element {
         this.updateDesign();
         return exitPoint;
     }
+    
+    /**
+     * Définition taux de pureté: 
+     * la masse de ce produit en ce point est quel % de tout ce qui passe par ce point
+     */
+    public HashMap<Integer, Float> getPurityRateForMatterBasketAtElement(Element elem) {
+        HashMap<Integer, Float> purityRate = new HashMap<>();
+        HashMap<Integer, Float> mbAtElement = new HashMap<>();
+        float totalAtElement = 0;
+        //version convoyeur
+        if(elem instanceof Conveyor){
+            mbAtElement = ((Conveyor)elem).getMatterBasket().getQuantities();
+            totalAtElement = ((Conveyor)elem).getMatterBasket().getTotalQuantity();
+        }
+        //version station
+        else if(elem instanceof Station) {
+            mbAtElement = ((Station)elem).getAllMatterQuantitiesAtOutlets();
+            Iterator<Map.Entry<Integer,Float>> iter = mbAtElement.entrySet().iterator();
+            while(iter.hasNext()) {
+                Map.Entry<Integer,Float> entry = iter.next();
+                totalAtElement = totalAtElement + entry.getValue();
+            }
+        }
+        //version jonction
+        else if(elem instanceof Junction) {
+            mbAtElement = ((Junction)elem).getMatterBasket().getQuantities();
+            totalAtElement = ((Junction)elem).getMatterBasket().getTotalQuantity();
+        }
+        //version EP
+        else if(elem instanceof EntryPoint) {
+            mbAtElement = ((EntryPoint)elem).getMatterBasket().getQuantities();
+            totalAtElement = ((EntryPoint)elem).getMatterBasket().getTotalQuantity();
+        }
+        //version XP
+        else if (elem instanceof ExitPoint) {
+            mbAtElement = ((ExitPoint)elem).getMatterBasket().getQuantities();
+            totalAtElement = ((ExitPoint)elem).getMatterBasket().getTotalQuantity();
+        }
+        if(!mbAtElement.isEmpty() && totalAtElement !=0) {
+            Iterator<Map.Entry<Integer,Float>> iter = mbAtElement.entrySet().iterator();
+            while(iter.hasNext()) {
+                Map.Entry<Integer,Float> entry = iter.next();
+                float purityForMatter = (float)entry.getValue()/totalAtElement;
+                int matterID = entry.getKey();
+                purityRate.put(matterID, purityForMatter);
+            }
+        }
+        return purityRate;
+    }
 
     private Point2D.Float dimensions;
 

@@ -385,6 +385,144 @@ public class SortCenterTest {
         assertTrue(recov.isEmpty() && recov2.isEmpty());
     }
     
+    @Test
+    public void getPurityRateForMatterBasketAtElement_SortStation() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        SortStation ss = sc.addSortStation(2);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        ss.setSortMatrix(sorter);
+        ss.processMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(ss);
+        assertTrue(purity.get(1)==0.75);
+        assertTrue(purity.get(2)==0.25);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_TransStation() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        TransStation ts = sc.addTransStation(2);
+        HashMap<Integer, ArrayList<Float>> smatrix = new HashMap<>();
+        ArrayList<Float> innerList = new ArrayList<>();
+        innerList.add(new Float(0.75));
+        innerList.add(new Float(0.25));
+        smatrix.put(1, innerList);
+        ArrayList<Float> innerList2 = new ArrayList<>();
+        innerList2.add(new Float(0.55));
+        innerList2.add(new Float(0.45));
+        smatrix.put(2, innerList2);
+        SortMatrix sorter = new SortMatrix();
+        sorter.setSortMatrix(smatrix);
+        ts.setSortMatrix(sorter);
+        HashMap<Integer, Float> transformQty1 = new HashMap<>();
+        transformQty1.put(1,new Float(1));
+        transformQty1.put(2, new Float(0));
+        HashMap<Integer, Float> transformQty2 = new HashMap<>();
+        transformQty2.put(1, new Float(1));
+        transformQty2.put(2, new Float(0));
+        HashMap<Integer, HashMap<Integer, Float>> tMatrix = new HashMap<>();
+        tMatrix.put(1, transformQty1);
+        tMatrix.put(2, transformQty2);
+        TransMatrix transMatrix = new TransMatrix();
+        transMatrix.setTransMatrix(tMatrix);
+        ts.setTransMatrix(transMatrix);
+        
+        ts.processMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(ts);
+        assertTrue(purity.get(1)==1);
+        assertTrue(purity.get(2)==0);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_Junction() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        Junction jc = sc.addJunction();
+        jc.processMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(jc);
+        assertTrue(purity.get(1)==0.75);
+        assertTrue(purity.get(2)==0.25);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_EntryPoint() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        ep.processMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(ep);
+        assertTrue(purity.get(1)==0.75);
+        assertTrue(purity.get(2)==0.25);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_ExitPoint() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        ExitPoint xp = sc.addExitPoint();
+        xp.processMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(xp);
+        assertTrue(purity.get(1)==0.75);
+        assertTrue(purity.get(2)==0.25);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_Conveyor() {
+        Matter m1 = new Matter("m1",1);
+        Matter m2 = new Matter("m2",2);
+        MatterBasket mb = new MatterBasket();
+        mb.addMatterQuantity(m1.getID(), new Float(1500));
+        mb.addMatterQuantity(m2.getID(), new Float(500));
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        ep.setMatterBasket(mb);
+        ExitPoint xp = sc.addExitPoint();
+        Conveyor conv = sc.addConveyor(ep.getOutlet(), xp.getInlet());
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(conv);
+        assertTrue(purity.get(1)==0.75);
+        assertTrue(purity.get(2)==0.25);
+    }
+    
+    @Test
+    public void getPurityRateForMatterBasketAtElement_EmptyBasket() {
+        MatterBasket mb = new MatterBasket();
+        SortCenter sc = new SortCenter();
+        EntryPoint ep = sc.addEntryPoint();
+        ep.setMatterBasket(mb);
+        HashMap<Integer,Float> purity = sc.getPurityRateForMatterBasketAtElement(ep);
+        assertTrue(purity.isEmpty());
+    }
     
     
     @Test
