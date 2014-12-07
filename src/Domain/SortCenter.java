@@ -55,7 +55,7 @@ public class SortCenter extends Element {
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+//            station.addOutlet(this._matterList); // je dois mettre ça en commentaire autrement ça bug
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
@@ -386,7 +386,8 @@ public class SortCenter extends Element {
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+//            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));

@@ -20,8 +20,10 @@ import java.awt.geom.Point2D;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -94,6 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
         newMenu = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuAddEntree = new javax.swing.JMenuItem();
         menuAddSortStation = new javax.swing.JMenuItem();
@@ -460,6 +463,15 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save.png"))); // NOI18N
         jMenuItem2.setText("Enregistrer");
         jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0));
+        jMenuItem1.setText("Exporter Image");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -930,6 +942,36 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAddEntryActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        JFileChooser filePicker = new JFileChooser();
+        filePicker.setToolTipText("blabla");
+        FileNameExtensionFilter jpgFilter = new FileNameExtensionFilter(".jpg", "jpg");
+        FileNameExtensionFilter gifFilter = new FileNameExtensionFilter(".gif", "gif");
+        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter(".png", "png");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.addChoosableFileFilter(jpgFilter);
+        filePicker.addChoosableFileFilter(gifFilter);
+        filePicker.addChoosableFileFilter(pngFilter);
+        filePicker.setFileFilter(jpgFilter);
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            System.out.println(filePicker.getSelectedFile());
+            System.out.println(filePicker.getFileFilter());
+        }
+//        if(responce == JFileChooser.APPROVE_OPTION) {
+//
+//            this._controller.EditStation(
+//                this.txtStationName.getText(),
+//                this.txtStationDescription.getText(),
+//                null,
+//                filePicker.getSelectedFile().getAbsolutePath(),
+//                Float.valueOf(this.txtStationKgHMax.getText()),
+//                null, null, null
+//            );
+//        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     @Override
     public void repaint() {
         super.repaint();
@@ -993,6 +1035,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
