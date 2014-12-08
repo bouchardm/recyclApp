@@ -19,6 +19,9 @@ public class EntryPoint extends RectangularNode
 
     public void setMatterBasket(MatterBasket matterBasket) {
         this._outlet.setMatterBasket(matterBasket);
+        if(this._outlet.hasConveyor()==false && matterBasket.getTotalQuantity()>0) {
+            this.addErrorMessage("Le point d'entrée reçoit de la matière mais n'est pas connecté au réseau.");
+        }
     }
 
     public MatterBasket getMatterBasket() {
