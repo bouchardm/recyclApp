@@ -40,7 +40,7 @@ public class SortCenterDrawer {
     public SortCenterDrawer(Controller controller, Viewport viewport) {
         this._controller = controller;
         this._viewport = viewport;
-        _selectedContourColor = Color.MAGENTA;
+        _selectedContourColor = Color.BLUE;
         _connectingArrow = null;
     }
     
@@ -140,6 +140,11 @@ public class SortCenterDrawer {
 
         ArrayList<IOlet> iolets = new ArrayList<>();
 
+        if (station.getErrorMessages().size() > 0) {
+            g.setColor(Color.red);
+            g.fillRect(positionMeterX - 5, positionMeterY - 5, dimensionMeterX + 10, dimensionMeterY + 10);
+        }
+        
         // Dessin de la stations
         if (_controller.selectedElementIs(station)) {
             g.setColor(_selectedContourColor);
@@ -147,6 +152,7 @@ public class SortCenterDrawer {
         }
 
         g.setColor(station.getColor());
+        
 
         g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         
@@ -211,8 +217,14 @@ public class SortCenterDrawer {
         ClassLoader cl = this.getClass().getClassLoader();
         Image img = Toolkit.getDefaultToolkit().getImage(cl.getResource("image/junction.png"));
         
+        if (junction.getErrorMessages().size() > 0) {
+            g.setColor(Color.red);
+            g.fillRect(positionMeterX - 5, positionMeterY - 5, dimensionMeterX + 10, dimensionMeterY + 10);
+        }
+        
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
+        
         
         iolets.addAll(junction.getIOlets());
         
@@ -245,9 +257,13 @@ public class SortCenterDrawer {
         y1 = _viewport.meterToPix(position1.y);
         x2 = _viewport.meterToPix(position2.x);
         y2 = _viewport.meterToPix(position2.y);
-
+        
         g.setColor(conveyor.getColor());
 
+        if (conveyor.getErrorMessages().size() > 0) {
+            g.setColor(Color.red);
+        }
+        
         if (_controller.selectedElementIs(conveyor)) {
             g.setColor(_selectedContourColor);
         }
@@ -317,6 +333,11 @@ public class SortCenterDrawer {
         
         ClassLoader cl = this.getClass().getClassLoader();
         Image img = Toolkit.getDefaultToolkit().getImage(cl.getResource("image/entry.png"));
+        
+        if (entryPoint.getErrorMessages().size() > 0) {
+            g.setColor(Color.red);
+            g.fillRect(positionMeterX - 5, positionMeterY - 5, dimensionMeterX + 10, dimensionMeterY + 10);
+        }
         
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();

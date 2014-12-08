@@ -187,6 +187,8 @@ public class Controller {
         if (color != null) {
             this.setSelectedElementAttribute("color", color);
         }
+        
+        this._project.getSortCenter().updateDesign();
     }
 
     public void AddMatrix() {
@@ -426,12 +428,12 @@ public class Controller {
         if (dimensionY != null) {
             this.setSelectedElementAttribute("dimensionY", dimensionY);
         }
+        this._project.getSortCenter().updateDesign();
     }
 
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
             this.setSelectedElementAttribute("transMatrix", transMatrix);
-            this._project.getSortCenter().updateDesign();
         }
         this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
