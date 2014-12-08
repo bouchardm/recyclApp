@@ -42,33 +42,33 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         
         Map<String, Object> infoStation = this._controller.getSelectedElementAttributes();
         HashMap<Integer, HashMap<Integer, Float>> transMatrix = (HashMap<Integer, HashMap<Integer, Float>>) infoStation.get("transMatrix");
+        HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoStation.get("matterQuantities");
         
-        String[] exits = new String[transMatrix.size() + 1];
+        String[] exits = new String[transMatrix.size() + 2];
         String[][] matters = new String[transMatrix.size()][exits.length];
-        
-        exits[0] = "Recu / Transformé";
-        for (Map.Entry<Integer, HashMap<Integer, Float>> sfd : transMatrix.entrySet()) {
-            Integer key = sfd.getKey();
-            HashMap<Integer, Float> value = sfd.getValue();
-            int i = 1;
-        
-            for (Map.Entry<Integer, Float> entrySet : value.entrySet()) {
-                Integer key1 = entrySet.getKey();
-                Float value1 = entrySet.getValue();
 
-                exits[i] = this._controller.getMatterName(key1); 
-                i++;
-            }
-        }
+        exits[0] = "Quantité entrante";
+        exits[1] = "Recu / Transformé";
         
         int i = 0;
         for (Map.Entry<Integer, HashMap<Integer, Float>> entrySet : transMatrix.entrySet()) {
             Integer key = entrySet.getKey();
             HashMap<Integer, Float> value = entrySet.getValue();
             
-            matters[i][0] = this._controller.getMatterName(key); 
+            int ii = 2;
+        
+            for (Map.Entry<Integer, Float> entrySet1 : value.entrySet()) {
+                Integer key1 = entrySet1.getKey();
+                Float value1 = entrySet1.getValue();
+
+                exits[ii] = this._controller.getMatterName(key1); 
+                ii++;
+            }
             
-            int j = 1;
+            matters[i][0] = listMatter.get(key).toString();
+            matters[i][1] = this._controller.getMatterName(key); 
+            
+            int j = 2;
             for (Map.Entry<Integer, Float> entrySet1 : value.entrySet()) {
                 Integer key1 = entrySet1.getKey();
                 Float value1 = entrySet1.getValue();
@@ -179,8 +179,8 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
             HashMap<Integer, Float> exits = new HashMap<>();
             int matterId = 0;
             Float sumExits = new Float(0);
-            for (int j = 0; j < tableData[i].length; j++) {
-                if (j == 0) {
+            for (int j = 1; j < tableData[i].length; j++) {
+                if (j == 1) {
                     matterId = this._controller.getMatterId((String) tableData[i][j]);
                 } else {
                     Float value = null;
