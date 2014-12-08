@@ -5,18 +5,19 @@
  */
 package Domain;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
 import Application.Controller.Controller;
 import Presentation.Swing.InfoEntryPointFrame;
 import Presentation.Swing.InfoExitPointFrame;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.List;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Map;
 public class SortCenter extends Element {
 
     private ArrayList<Conveyor> _conveyorList;
-    private ArrayList<EntryPoint> _entrytPointList;
+    private ArrayList<EntryPoint> _entryPointList;
     private ArrayList<ExitPoint> _exitPointList;
     private ArrayList<Station> _stationList;
     private ArrayList<Junction> _junctionList;
@@ -36,7 +37,7 @@ public class SortCenter extends Element {
 
     public SortCenter() {
         _conveyorList = new ArrayList<>();
-        _entrytPointList = new ArrayList<>();
+        _entryPointList = new ArrayList<>();
         _exitPointList = new ArrayList<>();
         _stationList = new ArrayList<>();
         _junctionList = new ArrayList<>();
@@ -55,7 +56,7 @@ public class SortCenter extends Element {
     public SortStation addSortStation(int numberOfOutlets) {
         SortStation station = new SortStation();
         for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletList().size()));
         this._stationList.add(station);
@@ -92,6 +93,20 @@ public class SortCenter extends Element {
         
         this.updateDesign();
 
+    }
+    
+    public BigDecimal getTotalStationUsageRate() {
+        float totalQtyInTreatment = 0;
+        float totalCapacity = 0;
+        BigDecimal usage = new BigDecimal(0);
+        for(Station station : this._stationList) {
+            totalQtyInTreatment = totalQtyInTreatment + station.getTotalMatterQuantity();
+            totalCapacity = totalCapacity + station.getKgHMax();
+        }
+        if(totalCapacity!=0) {
+            usage = new BigDecimal(totalQtyInTreatment/totalCapacity);
+        }
+        return usage;
     }
 
 //     DeleteConvyeor from a junction
@@ -136,19 +151,19 @@ public class SortCenter extends Element {
     }
 
     public ArrayList<EntryPoint> getEntryPoints() {
-        return _entrytPointList;
+        return _entryPointList;
     }
 
     //retourne l'Outlet d'un point d'entrée à l'index "index" de la liste
     public Outlet getEntryPointOutlet(int index) {
-        return _entrytPointList.get(index).getOutlet();
+        return _entryPointList.get(index).getOutlet();
     }
 
     public void deleteEntryPoint(EntryPoint entryPoint) {
-        for (int i = 0; i < this._entrytPointList.size(); i++) {
-            if (this._entrytPointList.get(i).equals(entryPoint)) {
+        for (int i = 0; i < this._entryPointList.size(); i++) {
+            if (this._entryPointList.get(i).equals(entryPoint)) {
                 this.deleteConveyor(entryPoint);
-                this._entrytPointList.remove(i);
+                this._entryPointList.remove(i);
                 this.updateDesign();
                 return;
             }
@@ -171,8 +186,34 @@ public class SortCenter extends Element {
         return _exitPointList;
     }
 
-    public void addMatterToMatterList(Matter matter) {
-        this._matterList.addMatterToList(matter);
+    public void addMatterToMatterList(String matterName, int matterID) {
+        try {
+            Matter matter = new Matter(matterName, matterID);
+            this._matterList.addMatterToList(matter);
+            for(Station station : this.getStations()) {
+                if(station instanceof TransStation) {
+                    ((TransStation)station).getTransMatrix().addMatterToTransMatrix(matter.getID());
+                }
+            }
+            updateDesign();
+        }
+        catch(IllegalArgumentException iae) {
+            throw new IllegalArgumentException(iae.getMessage());
+        }
+    }
+    
+    public void removeMatterFromMatterList(int matterID) {
+        try  {
+            this._matterList.remove(matterID);
+            for(Station station : this.getStations()) {
+                if(station instanceof TransStation) {
+                    ((TransStation)station).getTransMatrix().removeMatterFromMatrix(matterID);
+                }
+            }
+        }
+        catch (IllegalArgumentException iae) {
+            throw new IllegalArgumentException(iae.getMessage());
+        }
     }
 
     public ArrayList getJunctions() {
@@ -224,14 +265,17 @@ public class SortCenter extends Element {
         this.resetJunctionMatterBaskets();
         //on crée une liste maître des nodes du centre de tri
         ArrayList<Node> allNodes = new ArrayList<>(); //NEW
-        allNodes.addAll(this._entrytPointList);
+        allNodes.addAll(this._entryPointList);
         allNodes.addAll(this._exitPointList);
         allNodes.addAll(this._junctionList);
         allNodes.addAll(this._stationList);
         //for all EntryPoints
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
-        for (Node node : _entrytPointList) {
+        for (Node node : _entryPointList) {
+            //NEW:on force les Entry à faire le processing de leurs paniers
+            MatterBasket mbAtEntryPoint = ((EntryPoint)node).getMatterBasket();
+            node.processMatterBasket(mbAtEntryPoint);
             equipmentToProcess.add(node);
         }
         //for all Conveyors
@@ -239,6 +283,8 @@ public class SortCenter extends Element {
         //et son point de départ <Conveyor, StartNode>
         HashMap<Conveyor, Node> conveyorToProcess = new HashMap<>();
         for (Conveyor conveyor : _conveyorList) {
+            //NEW: on enlève les messages d'erreur de tous les convoyeurs
+            conveyor.clearErrorMessages();
             Node conveyorStartNode = conveyor.getStartNode();
             conveyorToProcess.put(conveyor, conveyorStartNode);
         }
@@ -269,12 +315,18 @@ public class SortCenter extends Element {
                 // entryPoint n'est jamais traité. Son matterBasket doit être
                 // mis à jour avant)
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
+                //NEW: si le basket tiens plus de matières que la capacité du convoyeur, on ajoute
+                //un message d'erreur au convoyeur
+                if(processingConveyor.getMatterBasket().getTotalQuantity()>processingConveyor.getSpeedMax()) {
+                    processingConveyor.addErrorMessage("Ce convoyeur reçoit une quantité de matière plus élevée que sa capacité maximale.");
+                }
                 equipmentToProcess.add(destination);
             }
         }
         //NEW: maintenant, on doit "resetter" le panier de matières à n'importe quelle node
         //qui n'est pas connectée au réseau (C'est à dire, tout ce qui reste dans allNodes)
-        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+//        MatterBasket emptyBasket = new MatterBasket(this._matterList);
+        MatterBasket emptyBasket = new MatterBasket();
         for (Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
         }
@@ -311,7 +363,7 @@ public class SortCenter extends Element {
     //en entrée au centre
     public MatterBasket getTotalEntryPointsMatterBasket(){
         MatterBasket totalMB = new MatterBasket();
-        for(EntryPoint ep : this._entrytPointList) {
+        for(EntryPoint ep : this._entryPointList) {
             HashMap<Integer,Float> epMatterQuantities = ep.getMatterBasket().getQuantities();
             Iterator<Map.Entry<Integer,Float>> iter = epMatterQuantities.entrySet().iterator();
             while(iter.hasNext()) {
@@ -378,16 +430,12 @@ public class SortCenter extends Element {
         return recoveryRates;
     }
     
-    
-    
-    
-    
 
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
-        for (int i = 0; i < numberOfOutlets; i++) {
-            station.addOutlet(this._matterList);
-//            station.addOutlet();
+        for (int i = 0; i < numberOfOutlets; i++)
+        {
+            station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
         station.setTransMatrix(new TransMatrix(this._matterList));
@@ -450,7 +498,7 @@ public class SortCenter extends Element {
     //ajoute un nouveau entryPoint à la fin de la liste
     public EntryPoint addEntryPoint() {
         EntryPoint entryPoint = new EntryPoint();
-        this._entrytPointList.add(entryPoint);
+        this._entryPointList.add(entryPoint);
         this.setNewEntryPointMatterBasket(entryPoint);
         
         return entryPoint;
@@ -574,7 +622,7 @@ public class SortCenter extends Element {
 
     //change le matter basket du point d'entrée "index" pour le matterbasket en entrée
     public void setEntryPointMatterBasket(int index, MatterBasket matterBasket) {
-        _entrytPointList.get(index).setMatterBasket(matterBasket);
+        _entryPointList.get(index).setMatterBasket(matterBasket);
     }
 
     //obtient le matterbasket de la sortie à "index"

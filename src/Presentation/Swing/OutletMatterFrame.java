@@ -44,11 +44,21 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         
         ArrayList outletList = (ArrayList<Outlet>) infoStation.get("outletList");     
         HashMap<Integer, ArrayList<Float>> hashMapSortMatrix = (HashMap<Integer, ArrayList<Float>>) infoStation.get("sortMatrix");
+        HashMap<Integer, Float> listMatter = (HashMap<Integer, Float>) infoStation.get("matterQuantities");
         
-        String[] exits = new String[outletList.size() + 1];
-        String[][] matters = new String[hashMapSortMatrix.size()][exits.length];
+        int nbLineNotEmpty = 0;
+        for (Map.Entry<Integer, ArrayList<Float>> entrySet : hashMapSortMatrix.entrySet()) {
+            Integer key = entrySet.getKey();
+            if (listMatter.get(key) != 0) {
+                nbLineNotEmpty++;
+            }
+        }
         
-        exits[0] = "Matière";
+        String[] exits = new String[outletList.size() + 2];
+        String[][] matters = new String[nbLineNotEmpty][exits.length];
+        
+        exits[0] = "Quantité entrante";
+        exits[1] = "Matière";
         for (int i = 1; i < exits.length; i++) {
             exits[i] = "sortie " + i;   
         }
@@ -58,15 +68,18 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             Integer key = entrySet.getKey();
             ArrayList<Float> output = entrySet.getValue();
             
-            matters[i][0] = this._controller.getMatterName(key); 
-            
-            int j = 1;
-            for (Iterator<Float> iterator = output.iterator(); iterator.hasNext();) {
-                Float next = iterator.next();
-                matters[i][j] = next.toString();
-                j++;
+            if (listMatter.get(key) != 0) {
+                matters[i][0] = listMatter.get(key).toString();
+                matters[i][1] = this._controller.getMatterName(key); 
+
+                int j = 2;
+                for (Iterator<Float> iterator = output.iterator(); iterator.hasNext();) {
+                    Float next = iterator.next();
+                    matters[i][j] = next.toString();
+                    j++;
+                }
+                i++;
             }
-            i++;
         }
         
         outletTable.setModel(new DefaultTableModel(
@@ -171,8 +184,8 @@ public class OutletMatterFrame extends javax.swing.JFrame {
             ArrayList<Float> exits = new ArrayList<>();
             int matterId = 0;
             Float sumExits = new Float(0);
-            for (int j = 0; j < tableData[i].length; j++) {
-                if (j == 0) {
+            for (int j = 1; j < tableData[i].length; j++) {
+                if (j == 1) {
                     matterId = this._controller.getMatterId((String) tableData[i][j]);
                 } else {
                     Float value = null;

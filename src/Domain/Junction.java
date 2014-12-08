@@ -24,6 +24,7 @@ public class Junction extends RectangularNode {
         _outlet = new Outlet(this);
         _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
         this.addInlet();
+        _errorMessages = new ArrayList<>();
     }
     
     public Junction(MatterList matterList)
@@ -35,6 +36,7 @@ public class Junction extends RectangularNode {
         _outlet = new Outlet(this, matterList);
         _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
         this.addInlet();
+        _errorMessages = new ArrayList<>();
     }
     
     public float getSpeedMax() {
@@ -147,6 +149,7 @@ public class Junction extends RectangularNode {
     //ajoute les quantités du matterBasket au matterBasket à son Outlet
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
+        this.clearErrorMessages();
         if(_outlet.getMatterBasket()==null || _outlet.getMatterBasket().getNumberOfMatterInBasket()==0) {
             _outlet.setMatterBasket(matterBasket);
         }
@@ -163,6 +166,9 @@ public class Junction extends RectangularNode {
                 newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
             }
             _outlet.setMatterBasket(newMatterBasket); 
+        }
+        if(_outlet.getMatterBasket().getTotalQuantity()>0 && _outlet.hasConveyor()==false) {
+            this.addErrorMessage("La jonction reçoit de la matière mais sa sortie n'est pas connectée au réseau.");
         }
     }
     

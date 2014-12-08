@@ -12,6 +12,7 @@ public class EntryPoint extends RectangularNode
     public EntryPoint() {
         super();
         _outlet = new Outlet(this);
+        _errorMessages = new ArrayList<>();
 
     }
 
@@ -78,6 +79,9 @@ public class EntryPoint extends RectangularNode
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
         this._outlet.setMatterBasket(matterBasket);
+        if(this._outlet.hasConveyor()==false && matterBasket.getTotalQuantity()>0) {
+            this.addErrorMessage("Le point d'entrée reçoit de la matière mais n'est pas connecté au réseau.");
+        }
     }
     
     @Override

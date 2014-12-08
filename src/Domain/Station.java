@@ -43,6 +43,7 @@ public abstract class Station extends RectangularNode
         _outletList = new ArrayList<>();
         _sortMatrix = new SortMatrix();
         _errorMessages = new ArrayList<>();
+        _usageRate = new BigDecimal(0);
     }
     
     public abstract void setTransMatrix(TransMatrix tm);
@@ -95,8 +96,10 @@ public abstract class Station extends RectangularNode
                 currentOutlet.addErrorMessage("La sortie "+(i+1)+" de la station "+this._name+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
             } 
         }
-        this._usageRate = new BigDecimal((float)this.getTotalMatterQuantity()/this._speedMax);
-        if(this._usageRate.compareTo(new BigDecimal(1))>0) {
+        if(this._speedMax!=0) {
+            this._usageRate = new BigDecimal((float)this.getTotalMatterQuantity()/this._speedMax);
+        }
+        if(this._usageRate.compareTo(new BigDecimal(1))>0 || (this.getTotalMatterQuantity()>0 && 0==this._speedMax)) {
             this.addErrorMessage("La station "+this._name+" reçoit une quantité de matière supérieure à sa capacité.");
         }
     }

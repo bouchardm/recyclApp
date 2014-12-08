@@ -13,7 +13,7 @@ public class ExitPoint extends RectangularNode {
     public ExitPoint() {
         _inlet = new Inlet(this);
         _matterBasket = new MatterBasket();
-
+        _errorMessages = new ArrayList<>();
     }
 
     public Inlet getInlet() {

@@ -54,6 +54,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="I"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/image.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exporter Image"/>
               </Properties>
               <Events>
@@ -271,6 +274,7 @@
               <Component id="btnAddConveyor" alignment="0" max="32767" attributes="0"/>
               <Component id="btnAddJunction" alignment="0" max="32767" attributes="0"/>
               <Component id="btnAddExit" alignment="1" max="32767" attributes="0"/>
+              <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -289,6 +293,8 @@
                   <Component id="btnAddExit" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnSave" min="-2" pref="39" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnOpen" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -431,6 +437,28 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddExitActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/image.png"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[57, 33]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[57, 33]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[57, 33]"/>
+            </Property>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Exporter image"/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelWrokspace">
@@ -469,7 +497,7 @@
                       <Component id="yGridDimFTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="snapCheckBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="480" max="32767" attributes="0"/>
+                      <EmptySpace pref="414" max="32767" attributes="0"/>
                       <Component id="cursorCoordsLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="zoomOutButton" min="-2" max="-2" attributes="0"/>
@@ -520,12 +548,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="cursorCoordsLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="cursorCoords"/>
+                <Property name="text" type="java.lang.String" value="x : -,-- m  y : -,-- m"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="gridCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="grid"/>
+                <Property name="label" type="java.lang.String" value="grille"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gridCheckBoxActionPerformed"/>
@@ -533,7 +561,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="snapCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="snap"/>
+                <Property name="label" type="java.lang.String" value="magn&#xe9;tisme"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="snapCheckBoxActionPerformed"/>
@@ -598,12 +626,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1207" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1223" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="684" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="663" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
