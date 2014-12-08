@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.ArrayList;
+
 
 //import Domain.Node;
 //import Domain.Conveyor;
@@ -19,6 +21,7 @@ public class Inlet extends IOlet
             _relativePosition.x = _relativePosition.x - 1;
             _relativePosition.x = _relativePosition.y - 1;
             setPosition(_relativePosition);
+            _errorMessages = new ArrayList<>();
         }
         
        /* public boolean isFree()

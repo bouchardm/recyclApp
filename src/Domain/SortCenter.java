@@ -5,18 +5,19 @@
  */
 package Domain;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
 import Application.Controller.Controller;
 import Presentation.Swing.InfoEntryPointFrame;
 import Presentation.Swing.InfoExitPointFrame;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.List;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -92,6 +93,20 @@ public class SortCenter extends Element {
         
         this.updateDesign();
 
+    }
+    
+    public BigDecimal getTotalStationUsageRate() {
+        float totalQtyInTreatment = 0;
+        float totalCapacity = 0;
+        BigDecimal usage = new BigDecimal(0);
+        for(Station station : this._stationList) {
+            totalQtyInTreatment = totalQtyInTreatment + station.getTotalMatterQuantity();
+            totalCapacity = totalCapacity + station.getKgHMax();
+        }
+        if(totalCapacity!=0) {
+            usage = new BigDecimal(totalQtyInTreatment/totalCapacity);
+        }
+        return usage;
     }
 
 //     DeleteConvyeor from a junction
