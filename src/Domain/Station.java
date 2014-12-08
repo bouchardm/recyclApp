@@ -34,7 +34,7 @@ public abstract class Station extends RectangularNode
     {
         this._name = "Station";
         this._description = "";
-        this._color = Color.RED;
+        this._color = Color.orange;
         this._speedMax = 0;
 //        this._selected = false; 
         this._img = null;

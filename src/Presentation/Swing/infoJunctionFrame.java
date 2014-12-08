@@ -58,7 +58,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
     }
 
     public void setStationKgHMax(Float txtStationKgHMax) {
-        this.txtStationKgHMax.setText(txtStationKgHMax.toString());
+//        this.txtStationKgHMax.setText(txtStationKgHMax.toString());
     }
     
     public JPanel getPanel() {
@@ -76,8 +76,6 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
         panelInformation2 = new javax.swing.JPanel();
         btnDeleteStation = new javax.swing.JButton();
-        txtStationKgHMax = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,26 +94,13 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
             }
         });
 
-        txtStationKgHMax.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStationKgHMaxKeyPressed(evt);
-            }
-        });
-
-        jLabel4.setText("Kg/h max:");
-
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                    .addComponent(txtStationKgHMax, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelInformation2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -123,11 +108,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStationKgHMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(498, Short.MAX_VALUE))
+                .addContainerGap(544, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,19 +134,6 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
         this._parent.cleanInformationPanel();
         this._parent.repaint();
     }//GEN-LAST:event_btnDeleteStationMouseClicked
-
-    private void txtStationKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationKgHMaxKeyPressed
-        String strKgHMax = this.txtStationKgHMax.getText();
-        
-        float kgHMax;
-        try {
-            kgHMax = Float.parseFloat(strKgHMax);
-        } catch (NumberFormatException e) {
-            return;
-        }
-        
-        this._controller.editJunction(kgHMax);
-    }//GEN-LAST:event_txtStationKgHMaxKeyPressed
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
@@ -215,9 +183,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel panelInformation2;
-    private javax.swing.JTextField txtStationKgHMax;
     // End of variables declaration//GEN-END:variables
 
     
