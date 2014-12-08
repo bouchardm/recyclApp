@@ -273,6 +273,7 @@ public class SortCenter extends Element {
         //on ajoute les entry point a une liste de nodes à traiter
         ArrayList<Node> equipmentToProcess = new ArrayList<>();
         for (Node node : _entryPointList) {
+            ((EntryPoint)node).clearErrorMessages();
             //NEW:on force les Entry à faire le processing de leurs paniers
             MatterBasket mbAtEntryPoint = ((EntryPoint)node).getMatterBasket();
             node.processMatterBasket(mbAtEntryPoint);
