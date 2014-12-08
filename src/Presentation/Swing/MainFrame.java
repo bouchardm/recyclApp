@@ -17,12 +17,13 @@ import Domain.SortCenter;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.nio.file.Path;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -944,7 +945,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JFileChooser filePicker = new JFileChooser();
-        filePicker.setToolTipText("blabla");
         FileNameExtensionFilter jpgFilter = new FileNameExtensionFilter(".jpg", "jpg");
         FileNameExtensionFilter gifFilter = new FileNameExtensionFilter(".gif", "gif");
         FileNameExtensionFilter pngFilter = new FileNameExtensionFilter(".png", "png");
@@ -956,24 +956,28 @@ public class MainFrame extends javax.swing.JFrame {
         int response = filePicker.showSaveDialog(this);
         if (response == JFileChooser.APPROVE_OPTION)
         {
-            System.out.println(filePicker.getSelectedFile());
-            System.out.println(filePicker.getFileFilter());
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists())
+            {
+                int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
+                if (answer != 0)
+                {
+                    return;
+                }
+            }
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            viewport.exportImage(path, extension);
         }
-//        if(responce == JFileChooser.APPROVE_OPTION) {
-//
-//            this._controller.EditStation(
-//                this.txtStationName.getText(),
-//                this.txtStationDescription.getText(),
-//                null,
-//                filePicker.getSelectedFile().getAbsolutePath(),
-//                Float.valueOf(this.txtStationKgHMax.getText()),
-//                null, null, null
-//            );
-//        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     @Override
-    public void repaint() {
+    public void repaint()
+    {
         super.repaint();
     }
 

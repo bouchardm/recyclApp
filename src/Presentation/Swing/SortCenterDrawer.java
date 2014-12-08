@@ -150,7 +150,8 @@ public class SortCenterDrawer {
 
         g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         
-        if (station.getImg() != null) {
+        if (station.getImg() != null)
+        {
             g.drawImage(station.getImg(), positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         }
 

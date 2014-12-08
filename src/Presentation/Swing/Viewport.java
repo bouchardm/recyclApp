@@ -6,14 +6,19 @@
 
 package Presentation.Swing;
 
-import Domain.SortStation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -105,6 +110,19 @@ import javax.swing.JPanel;
            _drawer.setConnectingArrow(_connectingArrow);
            _drawer.draw(g);
        }
+    }
+    
+    public void exportImage(String path, String extension)
+    {
+        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        paint(image.getGraphics());
+        try {
+            ImageIO.write(image, extension, new File(path));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(_mainFrame,
+                String.format("Une erreur est survenue lors de la création du fichier %s\n%s", path, ex.toString()));
+        }
     }
     
     public void displayGrid(boolean showGrid)
