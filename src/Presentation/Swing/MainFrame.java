@@ -697,94 +697,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-
-
-    }//GEN-LAST:event_viewportMouseReleased
-
-    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
-        if (btnAddStation.isSelected()) {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-        } else {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-        }
-    }//GEN-LAST:event_btnAddStationActionPerformed
-
-    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
-        btnAddStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-    }//GEN-LAST:event_btnAddStationMouseDragged
-
-    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
-        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
-
-        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
-        {
-            if (viewport.isSnapToGrid()) {
-                position = viewport.snap(position);
-            }
-
-            _controller.moveStation(position);
-//            _controller.setSelectedElementAttribute("position", position);
-
-            this.viewport.repaint();
-        }
-    }//GEN-LAST:event_viewportMouseDragged
-
-    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
-        cleanInformationPanel();
-        _controller.selectElement(position);
-
-        // Selection
-        if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
-            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                    _controller,
-                    this
-            );
-
-            JPanel sortStationPanel = infoSortStationFrame.getPanel();
-
-            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(sortStationPanel);
-        } else if (this._controller.typeOfElementSelectedIs(TransStation.class)) {
-            infoTransStationFrame infoTransStationFrame = new infoTransStationFrame(
-                    _controller,
-                    this
-            );
-
-            JPanel sortStationPanel = infoTransStationFrame.getPanel();
-
-            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(sortStationPanel);
-        } else if (this._controller.typeOfElementSelectedIs(Junction.class)) {
-            infoJunctionFrame infoJunctionFrame = new infoJunctionFrame(this._controller, this);
-            JPanel infoJunctionPanel = infoJunctionFrame.getPanel();
-            infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoJunctionPanel);
-        } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
-            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
-            JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
-            infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoEntryPointPanel);
-        } else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
-            InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
-            JPanel infoExitPointPanel = infoExitPointFrame.getPanel();
-            infoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoExitPointPanel);
-        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
-            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
-            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
-            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(InfoExitPointPanel);
-        }
-        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
-            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
-            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
-            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(SortCenterParamPanel);
-        }
-
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
         }
@@ -873,6 +786,93 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddExit.setSelected(false);
                 break;
         }
+        repaint();
+    }//GEN-LAST:event_viewportMouseReleased
+
+    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
+        if (btnAddStation.isSelected()) {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+        } else {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+        }
+    }//GEN-LAST:event_btnAddStationActionPerformed
+
+    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_btnAddStationMouseDragged
+
+    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+
+        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
+        {
+            if (viewport.isSnapToGrid()) {
+                position = viewport.snap(position);
+            }
+
+            _controller.moveStation(position);
+//            _controller.setSelectedElementAttribute("position", position);
+
+            this.viewport.repaint();
+        }
+    }//GEN-LAST:event_viewportMouseDragged
+
+    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
+        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        cleanInformationPanel();
+        _controller.selectElement(position);
+
+        // Selection
+        if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
+            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+                    _controller,
+                    this
+            );
+
+            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(TransStation.class)) {
+            infoTransStationFrame infoTransStationFrame = new infoTransStationFrame(
+                    _controller,
+                    this
+            );
+
+            JPanel sortStationPanel = infoTransStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Junction.class)) {
+            infoJunctionFrame infoJunctionFrame = new infoJunctionFrame(this._controller, this);
+            JPanel infoJunctionPanel = infoJunctionFrame.getPanel();
+            infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoJunctionPanel);
+        } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
+            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
+            JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
+            infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoEntryPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
+            InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
+            JPanel infoExitPointPanel = infoExitPointFrame.getPanel();
+            infoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoExitPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
+            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
+            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
+            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(InfoExitPointPanel);
+        }
+        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
+            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
+            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
+            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(SortCenterParamPanel);
+        }
+
         repaint();
     }//GEN-LAST:event_viewportMousePressed
 

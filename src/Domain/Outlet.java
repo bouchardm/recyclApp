@@ -53,4 +53,20 @@ public class Outlet extends IOlet
             }
         }
         
+        
+        @Override
+        public String getIdentifier()
+        {
+            String identifier = "";
+            if (_node instanceof Station)
+            {
+                int index = ((Station)_node).getOutletIndex(this);
+                if (index >= 0)
+                {
+                    identifier = Integer.toString(index + 1);
+                }
+            }
+            return identifier;
+        }
+        
 }

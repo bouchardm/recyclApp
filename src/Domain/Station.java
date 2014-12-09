@@ -156,6 +156,18 @@ public abstract class Station extends RectangularNode
         }
         
     }
+    
+    public int getOutletIndex(Outlet outlet)
+    {
+        for (int i=0; i<_outletList.size(); i++)
+        {
+            if (outlet.equals(_outletList.get(i)))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
     @Override

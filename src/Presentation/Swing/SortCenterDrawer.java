@@ -16,6 +16,7 @@ import Domain.SortCenter;
 import Domain.Station;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -40,7 +41,7 @@ public class SortCenterDrawer {
     public SortCenterDrawer(Controller controller, Viewport viewport) {
         this._controller = controller;
         this._viewport = viewport;
-        _selectedContourColor = Color.BLUE;
+        _selectedContourColor = Color.CYAN;
         _connectingArrow = null;
     }
     
@@ -146,26 +147,26 @@ public class SortCenterDrawer {
         }
         
         // Dessin de la stations
-        if (_controller.selectedElementIs(station)) {
-            g.setColor(_selectedContourColor);
-            g.fillRect(positionMeterX - 2, positionMeterY - 2, dimensionMeterX + 4, dimensionMeterY + 4);
-        }
+        
 
         g.setColor(station.getColor());
         
 
         g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         
+        g.setColor(Color.BLACK);
+        if (_controller.selectedElementIs(station)) {
+            g.setColor(_selectedContourColor);
+        }
+        g.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
+        
         if (station.getImg() != null)
         {
             g.drawImage(station.getImg(), positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         }
-
-        g.drawString(station.getName(), positionMeterX, positionMeterY + dimensionMeterY + 20);
-
-        if (station instanceof Station) {
-            iolets.add(station.getInlet());
-        }
+        g.setFont(new Font("TimesRoman", Font.BOLD, (int)(_viewport.getZoomFactor()*10)));
+        g.setColor(contrastColor(station.getColor()));
+        g.drawString(station.getName(), positionMeterX + (int)(dimensionMeterX*0.05), positionMeterY + (int)(dimensionMeterY*0.2));
 
         iolets.addAll(station.getIOlets());
 
@@ -179,20 +180,29 @@ public class SortCenterDrawer {
         if (iolet instanceof Inlet) {
             g.setColor(Color.YELLOW);
         }
+        
         Ellipse2D.Float circle = iolet.getCircle();
-        g.fillOval(_viewport.meterToPix(circle.x),
-                _viewport.meterToPix(circle.y),
-                _viewport.meterToPixDim(circle.width),
-                _viewport.meterToPixDim(circle.height));
-        if (_controller.selectedElementIs(iolet)) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(2));
+        int x = _viewport.meterToPix(circle.x);
+        int y = _viewport.meterToPix(circle.y);
+        int w = _viewport.meterToPixDim(circle.width);
+        int h = _viewport.meterToPixDim(circle.height);
+        
+        
+        g.fillOval(x, y, w, h);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.BLACK);
+        if (_controller.selectedElementIs(iolet))
+        {
             g2.setColor(_selectedContourColor);
-            g.drawOval(_viewport.meterToPix(circle.x),
+        }
+        g2.setStroke(new BasicStroke(2));
+        g2.drawOval(_viewport.meterToPix(circle.x),
                     _viewport.meterToPix(circle.y),
                     _viewport.meterToPixDim(circle.width),
                     _viewport.meterToPixDim(circle.height));
-        }
+        
+        g.setColor(contrastColor(g.getColor()));
+        g.drawString(iolet.getIdentifier(), (int)(x+w/2.7), (int)(y+h/1.3));
     }
 
     private void drawJunctions(Graphics g) {
@@ -393,5 +403,20 @@ public class SortCenterDrawer {
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);
         }
+    }
+    
+    
+    private Color contrastColor(Color color)
+    {
+        int r, g, b;
+        r = color.getRed();
+        g = color.getGreen();
+        b = color.getBlue();
+        
+        r = (255 - r) % 256;
+        g = (255 - g) % 256;
+        b = (255 - b) % 256;
+        
+        return new Color(r, g, b);
     }
 }

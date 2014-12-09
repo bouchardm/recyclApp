@@ -33,10 +33,13 @@ public abstract class Segment2D extends Line2D.Float
         float yi = ((seg.y1-seg.y2)*(x1*y2-y1*x2)-(y1-y2)*(seg.x1*seg.y2-seg.y1*seg.x2))/d;
         
         Point2D.Float p = new Point2D.Float(xi,yi);
-        if (!(xi >= Math.min(x1, x2) && xi <= Math.max(x1, x2) &&
-                yi >= Math.min(y1, y2) && yi <= Math.max(y1, y2)))
+        if (x1 != x2 && !(xi >= Math.min(x1, x2) && xi <= Math.max(x1, x2)))
         {
-            p = null;
+            return null;
+        }
+        if (y1 != y2 && !(yi >= Math.min(y1, y2) && yi <= Math.max(y1, y2)))
+        {
+            return null;
         }
         return p;
         }
