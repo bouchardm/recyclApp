@@ -39,7 +39,11 @@ public class Inlet extends IOlet
             return _speedMax;
         }
         
-     
+        @Override
+        public String getIdentifier()
+        {
+            return "";
+        }
         
         
 }

@@ -14,14 +14,14 @@ import java.util.ArrayList;
  *
  * @author Dany
  */
-public class IOlet extends Element
+public abstract class IOlet extends Element
 {
 
     protected final Node _node;
     private Conveyor _conveyor;
     private ArrayList<Conveyor> _conveyorList;
     private Ellipse2D.Float _circle;
-    private static float RADIUS = 0.1f;
+    private static float RADIUS = 0.15f;
     protected Point2D.Float _relativePosition;
 
     public IOlet(Node parentNode) {
@@ -67,32 +67,40 @@ public class IOlet extends Element
             Point2D.Float point = null;
             if (vector.x >= 0)
             {
-                line.setLine(rectDim.x/2, rectDim.y/2, rectDim.x/2, -rectDim.y/2);
+                line.setLine(rectDim.x/2+RADIUS, rectDim.y/2+RADIUS, rectDim.x/2+RADIUS, -rectDim.y/2-RADIUS);
                 point = line.intersectingPoint(intersectSeg);
             }
             if (point == null && vector.y >= 0)
             {
-                line.setLine(-rectDim.x/2, rectDim.y/2, rectDim.x/2, rectDim.y/2);
+                line.setLine(-rectDim.x/2-RADIUS, rectDim.y/2+RADIUS, rectDim.x/2+RADIUS, rectDim.y/2+RADIUS);
                 point = line.intersectingPoint(intersectSeg);
             }
             if (point == null && vector.y <= 0)
             {
-                line.setLine(-rectDim.x/2, -rectDim.y/2, rectDim.x/2, -rectDim.y/2);
+                line.setLine(-rectDim.x/2-RADIUS, -rectDim.y/2-RADIUS, rectDim.x/2+RADIUS, -rectDim.y/2-RADIUS);
                 point = line.intersectingPoint(intersectSeg);
             }
             if (point == null && vector.x <= 0)
             {
-                line.setLine(-rectDim.x/2, rectDim.y/2, -rectDim.x/2, -rectDim.y/2);
+                line.setLine(-rectDim.x/2-RADIUS, rectDim.y/2+RADIUS, -rectDim.x/2-RADIUS, -rectDim.y/2-RADIUS);
                 point = line.intersectingPoint(intersectSeg);
             }
-            _relativePosition.x = point.x * 1.2f;
-            _relativePosition.y = point.y * 1.2f;
+            
+            _relativePosition.x = point.x;
+            _relativePosition.y = point.y;
             
             if (_conveyor != null)
             {
                 _conveyor.updatePoints();
             }
         }
+    }
+    
+    public abstract String getIdentifier();
+    
+    public void updatePosition()
+    {
+        setPosition(_relativePosition);
     }
     
     public Ellipse2D.Float getCircle()

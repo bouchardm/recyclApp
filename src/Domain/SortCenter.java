@@ -431,14 +431,11 @@ public class SortCenter extends Element {
         return recoveryRates;
     }
     
-    
-    
-    
-    
 
     public TransStation addTransStation(int numberOfOutlets) {
         TransStation station = new TransStation();
-        for (int i = 0; i < numberOfOutlets; i++) {
+        for (int i = 0; i < numberOfOutlets; i++)
+        {
             station.addOutlet();
         }
         station.setSortMatrix(new SortMatrix(this._matterList, station.getOutletCount()));
