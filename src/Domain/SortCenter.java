@@ -190,10 +190,17 @@ public class SortCenter extends Element {
         try {
             Matter matter = new Matter(matterName, matterID);
             this._matterList.addMatterToList(matter);
+            //ajouter la matière aux matrices de transformation
             for(Station station : this.getStations()) {
                 if(station instanceof TransStation) {
                     ((TransStation)station).getTransMatrix().addMatterToTransMatrix(matter.getID());
                 }
+            }
+            //ajouter la matière aux paniers de matière aux entryPoints
+            for(EntryPoint entryPoint : this._entryPointList) {
+                MatterBasket mbAtEP = entryPoint.getMatterBasket();
+                mbAtEP.addMatterQuantity(matterID, new Float(0));
+                entryPoint.setMatterBasket(mbAtEP);
             }
             updateDesign();
         }
