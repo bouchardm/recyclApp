@@ -135,6 +135,11 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         });
         jScrollPane1.setViewportView(txtStationDescription);
 
+        txtStationName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStationNameActionPerformed(evt);
+            }
+        });
         txtStationName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtStationNameKeyPressed(evt);
@@ -408,6 +413,10 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         this._parent.cleanInformationPanel();
         this._parent.repaint();
     }//GEN-LAST:event_btnDeleteStationMouseClicked
+
+    private void txtStationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStationNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStationNameActionPerformed
 
     /**
      * @param args the command line arguments
