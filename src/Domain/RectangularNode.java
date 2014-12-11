@@ -44,6 +44,7 @@ public abstract class RectangularNode extends Node
         }
     }
     
+    
     @Override
     public Point2D.Float getPosition()
     {
@@ -82,6 +83,13 @@ public abstract class RectangularNode extends Node
     {
         _rect.height = height;
         _rect.width = width;
+        for (IOlet iolet : getIOlets())
+        {
+            if (iolet != null)
+            {
+                iolet.setPosition(iolet.getPosition());
+            }
+        }
     }
     
     public Point2D.Float getDimensions()

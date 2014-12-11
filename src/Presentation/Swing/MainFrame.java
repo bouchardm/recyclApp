@@ -17,11 +17,14 @@ import Domain.SortCenter;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.nio.file.Path;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -72,6 +75,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddJunction = new javax.swing.JToggleButton();
         btnAddEntry = new javax.swing.JToggleButton();
         btnAddExit = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
         panelWrokspace = new javax.swing.JPanel();
         viewportBar = new javax.swing.JPanel();
         zoomOutButton = new javax.swing.JButton();
@@ -94,6 +98,7 @@ public class MainFrame extends javax.swing.JFrame {
         newMenu = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuAddEntree = new javax.swing.JMenuItem();
         menuAddSortStation = new javax.swing.JMenuItem();
@@ -235,6 +240,16 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.png"))); // NOI18N
+        jButton1.setMaximumSize(new java.awt.Dimension(57, 33));
+        jButton1.setMinimumSize(new java.awt.Dimension(57, 33));
+        jButton1.setPreferredSize(new java.awt.Dimension(57, 33));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelButtonLayout = new javax.swing.GroupLayout(PanelButton);
         PanelButton.setLayout(PanelButtonLayout);
         PanelButtonLayout.setHorizontalGroup(
@@ -250,6 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btnAddConveyor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddJunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,6 +284,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCreateNewProject, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,6 +294,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jButton1.getAccessibleContext().setAccessibleDescription("Exporter image");
 
         panelWrokspace.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelWrokspace.setLayout(new java.awt.BorderLayout());
@@ -296,16 +316,16 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        cursorCoordsLabel.setText("cursorCoords");
+        cursorCoordsLabel.setText("x : -,-- m  y : -,-- m");
 
-        gridCheckBox.setText("grid");
+        gridCheckBox.setLabel("grille");
         gridCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gridCheckBoxActionPerformed(evt);
             }
         });
 
-        snapCheckBox.setText("snap");
+        snapCheckBox.setLabel("magnétisme");
         snapCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 snapCheckBoxActionPerformed(evt);
@@ -346,7 +366,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(yGridDimFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(snapCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 480, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
                 .addComponent(cursorCoordsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(zoomOutButton)
@@ -394,11 +414,11 @@ public class MainFrame extends javax.swing.JFrame {
         viewport.setLayout(viewportLayout);
         viewportLayout.setHorizontalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1207, Short.MAX_VALUE)
+            .addGap(0, 1223, Short.MAX_VALUE)
         );
         viewportLayout.setVerticalGroup(
             viewportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
+            .addGap(0, 663, Short.MAX_VALUE)
         );
 
         viewportScrollPane.setViewportView(viewport);
@@ -460,6 +480,16 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save.png"))); // NOI18N
         jMenuItem2.setText("Enregistrer");
         jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.png"))); // NOI18N
+        jMenuItem1.setText("Exporter Image");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -667,94 +697,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_yGridDimFTextFieldActionPerformed
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
-
-
-    }//GEN-LAST:event_viewportMouseReleased
-
-    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
-        if (btnAddStation.isSelected()) {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-        } else {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-        }
-    }//GEN-LAST:event_btnAddStationActionPerformed
-
-    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
-        btnAddStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-    }//GEN-LAST:event_btnAddStationMouseDragged
-
-    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
-        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
-        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
-
-        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
-        {
-            if (viewport.isSnapToGrid()) {
-                position = viewport.snap(position);
-            }
-
-            _controller.moveStation(position);
-//            _controller.setSelectedElementAttribute("position", position);
-
-            this.viewport.repaint();
-        }
-    }//GEN-LAST:event_viewportMouseDragged
-
-    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
-        cleanInformationPanel();
-        _controller.selectElement(position);
-
-        // Selection
-        if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
-            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
-                    _controller,
-                    this
-            );
-
-            JPanel sortStationPanel = infoSortStationFrame.getPanel();
-
-            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(sortStationPanel);
-        } else if (this._controller.typeOfElementSelectedIs(TransStation.class)) {
-            infoTransStationFrame infoTransStationFrame = new infoTransStationFrame(
-                    _controller,
-                    this
-            );
-
-            JPanel sortStationPanel = infoTransStationFrame.getPanel();
-
-            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(sortStationPanel);
-        } else if (this._controller.typeOfElementSelectedIs(Junction.class)) {
-            infoJunctionFrame infoJunctionFrame = new infoJunctionFrame(this._controller, this);
-            JPanel infoJunctionPanel = infoJunctionFrame.getPanel();
-            infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoJunctionPanel);
-        } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
-            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
-            JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
-            infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoEntryPointPanel);
-        } else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
-            InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
-            JPanel infoExitPointPanel = infoExitPointFrame.getPanel();
-            infoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(infoExitPointPanel);
-        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
-            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
-            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
-            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(InfoExitPointPanel);
-        }
-        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
-            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
-            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
-            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
-            panelInformation.add(SortCenterParamPanel);
-        }
-
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
         }
@@ -844,6 +787,93 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
         }
         repaint();
+    }//GEN-LAST:event_viewportMouseReleased
+
+    private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
+        if (btnAddStation.isSelected()) {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+        } else {
+            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
+        }
+    }//GEN-LAST:event_btnAddStationActionPerformed
+
+    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
+        btnAddStation.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
+    }//GEN-LAST:event_btnAddStationMouseDragged
+
+    private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
+        Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
+        cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+
+        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
+        {
+            if (viewport.isSnapToGrid()) {
+                position = viewport.snap(position);
+            }
+
+            _controller.moveStation(position);
+//            _controller.setSelectedElementAttribute("position", position);
+
+            this.viewport.repaint();
+        }
+    }//GEN-LAST:event_viewportMouseDragged
+
+    private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
+        Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        cleanInformationPanel();
+        _controller.selectElement(position);
+
+        // Selection
+        if (this._controller.typeOfElementSelectedIs(SortStation.class)) {
+            infoSortStationFrame infoSortStationFrame = new infoSortStationFrame(
+                    _controller,
+                    this
+            );
+
+            JPanel sortStationPanel = infoSortStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(TransStation.class)) {
+            infoTransStationFrame infoTransStationFrame = new infoTransStationFrame(
+                    _controller,
+                    this
+            );
+
+            JPanel sortStationPanel = infoTransStationFrame.getPanel();
+
+            sortStationPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(sortStationPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Junction.class)) {
+            infoJunctionFrame infoJunctionFrame = new infoJunctionFrame(this._controller, this);
+            JPanel infoJunctionPanel = infoJunctionFrame.getPanel();
+            infoJunctionPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoJunctionPanel);
+        } else if (this._controller.typeOfElementSelectedIs(EntryPoint.class)) {
+            InfoEntryPointFrame infoEntryPointFrame = new InfoEntryPointFrame(this._controller, this);
+            JPanel infoEntryPointPanel = infoEntryPointFrame.getPanel();
+            infoEntryPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoEntryPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(ExitPoint.class)) {
+            InfoExitPointFrame infoExitPointFrame = new InfoExitPointFrame(this._controller, this);
+            JPanel infoExitPointPanel = infoExitPointFrame.getPanel();
+            infoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(infoExitPointPanel);
+        } else if (this._controller.typeOfElementSelectedIs(Conveyor.class)) {
+            infoConveyorFrame infoConveyorFrame = new infoConveyorFrame(this._controller, this);
+            JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
+            InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(InfoExitPointPanel);
+        }
+        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
+            SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
+            JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
+            SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
+            panelInformation.add(SortCenterParamPanel);
+        }
+
+        repaint();
     }//GEN-LAST:event_viewportMousePressed
 
     private void btnAddConveyorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddConveyorMouseClicked
@@ -930,8 +960,17 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAddEntryActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        exportImage();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        exportImage();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     @Override
-    public void repaint() {
+    public void repaint()
+    {
         super.repaint();
     }
 
@@ -987,12 +1026,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUndo;
     private javax.swing.JLabel cursorCoordsLabel;
     private javax.swing.JCheckBox gridCheckBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -1021,5 +1062,38 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void cleanInformationPanel() {
         this.panelInformation.removeAll();
+    }
+    
+    private void exportImage()
+    {
+        JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter jpgFilter = new FileNameExtensionFilter(".jpg", "jpg");
+        FileNameExtensionFilter gifFilter = new FileNameExtensionFilter(".gif", "gif");
+        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter(".png", "png");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.addChoosableFileFilter(jpgFilter);
+        filePicker.addChoosableFileFilter(gifFilter);
+        filePicker.addChoosableFileFilter(pngFilter);
+        filePicker.setFileFilter(jpgFilter);
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists())
+            {
+                int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
+                if (answer != 0)
+                {
+                    return;
+                }
+            }
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            viewport.exportImage(path, extension);
+        }
     }
 }
