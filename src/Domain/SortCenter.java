@@ -186,9 +186,10 @@ public class SortCenter extends Element {
         return _exitPointList;
     }
 
-    public void addMatterToMatterList(String matterName, int matterID) {
+    public void addMatterToMatterList(String matterName) {
         try {
-            Matter matter = new Matter(matterName, matterID);
+            int newMatterID = this.getNextMatterID();
+            Matter matter = new Matter(matterName, newMatterID);
             this._matterList.addMatterToList(matter);
             //ajouter la matière aux matrices de transformation
             for(Station station : this.getStations()) {
@@ -199,7 +200,7 @@ public class SortCenter extends Element {
             //ajouter la matière aux paniers de matière aux entryPoints
             for(EntryPoint entryPoint : this._entryPointList) {
                 MatterBasket mbAtEP = entryPoint.getMatterBasket();
-                mbAtEP.addMatterQuantity(matterID, new Float(0));
+                mbAtEP.addMatterQuantity(newMatterID, new Float(0));
                 entryPoint.setMatterBasket(mbAtEP);
             }
             updateDesign();
@@ -267,6 +268,15 @@ public class SortCenter extends Element {
     public Outlet getJunctionOutlet(int index) {
         return this._junctionList.get(index).getOutlet();
     }
+    
+    public int getNextMatterID() {
+        int listSize = this._matterList.getCount();
+        int lastMatterID = this._matterList.getMatterID(listSize-1);
+        int nextMatterID = lastMatterID+1;
+        return nextMatterID;
+        
+    }
+            
 
     public void updateDesign() {
         this.resetJunctionMatterBaskets();
