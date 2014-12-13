@@ -271,8 +271,11 @@ public class SortCenter extends Element {
     
     public int getNextMatterID() {
         int listSize = this._matterList.getCount();
-        int lastMatterID = this._matterList.getMatterID(listSize-1);
-        int nextMatterID = lastMatterID+1;
+        int nextMatterID=1;
+        if(listSize!=0) {
+            int lastMatterID = this._matterList.getMatterID(listSize-1);
+            nextMatterID = lastMatterID+1;  
+        }
         return nextMatterID;
         
     }
