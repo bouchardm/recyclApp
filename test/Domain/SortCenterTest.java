@@ -68,6 +68,23 @@ public class SortCenterTest {
         assertEquals(instance.getDimensions(), dimensions);
     }
     
+    @Test
+    public void getNextMatterID_OK() {
+        SortCenter sc = new SortCenter();
+        sc.addMatterToMatterList("matter1");
+        sc.addMatterToMatterList("matter2");
+        MatterList ml = sc.getMatterList();
+        ArrayList<Matter> list = ml.getList();
+        assertTrue(list.get(0).getID()==1);
+        assertTrue(list.get(1).getID()==2);
+        assertTrue(list.get(2).getID()==3);
+        assertTrue(list.get(3).getID()==4);
+        assertTrue(list.get(3).getName().compareTo("matter2")==0);
+        System.out.println("next id "+sc.getNextMatterID());
+        assertTrue(sc.getNextMatterID()==5);
+        
+    }
+    
 //    @Test
 //    public void addSortStationTest() {
 //        SortCenter sc = new SortCenter();
@@ -1331,7 +1348,7 @@ public class SortCenterTest {
         //matterBasket de la station 3
         //outlet 0
         mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
-        assertTrue(mbs30.getNumberOfMatterInBasket()==2);
+        assertTrue(mbs30.getNumberOfMatterInBasket()==0);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)0);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)0);
         //outlet 1
