@@ -106,6 +106,8 @@ public class MainFrame extends javax.swing.JFrame {
         menuAddConveyor = new javax.swing.JMenuItem();
         menuAddJunction = new javax.swing.JMenuItem();
         menuAddExitPoint = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuAddMatter = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -557,6 +559,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Matières");
+
+        menuAddMatter.setText("Ajouter");
+        menuAddMatter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddMatterActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuAddMatter);
+
+        jMenuBar1.add(jMenu4);
+
         jMenu2.setText("Édition");
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
@@ -968,6 +982,10 @@ public class MainFrame extends javax.swing.JFrame {
         exportImage();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void menuAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddMatterActionPerformed
+        this._controller.addMatter();
+    }//GEN-LAST:event_menuAddMatterActionPerformed
+
     @Override
     public void repaint()
     {
@@ -1032,6 +1050,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1044,6 +1063,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAddEntree;
     private javax.swing.JMenuItem menuAddExitPoint;
     private javax.swing.JMenuItem menuAddJunction;
+    private javax.swing.JMenuItem menuAddMatter;
     private javax.swing.JMenuItem menuAddSortStation;
     private javax.swing.JMenuItem menuAddTransStation;
     private javax.swing.JMenuItem newMenu;

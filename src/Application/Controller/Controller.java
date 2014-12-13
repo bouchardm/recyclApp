@@ -516,8 +516,13 @@ public class Controller {
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
 
-    public void AddMatter() {
-        throw new UnsupportedOperationException();
+    public void addMatter() {
+        String matterName = JOptionPane.showInputDialog(null, "Quel est le nom de la matière?", "Matières", 0);    
+        if (matterName != null) {
+            if ( ! matterName.isEmpty()) {
+                this._project.getSortCenter().addMatterToMatterList(matterName);
+            }
+        }
     }
 
     public void RemoveMatter() {
@@ -525,10 +530,6 @@ public class Controller {
     }
 
     public void EditMatter() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void addStation(Point aPosition) {
         throw new UnsupportedOperationException();
     }
     
