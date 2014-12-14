@@ -565,8 +565,12 @@ public class Controller {
         this._project.getSortCenter().getMatterList().setMatterName(key, name);
     }
     
-    public HashMap<Integer, Float> getPurityRateForMatterBasketAtSlectedElement() {
+    public HashMap<Integer, Float> getPurityRateForMatterBasketAtSelectedElement() {
         return this._project.getSortCenter().getPurityRateForMatterBasketAtElement(this._selectedElement);
+    }
+    
+    public HashMap<Integer, Float> getRecoveryRateForMatterBasketAtSelectedElement () {
+        return this._project.getSortCenter().getRecoveryRateForMatterBasketAtElement(this._selectedElement);
     }
 
     public void addConveyor() {

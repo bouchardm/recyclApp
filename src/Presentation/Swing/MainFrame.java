@@ -20,6 +20,7 @@ import java.awt.geom.Point2D;
 import java.nio.file.Path;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +53,8 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup.add(btnAddExit);
 
         this.setLocationRelativeTo(null); // Centrer la fenêtre
+        ImageIcon sdf = new javax.swing.ImageIcon(getClass().getResource("/image/station.png"));
+        this.setIconImage(sdf.getImage());
     }
 
     /**
@@ -604,6 +607,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAboutUs.setText("À propos");
         btnAboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAboutUsMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAboutUsMousePressed(evt);
             }
@@ -999,8 +1005,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMatterListActionPerformed
 
     private void btnAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMatterActionPerformed
-        this._controller.addMatter();
+        this._controller.showAboutUs();
     }//GEN-LAST:event_btnAddMatterActionPerformed
+
+    private void btnAboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMouseClicked
+//        this._controller.showAboutUs();
+    }//GEN-LAST:event_btnAboutUsMouseClicked
 
     @Override
     public void repaint()

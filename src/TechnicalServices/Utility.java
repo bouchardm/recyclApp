@@ -76,5 +76,29 @@ public class Utility {
         DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
         return result;
     }
+    
+    public static javax.swing.table.DefaultTableModel generateTableFromStats(HashMap<Integer, Float> hashMap, Controller controller) {
+        String[] headers = new String[2];
+        headers[0] = "Nom de la matière";
+        headers[1] = "Pourcentage";
+        
+        String[][] matters = new String[hashMap.size()][headers.length];
+        
+        int i = 0;
+        
+        Iterator<Map.Entry<Integer, Float>> iterator = hashMap.entrySet().iterator() ;
+        while(iterator.hasNext()){
+            Map.Entry<Integer, Float> item = iterator.next();
+            
+            matters[i][0] = controller.getMatterName(item.getKey());
+            matters[i][1] = item.getValue().toString();
+            
+            i++;
+        }
+        
+        DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
+        return result;
+    }
+    
             
 }

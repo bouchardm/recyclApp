@@ -223,6 +223,7 @@
             <Property name="text" type="java.lang.String" value="&#xc0; propos"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAboutUsMouseClicked"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAboutUsMousePressed"/>
           </Events>
         </Menu>

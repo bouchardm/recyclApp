@@ -108,7 +108,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        outletBtn1 = new javax.swing.JButton();
+        btnStatistique = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -204,10 +204,10 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
 
         jLabel8.setText("Hauteur");
 
-        outletBtn1.setText("Statistiques");
-        outletBtn1.addActionListener(new java.awt.event.ActionListener() {
+        btnStatistique.setText("Statistiques");
+        btnStatistique.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outletBtn1ActionPerformed(evt);
+                btnStatistiqueActionPerformed(evt);
             }
         });
 
@@ -232,7 +232,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                     .addComponent(btnColorPciker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImgStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(outletBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(outletBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnStatistique, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
                         .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -278,7 +278,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outletBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outletBtn1)
+                .addComponent(btnStatistique)
                 .addGap(8, 8, 8)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -440,9 +440,10 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStationNameActionPerformed
 
-    private void outletBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outletBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_outletBtn1ActionPerformed
+    private void btnStatistiqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistiqueActionPerformed
+        StatsFrame statsFrame = new StatsFrame(this._controller);
+        statsFrame.setVisible(true);
+    }//GEN-LAST:event_btnStatistiqueActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ErrorsFrame errorsFrame = new ErrorsFrame(this._controller);
@@ -489,6 +490,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JButton btnColorPciker;
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
+    private javax.swing.JButton btnStatistique;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -498,7 +500,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton outletBtn;
-    private javax.swing.JButton outletBtn1;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTextArea txtStationDescription;
     private javax.swing.JTextField txtStationKgHMax;
