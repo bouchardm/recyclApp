@@ -85,6 +85,14 @@ public class SortCenterTest {
         
     }
     
+    @Test
+    public void getNextMatterID_emptyList() {
+        SortCenter sc = new SortCenter();
+        sc.removeMatterFromMatterList(1);
+        sc.removeMatterFromMatterList(2);
+        assertTrue(sc.getNextMatterID()==1);
+    }
+    
 //    @Test
 //    public void addSortStationTest() {
 //        SortCenter sc = new SortCenter();
