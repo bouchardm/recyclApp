@@ -108,6 +108,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,6 +205,13 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
 
         jLabel6.setText("Hauteur");
 
+        jButton1.setText("Voir les erreurs");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -233,7 +241,8 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtXDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -241,7 +250,9 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(0, 0, 0)
+                .addComponent(jButton1)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtStationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,7 +282,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -419,6 +430,11 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         this._parent.repaint();
     }//GEN-LAST:event_btnDeleteStationMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ErrorsFrame errorsFrame = new ErrorsFrame(this._controller);
+        errorsFrame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +478,7 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton btnImgStation;
     private javax.swing.JButton btnTransMatrix;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

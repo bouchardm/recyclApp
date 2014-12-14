@@ -76,6 +76,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
         panelInformation2 = new javax.swing.JPanel();
         btnDeleteStation = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,13 +95,22 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
             }
         });
 
+        jButton1.setText("Voir les erreurs");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
             panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -108,7 +118,9 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
             .addGroup(panelInformation2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(544, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(515, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,6 +150,11 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
     }//GEN-LAST:event_txtStationNbExitKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ErrorsFrame errorsFrame = new ErrorsFrame(this._controller);
+        errorsFrame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +200,7 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel panelInformation2;
     // End of variables declaration//GEN-END:variables
 

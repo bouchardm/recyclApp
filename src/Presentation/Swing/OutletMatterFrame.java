@@ -60,7 +60,7 @@ public class OutletMatterFrame extends javax.swing.JFrame {
         exits[0] = "Quantité entrante";
         exits[1] = "Matière";
         for (int i = 2; i < exits.length; i++) {
-            exits[i] = "sortie " + i;   
+            exits[i] = "sortie " + (i - 1);   
         }
         
         int i = 0;

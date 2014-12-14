@@ -113,7 +113,10 @@ public class Controller {
 
     public Object getSelectedElementAttribute(String attribName) {
         return _selectedElement.getAttribute(attribName);
-
+    }
+    
+    public ArrayList<String> getSelectedElementErrors() {
+        return _selectedElement.getErrorMessages();
     }
 
     public Map<String, Object> getSelectedElementAttributes() {
