@@ -72,6 +72,7 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         btnDeleteStation = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInfoInputMatter = new javax.swing.JTable();
+        btnSaveMatter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +104,13 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         ));
         jScrollPane1.setViewportView(tblInfoInputMatter);
 
+        btnSaveMatter.setText("Enregistrer l'entré de matière");
+        btnSaveMatter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveMatterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInformation2Layout = new javax.swing.GroupLayout(panelInformation2);
         panelInformation2.setLayout(panelInformation2Layout);
         panelInformation2Layout.setHorizontalGroup(
@@ -112,7 +120,9 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addGroup(panelInformation2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(btnSaveMatter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -122,8 +132,10 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
                 .addContainerGap()
                 .addComponent(btnDeleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSaveMatter)
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +165,43 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
     }//GEN-LAST:event_txtStationNbExitKeyPressed
+
+    private void btnSaveMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveMatterActionPerformed
+        Object[][] tableData = Utility.getTableData(tblInfoInputMatter);
+        ArrayList<HashMap<Integer, Float>> matterBasket = new ArrayList<HashMap<Integer, Float>>();
+        
+        for (int i = 0; i < tableData.length; i++) {
+            Float matterQuantities = 0f;
+            int matterId = 0;
+            
+            for (int j = 0; j < tableData[i].length; j++) {
+                if (j == 0) {
+                    matterId = this._controller.getMatterId((String) tableData[i][j]);
+                } else {
+                    Float value = null;
+                    
+                    try {
+                        if (((String) tableData[i][j]).equals("")) {
+                            value = 0f;
+                        } else {
+                            value = new Float((String) tableData[i][j]);
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Veuillez indiquez des nombres valides.", null, 0);
+                        return;
+                    }
+                    matterQuantities = value;
+                    
+                }
+            }    
+            HashMap<Integer, Float> matter = new HashMap<Integer, Float>();
+            matter.put(matterId, matterQuantities);
+            
+            matterBasket.add(matter);
+        }
+        
+        this._controller.editEntryPoint(matterBasket);
+    }//GEN-LAST:event_btnSaveMatterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +271,7 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
+    private javax.swing.JButton btnSaveMatter;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelInformation2;
     private javax.swing.JTable tblInfoInputMatter;

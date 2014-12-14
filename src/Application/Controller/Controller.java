@@ -21,6 +21,7 @@ import Domain.Station;
 import Domain.TransMatrix;
 import Domain.TransStation;
 import Presentation.Swing.AboutUs;
+import Presentation.Swing.matterFrame;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
@@ -460,6 +461,17 @@ public class Controller {
          _selectedElement.setAttribute("position", position);
     }
     
+    public void editEntryPoint(ArrayList<HashMap<Integer, Float>> newMatterBasket) {
+        
+        MatterBasket matterBasket = new MatterBasket();
+        
+        for (HashMap<Integer, Float> matter : newMatterBasket) {
+            matterBasket.addMatterQuantity(matter.entrySet().iterator().next().getKey(), matter.entrySet().iterator().next().getValue());
+        }
+        
+        ((EntryPoint) this._selectedElement).setMatterBasket(matterBasket);
+    }
+    
     public void AddExitPoint(Point2D.Float position)
     {
         if (!this.getProject().getSortCenter().include(position)) {
@@ -515,22 +527,39 @@ public class Controller {
     public void deleteConveyor() {
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
+    
+    public void showMatterFrame() {
+        matterFrame matterFrame = new matterFrame(this);
+        matterFrame.setVisible(true);
+    }
 
     public void addMatter() {
         String matterName = JOptionPane.showInputDialog(null, "Quel est le nom de la matière?", "Matières", 0);    
         if (matterName != null) {
             if ( ! matterName.isEmpty()) {
-                this._project.getSortCenter().addMatterToMatterList(matterName);
+                try {
+                    this._project.getSortCenter().addMatterToMatterList(matterName); 
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Veuillez indiquez un nom de matière qui n'existe pas déjà.", null, 0);
+                }
             }
         }
     }
-
-    public void RemoveMatter() {
-        throw new UnsupportedOperationException();
+    
+    public ArrayList<HashMap<Integer, String>> getMatterList() {
+        ArrayList<HashMap<Integer, String>> matterList = this.getProject().getSortCenter().getMatterList().getMapList();
+        return matterList;
     }
 
-    public void EditMatter() {
-        throw new UnsupportedOperationException();
+    public void removeMatter(int matterId) {
+        this._project.getSortCenter().removeMatterFromMatterList(matterId);
+    }
+
+    public void editMatter(HashMap<Integer, String> matter) {
+        int key = matter.entrySet().iterator().next().getKey();
+        String name = matter.entrySet().iterator().next().getValue();
+        
+        this._project.getSortCenter().getMatterList().setMatterName(key, name);
     }
     
     public HashMap<Integer, Float> getPurityRateForMatterBasketAtSlectedElement() {

@@ -6,7 +6,9 @@
 package TechnicalServices;
 
 import Application.Controller.Controller;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +50,30 @@ public class Utility {
         
         DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
         
+        return result;
+    }
+    
+    public static javax.swing.table.DefaultTableModel generateTableFromMatterList(ArrayList<HashMap<Integer, String>> matterList) {
+        String[] headers = new String[2];
+        headers[0] = "Identifiant de la matière";
+        headers[1] = "Nom de la matière";
+        
+        String[][] matters = new String[matterList.size()][headers.length];
+        
+        int i = 0;
+        for (Iterator<HashMap<Integer, String>> iterator = matterList.iterator(); iterator.hasNext();) {
+            HashMap<Integer, String> matter = iterator.next();
+            
+            Integer key = matter.entrySet().iterator().next().getKey();
+            String value = matter.entrySet().iterator().next().getValue();
+            
+            matters[i][0] = key.toString();
+            matters[i][1] = value;
+            
+            i++;
+        }
+        
+        DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
         return result;
     }
             

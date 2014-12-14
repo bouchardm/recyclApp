@@ -106,8 +106,9 @@ public class MainFrame extends javax.swing.JFrame {
         menuAddConveyor = new javax.swing.JMenuItem();
         menuAddJunction = new javax.swing.JMenuItem();
         menuAddExitPoint = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        menuAddMatter = new javax.swing.JMenuItem();
+        menuMatter = new javax.swing.JMenu();
+        menuMatterList = new javax.swing.JMenuItem();
+        btnAddMatter = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -559,17 +560,28 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Matières");
+        menuMatter.setText("Matières");
+        menuMatter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        menuMatter.setName(""); // NOI18N
 
-        menuAddMatter.setText("Ajouter");
-        menuAddMatter.addActionListener(new java.awt.event.ActionListener() {
+        menuMatterList.setText("Liste Matière");
+        menuMatterList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAddMatterActionPerformed(evt);
+                menuMatterListActionPerformed(evt);
             }
         });
-        jMenu4.add(menuAddMatter);
+        menuMatter.add(menuMatterList);
 
-        jMenuBar1.add(jMenu4);
+        btnAddMatter.setText("Ajouter une matière");
+        btnAddMatter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMatterActionPerformed(evt);
+            }
+        });
+        menuMatter.add(btnAddMatter);
+
+        jMenuBar1.add(menuMatter);
+        menuMatter.getAccessibleContext().setAccessibleDescription("");
 
         jMenu2.setText("Édition");
 
@@ -982,9 +994,13 @@ public class MainFrame extends javax.swing.JFrame {
         exportImage();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void menuAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddMatterActionPerformed
+    private void menuMatterListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMatterListActionPerformed
+        this._controller.showMatterFrame();
+    }//GEN-LAST:event_menuMatterListActionPerformed
+
+    private void btnAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMatterActionPerformed
         this._controller.addMatter();
-    }//GEN-LAST:event_menuAddMatterActionPerformed
+    }//GEN-LAST:event_btnAddMatterActionPerformed
 
     @Override
     public void repaint()
@@ -1035,6 +1051,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnAddEntry;
     private javax.swing.JToggleButton btnAddExit;
     private javax.swing.JToggleButton btnAddJunction;
+    private javax.swing.JMenuItem btnAddMatter;
     private javax.swing.JToggleButton btnAddStation;
     private javax.swing.JToggleButton btnAddTransStation;
     private javax.swing.JButton btnCreateNewProject;
@@ -1050,7 +1067,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1063,9 +1079,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAddEntree;
     private javax.swing.JMenuItem menuAddExitPoint;
     private javax.swing.JMenuItem menuAddJunction;
-    private javax.swing.JMenuItem menuAddMatter;
     private javax.swing.JMenuItem menuAddSortStation;
     private javax.swing.JMenuItem menuAddTransStation;
+    private javax.swing.JMenu menuMatter;
+    private javax.swing.JMenuItem menuMatterList;
     private javax.swing.JMenuItem newMenu;
     private javax.swing.JMenuItem openMenu;
     private javax.swing.JPanel panelInformation;

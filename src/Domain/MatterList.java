@@ -1,6 +1,8 @@
 package Domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MatterList {
 
@@ -16,6 +18,17 @@ public class MatterList {
         
         public ArrayList<Matter> getList() {
             return _matterList;
+        }
+        
+        public ArrayList<HashMap<Integer, String>> getMapList() {
+            ArrayList<HashMap<Integer, String>> matterListMap = new ArrayList<>();
+            for (Matter matter : this._matterList) {
+                HashMap<Integer, String> matterMap = new HashMap<Integer, String>();
+                matterMap.put(matter.getID(), matter.getName());
+
+                matterListMap.add(matterMap);
+            }
+            return matterListMap;
         }
 
         public void addMatterToList(Matter aMatter) {
@@ -68,6 +81,14 @@ public class MatterList {
             }
             //si on se rend ici, c'est que la matière ne fait pas partie de la liste
             throw new IllegalArgumentException("La matière ne fait pas partie de la liste.");
+        }
+        
+        public void setMatterName(Integer matterID, String matterName) {
+            for (int i = 0; i<_matterList.size(); i++) {
+                if(_matterList.get(i).getID().intValue()==matterID.intValue()) {
+                    _matterList.get(i).setName(matterName);
+                }
+            }
         }
 
 	//retourne l'index dans la liste d'une matière (pas le numéro d'ID)

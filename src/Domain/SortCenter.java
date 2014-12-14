@@ -46,10 +46,6 @@ public class SortCenter extends Element {
         _img = null;
         int level = 240;
         setColor(new Color(level, level, level));
-        Matter m1 = new Matter("P1",1);
-        Matter m2 = new Matter("P2",2);
-        _matterList.addMatterToList(m1);
-        _matterList.addMatterToList(m2);
        
     }
 
@@ -218,6 +214,12 @@ public class SortCenter extends Element {
                     ((TransStation)station).getTransMatrix().removeMatterFromMatrix(matterID);
                 }
             }
+            for (EntryPoint entryPoint : this.getEntryPoints()) {
+                MatterBasket matterBasket = entryPoint.getMatterBasket();
+                matterBasket.removeMatterQuantity(matterID);
+                entryPoint.setMatterBasket(matterBasket);
+            }
+            updateDesign();
         }
         catch (IllegalArgumentException iae) {
             throw new IllegalArgumentException(iae.getMessage());
@@ -271,6 +273,9 @@ public class SortCenter extends Element {
     
     public int getNextMatterID() {
         int listSize = this._matterList.getCount();
+        if (listSize == 0) {
+            return 0;
+        }
         int lastMatterID = this._matterList.getMatterID(listSize-1);
         int nextMatterID = lastMatterID+1;
         return nextMatterID;
@@ -524,10 +529,13 @@ public class SortCenter extends Element {
     
     public void setNewEntryPointMatterBasket(EntryPoint entryPoint) {
         MatterBasket mb = new MatterBasket(this._matterList);
-        mb.setMatterQuantity(1, new Float(1000));
-        mb.setMatterQuantity(2, new Float(1000));
         entryPoint.processMatterBasket(mb);
     }
+    
+    public void setNewEntryPointMatterBasket(EntryPoint entryPoint, MatterBasket matterBasket) {
+        entryPoint.processMatterBasket(matterBasket);
+    }
+    
 
     //ajoute un nouveau exitPoint à la fin de la liste
     public ExitPoint addExitPoint() {

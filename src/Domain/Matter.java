@@ -14,6 +14,10 @@ public class Matter {
         return this._name;
     }
     
+    public void setName(String name) {
+        this._name = name;
+    }
+    
     //obtient le numéro ID de la matière
     public Integer getID() {
         return this._iD;
