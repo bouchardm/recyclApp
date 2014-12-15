@@ -13,7 +13,7 @@ public class MatterBasket {
     }
     
     public boolean contains(int matterID) {
-        return getQuantity().containsKey(matterID);
+        return _quantity.containsKey(matterID);
     }
     
     public HashMap<Integer, Float> getQuantities() {
@@ -33,14 +33,14 @@ public class MatterBasket {
     _quantity = new HashMap<>();
     }
     public void setQuantities(HashMap<Integer, Float> newQuantities) {
-        getQuantity().clear();
+        _quantity.clear();
         createNewQuantity();
         Iterator<Map.Entry<Integer,Float>> mbIter = newQuantities.entrySet().iterator();
         while (mbIter.hasNext()) {
             Map.Entry<Integer, Float> currentEntry = mbIter.next();
             int matterID = currentEntry.getKey();
             float matterQty = currentEntry.getValue();
-            getQuantity().put(matterID, matterQty);
+            _quantity.put(matterID, matterQty);
         }
     }
     
@@ -60,62 +60,62 @@ public class MatterBasket {
     
     public void setMatterQuantity(Integer matterID, Float aQuantity)
     {
-        if(getQuantity().isEmpty()) {
+        if(_quantity.isEmpty()) {
             throw new IllegalArgumentException("Le panier est vide!");
         }
         else if(!this._quantity.containsKey(matterID)) {
             throw new IllegalArgumentException("La matière n'est pas dans le panier.");
         }
-        this.getQuantity().remove(matterID);
-        this.getQuantity().put(matterID, aQuantity);
+        this._quantity.remove(matterID);
+        this._quantity.put(matterID, aQuantity);
     }
     
     public void addMatterQuantity(Integer matterID, Float aQuantity) {
-        if(this.getQuantity().containsKey(matterID)) {
+        if(this._quantity.containsKey(matterID)) {
             throw new IllegalArgumentException("La matière est déjà dans le panier.");
         }
-        this.getQuantity().put(matterID, aQuantity);
+        this._quantity.put(matterID, aQuantity);
     }
     
     public float getMatterQuantity(Integer matterID) {
-        if(getQuantity().isEmpty()) {
+        if(_quantity.isEmpty()) {
             throw new IllegalArgumentException("Le panier est vide!");
         }
         else if(!this._quantity.containsKey(matterID)) {
             throw new IllegalArgumentException("La matière n'est pas dans le panier.");
         }
-        return this.getQuantity().get(matterID);
+        return this._quantity.get(matterID);
     }
     
     //enleve une matiere du matter basket
     public void removeMatterQuantity(Integer matterID)
     {
-        if(getQuantity().isEmpty()) {
+        if(_quantity.isEmpty()) {
             throw new IllegalArgumentException("Le panier est vide!");
         }
         else if(!this._quantity.containsKey(matterID)) {
             throw new IllegalArgumentException("Erreur: la matière demandée n'est pas dans le panier. Aucune action effectuée.");
         }
-        this.getQuantity().remove(matterID);
+        this._quantity.remove(matterID);
     }
     
     //renvoie la quantité total de matière dans le matterBasket
     public float getTotalQuantity()
     {
-        if(getQuantity().isEmpty()) {
+        if(_quantity.isEmpty()) {
             return 0;
         }
         else {
             float total = 0;
-            for (Integer key : getQuantity().keySet()) {
-                total = total + getQuantity().get(key);
+            for (Integer key : _quantity.keySet()) {
+                total = total + _quantity.get(key);
             }
             return total;
         }
     }
     
     public int getNumberOfMatterInBasket() {
-        return getQuantity().size();
+        return _quantity.size();
     }
 
     /**
