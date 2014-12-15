@@ -1,5 +1,6 @@
 package Domain;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +14,7 @@ public class EntryPoint extends RectangularNode
         super();
         _outlet = new Outlet(this);
         _errorMessages = new ArrayList<>();
-
+        _color = Color.WHITE;
     }
 
 

@@ -500,7 +500,8 @@ public class SortCenter extends Element {
     }
 
     public Junction addJunction() {
-        Junction junction = new Junction(this._matterList);
+//        Junction junction = new Junction(this._matterList);
+        Junction junction = new Junction();
         this._junctionList.add(junction);
         this.updateDesign();
         return junction;

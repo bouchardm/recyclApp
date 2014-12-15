@@ -1,5 +1,6 @@
 package Domain;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Outlet extends IOlet
@@ -11,6 +12,7 @@ public class Outlet extends IOlet
         public Outlet(Node parentNode)
         {
             super(parentNode);
+            _color = Color.BLUE;
             _relativePosition.x = 1;
             _relativePosition.y = (float)Math.random();
             setPosition(_relativePosition);
@@ -18,14 +20,14 @@ public class Outlet extends IOlet
             _errorMessages = new ArrayList<>();
         }
         
-        public Outlet(Node parentNode, MatterList matterList)
-        {
-            super(parentNode);
-            _relativePosition.x = 1;
-            _relativePosition.y = (float)Math.random();
-            setPosition(_relativePosition);
-            this._matterBasket = new MatterBasket(matterList);
-        }
+//        public Outlet(Node parentNode, MatterList matterList)
+//        {
+//            super(parentNode);
+//            _relativePosition.x = 1;
+//            _relativePosition.y = (float)Math.random();
+//            setPosition(_relativePosition);
+//            this._matterBasket = new MatterBasket(matterList);
+//        }
         
         public MatterBasket getMatterBasket()
         {
