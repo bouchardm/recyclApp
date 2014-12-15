@@ -137,7 +137,7 @@ public class Controller {
 
 
     public void CreateNewProject() {
-      //  this.CreateNewProject();
+        this._project = new Project();
     }
 
     public String getMatterName(int id) {

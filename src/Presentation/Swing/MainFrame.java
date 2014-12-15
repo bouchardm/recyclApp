@@ -79,7 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddJunction = new javax.swing.JToggleButton();
         btnAddEntry = new javax.swing.JToggleButton();
         btnAddExit = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         panelWrokspace = new javax.swing.JPanel();
         viewportBar = new javax.swing.JPanel();
         zoomOutButton = new javax.swing.JButton();
@@ -165,16 +165,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAddStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
         btnAddStation.setToolTipText("Ajouter une station de tri");
-        btnAddStation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddStationMouseClicked(evt);
-            }
-        });
-        btnAddStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btnAddStationMouseDragged(evt);
-            }
-        });
         btnAddStation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddStationActionPerformed(evt);
@@ -189,19 +179,14 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddConveyorMouseClicked(evt);
             }
         });
+        btnAddConveyor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddConveyorActionPerformed(evt);
+            }
+        });
 
         btnAddTransStation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/station.png"))); // NOI18N
         btnAddTransStation.setToolTipText("Ajouter une station de transformation");
-        btnAddTransStation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddTransStationMouseClicked(evt);
-            }
-        });
-        btnAddTransStation.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btnAddTransStationMouseDragged(evt);
-            }
-        });
         btnAddTransStation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddTransStationActionPerformed(evt);
@@ -210,11 +195,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAddJunction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/junction.png"))); // NOI18N
         btnAddJunction.setToolTipText("Ajouter une jonction");
-        btnAddJunction.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddJunctionMouseClicked(evt);
-            }
-        });
         btnAddJunction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddJunctionActionPerformed(evt);
@@ -247,13 +227,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.png"))); // NOI18N
-        jButton1.setMaximumSize(new java.awt.Dimension(57, 33));
-        jButton1.setMinimumSize(new java.awt.Dimension(57, 33));
-        jButton1.setPreferredSize(new java.awt.Dimension(57, 33));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.png"))); // NOI18N
+        btnExport.setToolTipText("Exporté le plan sous forme d'image");
+        btnExport.setMaximumSize(new java.awt.Dimension(57, 33));
+        btnExport.setMinimumSize(new java.awt.Dimension(57, 33));
+        btnExport.setPreferredSize(new java.awt.Dimension(57, 33));
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnExportActionPerformed(evt);
             }
         });
 
@@ -272,7 +253,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btnAddConveyor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddJunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAddExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanelButtonLayout.setVerticalGroup(
             PanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +272,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,7 +283,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.getAccessibleContext().setAccessibleDescription("Exporter image");
+        btnExport.getAccessibleContext().setAccessibleDescription("Exporter image");
 
         panelWrokspace.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelWrokspace.setLayout(new java.awt.BorderLayout());
@@ -825,17 +806,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
-        if (btnAddStation.isSelected()) {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-        } else {
-            this.viewport.setCreationMode(Viewport.CREATION_MODES.NONE);
-        }
-    }//GEN-LAST:event_btnAddStationActionPerformed
-
-    private void btnAddStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseDragged
-        btnAddStation.setSelected(true);
         this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-    }//GEN-LAST:event_btnAddStationMouseDragged
+    }//GEN-LAST:event_btnAddStationActionPerformed
 
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
@@ -921,36 +893,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_viewportMousePressed
 
     private void btnAddConveyorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddConveyorMouseClicked
-        btnAddConveyor.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_1);
+        
     }//GEN-LAST:event_btnAddConveyorMouseClicked
 
-    private void btnAddTransStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddTransStationMouseClicked
-        btnAddTransStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
-    }//GEN-LAST:event_btnAddTransStationMouseClicked
-
-    private void btnAddTransStationMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddTransStationMouseDragged
-        btnAddTransStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
-    }//GEN-LAST:event_btnAddTransStationMouseDragged
-
     private void btnAddTransStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransStationActionPerformed
-        // TODO add your handling code here:
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION); 
     }//GEN-LAST:event_btnAddTransStationActionPerformed
 
     private void btnAddJunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJunctionActionPerformed
-        // TODO add your handling code here:
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.JUNCTION);
     }//GEN-LAST:event_btnAddJunctionActionPerformed
 
-    private void btnAddJunctionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddJunctionMouseClicked
-        btnAddJunction.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.JUNCTION);
-    }//GEN-LAST:event_btnAddJunctionMouseClicked
-
     private void btnAddEntryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddEntryMouseClicked
-        btnAddEntry.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.ENTRY);
+        
     }//GEN-LAST:event_btnAddEntryMouseClicked
 
     private void btnAddExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddExitMouseClicked
@@ -995,22 +950,18 @@ public class MainFrame extends javax.swing.JFrame {
         this.viewport.setCreationMode(Viewport.CREATION_MODES.EXIT);
     }//GEN-LAST:event_menuAddExitPointActionPerformed
 
-    private void btnAddStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStationMouseClicked
-        btnAddStation.setSelected(true);
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.SORT_STATION);
-    }//GEN-LAST:event_btnAddStationMouseClicked
-
     private void btnAddEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEntryActionPerformed
-        
+        btnAddEntry.setSelected(true);
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.ENTRY);
     }//GEN-LAST:event_btnAddEntryActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         exportImage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         exportImage();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnExportActionPerformed
 
     private void menuMatterListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMatterListActionPerformed
         this._controller.showMatterFrame();
@@ -1023,6 +974,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnAboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMouseClicked
 //        this._controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMouseClicked
+
+    private void btnAddConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddConveyorActionPerformed
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.CONVEYOR_1);
+    }//GEN-LAST:event_btnAddConveyorActionPerformed
 
     @Override
     public void repaint()
@@ -1077,13 +1032,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnAddStation;
     private javax.swing.JToggleButton btnAddTransStation;
     private javax.swing.JButton btnCreateNewProject;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnRedo;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUndo;
     private javax.swing.JLabel cursorCoordsLabel;
     private javax.swing.JCheckBox gridCheckBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
