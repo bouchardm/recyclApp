@@ -48,10 +48,13 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         Map<String, Object> infoElement = this._controller.getSelectedElementAttributes();
         
         MatterBasket matterBasket = (MatterBasket) infoElement.get("matterBasket");
-        HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
+
+        if(!matterBasket.equals(null))
+        {
+         HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
         
         tblInfoInputMatter.setModel(Utility.generateTableFromMatterBasket(listMatter, controller));
-        
+        }
         // pour modifier le matter basket il faut en créé un nouveau de zero
     }
     

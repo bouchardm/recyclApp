@@ -53,8 +53,8 @@ public class OutletTest {
         Station aStation = new StationImpl();
         Outlet instance = new Outlet(aStation);
         MatterBasket matterBasket = new MatterBasket();
-        instance.setMatterBasket(matterBasket);
-        assertEquals(matterBasket, instance.getMatterBasket());
+        instance.setMatterBasketQty(matterBasket);
+        assertEquals(matterBasket, instance.getMatterBasketQty());
     
     }
 }

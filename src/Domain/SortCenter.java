@@ -726,7 +726,7 @@ public class SortCenter extends Element {
     public void resetJunctionMatterBaskets() {
         for (Junction currentJunction : getJunctionList()) {
             MatterBasket emptyMatterBasket = new MatterBasket(this.getMatterList());
-            currentJunction.getOutlet().setMatterBasket(emptyMatterBasket);
+            currentJunction.getOutlet().setMatterBasketQty(emptyMatterBasket);
 
         }
     }

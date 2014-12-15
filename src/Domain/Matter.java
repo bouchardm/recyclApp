@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.Objects;
+
 public class Matter {
 	private String _name;
 	private Integer _iD;
@@ -23,10 +25,7 @@ public class Matter {
 
     //si le numéro de ID ou le nom de la matière est identique, c'est la même matière
     public boolean compareMatter(Matter matter2) {
-        if(this.getName().compareToIgnoreCase(matter2.getName())==0 || this.getID()==matter2.getID()) {
-            return true;
-        }
-        else return false;
+            return this.getName().compareToIgnoreCase(matter2.getName())==0 || Objects.equals(this.getID(), matter2.getID());
     }
 
     /**

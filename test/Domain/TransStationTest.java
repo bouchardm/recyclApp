@@ -131,16 +131,16 @@ public class TransStationTest {
         tstation.addOutlet(o3);
         tstation.processMatterBasket(mb);
          //assert que c'est le résultat attendu
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(1)==(float)80);
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(2)<(float)243.05 && 
-                (float)o1.getMatterBasket().getMatterQuantity(2)>(float)242.95);
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(3)==(float)118);
-        assertTrue((float)o2.getMatterBasket().getMatterQuantity(1)==(float)100);
-        assertTrue((float)o2.getMatterBasket().getMatterQuantity(2)==(float)162);
-        assertTrue((float)o2.getMatterBasket().getMatterQuantity(3)==(float)383.5);
-        assertTrue((float)o3.getMatterBasket().getMatterQuantity(1)==(float)20);
-        assertTrue((float)o3.getMatterBasket().getMatterQuantity(2)==(float)405);
-        assertTrue((float)o3.getMatterBasket().getMatterQuantity(3)==(float)88.5);
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(1)==(float)80);
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(2)<(float)243.05 && 
+                (float)o1.getMatterBasketQty().getMatterQuantity(2)>(float)242.95);
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(3)==(float)118);
+        assertTrue((float)o2.getMatterBasketQty().getMatterQuantity(1)==(float)100);
+        assertTrue((float)o2.getMatterBasketQty().getMatterQuantity(2)==(float)162);
+        assertTrue((float)o2.getMatterBasketQty().getMatterQuantity(3)==(float)383.5);
+        assertTrue((float)o3.getMatterBasketQty().getMatterQuantity(1)==(float)20);
+        assertTrue((float)o3.getMatterBasketQty().getMatterQuantity(2)==(float)405);
+        assertTrue((float)o3.getMatterBasketQty().getMatterQuantity(3)==(float)88.5);
     }
     
      /**

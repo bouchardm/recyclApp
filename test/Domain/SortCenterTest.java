@@ -771,35 +771,35 @@ public class SortCenterTest {
         MatterBasket juncMb = sc.getJunctionMatterBasket(0);
         //matterBasket de la station 0
         //outlet 0
-        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasket();
+        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasketQty();
         assertTrue(mbs00.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs00.getMatterQuantity(1)==(float)765);
         assertTrue((float)mbs00.getMatterQuantity(2)==(float)935);
         //matterBasket de la station 1
         //outlet 0
-        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasket();
+        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasketQty();
         assertTrue(mbs10.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs10.getMatterQuantity(1)==(float)1500);
         assertTrue((float)mbs10.getMatterQuantity(2)==(float)1200);
         //matterBasket de la station 2
         //outlet 0
-        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasket();
+        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasketQty();
         assertTrue(mbs20.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs20.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs20.getMatterQuantity(2)==(float)1601.25);
         //outlet 1
-        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasket();
+        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasketQty();
         assertTrue(mbs21.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs21.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs21.getMatterQuantity(2)==(float)533.75);
         //matterBasket de la station 3
         //outlet 0
-        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
+        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasketQty();
         assertTrue(mbs30.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)402.75);
         //outlet 1
-        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasket();
+        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasketQty();
         assertTrue(mbs31.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs31.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs31.getMatterQuantity(2)==(float)134.25);
@@ -957,35 +957,35 @@ public class SortCenterTest {
         sc.updateDesign();
         //matterBasket de la station 0
         //outlet 0
-        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasket();
+        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasketQty();
         assertTrue(mbs00.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs00.getMatterQuantity(1)==(float)765);
         assertTrue((float)mbs00.getMatterQuantity(2)==(float)935);
         //matterBasket de la station 1
         //outlet 0
-        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasket();
+        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasketQty();
         assertTrue(mbs10.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs10.getMatterQuantity(1)==(float)1500);
         assertTrue((float)mbs10.getMatterQuantity(2)==(float)1200);
         //matterBasket de la station 2
         //outlet 0
-        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasket();
+        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasketQty();
         assertTrue(mbs20.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs20.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs20.getMatterQuantity(2)==(float)1601.25);
         //outlet 1
-        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasket();
+        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasketQty();
         assertTrue(mbs21.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs21.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs21.getMatterQuantity(2)==(float)533.75);
         //matterBasket de la station 3
         //outlet 0
-        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
+        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasketQty();
         assertTrue(mbs30.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)402.75);
         //outlet 1
-        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasket();
+        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasketQty();
         assertTrue(mbs31.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs31.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs31.getMatterQuantity(2)==(float)134.25);
@@ -1108,35 +1108,35 @@ public class SortCenterTest {
         sc.updateDesign();
         //matterBasket de la station 0
         //outlet 0
-        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasket();
+        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasketQty();
         assertTrue(mbs00.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs00.getMatterQuantity(1)==(float)765);
         assertTrue((float)mbs00.getMatterQuantity(2)==(float)935);
         //matterBasket de la station 1
         //outlet 0
-        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasket();
+        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasketQty();
         assertTrue(mbs10.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs10.getMatterQuantity(1)==(float)1500);
         assertTrue((float)mbs10.getMatterQuantity(2)==(float)1200);
         //matterBasket de la station 2
         //outlet 0
-        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasket();
+        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasketQty();
         assertTrue(mbs20.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs20.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs20.getMatterQuantity(2)==(float)1601.25);
         //outlet 1
-        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasket();
+        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasketQty();
         assertTrue(mbs21.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs21.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs21.getMatterQuantity(2)==(float)533.75);
         //matterBasket de la station 3
         //outlet 0
-        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
+        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasketQty();
         assertTrue(mbs30.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)402.75);
         //outlet 1
-        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasket();
+        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasketQty();
         assertTrue(mbs31.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs31.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs31.getMatterQuantity(2)==(float)134.25);
@@ -1270,35 +1270,35 @@ public class SortCenterTest {
         //vérif initiale
         //matterBasket de la station 0
         //outlet 0
-        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasket();
+        MatterBasket mbs00 = sc.getStationOutletList(0).get(0).getMatterBasketQty();
         assertTrue(mbs00.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs00.getMatterQuantity(1)==(float)765);
         assertTrue((float)mbs00.getMatterQuantity(2)==(float)935);
         //matterBasket de la station 1
         //outlet 0
-        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasket();
+        MatterBasket mbs10 = sc.getStationOutletList(1).get(0).getMatterBasketQty();
         assertTrue(mbs10.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs10.getMatterQuantity(1)==(float)1500);
         assertTrue((float)mbs10.getMatterQuantity(2)==(float)1200);
         //matterBasket de la station 2
         //outlet 0
-        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasket();
+        MatterBasket mbs20 = sc.getStationOutletList(2).get(0).getMatterBasketQty();
         assertTrue(mbs20.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs20.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs20.getMatterQuantity(2)==(float)1601.25);
         //outlet 1
-        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasket();
+        MatterBasket mbs21 = sc.getStationOutletList(2).get(1).getMatterBasketQty();
         assertTrue(mbs21.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs21.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs21.getMatterQuantity(2)==(float)533.75);
         //matterBasket de la station 3
         //outlet 0
-        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
+        MatterBasket mbs30 = sc.getStationOutletList(3).get(0).getMatterBasketQty();
         assertTrue(mbs30.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)402.75);
         //outlet 1
-        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasket();
+        MatterBasket mbs31 = sc.getStationOutletList(3).get(1).getMatterBasketQty();
         assertTrue(mbs31.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs31.getMatterQuantity(1)==(float)564.625);
         assertTrue((float)mbs31.getMatterQuantity(2)==(float)134.25);
@@ -1332,35 +1332,35 @@ public class SortCenterTest {
         sc.updateDesign();
         //matterBasket de la station 0
         //outlet 0
-        mbs00 = sc.getStationOutletList(0).get(0).getMatterBasket();
+        mbs00 = sc.getStationOutletList(0).get(0).getMatterBasketQty();
         assertTrue(mbs00.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs00.getMatterQuantity(1)==(float)765);
         assertTrue((float)mbs00.getMatterQuantity(2)==(float)935);
         //matterBasket de la station 1
         //outlet 0
-        mbs10 = sc.getStationOutletList(1).get(0).getMatterBasket();
+        mbs10 = sc.getStationOutletList(1).get(0).getMatterBasketQty();
         assertTrue(mbs10.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs10.getMatterQuantity(1)==(float)1500);
         assertTrue((float)mbs10.getMatterQuantity(2)==(float)1200);
         //matterBasket de la station 2
         //outlet 0
-        mbs20 = sc.getStationOutletList(2).get(0).getMatterBasket();
+        mbs20 = sc.getStationOutletList(2).get(0).getMatterBasketQty();
         assertTrue(mbs20.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs20.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs20.getMatterQuantity(2)==(float)1601.25);
         //outlet 1
-        mbs21 = sc.getStationOutletList(2).get(1).getMatterBasket();
+        mbs21 = sc.getStationOutletList(2).get(1).getMatterBasketQty();
         assertTrue(mbs21.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs21.getMatterQuantity(1)==(float)1132.5);
         assertTrue((float)mbs21.getMatterQuantity(2)==(float)533.75);
         //matterBasket de la station 3
         //outlet 0
-        mbs30 = sc.getStationOutletList(3).get(0).getMatterBasket();
+        mbs30 = sc.getStationOutletList(3).get(0).getMatterBasketQty();
         assertTrue(mbs30.getNumberOfMatterInBasket()==0);
         assertTrue((float)mbs30.getMatterQuantity(1)==(float)0);
         assertTrue((float)mbs30.getMatterQuantity(2)==(float)0);
         //outlet 1
-        mbs31 = sc.getStationOutletList(3).get(1).getMatterBasket();
+        mbs31 = sc.getStationOutletList(3).get(1).getMatterBasketQty();
         assertTrue(mbs31.getNumberOfMatterInBasket()==2);
         assertTrue((float)mbs31.getMatterQuantity(1)==(float)0);
         assertTrue((float)mbs31.getMatterQuantity(2)==(float)0);

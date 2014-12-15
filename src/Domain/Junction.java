@@ -50,7 +50,7 @@ public class Junction extends RectangularNode {
     }
     
     public MatterBasket getMatterBasket() {
-        return getOutlet().getMatterBasket();
+        return getOutlet().getMatterBasketQty();
     }
     
 
@@ -129,7 +129,7 @@ public class Junction extends RectangularNode {
                 case "speedMax":
                     return this.getSpeedMax();
                 case "matterQuantities":
-                    return this.getOutlet().getMatterBasket().getQuantities();
+                    return this.getOutlet().getMatterBasketQty().getQuantities();
                 case "matterQuantity":
                     return this.getOutlet().getTotalMatterQuantity();
                 default:
@@ -152,8 +152,8 @@ public class Junction extends RectangularNode {
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
         this.clearErrorMessages();
-        if(getOutlet().getMatterBasket()==null || getOutlet().getMatterBasket().getNumberOfMatterInBasket()==0) {
-            getOutlet().setMatterBasket(matterBasket);
+        if(getOutlet().getMatterBasketQty()==null || getOutlet().getMatterBasketQty().getNumberOfMatterInBasket()==0) {
+            getOutlet().setMatterBasketQty(matterBasket);
         }
         else {
 //            HashMap<Integer, Float> mbQuantities = _outlet.getMatterBasket().getQuantities();
@@ -176,8 +176,8 @@ public class Junction extends RectangularNode {
                 int currentMatterID = currentMatterToProcess.getKey();
                 float currentMatterQty = currentMatterToProcess.getValue();
                 float newMatterQty=currentMatterQty;
-                if(_outlet.getMatterBasket().contains(currentMatterID)) {
-                    newMatterQty = this._outlet.getMatterBasket().getMatterQuantity(currentMatterID) + currentMatterQty;
+                if(_outlet.getMatterBasketQty().contains(currentMatterID)) {
+                    newMatterQty = this._outlet.getMatterBasketQty().getMatterQuantity(currentMatterID) + currentMatterQty;
                 }
                 
                 newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
@@ -185,14 +185,14 @@ public class Junction extends RectangularNode {
             
             _outlet.setMatterBasket(newMatterBasket); 
         }
-        if(getOutlet().getMatterBasket().getTotalQuantity()>0 && getOutlet().hasConveyor()==false) {
+        if(getOutlet().getMatterBasketQty().getTotalQuantity()>0 && getOutlet().hasConveyor()==false) {
             this.addErrorMessage("La jonction reçoit de la matière mais sa sortie n'est pas connectée au réseau.");
         }
     }
     
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
-        this.getOutlet().setMatterBasket(matterBasket);
+        this.getOutlet().setMatterBasketQty(matterBasket);
     }
 
     /**
