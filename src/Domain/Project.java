@@ -55,6 +55,7 @@ public class Project {
         } catch (final Exception e) {
 
         }
+        }
 
     public void saveProject(String path) {
         XMLEncoder encoder = null;
