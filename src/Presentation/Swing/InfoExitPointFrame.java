@@ -71,7 +71,7 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
         
         
 
-//        this.repaint();
+        this.repaint();
     }
 
     public JPanel getPanel() {

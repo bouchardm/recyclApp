@@ -33,16 +33,6 @@ public class Project
         _path = null;
         _sortCenter = new SortCenter();
         _isSaved = true;
-        
-//        EntryPoint ep = this._sortCenter.addEntryPoint();
-        this._sortCenter.addEntryPoint();
-        
-        
-        
-//        this.test();
-    }
-    
-    public void test() { 
     }
     
     public void loadProject(String path)
