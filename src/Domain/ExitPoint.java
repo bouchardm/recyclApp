@@ -14,6 +14,7 @@ public class ExitPoint extends RectangularNode {
         _inlet = new Inlet(this);
         _matterBasket = new MatterBasket();
         _errorMessages = new ArrayList<>();
+        _color = Color.WHITE;
     }
 
     public Inlet getInlet() {

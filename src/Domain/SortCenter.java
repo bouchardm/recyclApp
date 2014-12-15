@@ -149,7 +149,10 @@ public class SortCenter extends Element {
     public ArrayList<EntryPoint> getEntryPoints() {
         return _entryPointList;
     }
-
+    public void setEntrypoints(ArrayList<EntryPoint> _entryPointlist)
+    {
+    this._entryPointList = _entryPointlist;
+    }
     //retourne l'Outlet d'un point d'entrée à l'index "index" de la liste
     public Outlet getEntryPointOutlet(int index) {
         return _entryPointList.get(index).getOutlet();
@@ -523,6 +526,7 @@ public class SortCenter extends Element {
     }
 
     public Junction addJunction() {
+//        Junction junction = new Junction(this._matterList);
         Junction junction = new Junction();
         this._junctionList.add(junction);
         this.updateDesign();

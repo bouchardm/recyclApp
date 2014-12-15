@@ -24,6 +24,16 @@ public abstract class IOlet extends Element
     private static float RADIUS = 0.15f;
     protected Point2D.Float _relativePosition;
 
+    public IOlet()
+    {
+                _node = null;
+        _conveyor = null;
+        _circle = new Ellipse2D.Float();
+        _relativePosition = new Point2D.Float(-1, -1);
+        _conveyorList = new ArrayList<>();
+    
+    }
+    
     public IOlet(Node parentNode) {
         if (parentNode == null) {
             throw new IllegalArgumentException("parentNode cannot be null");

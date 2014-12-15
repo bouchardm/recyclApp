@@ -1,5 +1,6 @@
 package Domain;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -22,22 +23,23 @@ public class Junction extends RectangularNode {
         _speedMax = 10f;
         this.setDimensions(0.5f, 0.5f);
         _outlet = new Outlet(this);
-        _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
+        _outlet.setPosition(new Point2D.Float(getCenter().x+1, getCenter().y));
         this.addInlet();
         _errorMessages = new ArrayList<>();
+        _color = Color.WHITE;
     }
     
-    public Junction(MatterList matterList)
-    {
-        _position = new Point2D.Float(0, 0);
-        _inletList = new ArrayList<>();
-        _speedMax = 10f;
-        this.setDimensions(0.5f, 0.5f);
-        _outlet = new Outlet(this, matterList);
-        _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
-        this.addInlet();
-        _errorMessages = new ArrayList<>();
-    }
+//    public Junction(MatterList matterList)
+//    {
+//        _position = new Point2D.Float(0, 0);
+//        _inletList = new ArrayList<>();
+//        _speedMax = 10f;
+//        this.setDimensions(0.5f, 0.5f);
+//        _outlet = new Outlet(this, matterList);
+//        _outlet.setPosition(new Point2D.Float(getCenter().x+1, 0));
+//        this.addInlet();
+//        _errorMessages = new ArrayList<>();
+//    }
     
     public float getSpeedMax() {
         return _speedMax;

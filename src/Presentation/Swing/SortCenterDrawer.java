@@ -35,23 +35,27 @@ public class SortCenterDrawer {
 
     private Controller _controller;
     private Viewport _viewport;
+    private Color _contourColor;
     private Color _selectedContourColor;
     private Line2D.Float _connectingArrow;
+    private Font _font;
 
     public SortCenterDrawer(Controller controller, Viewport viewport) {
         this._controller = controller;
         this._viewport = viewport;
+        _contourColor = Color.BLACK;
         _selectedContourColor = Color.CYAN;
         _connectingArrow = null;
+        _font = new Font("TimesRoman", Font.BOLD, (int)(_viewport.getZoomFactor()*10));
     }
     
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g)
+    {
         drawFloor(g);
         if (_viewport.isShowGrid()) {
             drawGrid(g);
         }
-        
         drawConveyors(g);
         drawStations(g);
         drawJunctions(g);
@@ -78,7 +82,7 @@ public class SortCenterDrawer {
             }
             g.setColor(color);
             g.fillRect(margin, margin, width, height);
-            g.setColor(Color.BLACK);
+            g.setColor(_contourColor);
             
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(2));
@@ -124,7 +128,7 @@ public class SortCenterDrawer {
         // TODO faire un refactor
         ArrayList sortStationList = this._controller.getProject().getSortCenter().getStations();
 
-        for (int i = sortStationList.size() - 1; i >= 0; i--) {
+        for (int i=0; i < sortStationList.size(); i++) {
             this.drawStation(g, (Station) sortStationList.get(i));
         }
     }
@@ -154,7 +158,7 @@ public class SortCenterDrawer {
 
         g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         
-        g.setColor(Color.BLACK);
+        g.setColor(_contourColor);
         if (_controller.selectedElementIs(station)) {
             g.setColor(_selectedContourColor);
         }
@@ -164,7 +168,7 @@ public class SortCenterDrawer {
         {
             g.drawImage(station.getImg(), positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         }
-        g.setFont(new Font("TimesRoman", Font.BOLD, (int)(_viewport.getZoomFactor()*10)));
+        g.setFont(_font);
         g.setColor(contrastColor(station.getColor()));
         g.drawString(station.getName(), positionMeterX + (int)(dimensionMeterX*0.05), positionMeterY + (int)(dimensionMeterY*0.2));
 
@@ -176,10 +180,7 @@ public class SortCenterDrawer {
     }
 
     private void drawIOlet(Graphics g, IOlet iolet) {
-        g.setColor(Color.BLUE);
-        if (iolet instanceof Inlet) {
-            g.setColor(Color.YELLOW);
-        }
+        g.setColor(iolet.getColor());
         
         Ellipse2D.Float circle = iolet.getCircle();
         int x = _viewport.meterToPix(circle.x);
@@ -190,7 +191,7 @@ public class SortCenterDrawer {
         
         g.fillOval(x, y, w, h);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
+        g2.setColor(_contourColor);
         if (_controller.selectedElementIs(iolet))
         {
             g2.setColor(_selectedContourColor);
@@ -201,13 +202,12 @@ public class SortCenterDrawer {
                     _viewport.meterToPixDim(circle.width),
                     _viewport.meterToPixDim(circle.height));
         
-        g.setColor(contrastColor(g.getColor()));
+        g.setColor(contrastColor(iolet.getColor()));
         g.drawString(iolet.getIdentifier(), (int)(x+w/2.7), (int)(y+h/1.3));
     }
 
     private void drawJunctions(Graphics g) {
         
-        g.setColor(Color.blue);
         
         ArrayList<Junction> junctionsList = this._controller.getProject().getSortCenter().getJunctions();
         for (Junction junction : junctionsList) {
@@ -233,18 +233,22 @@ public class SortCenterDrawer {
             g.fillRect(positionMeterX - 5, positionMeterY - 5, dimensionMeterX + 10, dimensionMeterY + 10);
         }
         
+        g.setColor(junction.getColor());
+        g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         
         iolets.addAll(junction.getIOlets());
         
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(2));
+        g2.setColor(_contourColor);
         if (_controller.selectedElementIs(junction)) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(2));
+            
             g2.setColor(_selectedContourColor);
-            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         }
+        g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);
@@ -261,8 +265,8 @@ public class SortCenterDrawer {
 
     private void drawConveyor(Graphics g, Conveyor conveyor) {
         int x1, x2, y1, y2;
-        Point2D.Float position1 = conveyor.getStartOutlet().getPosition();
-        Point2D.Float position2 = conveyor.getEndInlet().getPosition();
+        Point2D.Float position1 = conveyor.getStartPoint().getPosition();
+        Point2D.Float position2 = conveyor.getEndPoint().getPosition();
         
         x1 = _viewport.meterToPix(position1.x);
         y1 = _viewport.meterToPix(position1.y);
@@ -350,17 +354,20 @@ public class SortCenterDrawer {
             g.fillRect(positionMeterX - 5, positionMeterY - 5, dimensionMeterX + 10, dimensionMeterY + 10);
         }
         
+        g.setColor(entryPoint.getColor());
+        g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(entryPoint.getIOlets());
         
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(2));
+        g2.setColor(_contourColor);
         if (_controller.selectedElementIs(entryPoint)) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(2));
             g2.setColor(_selectedContourColor);
-            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         }
+        g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);
@@ -388,17 +395,21 @@ public class SortCenterDrawer {
         ClassLoader cl = this.getClass().getClassLoader();
         Image img = Toolkit.getDefaultToolkit().getImage(cl.getResource("image/exit.png"));
         
+        g.setColor(exitPoint.getColor());
+        g.fillRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         g.drawImage(img, positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY, _viewport);
         ArrayList<IOlet> iolets = new ArrayList<IOlet>();
         
         iolets.addAll(exitPoint.getIOlets());
         
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(2));
+        g2.setColor(_contourColor);
         if (_controller.selectedElementIs(exitPoint)) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(2));
+            
             g2.setColor(_selectedContourColor);
-            g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
         }
+        g2.drawRect(positionMeterX, positionMeterY, dimensionMeterX, dimensionMeterY);
 
         for (IOlet iol : iolets) {
             drawIOlet(g, iol);

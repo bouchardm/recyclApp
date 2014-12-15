@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MatterList {
+public class MatterList implements java.io.Serializable
+{
 
 	private ArrayList<Matter> _matterList;
 

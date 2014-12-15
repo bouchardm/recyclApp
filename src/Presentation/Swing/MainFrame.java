@@ -20,6 +20,7 @@ import java.awt.geom.Point2D;
 import java.nio.file.Path;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +53,8 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup.add(btnAddExit);
 
         this.setLocationRelativeTo(null); // Centrer la fenêtre
+        ImageIcon sdf = new javax.swing.ImageIcon(getClass().getResource("/image/station.png"));
+        this.setIconImage(sdf.getImage());
     }
 
     /**
@@ -604,6 +607,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnAboutUs.setText("À propos");
         btnAboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAboutUsMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAboutUsMousePressed(evt);
             }
@@ -653,11 +659,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateNewProjectActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+       saveProject();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-        // TODO add your handling code here:
+        loadProject();
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void newMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuActionPerformed
@@ -999,8 +1005,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMatterListActionPerformed
 
     private void btnAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMatterActionPerformed
-        this._controller.addMatter();
+        this._controller.showAboutUs();
     }//GEN-LAST:event_btnAddMatterActionPerformed
+
+    private void btnAboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMouseClicked
+//        this._controller.showAboutUs();
+    }//GEN-LAST:event_btnAboutUsMouseClicked
 
     @Override
     public void repaint()
@@ -1101,6 +1111,59 @@ public class MainFrame extends javax.swing.JFrame {
         this.panelInformation.removeAll();
     }
     
+    private void loadProject()
+    {
+                JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.setFileFilter(smileyFilter);
+        filePicker.setDialogTitle("Charger le projet");
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            
+            _controller.LoadProject(path);
+            repaint();
+            
+        }
+    }
+    private void saveProject()
+    {
+            JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.setFileFilter(smileyFilter);
+        filePicker.setDialogTitle("Enregistrer le projet");
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists())
+            {
+                int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
+                if (answer != 0)
+                {
+                    return;
+                }
+            }
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            
+            _controller.SaveProject(path);
+        }
+    
+    }
     private void exportImage()
     {
         JFileChooser filePicker = new JFileChooser();

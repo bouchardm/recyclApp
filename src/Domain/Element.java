@@ -6,7 +6,7 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public abstract class Element
+public abstract class Element implements java.io.Serializable
 {
     private Integer _iD;
     protected String _name;
