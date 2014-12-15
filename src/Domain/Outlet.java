@@ -11,7 +11,7 @@ public class Outlet extends IOlet
         
         public Outlet()
         {
-       
+            _matterBasket = new MatterBasket();
         }
         public Outlet(Node parentNode)
         {
