@@ -191,9 +191,10 @@ public class SortCenter extends Element {
             if(this._matterList.getCount()==1) {
                 for(Station station : this.getStations()) {
                     int stationOutletCount = station.getOutletCount();
-                    station.getSortMatrix().addMatterToSortMatrix(newMatterID);
+                    station.addMatterToStationSortMatrix(newMatterID);
                     for(int j = 0; j<(stationOutletCount-1); j++){
                         station.getSortMatrix().addOutletToSortMatrix();
+                        
                     }
                     
                 }

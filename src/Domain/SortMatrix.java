@@ -47,7 +47,7 @@ public class SortMatrix {
     à la sortie.*/
     //precondition : matterId est valide
     public void addMatterToSortMatrix(Integer matterID, ArrayList<Float> matterPerOutlet) {
-        getSortMatrix().put(matterID, matterPerOutlet);
+        _sortMatrix.put(matterID, matterPerOutlet);
     }
     
     /*addToSortMatrix: pour chaque matière qu'on ajoute à la matrice, on ajoute: le numéro ID de la matière
@@ -55,10 +55,10 @@ public class SortMatrix {
     //precondition : matterId est valide
     public void addMatterToSortMatrix(Integer matterID) {
         ArrayList<Float> matterPerOutlet = new ArrayList<>();
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = getSortMatrix().entrySet().iterator();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = _sortMatrix.entrySet().iterator();
         if(!smIter.hasNext()) {
             matterPerOutlet.add(new Float(1));
-            getSortMatrix().put(matterID, matterPerOutlet);
+            _sortMatrix.put(matterID, matterPerOutlet);
         }
         else {
             Map.Entry<Integer, ArrayList<Float>> currentEntry = smIter.next();
@@ -71,16 +71,16 @@ public class SortMatrix {
                     matterPerOutlet.add(new Float(0));
                 }
             }
-            getSortMatrix().put(matterID, matterPerOutlet);
+            _sortMatrix.put(matterID, matterPerOutlet);
         }
     }
 
     //enleve une matiere par son numéro ID
     public void removeMatterFromMatrix(Integer matterID) {
-        if((!_sortMatrix.containsKey(matterID)) || getSortMatrix().isEmpty()) {
+        if((!_sortMatrix.containsKey(matterID)) || _sortMatrix.isEmpty()) {
             throw new IllegalArgumentException("Effacement impossible : la matière n'est pas dans la matrice.");
         }
-         getSortMatrix().remove(matterID);
+         _sortMatrix.remove(matterID);
     }
     
 
@@ -89,7 +89,7 @@ public class SortMatrix {
     //precondition : on ne peut pas effacer une sortie dans une matrice qui en a déjà pas
     //PAS TESTÉE
     public void removeOutletFromMatrix(Integer outletListIndex) {
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = getSortMatrix().entrySet().iterator();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = _sortMatrix.entrySet().iterator();
         if(outletListIndex==0) {        //si oui
             //pour toutes les matieres, 
                 //prendre les quantités de la première sortie et les mettres dans la deuxième
@@ -135,7 +135,7 @@ public class SortMatrix {
     
     //enleve tout les matières de la sortMatrix (reste une matrice vide)
     public void removeAllMatterFromSortMatrix() {        
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = getSortMatrix().entrySet().iterator();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = _sortMatrix.entrySet().iterator();
         while(smIter.hasNext()) {
             Map.Entry<Integer, ArrayList<Float>> currentEntry = smIter.next();
             smIter.remove();
@@ -144,10 +144,10 @@ public class SortMatrix {
     
     //ajoute un outlet à la fin des tableau de quantité. les quantités sont à 0.
     public void addOutletToSortMatrix() {
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = getSortMatrix().entrySet().iterator();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = _sortMatrix.entrySet().iterator();
         while(smIter.hasNext()) {
             Map.Entry<Integer, ArrayList<Float>> currentEntry = smIter.next();
-            getSortMatrix().get(currentEntry.getKey()).add(new Float(0));
+            _sortMatrix.get(currentEntry.getKey()).add(new Float(0));
         }
     }
     
@@ -190,7 +190,7 @@ public class SortMatrix {
     
     
     public int getMatterCount() {
-        return getSortMatrix().size();
+        return _sortMatrix.size();
     }
         
         

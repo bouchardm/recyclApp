@@ -113,6 +113,10 @@ public abstract class Station extends RectangularNode
         return _sortMatrix;
     }
     
+    public void addMatterToStationSortMatrix(Integer matterID) {
+        _sortMatrix.addMatterToSortMatrix(matterID);
+    }
+    
     @Override
     public void setAttribute(String attribName, Object value)
     {   
