@@ -7,6 +7,7 @@ package TechnicalServices;
 
 import Application.Controller.Controller;
 import Domain.EntryPoint;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,18 +37,23 @@ public class Utility {
         headers[0] = "Matière";
         headers[1] = "Quantités (kg/h)";
         
-        String[][] matters = new String[listMatter.size()][headers.length];
+        String[][] matters = new String[listMatter.size() + 1][headers.length];
         
         int i = 0;
+        BigDecimal total = new BigDecimal(0);
         for (Map.Entry<Integer, Float> entrySet : listMatter.entrySet()) {
             Integer key = entrySet.getKey();
             Float value = entrySet.getValue();
             if(controller.typeOfElementSelectedIs(EntryPoint.class) || value!=0) {
-            matters[i][0] = controller.getMatterName(key);
-            matters[i][1] = value.toString();
-            i++;
+                matters[i][0] = controller.getMatterName(key);
+                matters[i][1] = value.toString();
+                i++;
             }
+            total = total.add(new BigDecimal(value));
         }
+        
+        matters[listMatter.size()][0] = "TOTAL";
+        matters[listMatter.size()][1] = new Float(total.floatValue()).toString();
         
         DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
         

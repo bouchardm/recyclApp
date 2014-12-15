@@ -51,8 +51,6 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
         
         tblInfoInputMatter.setModel(Utility.generateTableFromMatterBasket(listMatter, controller));
-        
-        // pour modifier le matter basket il faut en créé un nouveau de zero
     }
     
     public JPanel getPanel() {
@@ -181,7 +179,7 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         Object[][] tableData = Utility.getTableData(tblInfoInputMatter);
         ArrayList<HashMap<Integer, Float>> matterBasket = new ArrayList<HashMap<Integer, Float>>();
         
-        for (int i = 0; i < tableData.length; i++) {
+        for (int i = 0; i < tableData.length - 1; i++) {
             Float matterQuantities = 0f;
             int matterId = 0;
             
