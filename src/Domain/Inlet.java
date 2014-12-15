@@ -1,5 +1,6 @@
 package Domain;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 
@@ -15,6 +16,7 @@ public class Inlet extends IOlet
         public Inlet(Node parentNode)
         {
             super(parentNode);
+            _color = Color.YELLOW;
             _speedMax = null ; // Valeur initiale?
             _free = true;
             _relativePosition = _node.getCenter();
@@ -22,6 +24,7 @@ public class Inlet extends IOlet
             _relativePosition.x = _relativePosition.y - 1;
             setPosition(_relativePosition);
             _errorMessages = new ArrayList<>();
+            
         }
         
        /* public boolean isFree()
