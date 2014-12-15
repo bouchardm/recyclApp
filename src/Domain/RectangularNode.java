@@ -121,6 +121,8 @@ public abstract class RectangularNode extends Node
                 return getDimensions();
             case "image":
                 return getImg();
+            case "position":
+                return getPosition();
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }

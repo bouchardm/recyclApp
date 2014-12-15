@@ -35,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     Controller _controller;
     ButtonGroup buttonGroup;
+    private Point2D.Float _dragOffset;
 
 //    SortStation _sortStationSelected;
     /**
@@ -731,6 +732,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        _dragOffset = null;
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
         }
@@ -841,6 +843,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
         {
+            Point2D.Float elemPos = (Point2D.Float)_controller.getSelectedElementAttribute("position");
+            position.x = position.x - _dragOffset.x;
+            position.y = position.y - _dragOffset.y;
             if (viewport.isSnapToGrid()) {
                 position = viewport.snap(position);
             }
@@ -856,6 +861,12 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         cleanInformationPanel();
         _controller.selectElement(position);
+        if (!(_controller.typeOfElementSelectedIs(SortCenter.class) ||  _controller.typeOfElementSelectedIs(Conveyor.class)))
+        {
+            _dragOffset = (Point2D.Float)_controller.getSelectedElementAttribute("position");
+            _dragOffset.x = position.x - _dragOffset.x;
+            _dragOffset.y = position.y - _dragOffset.y;
+        }
 
         // Selection
         if (this._controller.typeOfElementSelectedIs(SortStation.class)) {

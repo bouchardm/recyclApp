@@ -208,19 +208,19 @@ public class Junction extends RectangularNode {
         this._outlet = _outlet;
     }
 
-    /**
-     * @return the _position
-     */
-    public Point2D.Float getPosition() {
-        return _position;
-    }
+//    /**
+//     * @return the _position
+//     */
+//    public Point2D.Float getPosition() {
+//        return _position;
+//    }
 
-    /**
-     * @param _position the _position to set
-     */
-    public void setPosition(Point2D.Float _position) {
-        this._position = _position;
-    }
+//    /**
+//     * @param _position the _position to set
+//     */
+//    public void setPosition(Point2D.Float _position) {
+//        this._position = _position;
+//    }
     
 
 }
