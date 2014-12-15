@@ -114,7 +114,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnSaveMatter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enregistrer l&apos;entr&#xe9; de mati&#xe8;re"/>
+            <Property name="text" type="java.lang.String" value="Enregistrer l&apos;entr&#xe9;e de mati&#xe8;re"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveMatterActionPerformed"/>

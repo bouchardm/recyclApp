@@ -105,7 +105,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
         outletBtn = new javax.swing.JButton();
         txtXDimension = new javax.swing.JTextField();
         txtYDimension = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnStatistique = new javax.swing.JButton();
@@ -198,8 +197,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
             }
         });
 
-        jLabel6.setText("Dimension");
-
         jLabel7.setText("Largeur");
 
         jLabel8.setText("Hauteur");
@@ -238,7 +235,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6)
                             .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(panelInformation2Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
@@ -279,8 +275,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addComponent(outletBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStatistique)
-                .addGap(8, 8, 8)
-                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -289,7 +283,7 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtYDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -495,7 +489,6 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;

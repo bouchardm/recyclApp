@@ -105,7 +105,7 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         ));
         jScrollPane1.setViewportView(tblInfoInputMatter);
 
-        btnSaveMatter.setText("Enregistrer l'entré de matière");
+        btnSaveMatter.setText("Enregistrer l'entrée de matière");
         btnSaveMatter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveMatterActionPerformed(evt);

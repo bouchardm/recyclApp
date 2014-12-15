@@ -52,19 +52,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnDeleteStation" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnImgStation" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtStationName" alignment="1" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" alignment="0" pref="194" max="32767" attributes="0"/>
                       <Component id="txtStationKgHMax" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnColorPciker" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnImgStation" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnTransMatrix" alignment="1" max="32767" attributes="0"/>
                       <Component id="outletBtn" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -76,10 +73,13 @@
                                       <Component id="txtXDimension" min="-2" pref="52" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnStats" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -89,10 +89,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnDeleteStation" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Component id="btnDeleteStation" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtStationName" min="-2" max="-2" attributes="0"/>
@@ -110,11 +110,11 @@
                   <Component id="outletBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnTransMatrix" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                  <Component id="btnStats" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnImgStation" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtXDimension" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -225,11 +225,6 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtXDimensionKeyPressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Dimension"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="text" type="java.lang.String" value="Largeur"/>
@@ -246,6 +241,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnStats">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Statistiques"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatsActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
