@@ -43,17 +43,17 @@ public class Outlet extends IOlet
         }
         public MatterBasket getMatterBasketQty()
         {
-//            MatterBasket mb = new MatterBasket();
-//            mb.setQuantities(_matterBasket.getQuantities());
-//            return mb;
-            return this._matterBasket;
+            MatterBasket mb = new MatterBasket();
+            mb.setQuantities(_matterBasket.getQuantities());
+            return mb;
+//            return this._matterBasket;
         }
         
         
         public void setMatterBasketQty( MatterBasket matterBasket)
         {
-//           _matterBasket.setQuantities(matterBasket.getQuantities());
-           this._matterBasket = _matterBasket;
+           _matterBasket.setQuantities(matterBasket.getQuantities());
+//           this._matterBasket = _matterBasket;
         }
         
         public float getTotalMatterQuantity() {

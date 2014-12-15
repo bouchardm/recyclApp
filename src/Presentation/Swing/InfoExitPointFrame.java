@@ -7,6 +7,7 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.MatterBasket;
+import TechnicalServices.Utility;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -40,36 +41,9 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
 
         MatterBasket matterBasket = (MatterBasket) infoElement.get("matterBasket");
 
-        int size = matterBasket.getNumberOfMatterInBasket();
-
-        String[] nameCol = {"Matière" , "Quantité"};
-      
-            
-        String[][] data = new String[size+1][size+1];
-
-        HashMap<Integer, Float> matterHashMap = matterBasket.getQuantities();
-        int i = 0;
-        Float totalValue = 0.0f;
-        for (Map.Entry<Integer, Float> iter : matterHashMap.entrySet()) {
-            Integer matterID = iter.getKey();
-            float qty = iter.getValue();
-            if(qty!=0) {
-                data[i][0] =  _controller.getProject().getSortCenter().getMatterList().getMatterName(matterID);
-                data[i][1] = iter.getValue().toString(); 
-                totalValue += iter.getValue();
-                i++;
-            }
-            
-            
-           
-            
-        }
-
-        matterTable.setModel(new DefaultTableModel(data, nameCol));
-        totalValueTextField.setText(totalValue.toString());
+        HashMap<Integer, Float> listMatter = matterBasket.getQuantities();
         
-        
-        
+        matterTable.setModel(Utility.generateTableFromMatterBasket(listMatter, controller));
 
         this.repaint();
     }
@@ -89,8 +63,6 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         panelInformation2 = new javax.swing.JPanel();
-        totalValueTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         btnDeleteStation = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         matterTable = new javax.swing.JTable();
@@ -100,17 +72,6 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
 
         panelInformation2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelInformation2.setPreferredSize(new java.awt.Dimension(216, 2));
-
-        totalValueTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        totalValueTextField.setEnabled(false);
-        totalValueTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalValueTextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Total");
 
         btnDeleteStation.setText("Supprimer");
         btnDeleteStation.addActionListener(new java.awt.event.ActionListener() {
@@ -154,12 +115,7 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
                     .addComponent(btnDeleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformation2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelInformation2Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelInformation2Layout.setVerticalGroup(
@@ -171,11 +127,7 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,10 +157,6 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed
 
     }//GEN-LAST:event_txtStationNbExitKeyPressed
-
-    private void totalValueTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalValueTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalValueTextFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ErrorsFrame errorsFrame = new ErrorsFrame(this._controller);
@@ -268,11 +216,9 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteStation;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable matterTable;
     private javax.swing.JPanel panelInformation2;
-    private javax.swing.JTextField totalValueTextField;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
