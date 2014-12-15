@@ -152,7 +152,13 @@ public class TransMatrix {
         Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = getTransformMatrix().entrySet().iterator();
         while(tmIter.hasNext()) {
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
+//            currentEntry.getValue().remove(matterID);
+            int currentMatterID = currentEntry.getKey();
+            float transformIntoDeletedMatterPercentage = currentEntry.getValue().get(matterID);
+            float newQty = currentEntry.getValue().get(currentMatterID) + transformIntoDeletedMatterPercentage;
             currentEntry.getValue().remove(matterID);
+            currentEntry.getValue().remove(currentMatterID);
+            currentEntry.getValue().put(currentMatterID, newQty);
         }
     }
 

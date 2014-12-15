@@ -156,7 +156,18 @@ public class Junction extends RectangularNode {
             getOutlet().setMatterBasket(matterBasket);
         }
         else {
-            HashMap<Integer, Float> mbQuantities = getOutlet().getMatterBasket().getQuantities();
+//            HashMap<Integer, Float> mbQuantities = _outlet.getMatterBasket().getQuantities();
+//            Iterator<Map.Entry<Integer, Float>> mbIter = mbQuantities.entrySet().iterator();
+//            //le nouveau panier qu'on mettra à la sortie
+//            MatterBasket newMatterBasket = new MatterBasket();
+//            while(mbIter.hasNext()) {
+//                Map.Entry<Integer, Float> currentMatterToProcess = mbIter.next();
+//                int currentMatterID = currentMatterToProcess.getKey();
+//                float currentMatterQty = currentMatterToProcess.getValue();
+//                float newMatterQty = currentMatterQty + matterBasket.getMatterQuantity(currentMatterID);
+//                newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
+//            }
+            HashMap<Integer,Float> mbQuantities = matterBasket.getQuantities();
             Iterator<Map.Entry<Integer, Float>> mbIter = mbQuantities.entrySet().iterator();
             //le nouveau panier qu'on mettra à la sortie
             MatterBasket newMatterBasket = new MatterBasket();
@@ -164,10 +175,14 @@ public class Junction extends RectangularNode {
                 Map.Entry<Integer, Float> currentMatterToProcess = mbIter.next();
                 int currentMatterID = currentMatterToProcess.getKey();
                 float currentMatterQty = currentMatterToProcess.getValue();
-                float newMatterQty = currentMatterQty + matterBasket.getMatterQuantity(currentMatterID);
+                float newMatterQty=currentMatterQty;
+                if(_outlet.getMatterBasket().contains(currentMatterID)) {
+                    newMatterQty = this._outlet.getMatterBasket().getMatterQuantity(currentMatterID) + currentMatterQty;
+                }
+                
                 newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
             }
-            getOutlet().setMatterBasket(newMatterBasket); 
+               
         }
         if(getOutlet().getMatterBasket().getTotalQuantity()>0 && getOutlet().hasConveyor()==false) {
             this.addErrorMessage("La jonction reçoit de la matière mais sa sortie n'est pas connectée au réseau.");

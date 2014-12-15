@@ -187,8 +187,20 @@ public class SortCenter extends Element {
             int newMatterID = this.getNextMatterID();
             Matter matter = new Matter(matterName, newMatterID);
             this.getMatterList().addMatterToList(matter);
+            //pour la première matière, il faut mettre à jour les stations et leurs matrices
+            if(this._matterList.getCount()==1) {
+                for(Station station : this.getStations()) {
+                    int stationOutletCount = station.getOutletCount();
+                    station.getSortMatrix().addMatterToSortMatrix(newMatterID);
+                    for(int j = 0; j<(stationOutletCount-1); j++){
+                        station.getSortMatrix().addOutletToSortMatrix();
+                    }
+                    
+                }
+            }
             //ajouter la matière aux matrices de transformation
             for(Station station : this.getStations()) {
+                station.getSortMatrix().addMatterToSortMatrix(newMatterID);
                 if(station instanceof TransStation) {
                     ((TransStation)station).getTransMatrix().addMatterToTransMatrix(matter.getID());
                 }
@@ -210,6 +222,7 @@ public class SortCenter extends Element {
         try  {
             this.getMatterList().remove(matterID);
             for(Station station : this.getStations()) {
+                station.getSortMatrix().removeMatterFromMatrix(matterID);
                 if(station instanceof TransStation) {
                     ((TransStation)station).getTransMatrix().removeMatterFromMatrix(matterID);
                 }
@@ -338,7 +351,7 @@ public class SortCenter extends Element {
                 // entryPoint n'est jamais traité. Son matterBasket doit être
                 // mis à jour avant)
                 destination.processMatterBasket(processingConveyor.getMatterBasket());
-                //NEW: si le basket tiens plus de matières que la capacité du convoyeur, on ajoute
+                //si le basket tiens plus de matières que la capacité du convoyeur, on ajoute
                 //un message d'erreur au convoyeur
                 if(processingConveyor.getMatterBasket().getTotalQuantity()>processingConveyor.getSpeedMax()) {
                     processingConveyor.addErrorMessage("Ce convoyeur reçoit une quantité de matière plus élevée que sa capacité maximale.");
@@ -352,6 +365,16 @@ public class SortCenter extends Element {
         MatterBasket emptyBasket = new MatterBasket();
         for (Node unconnectedNode : allNodes) {
             unconnectedNode.setMatterBasketAtOutlets(emptyBasket);
+        }
+        
+        //on repasse sur tous les exit Point à la fin pour s'assurer qu'ils sont mise
+        //à jour avec les bons matterBasket
+        for (Conveyor conv : this._conveyorList) {
+            Node destination = conv.getEndNode();
+            if (destination instanceof ExitPoint) {
+                ((ExitPoint)destination).processMatterBasket(conv.getMatterBasket());
+            }
+                
         }
     }
 
