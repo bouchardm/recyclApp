@@ -64,8 +64,6 @@ public abstract class Station extends RectangularNode
         while (ptIter.hasNext()) {
             Map.Entry<Integer, ArrayList<Float>> currentTest = ptIter.next();
             if(currentTest.getValue().size()!=this.getOutletList().size()){
-                System.out.println("sortMatrix outlet size = "+currentTest.getValue().size());
-                System.out.println("outletList size = "+this.getOutletList().size());
                 throw new IllegalArgumentException("La station n'a pas le même nombre de sorties que le nombre dans la matrice de tri.");
             }
         }
