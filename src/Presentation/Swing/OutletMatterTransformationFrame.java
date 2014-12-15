@@ -10,6 +10,7 @@ import Domain.Outlet;
 import Domain.SortMatrix;
 import Domain.TransMatrix;
 import TechnicalServices.Utility;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -178,29 +179,29 @@ public class OutletMatterTransformationFrame extends javax.swing.JFrame {
         for (int i = 0; i < tableData.length; i++) {
             HashMap<Integer, Float> exits = new HashMap<>();
             int matterId = 0;
-            Float sumExits = new Float(0);
+            BigDecimal sumExits = new BigDecimal(0);
             for (int j = 1; j < tableData[i].length; j++) {
                 if (j == 1) {
                     matterId = this._controller.getMatterId((String) tableData[i][j]);
                 } else {
-                    Float value = null;
+                    BigDecimal value = null;
                     try {
                         if (((String) tableData[i][j]).equals("")) {
-                            value = 0f;
+                            value = new BigDecimal(0);
                         } else {
-                            value = new Float((String) tableData[i][j]);
+                            value = new BigDecimal((String) tableData[i][j]);
                         }
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Veuillez indiquez des nombres valides.", null, 0);
                         return;
                     }
                     
-                    exits.put(this._controller.getMatterId(transMatrixTable.getColumnName(j)), value);
-                    sumExits += value;
+                    exits.put(this._controller.getMatterId(transMatrixTable.getColumnName(j)), value.floatValue());
+                    sumExits.add(value);
                 }
             }
             
-            if (sumExits != 1) {
+            if (sumExits.compareTo(new BigDecimal(1)) == 1) {
                 JOptionPane.showMessageDialog(null, "Le total des sorties doivents donnée 1.", null, 0);
                 return;
             }

@@ -131,7 +131,6 @@ public class Controller {
     }
 
     public void LoadProject(String path) {
-
         this.getProject().loadProject(path);
     }
 
