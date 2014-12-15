@@ -12,6 +12,8 @@ public class Inlet extends IOlet
 	private Float _speedMax;  // Float vs float?
         private boolean _free;
 
+        public Inlet()
+        {}
         
         public Inlet(Node parentNode)
         {
@@ -47,6 +49,20 @@ public class Inlet extends IOlet
         {
             return "";
         }
+
+    /**
+     * @return the _free
+     */
+    public boolean isFree() {
+        return _free;
+    }
+
+    /**
+     * @param _free the _free to set
+     */
+    public void setFree(boolean _free) {
+        this._free = _free;
+    }
         
         
 }

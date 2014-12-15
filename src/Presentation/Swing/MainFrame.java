@@ -655,7 +655,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnCreateNewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewProjectActionPerformed
-        // TODO add your handling code here:
+        _controller.CreateNewProject();
+        repaint();
     }//GEN-LAST:event_btnCreateNewProjectActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -1118,7 +1119,8 @@ public class MainFrame extends javax.swing.JFrame {
         filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
         filePicker.setFileFilter(smileyFilter);
         filePicker.setDialogTitle("Charger le projet");
-        int response = filePicker.showSaveDialog(this);
+        filePicker.setApproveButtonText("Ouvrir");
+        int response = filePicker.showOpenDialog(this);
         if (response == JFileChooser.APPROVE_OPTION)
         {
             FileFilter fileFilter = filePicker.getFileFilter();

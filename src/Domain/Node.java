@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Node extends Element
 {
-	public Point _point;
+	private Point _point;
         protected Color _color;
         
         public abstract Point2D.Float getPosition();
@@ -28,5 +28,19 @@ public abstract class Node extends Element
     public abstract void processMatterBasket(MatterBasket matterBasket);
     
     public abstract void setMatterBasketAtOutlets(MatterBasket matterBasket);
+
+    /**
+     * @return the _point
+     */
+    public Point getPoint() {
+        return _point;
+    }
+
+    /**
+     * @param _point the _point to set
+     */
+    public void setPoint(Point _point) {
+        this._point = _point;
+    }
         
 }

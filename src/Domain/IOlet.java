@@ -17,16 +17,16 @@ import java.util.ArrayList;
 public abstract class IOlet extends Element
 {
 
-    protected final Node _node;
+    Node _node;
     private Conveyor _conveyor;
     private ArrayList<Conveyor> _conveyorList;
     private Ellipse2D.Float _circle;
     private static float RADIUS = 0.15f;
-    protected Point2D.Float _relativePosition;
+    Point2D.Float _relativePosition;
 
     public IOlet()
     {
-                _node = null;
+         _node = null;
         _conveyor = null;
         _circle = new Ellipse2D.Float();
         _relativePosition = new Point2D.Float(-1, -1);
@@ -46,22 +46,22 @@ public abstract class IOlet extends Element
     }
 
     public boolean IsFree() {
-        return (_conveyor == null);
+        return (getConveyor() == null);
     }
 
     public Point2D.Float getPosition()
     {
-        return new Point2D.Float(_node.getCenter().x+_relativePosition.x,
-                            _node.getCenter().y+_relativePosition.y);
+        return new Point2D.Float(getNode().getCenter().x+getRelativePosition().x,
+                            getNode().getCenter().y+getRelativePosition().y);
     }
     
     public void setPosition(Point2D.Float pos)
     {
-        if (_node instanceof RectangularNode)
+        if (getNode() instanceof RectangularNode)
         {
-            Point2D.Float vector = new Point2D.Float(pos.x - _node.getCenter().x,
-                                        pos.y - _node.getCenter().y);
-            Point2D.Float rectDim = ((RectangularNode)_node).getDimensions();
+            Point2D.Float vector = new Point2D.Float(pos.x - getNode().getCenter().x,
+                                        pos.y - getNode().getCenter().y);
+            Point2D.Float rectDim = ((RectangularNode)getNode()).getDimensions();
             float unitLength = (float)Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
             float newLength = (float)(rectDim.x + rectDim.y);
             vector.x =  newLength * vector.x / unitLength;
@@ -99,9 +99,9 @@ public abstract class IOlet extends Element
             _relativePosition.x = point.x;
             _relativePosition.y = point.y;
             
-            if (_conveyor != null)
+            if (getConveyor() != null)
             {
-                _conveyor.updatePoints();
+                getConveyor().updatePoints();
             }
         }
     }
@@ -110,7 +110,7 @@ public abstract class IOlet extends Element
     
     public void updatePosition()
     {
-        setPosition(_relativePosition);
+        setPosition(getRelativePosition());
     }
     
     public Ellipse2D.Float getCircle()
@@ -132,7 +132,7 @@ public abstract class IOlet extends Element
     }
 
     public void removeConveyor() {
-        _conveyor = null;
+        setConveyor(null);
     }
 
     @Override
@@ -168,11 +168,46 @@ public abstract class IOlet extends Element
     
        public void addConveyor(Conveyor conveyor)
         {
-            _conveyorList.add(conveyor);
+            getConveyorList().add(conveyor);
         }
        
        public ArrayList<Conveyor> getConveyorList()
        {
        return _conveyorList;
        }
+
+    /**
+     * @return the _relativePosition
+     */
+    public Point2D.Float getRelativePosition() {
+        return _relativePosition;
+    }
+
+    /**
+     * @param _relativePosition the _relativePosition to set
+     */
+    public void setRelativePosition(Point2D.Float _relativePosition) {
+        this._relativePosition = _relativePosition;
+    }
+
+    /**
+     * @param _node the _node to set
+     */
+    public void setNode(Node _node) {
+        this._node = _node;
+    }
+
+    /**
+     * @param _conveyorList the _conveyorList to set
+     */
+    public void setConveyorList(ArrayList<Conveyor> _conveyorList) {
+        this._conveyorList = _conveyorList;
+    }
+
+    /**
+     * @param _circle the _circle to set
+     */
+    public void setCircle(Ellipse2D.Float _circle) {
+        this._circle = _circle;
+    }
 }

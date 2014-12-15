@@ -11,11 +11,11 @@ public class TransStation extends Station {
 	
     @Override
     public void setTransMatrix(TransMatrix newTransMatrix) {
-        _transformMatrix = newTransMatrix;
+        setTransformMatrix(newTransMatrix);
     }
 
     public TransMatrix getTransMatrix() {
-        return _transformMatrix;
+        return getTransformMatrix();
     }
         
     public TransStation() {
@@ -32,11 +32,11 @@ public class TransStation extends Station {
         //on commence par éliminer les messages d'erreurs courant s'il y en a pour la station
         this.clearErrorMessages();
         //tester precondition 1
-        if(matterBasket.getNumberOfMatterInBasket()!=this._transformMatrix.getMatterCount()) {
+        if(matterBasket.getNumberOfMatterInBasket()!=this.getTransformMatrix().getMatterCount()) {
             throw new IllegalArgumentException("La quantité de matières dans le panier et dans la matrice n'est pas pareil.");
         }
         //on va chercher une copie de la matrice de transformation
-        HashMap<Integer, HashMap<Integer, Float>> transMatrix = _transformMatrix.getTransMatrix();
+        HashMap<Integer, HashMap<Integer, Float>> transMatrix = getTransformMatrix().getTransMatrix();
         Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = transMatrix.entrySet().iterator();
         //on iter dans les "rangées" de la matrice
         HashMap<Integer, Float> newQuantities = new HashMap<>();
@@ -129,6 +129,20 @@ public class TransStation extends Station {
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }
         }
+    }
+
+    /**
+     * @return the _transformMatrix
+     */
+    public TransMatrix getTransformMatrix() {
+        return _transformMatrix;
+    }
+
+    /**
+     * @param _transformMatrix the _transformMatrix to set
+     */
+    public void setTransformMatrix(TransMatrix _transformMatrix) {
+        this._transformMatrix = _transformMatrix;
     }
     
     

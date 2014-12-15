@@ -20,7 +20,7 @@ public class TransMatrix {
     //getter : doit retourner une copie profonde de transMatrix
     public HashMap<Integer, HashMap<Integer, Float>> getTransMatrix() {
         HashMap<Integer, HashMap<Integer, Float>> copiedMatrix = new HashMap<>();
-        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = getTransformMatrix().entrySet().iterator();
         while(tmIter.hasNext()) {
             Map.Entry<Integer, HashMap<Integer, Float>> currentMatterEntry = tmIter.next();
             int currentMatterID = currentMatterEntry.getKey();
@@ -55,7 +55,7 @@ public class TransMatrix {
                 float innerValue = innerEntry.getValue();
                 copiedQuantities.put(innerKey, innerValue);
             }
-            _transformMatrix.put(matterID, copiedQuantities);
+            getTransformMatrix().put(matterID, copiedQuantities);
         }
     }
     
@@ -88,18 +88,18 @@ public class TransMatrix {
         HashMap<Integer, Float> transformQty = new HashMap<>();
         //si la matrice est vide, on ne fait qu'ajouter la matière et elle se transforme en elle même
         if(!_transformMatrix.isEmpty()) {
-            Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+            Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = getTransformMatrix().entrySet().iterator();
             while (tmIter.hasNext()) {
                 Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
                 Integer currentMatterID = currentEntry.getKey();
                 //on ajoute 0 pour toutes les matter ID
                 transformQty.put(currentMatterID, new Float(0));
-                _transformMatrix.get(currentMatterID).put(matterID, new Float(0));
+                getTransformMatrix().get(currentMatterID).put(matterID, new Float(0));
             }
         }
         //on mets transformation à 100% de la matière à elle même
         transformQty.put(matterID, new Float(1));
-        _transformMatrix.put(matterID, transformQty); 
+        getTransformMatrix().put(matterID, transformQty); 
     }
     
     //ajoute la nouvelle matière et les quantités dans lequel elle se transforme dans le transformMatrix
@@ -109,7 +109,7 @@ public class TransMatrix {
     //toutes les matières du matterList incluant la matière elle même
     public void addMatterToTransMatrix(Integer matterID, HashMap<Integer, Float> transformQuantities) {
         //boucle dans le hashmap. pour chaque clé, on ajoute au hashMap interne l'entry (matterID, 0).
-        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = getTransformMatrix().entrySet().iterator();
         while(tmIter.hasNext()) {
             HashMap<Integer, Float> newTransformQuantities = new HashMap<>(); //ca sera les nouvelles quantités par matiere
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
@@ -125,34 +125,48 @@ public class TransMatrix {
                 Float innerQty = currentInnerEntry.getValue();
                 newTransformQuantities.put(innerKey, innerQty);
             }
-            _transformMatrix.remove(currentID);
+            getTransformMatrix().remove(currentID);
             //rajouter les nouvelles quantités pour chaque matière à _transformMatrix
-            _transformMatrix.put(currentID, newTransformQuantities);
+            getTransformMatrix().put(currentID, newTransformQuantities);
         }
         
         //ajout au transformMatrix : (matterID, transformQuantities)
-        _transformMatrix.put(matterID, transformQuantities);
+        getTransformMatrix().put(matterID, transformQuantities);
         
     }
     
     public int getMatterCount() {
-        return _transformMatrix.size();
+        return getTransformMatrix().size();
     }
     
     //vide la transMatrix
     public void removeAllMatterFromTransMatrix() {
-        _transformMatrix.clear();
+        getTransformMatrix().clear();
     }
     
     //ne fait rien si la matière est déjà pas incluse dans la matrice
     public void removeMatterFromMatrix(Integer matterID) {
         //on commence par enlever l'entrée principale de la matrice associée au matterID
-        _transformMatrix.remove(matterID);
+        getTransformMatrix().remove(matterID);
         //ensuite on enlève les références à ce matter ID dans les hashMap internes
-        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = _transformMatrix.entrySet().iterator();
+        Iterator<Map.Entry<Integer, HashMap<Integer, Float>>> tmIter = getTransformMatrix().entrySet().iterator();
         while(tmIter.hasNext()) {
             Map.Entry<Integer, HashMap<Integer, Float>> currentEntry = tmIter.next();
             currentEntry.getValue().remove(matterID);
         }
+    }
+
+    /**
+     * @return the _transformMatrix
+     */
+    public HashMap<Integer, HashMap<Integer, Float>> getTransformMatrix() {
+        return _transformMatrix;
+    }
+
+    /**
+     * @param _transformMatrix the _transformMatrix to set
+     */
+    public void setTransformMatrix(HashMap<Integer, HashMap<Integer, Float>> _transformMatrix) {
+        this._transformMatrix = _transformMatrix;
     }
 }

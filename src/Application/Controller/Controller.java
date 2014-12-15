@@ -1,28 +1,13 @@
 package Application.Controller;
 
-import Domain.SortStation;
-import Domain.EntryPoint;
-import Domain.ExitPoint;
-import Domain.Conveyor;
-import Domain.Element;
-import Domain.IOlet;
-import Domain.Junction;
-import Domain.MatterBasket;
-import Domain.Node;
-import Domain.Project;
-import Domain.Inlet;
-import Domain.Outlet;
-import Domain.Station;
-import Domain.TransStation;
+import Domain.*;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.matterFrame;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,79 +126,18 @@ public class Controller {
     }
 
     public void SaveProject(String path) {
+        this.getProject().saveProject(path);
 
-        XMLEncoder encoder = null;
-
-        try {
-
-            //Get all entrypoint
-            ArrayList<EntryPoint> entryPointList = getProject().getSortCenter().getEntryPoints();
-            ArrayList<ExitPoint> exitPointList = getProject().getSortCenter().getExitPoints();
-            ArrayList<Conveyor> conveyorList = getProject().getSortCenter().getConveyors();
-            ArrayList<Junction> junctionList = getProject().getSortCenter().getJunctions();
-
-            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
-
-            for (EntryPoint entryPoint : entryPointList) {
-                encoder.writeObject(entryPoint);
-            }
-//            for (ExitPoint exitPoint : exitPointList) {
-//                encoder.writeObject(exitPoint);
-//            }
-            for (Conveyor conveyor : conveyorList) {
-                encoder.writeObject(conveyor);
-            }
-            for (Junction junction : junctionList) {
-                encoder.writeObject(junction);
-            }
-//            encoder.writeObject(exitPointList);
-//            encoder.writeObject(conveyorList);
-//            encoder.writeObject(junctionList);
-
-            encoder.flush();
-
-        } catch (final java.io.IOException e) {
-        } finally {
-
-            if (encoder != null) {
-
-                encoder.close();
-            }
-        }
     }
 
     public void LoadProject(String path) {
 
-        XMLDecoder decoder = null;
-        try {
-            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)));
-
-            ArrayList<EntryPoint> entryPointList = new ArrayList<>();
-           int i = 0;
-            while (i < 2) 
-            {
-                entryPointList.add((EntryPoint) decoder.readObject());
-                i++;
-            }
-            this.getProject().getSortCenter().setEntrypoints(entryPointList);
-
-        } 
-        catch (final Exception e) 
-        {
-
-        }
-        finally 
-        {
-
-            if (decoder != null) 
-            {
-decoder.close();
-            }
-        }
+        this.getProject().loadProject(path);
     }
 
+
     public void CreateNewProject() {
-        throw new UnsupportedOperationException();
+      //  this.CreateNewProject();
     }
 
     public String getMatterName(int id) {
@@ -653,7 +577,5 @@ decoder.close();
         return _inlet;
 
     }
-
-
 
 }

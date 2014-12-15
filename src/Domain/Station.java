@@ -20,7 +20,7 @@ import java.util.Map;
 
 public abstract class Station extends RectangularNode
 {
-    protected Image _img;
+    private Image _img;
     private Inlet _inlet;
     private ArrayList<Outlet> _outletList;
     private SortMatrix _sortMatrix;
@@ -93,14 +93,14 @@ public abstract class Station extends RectangularNode
             
             currentOutlet.setMatterBasket(sortedBasketForOutlet);  
             if(!currentOutlet.hasConveyor() && sortedBasketForOutlet.getTotalQuantity()>0) {
-                currentOutlet.addErrorMessage("La sortie "+(i+1)+" de la station "+this._name+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
+                currentOutlet.addErrorMessage("La sortie "+(i+1)+" de la station "+this.getName()+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
             } 
         }
-        if(this._speedMax!=0) {
-            this._usageRate = new BigDecimal((float)this.getTotalMatterQuantity()/this._speedMax);
+        if(this.getSpeedMax()!=0) {
+            this.setUsageRate(new BigDecimal((float)this.getTotalMatterQuantity()/this.getSpeedMax()));
         }
-        if(this._usageRate.compareTo(new BigDecimal(1))>0 || (this.getTotalMatterQuantity()>0 && 0==this._speedMax)) {
-            this.addErrorMessage("La station "+this._name+" reçoit une quantité de matière supérieure à sa capacité.");
+        if(this.getUsageRate().compareTo(new BigDecimal(1))>0 || (this.getTotalMatterQuantity()>0 && 0==this.getSpeedMax())) {
+            this.addErrorMessage("La station "+this.getName()+" reçoit une quantité de matière supérieure à sa capacité.");
         }
     }
     
@@ -159,9 +159,9 @@ public abstract class Station extends RectangularNode
     
     public int getOutletIndex(Outlet outlet)
     {
-        for (int i=0; i<_outletList.size(); i++)
+        for (int i=0; i<getOutletList().size(); i++)
         {
-            if (outlet.equals(_outletList.get(i)))
+            if (outlet.equals(getOutletList().get(i)))
             {
                 return i;
             }
@@ -195,7 +195,7 @@ public abstract class Station extends RectangularNode
                     return this.getSortMatrix().getSortMatrix();
                 case "matterQuantity":
                     float matterQuantity = 0;
-                    for (Outlet outlet : _outletList) {
+                    for (Outlet outlet : getOutletList()) {
                         matterQuantity = matterQuantity + outlet.getMatterBasket().getTotalQuantity();
                     }
                     return matterQuantity;
@@ -212,13 +212,13 @@ public abstract class Station extends RectangularNode
     }
     
     public float getTotalMatterAtOutlet(int outletIndex) {
-        return _outletList.get(outletIndex).getTotalMatterQuantity();
+        return getOutletList().get(outletIndex).getTotalMatterQuantity();
     }
     
     public float getTotalMatterQuantity() {
         float totalQty = 0;
-        for (int i = 0; i<this._outletList.size(); i++) {
-            totalQty = totalQty + _outletList.get(i).getTotalMatterQuantity();
+        for (int i = 0; i<this.getOutletList().size(); i++) {
+            totalQty = totalQty + getOutletList().get(i).getTotalMatterQuantity();
         }
         return totalQty;
     }
@@ -241,11 +241,11 @@ public abstract class Station extends RectangularNode
     }
 
     public float getKgHMax() {
-        return _speedMax;
+        return getSpeedMax();
     }
 
     public void setKgHMax(float _kgHMax) {
-        this._speedMax = _kgHMax;
+        this.setSpeedMax(_kgHMax);
     }
     public Color getColor() {
         return _color;
@@ -260,23 +260,23 @@ public abstract class Station extends RectangularNode
     }
 
     public void setImg(String src) {
-        this._img = Toolkit.getDefaultToolkit().getImage(src);
+        this.setImg(Toolkit.getDefaultToolkit().getImage(src));
     }
       
     public void addOutlet()
     {
         // add at the end of the list  
-        _outletList.add(new Outlet(this));
+        getOutletList().add(new Outlet(this));
     }
     
     public void removeOulet(int index)
     {
-        _outletList.remove(index);
+        getOutletList().remove(index);
     }
     
     public int getOutletCount()
     {
-        return _outletList.size();
+        return getOutletList().size();
     }
     
     public Inlet getInlet()
@@ -290,13 +290,13 @@ public abstract class Station extends RectangularNode
     
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
-        for(Outlet outlet : this._outletList) {
+        for(Outlet outlet : this.getOutletList()) {
             outlet.setMatterBasket(matterBasket);
         }
     }
     
     public HashMap<Integer, Float> getAllMatterQuantitiesAtOutlets() {
-        ArrayList<Outlet> outletList = this._outletList;
+        ArrayList<Outlet> outletList = this.getOutletList();
         HashMap<Integer, Float> totalMB = new HashMap<>();
 
         for(Outlet outlet : outletList) {
@@ -312,5 +312,54 @@ public abstract class Station extends RectangularNode
             }
         }
         return totalMB;
+    }
+
+    /**
+     * @param _img the _img to set
+     */
+    public void setImg(Image _img) {
+        this._img = _img;
+    }
+
+    /**
+     * @param _inlet the _inlet to set
+     */
+    public void setInlet(Inlet _inlet) {
+        this._inlet = _inlet;
+    }
+
+    /**
+     * @param _outletList the _outletList to set
+     */
+    public void setOutletList(ArrayList<Outlet> _outletList) {
+        this._outletList = _outletList;
+    }
+
+    /**
+     * @return the _usageRate
+     */
+    public BigDecimal getUsageRate() {
+        return _usageRate;
+    }
+
+    /**
+     * @param _usageRate the _usageRate to set
+     */
+    public void setUsageRate(BigDecimal _usageRate) {
+        this._usageRate = _usageRate;
+    }
+
+    /**
+     * @return the _speedMax
+     */
+    public float getSpeedMax() {
+        return _speedMax;
+    }
+
+    /**
+     * @param _speedMax the _speedMax to set
+     */
+    public void setSpeedMax(float _speedMax) {
+        this._speedMax = _speedMax;
     }
 }

@@ -50,7 +50,7 @@ public class Junction extends RectangularNode {
     }
     
     public MatterBasket getMatterBasket() {
-        return _outlet.getMatterBasket();
+        return getOutlet().getMatterBasket();
     }
     
 
@@ -70,7 +70,7 @@ public class Junction extends RectangularNode {
     public void addInlet()
     {
 //        Inlet inlet = new Inlet(this);
-        _inletList.add(new Inlet(this)); // c'est Juncion qui devrait créer le nouvel Inlet
+        getInletList().add(new Inlet(this)); // c'est Juncion qui devrait créer le nouvel Inlet
     }
     
     public ArrayList<Inlet> getInletList() {
@@ -152,11 +152,11 @@ public class Junction extends RectangularNode {
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
         this.clearErrorMessages();
-        if(_outlet.getMatterBasket()==null || _outlet.getMatterBasket().getNumberOfMatterInBasket()==0) {
-            _outlet.setMatterBasket(matterBasket);
+        if(getOutlet().getMatterBasket()==null || getOutlet().getMatterBasket().getNumberOfMatterInBasket()==0) {
+            getOutlet().setMatterBasket(matterBasket);
         }
         else {
-            HashMap<Integer, Float> mbQuantities = _outlet.getMatterBasket().getQuantities();
+            HashMap<Integer, Float> mbQuantities = getOutlet().getMatterBasket().getQuantities();
             Iterator<Map.Entry<Integer, Float>> mbIter = mbQuantities.entrySet().iterator();
             //le nouveau panier qu'on mettra à la sortie
             MatterBasket newMatterBasket = new MatterBasket();
@@ -167,16 +167,44 @@ public class Junction extends RectangularNode {
                 float newMatterQty = currentMatterQty + matterBasket.getMatterQuantity(currentMatterID);
                 newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
             }
-            _outlet.setMatterBasket(newMatterBasket); 
+            getOutlet().setMatterBasket(newMatterBasket); 
         }
-        if(_outlet.getMatterBasket().getTotalQuantity()>0 && _outlet.hasConveyor()==false) {
+        if(getOutlet().getMatterBasket().getTotalQuantity()>0 && getOutlet().hasConveyor()==false) {
             this.addErrorMessage("La jonction reçoit de la matière mais sa sortie n'est pas connectée au réseau.");
         }
     }
     
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
-        this._outlet.setMatterBasket(matterBasket);
+        this.getOutlet().setMatterBasket(matterBasket);
+    }
+
+    /**
+     * @param _inletList the _inletList to set
+     */
+    public void setInletList(ArrayList<Inlet> _inletList) {
+        this._inletList = _inletList;
+    }
+
+    /**
+     * @param _outlet the _outlet to set
+     */
+    public void setOutlet(Outlet _outlet) {
+        this._outlet = _outlet;
+    }
+
+    /**
+     * @return the _position
+     */
+    public Point2D.Float getPosition() {
+        return _position;
+    }
+
+    /**
+     * @param _position the _position to set
+     */
+    public void setPosition(Point2D.Float _position) {
+        this._position = _position;
     }
     
 

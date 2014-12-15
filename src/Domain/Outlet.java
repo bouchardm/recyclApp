@@ -32,7 +32,15 @@ public class Outlet extends IOlet
 //            setPosition(_relativePosition);
 //            this._matterBasket = new MatterBasket(matterList);
 //        }
+        public MatterBasket GetMatterBasket()
+        {
+        return this._matterBasket;
+        }
         
+        public void SetMatterBasket(MatterBasket _matterBasket)
+        {
+        this._matterBasket = _matterBasket;
+        }
         public MatterBasket getMatterBasket()
         {
             MatterBasket mb = new MatterBasket();
@@ -47,7 +55,7 @@ public class Outlet extends IOlet
         }
         
         public float getTotalMatterQuantity() {
-            return _matterBasket.getTotalQuantity();
+            return getMatterBasket().getTotalQuantity();
         }
         
         public boolean hasConveyor() {
@@ -64,9 +72,9 @@ public class Outlet extends IOlet
         public String getIdentifier()
         {
             String identifier = "";
-            if (_node instanceof Station)
+            if (getNode() instanceof Station)
             {
-                int index = ((Station)_node).getOutletIndex(this);
+                int index = ((Station)getNode()).getOutletIndex(this);
                 if (index >= 0)
                 {
                     identifier = Integer.toString(index + 1);

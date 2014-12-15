@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public abstract class Element implements java.io.Serializable
 {
     private Integer _iD;
-    protected String _name;
+    String _name;
     protected String _description;
-    protected Color _color;
-    protected ArrayList<String> _errorMessages;
+    Color _color;
+    ArrayList<String> _errorMessages;
     
     public abstract boolean include(Point2D.Float point);
     public abstract Object getAttribute(String attribName);
@@ -27,11 +27,11 @@ public abstract class Element implements java.io.Serializable
     }
     
     public void addErrorMessage(String errorMessage){
-        this._errorMessages.add(errorMessage);
+        this.getErrorMessages().add(errorMessage);
     }
     
     public void clearErrorMessages() {
-        this._errorMessages.clear();
+        this.getErrorMessages().clear();
     }
 
     
@@ -94,5 +94,26 @@ public abstract class Element implements java.io.Serializable
             default:
                 throw new IllegalArgumentException(String.format("no method for set %s", attribName));
         }
+    }
+
+    /**
+     * @return the _iD
+     */
+    public Integer getiD() {
+        return _iD;
+    }
+
+    /**
+     * @param _iD the _iD to set
+     */
+    public void setiD(Integer _iD) {
+        this._iD = _iD;
+    }
+
+    /**
+     * @param _errorMessages the _errorMessages to set
+     */
+    public void setErrorMessages(ArrayList<String> _errorMessages) {
+        this._errorMessages = _errorMessages;
     }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public abstract class RectangularNode extends Node
 {
     private Rectangle2D.Float _rect;
-    protected Image _img;
+    private Image _img;
     
     
     public RectangularNode()
@@ -48,7 +48,7 @@ public abstract class RectangularNode extends Node
     @Override
     public Point2D.Float getPosition()
     {
-        Point2D.Float pos = new Point2D.Float(_rect.x, _rect.y);
+        Point2D.Float pos = new Point2D.Float(getRect().x, getRect().y);
         return pos;
     }
     
@@ -57,26 +57,26 @@ public abstract class RectangularNode extends Node
     }
 
     public void setImg(String src) {
-        this._img = Toolkit.getDefaultToolkit().getImage(src);
+        this.setImg(Toolkit.getDefaultToolkit().getImage(src));
     }
 
     @Override
     public boolean include(Point2D.Float point)
     {
-        return _rect.contains(point);
+        return getRect().contains(point);
     }
     
     public Point2D.Float getCenter()
     {
         Point2D.Float center = new Point2D.Float(
-                (float)_rect.getCenterX(),(float)_rect.getCenterY());
+                (float)getRect().getCenterX(),(float)getRect().getCenterY());
         return center;
     }
     
     public void setCenter(Point2D.Float center)
     {
-        _rect.x = center.x - (_rect.width / 2);
-        _rect.y = center.y - (_rect.height / 2);
+        _rect.x = center.x - (getRect().width / 2);
+        _rect.y = center.y - (getRect().height / 2);
     }
     
     public void setDimensions(float height, float width)
@@ -94,7 +94,7 @@ public abstract class RectangularNode extends Node
     
     public Point2D.Float getDimensions()
     {
-        return new Point2D.Float(_rect.width, _rect.height);
+        return new Point2D.Float(getRect().width, getRect().height);
     }
     
     @Override
@@ -124,6 +124,27 @@ public abstract class RectangularNode extends Node
             default:
                 throw new IllegalArgumentException(String.format("no method for get %s", attribName));
         }
+    }
+
+    /**
+     * @return the _rect
+     */
+    public Rectangle2D.Float getRect() {
+        return _rect;
+    }
+
+    /**
+     * @param _rect the _rect to set
+     */
+    public void setRect(Rectangle2D.Float _rect) {
+        this._rect = _rect;
+    }
+
+    /**
+     * @param _img the _img to set
+     */
+    public void setImg(Image _img) {
+        this._img = _img;
     }
 
     

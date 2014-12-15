@@ -2,9 +2,9 @@ package Domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class MatterList implements java.io.Serializable
+
+public class MatterList 
 {
 
 	private ArrayList<Matter> _matterList;
@@ -14,16 +14,16 @@ public class MatterList implements java.io.Serializable
         }
         
 	public Integer getCount() {
-            return this._matterList.size();
+            return this.getMatterList().size();
 	}
         
         public ArrayList<Matter> getList() {
-            return _matterList;
+            return getMatterList();
         }
         
         public ArrayList<HashMap<Integer, String>> getMapList() {
             ArrayList<HashMap<Integer, String>> matterListMap = new ArrayList<>();
-            for (Matter matter : this._matterList) {
+            for (Matter matter : this.getMatterList()) {
                 HashMap<Integer, String> matterMap = new HashMap<Integer, String>();
                 matterMap.put(matter.getID(), matter.getName());
 
@@ -33,27 +33,27 @@ public class MatterList implements java.io.Serializable
         }
 
         public void addMatterToList(Matter aMatter) {
-            for(int i = 0; i<_matterList.size(); i++)
+            for(int i = 0; i<getMatterList().size(); i++)
             {
-                if (_matterList.get(i).compareMatter(aMatter)) {
+                if (getMatterList().get(i).compareMatter(aMatter)) {
                     throw new IllegalArgumentException("La matière fait déjà partie de la liste. Les champs 'Nom' et 'ID' doivent être unique.");
                 }
             }
-            this._matterList.add(aMatter);
+            this.getMatterList().add(aMatter);
 	}
 
         //efface la matière ayant le même ID number que celui passé en paramètre
 	public void remove(int matterID) {
             int i;
-            for(i=0; i<_matterList.size(); i++)
+            for(i=0; i<getMatterList().size(); i++)
             {
-                if(_matterList.get(i).getID()==matterID)
+                if(getMatterList().get(i).getID()==matterID)
                 {
                     break;
                 }
             }
-            if(i<_matterList.size()) {
-                _matterList.remove(i);
+            if(i<getMatterList().size()) {
+                getMatterList().remove(i);
             }
             else {
             //si on se rend ici, la matière ne fait pas partie de la liste
@@ -67,17 +67,17 @@ public class MatterList implements java.io.Serializable
             if(this.getCount()==0) {
                 throw new IllegalArgumentException("Impossible de trouver la matière : la liste des matières est vide.");
             }
-            if(index < 0 || index >_matterList.size()) {
+            if(index < 0 || index >getMatterList().size()) {
                 throw new IndexOutOfBoundsException("Index de matière invalide.");   
             }
-            return _matterList.get(index);            
+            return getMatterList().get(index);            
 	}
         
         //a tester
         public String getMatterName(Integer matterID) {
-            for (int i = 0; i<_matterList.size(); i++) {
-                if(_matterList.get(i).getID().intValue()==matterID.intValue()) {
-                    return _matterList.get(i).getName();
+            for (int i = 0; i<getMatterList().size(); i++) {
+                if(getMatterList().get(i).getID().intValue()==matterID.intValue()) {
+                    return getMatterList().get(i).getName();
                 }
             }
             //si on se rend ici, c'est que la matière ne fait pas partie de la liste
@@ -85,18 +85,18 @@ public class MatterList implements java.io.Serializable
         }
         
         public void setMatterName(Integer matterID, String matterName) {
-            for (int i = 0; i<_matterList.size(); i++) {
-                if(_matterList.get(i).getID().intValue()==matterID.intValue()) {
-                    _matterList.get(i).setName(matterName);
+            for (int i = 0; i<getMatterList().size(); i++) {
+                if(getMatterList().get(i).getID().intValue()==matterID.intValue()) {
+                    getMatterList().get(i).setName(matterName);
                 }
             }
         }
 
 	//retourne l'index dans la liste d'une matière (pas le numéro d'ID)
         public int getIndex(String matterName) {
-            for(int i = 0; i<_matterList.size(); i++)
+            for(int i = 0; i<getMatterList().size(); i++)
             {
-                if(_matterList.get(i).getName().compareToIgnoreCase(matterName)==0)
+                if(getMatterList().get(i).getName().compareToIgnoreCase(matterName)==0)
                 {
                     return i;
                 }
@@ -106,9 +106,9 @@ public class MatterList implements java.io.Serializable
 	}
         
         public Integer getMatterID(String matterName) {
-            for (int i = 0; i<_matterList.size(); i++) {
-                if(_matterList.get(i).getName().compareToIgnoreCase(matterName)==0) {
-                    return _matterList.get(i).getID();
+            for (int i = 0; i<getMatterList().size(); i++) {
+                if(getMatterList().get(i).getName().compareToIgnoreCase(matterName)==0) {
+                    return getMatterList().get(i).getID();
                 }
             }
             //si on se rend ici, c'est que la matière ne fait pas partie de la liste
@@ -116,9 +116,23 @@ public class MatterList implements java.io.Serializable
         }
         
         public Integer getMatterID(int listIndex) {
-            if (listIndex >= _matterList.size()) {
+            if (listIndex >= getMatterList().size()) {
                 throw new IndexOutOfBoundsException("Index de matière invalide."); 
             }
-            return _matterList.get(listIndex).getID();
+            return getMatterList().get(listIndex).getID();
         }
+
+    /**
+     * @return the _matterList
+     */
+    public ArrayList<Matter> getMatterList() {
+        return _matterList;
+    }
+
+    /**
+     * @param _matterList the _matterList to set
+     */
+    public void setMatterList(ArrayList<Matter> _matterList) {
+        this._matterList = _matterList;
+    }
 }
