@@ -513,8 +513,8 @@ public class Controller {
                 try {
                     this._project.getSortCenter().addMatterToMatterList(matterName);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Veuillez indiquez un nom de matière qui n'existe pas déjà.", null, 0);
-//                    JOptionPane.showMessageDialog(null, e.getMessage(), null, 0);
+//                    JOptionPane.showMessageDialog(null, "Veuillez indiquer un nom de matière qui n'existe pas déjà.", null, 0);
+                    JOptionPane.showMessageDialog(null, e.getMessage(), null, 0);
                 }
             }
         }

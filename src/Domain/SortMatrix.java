@@ -55,10 +55,10 @@ public class SortMatrix {
     //precondition : matterId est valide
     public void addMatterToSortMatrix(Integer matterID) {
         ArrayList<Float> matterPerOutlet = new ArrayList<>();
-        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = getSortMatrix().entrySet().iterator();
+        Iterator<Map.Entry<Integer, ArrayList<Float>>> smIter = _sortMatrix.entrySet().iterator();
         if(!smIter.hasNext()) {
             matterPerOutlet.add(new Float(1));
-            getSortMatrix().put(matterID, matterPerOutlet);
+            _sortMatrix.put(matterID, matterPerOutlet);
         }
         else {
             Map.Entry<Integer, ArrayList<Float>> currentEntry = smIter.next();
@@ -71,7 +71,7 @@ public class SortMatrix {
                     matterPerOutlet.add(new Float(0));
                 }
             }
-            getSortMatrix().put(matterID, matterPerOutlet);
+            _sortMatrix.put(matterID, matterPerOutlet);
         }
     }
 
