@@ -91,7 +91,7 @@ public abstract class Station extends RectangularNode
             }
             //setMatterBasket de la sortie
             
-            currentOutlet.setMatterBasket(sortedBasketForOutlet);  
+            currentOutlet.setMatterBasketQty(sortedBasketForOutlet);  
             if(!currentOutlet.hasConveyor() && sortedBasketForOutlet.getTotalQuantity()>0) {
                 this.addErrorMessage("La sortie "+(i+1)+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
             } 
@@ -200,7 +200,7 @@ public abstract class Station extends RectangularNode
                 case "matterQuantity":
                     float matterQuantity = 0;
                     for (Outlet outlet : getOutletList()) {
-                        matterQuantity = matterQuantity + outlet.getMatterBasket().getTotalQuantity();
+                        matterQuantity = matterQuantity + outlet.getMatterBasketQty().getTotalQuantity();
                     }
                     return matterQuantity;
                 case "matterQuantities":
@@ -295,7 +295,7 @@ public abstract class Station extends RectangularNode
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
         for(Outlet outlet : this.getOutletList()) {
-            outlet.setMatterBasket(matterBasket);
+            outlet.setMatterBasketQty(matterBasket);
         }
     }
     
@@ -304,7 +304,7 @@ public abstract class Station extends RectangularNode
         HashMap<Integer, Float> totalMB = new HashMap<>();
 
         for(Outlet outlet : outletList) {
-            HashMap<Integer, Float> currentMB = outlet.getMatterBasket().getQuantities();
+            HashMap<Integer, Float> currentMB = outlet.getMatterBasketQty().getQuantities();
             for(Map.Entry<Integer, Float> iter : currentMB.entrySet()) {
                 if(totalMB.containsKey(iter.getKey())) {
                     float newQty = (float)iter.getValue()+totalMB.get(iter.getKey());

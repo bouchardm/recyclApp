@@ -32,30 +32,32 @@ public class Outlet extends IOlet
 //            setPosition(_relativePosition);
 //            this._matterBasket = new MatterBasket(matterList);
 //        }
-        public MatterBasket GetMatterBasket()
+        public MatterBasket getMatterBasket()
         {
         return this._matterBasket;
         }
         
-        public void SetMatterBasket(MatterBasket _matterBasket)
+        public void setMatterBasket(MatterBasket _matterBasket)
         {
         this._matterBasket = _matterBasket;
         }
-        public MatterBasket getMatterBasket()
+        public MatterBasket getMatterBasketQty()
         {
-            MatterBasket mb = new MatterBasket();
-            mb.setQuantities(_matterBasket.getQuantities());
-            return mb;
+//            MatterBasket mb = new MatterBasket();
+//            mb.setQuantities(_matterBasket.getQuantities());
+//            return mb;
+            return this._matterBasket;
         }
         
         
-        public void setMatterBasket( MatterBasket matterBasket)
+        public void setMatterBasketQty( MatterBasket matterBasket)
         {
-           _matterBasket.setQuantities(matterBasket.getQuantities());
+//           _matterBasket.setQuantities(matterBasket.getQuantities());
+           this._matterBasket = _matterBasket;
         }
         
         public float getTotalMatterQuantity() {
-            return getMatterBasket().getTotalQuantity();
+            return getMatterBasketQty().getTotalQuantity();
         }
         
         public boolean hasConveyor() {

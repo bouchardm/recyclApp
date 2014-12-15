@@ -113,11 +113,11 @@ public class JunctionTest {
 //        Outlet o1 = new Outlet(junc);
 //        junc.setOutlet(o1);
         Outlet o1 = junc.getOutlet();
-        o1.setMatterBasket(origmb);
+        o1.setMatterBasketQty(origmb);
         junc.processMatterBasket(mbToProcess);
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(11)==(float)110);
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(12)==(float)220);
-        assertTrue((float)o1.getMatterBasket().getMatterQuantity(13)==(float)330);
-        assertTrue(o1.getMatterBasket().getNumberOfMatterInBasket()==3);        
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(11)==(float)110);
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(12)==(float)220);
+        assertTrue((float)o1.getMatterBasketQty().getMatterQuantity(13)==(float)330);
+        assertTrue(o1.getMatterBasketQty().getNumberOfMatterInBasket()==3);        
     }
 }

@@ -119,7 +119,7 @@ public class Conveyor extends Element {
 
     public MatterBasket getMatterBasket()
     {
-        return _startPoint.getMatterBasket();
+        return _startPoint.getMatterBasketQty();
     }
 
     public Point2D.Float getPoint1()
@@ -164,7 +164,7 @@ public class Conveyor extends Element {
             case "speedMax":
                 return this.getSpeedMax();
             case "matterQuantities":
-                return this.getStartPoint().getMatterBasket().getQuantities();
+                return this.getStartPoint().getMatterBasketQty().getQuantities();
             case "color":
                 return this._color;
             default:

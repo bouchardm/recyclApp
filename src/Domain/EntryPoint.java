@@ -1,9 +1,7 @@
 package Domain;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class EntryPoint extends RectangularNode
@@ -21,13 +19,14 @@ public class EntryPoint extends RectangularNode
 
     public void setMatterBasket(MatterBasket matterBasket) {
         this._outlet.setMatterBasket(matterBasket);
+      //  this._outlet.setMatterBasketQty(matterBasket);
         if(this._outlet.hasConveyor()==false && matterBasket.getTotalQuantity()>0) {
             this.addErrorMessage("Le point d'entrée reçoit de la matière mais n'est pas connecté au réseau.");
         }
     }
 
     public MatterBasket getMatterBasket() {
-        return this._outlet.getMatterBasket();
+        return this._outlet.getMatterBasketQty();
     }
 
     public Outlet getOutlet() {
@@ -83,7 +82,7 @@ public class EntryPoint extends RectangularNode
     //Généralement, appeller avec entryPoint.processMatterBasket(entryPoint.getMatterBasket());
     @Override
     public void processMatterBasket(MatterBasket matterBasket) {
-        this._outlet.setMatterBasket(matterBasket);
+        this._outlet.setMatterBasketQty(matterBasket);
         if(this._outlet.hasConveyor()==false && matterBasket.getTotalQuantity()>0) {
             this.addErrorMessage("Le point d'entrée reçoit de la matière mais n'est pas connecté au réseau.");
         }
