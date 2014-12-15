@@ -659,11 +659,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateNewProjectActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+       saveProject();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-        // TODO add your handling code here:
+        loadProject();
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void newMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuActionPerformed
@@ -1111,6 +1111,59 @@ public class MainFrame extends javax.swing.JFrame {
         this.panelInformation.removeAll();
     }
     
+    private void loadProject()
+    {
+                JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.setFileFilter(smileyFilter);
+        filePicker.setDialogTitle("Charger le projet");
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            
+            _controller.LoadProject(path);
+            repaint();
+            
+        }
+    }
+    private void saveProject()
+    {
+            JFileChooser filePicker = new JFileChooser();
+        FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
+        filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
+        filePicker.setFileFilter(smileyFilter);
+        filePicker.setDialogTitle("Enregistrer le projet");
+        int response = filePicker.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            FileFilter fileFilter = filePicker.getFileFilter();
+            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists())
+            {
+                int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
+                if (answer != 0)
+                {
+                    return;
+                }
+            }
+            String path = filePicker.getSelectedFile().toString();
+            if (!fileFilter.accept(filePicker.getSelectedFile()))
+            {
+                path += "." + extension;
+            }
+            
+            _controller.SaveProject(path);
+        }
+    
+    }
     private void exportImage()
     {
         JFileChooser filePicker = new JFileChooser();

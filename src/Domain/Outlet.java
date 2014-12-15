@@ -8,6 +8,10 @@ public class Outlet extends IOlet
 	//private Node _parentNode;
 	private MatterBasket _matterBasket;
         
+        public Outlet()
+        {
+       
+        }
         public Outlet(Node parentNode)
         {
             super(parentNode);

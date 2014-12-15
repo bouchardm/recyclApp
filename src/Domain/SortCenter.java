@@ -149,7 +149,10 @@ public class SortCenter extends Element {
     public ArrayList<EntryPoint> getEntryPoints() {
         return _entryPointList;
     }
-
+    public void setEntrypoints(ArrayList<EntryPoint> _entryPointlist)
+    {
+    this._entryPointList = _entryPointlist;
+    }
     //retourne l'Outlet d'un point d'entrée à l'index "index" de la liste
     public Outlet getEntryPointOutlet(int index) {
         return _entryPointList.get(index).getOutlet();

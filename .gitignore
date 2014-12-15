@@ -32,3 +32,6 @@ nb-configuration.xml
 .idea/
 app2.iml
 out/
+src/image/image.png
+build/classes/Domain/MatterBasket.class
+build/classes/Domain/MatterList.class

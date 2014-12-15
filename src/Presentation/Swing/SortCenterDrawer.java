@@ -261,8 +261,8 @@ public class SortCenterDrawer {
 
     private void drawConveyor(Graphics g, Conveyor conveyor) {
         int x1, x2, y1, y2;
-        Point2D.Float position1 = conveyor.getStartOutlet().getPosition();
-        Point2D.Float position2 = conveyor.getEndInlet().getPosition();
+        Point2D.Float position1 = conveyor.getStartPoint().getPosition();
+        Point2D.Float position2 = conveyor.getEndPoint().getPosition();
         
         x1 = _viewport.meterToPix(position1.x);
         y1 = _viewport.meterToPix(position1.y);

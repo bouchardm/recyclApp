@@ -28,7 +28,7 @@ public class StatsFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null); // Centrer la fenêtre
         
-        this.tblPurity.setModel(Utility.generateTableFromStats(controller.getPurityRateForMatterBasketAtSelectedElement(), controller));
+        this.tblPurity.setModel(Utility.generateTableFromStats(controller.getPurityRateForMatterBasketAtSlectedElement(), controller));
         
         this.tblRecup.setModel(Utility.generateTableFromStats(controller.getRecoveryRateForMatterBasketAtSelectedElement(), controller));
     }

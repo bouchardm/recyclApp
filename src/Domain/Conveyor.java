@@ -8,15 +8,26 @@ import java.util.ArrayList;
 public class Conveyor extends Element {
 
     private static final float DEFAULTCAPACITY = 10; // 10 kg/h
+
+    /**
+     * @return the _WIDTH
+     */
+    public static float getWIDTH() {
+        return _WIDTH;
+    }
     private Outlet _startPoint;
     private Inlet _endPoint;
-    private Object _iD;
-    private MatterBasket _matterBasket;
+//    private Object _iD;
+//    private MatterBasket _matterBasket;
     private Float _speedMax;
     private Color _color;
     private Line2D.Float _line;
     private final static float _WIDTH = 0.5f;
     
+    public Conveyor()
+    {
+    
+    }
     public Conveyor(Outlet startPoint, Inlet endPoint)
     {
         if (startPoint == null || endPoint == null) 
@@ -50,29 +61,51 @@ public class Conveyor extends Element {
         updatePoints();
     }
 
+    /**
+     * @return the _line
+     */
+    public Line2D.Float getLine() {
+        return _line;
+    }
+
+    /**
+     * @param _line the _line to set
+     */
+    public void setLine(Line2D.Float _line) {
+        this._line = _line;
+    }
+
+   
 
     @Override
     public boolean include(Point2D.Float point)
     {
         updatePoints();
-        return ((float)_line.ptSegDist(point)) <= _WIDTH/2;
+        return ((float)getLine().ptSegDist(point)) <= getWIDTH()/2;
     }
 
     public void updatePoints()
     {
         Point2D.Float p1 = _startPoint.getPosition();
         Point2D.Float p2 = _endPoint.getPosition();
-        _line.setLine(p1.x, p1.y, p2.x, p2.y);
+        getLine().setLine(p1.x, p1.y, p2.x, p2.y);
     }
 
-    public Outlet getStartOutlet() {
+    public Outlet getStartPoint() {
         return this._startPoint;
     }
-
-    public Inlet getEndInlet() {
+    public void setStartPoint(Outlet _startPoint)
+    {
+     this._startPoint  =  _startPoint;
+    }
+    public Inlet getEndPoint() {
         return this._endPoint;
     }
-
+    
+    public void setEndPoint(Inlet _endPoint)
+    {
+    this._endPoint = _endPoint;
+    }
 
     public Node getStartNode()
     {
@@ -92,14 +125,14 @@ public class Conveyor extends Element {
     public Point2D.Float getPoint1()
     {
         updatePoints();
-        return (Point2D.Float)_line.getP1();
+        return (Point2D.Float)getLine().getP1();
     }
 
 
     public Point2D.Float getPoint2()
     {
         updatePoints();
-        return (Point2D.Float)_line.getP2();
+        return (Point2D.Float)getLine().getP2();
     }
 
     public void removeConveyor() {
@@ -131,7 +164,7 @@ public class Conveyor extends Element {
             case "speedMax":
                 return this.getSpeedMax();
             case "matterQuantities":
-                return this.getStartOutlet().getMatterBasket().getQuantities();
+                return this.getStartPoint().getMatterBasket().getQuantities();
             case "color":
                 return this._color;
             default:
@@ -147,10 +180,12 @@ public class Conveyor extends Element {
         this._speedMax = _speedMax;
     }
 
+    @Override
     public void setColor(Color _color) {
         this._color = _color;
     }
     
+    @Override
     public Color getColor() {
         return this._color;
     }

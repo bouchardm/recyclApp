@@ -1,7 +1,5 @@
 package Application.Controller;
 
-import Domain.MatterList;
-import Domain.SortMatrix;
 import Domain.SortStation;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
@@ -9,16 +7,12 @@ import Domain.Conveyor;
 import Domain.Element;
 import Domain.IOlet;
 import Domain.Junction;
-import Domain.Matter;
 import Domain.MatterBasket;
 import Domain.Node;
-import Domain.Outlet;
 import Domain.Project;
-import Domain.SortCenter;
 import Domain.Inlet;
 import Domain.Outlet;
 import Domain.Station;
-import Domain.TransMatrix;
 import Domain.TransStation;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.matterFrame;
@@ -26,12 +20,15 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import java.beans.XMLEncoder;
+import java.beans.XMLDecoder;
 
 public class Controller {
 
@@ -55,7 +52,7 @@ public class Controller {
     public void selectElement(Point2D.Float coords) {
         _selectedElement = _project.getSortCenter();
 
-        List<Element> elements = new ArrayList<Element>();
+        List<Element> elements = new ArrayList<>();
 
         elements.add(_project.getSortCenter());
         elements.addAll(_project.getSortCenter().getConveyors());
@@ -84,11 +81,9 @@ public class Controller {
             }
         }
     }
-    
-    public Object getOutletAttribute(String attribName)
-    {
-        if (_outlet != null)
-        {
+
+    public Object getOutletAttribute(String attribName) {
+        if (_outlet != null) {
             return _outlet.getAttribute(attribName);
         }
         return null;
@@ -114,7 +109,7 @@ public class Controller {
     public Object getSelectedElementAttribute(String attribName) {
         return _selectedElement.getAttribute(attribName);
     }
-    
+
     public ArrayList<String> getSelectedElementErrors() {
         return _selectedElement.getErrorMessages();
     }
@@ -130,8 +125,7 @@ public class Controller {
             return this.getConveyorSelected();
         } else if (this.typeOfElementSelectedIs(EntryPoint.class)) {
             return this.getEntryPointSelected();
-        }
-        else if (this.typeOfElementSelectedIs(ExitPoint.class)) {
+        } else if (this.typeOfElementSelectedIs(ExitPoint.class)) {
             return this.getExitPointSelected();
         }
         return null;
@@ -147,12 +141,76 @@ public class Controller {
         return _project.getSortCenter().getDimensions();
     }
 
-    public void SaveProject() {
-        throw new UnsupportedOperationException();
+    public void SaveProject(String path) {
+
+        XMLEncoder encoder = null;
+
+        try {
+
+            //Get all entrypoint
+            ArrayList<EntryPoint> entryPointList = getProject().getSortCenter().getEntryPoints();
+            ArrayList<ExitPoint> exitPointList = getProject().getSortCenter().getExitPoints();
+            ArrayList<Conveyor> conveyorList = getProject().getSortCenter().getConveyors();
+            ArrayList<Junction> junctionList = getProject().getSortCenter().getJunctions();
+
+            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
+
+            for (EntryPoint entryPoint : entryPointList) {
+                encoder.writeObject(entryPoint);
+            }
+//            for (ExitPoint exitPoint : exitPointList) {
+//                encoder.writeObject(exitPoint);
+//            }
+            for (Conveyor conveyor : conveyorList) {
+                encoder.writeObject(conveyor);
+            }
+            for (Junction junction : junctionList) {
+                encoder.writeObject(junction);
+            }
+//            encoder.writeObject(exitPointList);
+//            encoder.writeObject(conveyorList);
+//            encoder.writeObject(junctionList);
+
+            encoder.flush();
+
+        } catch (final java.io.IOException e) {
+        } finally {
+
+            if (encoder != null) {
+
+                encoder.close();
+            }
+        }
     }
 
-    public void LoadProject() {
-        throw new UnsupportedOperationException();
+    public void LoadProject(String path) {
+
+        XMLDecoder decoder = null;
+        try {
+            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)));
+
+            ArrayList<EntryPoint> entryPointList = new ArrayList<>();
+           int i = 0;
+            while (i < 2) 
+            {
+                entryPointList.add((EntryPoint) decoder.readObject());
+                i++;
+            }
+            this.getProject().getSortCenter().setEntrypoints(entryPointList);
+
+        } 
+        catch (final Exception e) 
+        {
+
+        }
+        finally 
+        {
+
+            if (decoder != null) 
+            {
+decoder.close();
+            }
+        }
     }
 
     public void CreateNewProject() {
@@ -182,16 +240,16 @@ public class Controller {
     public void SetSizeSortCenter() {
         throw new UnsupportedOperationException();
     }
-    
+
     public void EditConveyor(Float speedMax, Color color) {
         if (speedMax != null) {
             this.setSelectedElementAttribute("speedMax", speedMax);
         }
-        
+
         if (color != null) {
             this.setSelectedElementAttribute("color", color);
         }
-        
+
         this._project.getSortCenter().updateDesign();
     }
 
@@ -246,7 +304,7 @@ public class Controller {
         Float dimensionX = (Float) this._selectedElement.getAttribute("dimensionX");
         Float dimensionY = (Float) this._selectedElement.getAttribute("dimensionY");
         HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
-        
+
         infoElement.put("name", name);
         infoElement.put("description", description);
         infoElement.put("color", color);
@@ -266,20 +324,20 @@ public class Controller {
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
         HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
-        
+
         infoElement.put("speedMax", speedMax);
         infoElement.put("matterQuantities", matterQuantities);
 
         return infoElement;
     }
-    
+
     private Map<String, Object> getConveyorSelected() {
         Map<String, Object> infoElement = new HashMap();
 
         Float speedMax = (Float) this._selectedElement.getAttribute("speedMax");
         HashMap<Integer, Float> matterQuantities = (HashMap<Integer, Float>) this._selectedElement.getAttribute("matterQuantities");
         Color color = (Color) this._selectedElement.getAttribute("color");
-        
+
         infoElement.put("speedMax", speedMax);
         infoElement.put("matterQuantities", matterQuantities);
         infoElement.put("color", color);
@@ -287,7 +345,7 @@ public class Controller {
         return infoElement;
     }
 
-    private Map<String, Object> getEntryPointSelected () {
+    private Map<String, Object> getEntryPointSelected() {
         Map<String, Object> infoElement = new HashMap();
 
         MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
@@ -297,7 +355,7 @@ public class Controller {
         return infoElement;
     }
 
-        private Map<String, Object> getExitPointSelected () {
+    private Map<String, Object> getExitPointSelected() {
         Map<String, Object> infoElement = new HashMap();
 
         MatterBasket matterBasket = (MatterBasket) this._selectedElement.getAttribute("matterBasket");
@@ -306,7 +364,7 @@ public class Controller {
 
         return infoElement;
     }
-    
+
     public void EditMatrix() {
         throw new UnsupportedOperationException();
     }
@@ -360,39 +418,29 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez saisir un nombre de sortie réaliste.", null, 0);
             return;
         }
-        
-        
 
         _selectedElement = this._project.getSortCenter().addSortStation(value);
         ((SortStation) _selectedElement).setPosition(position);
     }
 
-        public void moveStation(Point2D.Float position) 
-    {
-        if (position.x < 0)
-        {
+    public void moveStation(Point2D.Float position) {
+        if (position.x < 0) {
             position.x = 0;
+        } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
+            position.x = getSortCenterDimensions().x - ((Point2D.Float) getSelectedElementAttribute("dimensions")).x;
         }
-        else if (position.x+((Point2D.Float)getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x)
-        {
-            position.x = getSortCenterDimensions().x-((Point2D.Float)getSelectedElementAttribute("dimensions")).x;
-        }
-        if (position.y < 0)
-        {
+        if (position.y < 0) {
             position.y = 0;
-        }
-        else if (position.y+((Point2D.Float)getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y)
-        {
-            position.y = getSortCenterDimensions().y-((Point2D.Float)getSelectedElementAttribute("dimensions")).y;
+        } else if (position.y + ((Point2D.Float) getSelectedElementAttribute("dimensions")).y > getSortCenterDimensions().y) {
+            position.y = getSortCenterDimensions().y - ((Point2D.Float) getSelectedElementAttribute("dimensions")).y;
         }
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-        
+
         setSelectedElementAttribute("position", position);
     }
-
 
     public void DeleteStation() {
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
@@ -424,11 +472,11 @@ public class Controller {
             ((Station) _selectedElement).getSortMatrix().setSortMatrix(sorter);
             this._project.getSortCenter().updateDesign();
         }
-        
+
         if (dimensionX != null) {
             this.setSelectedElementAttribute("dimensionX", dimensionX);
         }
-        
+
         if (dimensionY != null) {
             this.setSelectedElementAttribute("dimensionY", dimensionY);
         }
@@ -459,42 +507,41 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-        
-         _selectedElement = this._project.getSortCenter().addEntryPoint();
-         _selectedElement.setAttribute("position", position);
+
+        _selectedElement = this._project.getSortCenter().addEntryPoint();
+        _selectedElement.setAttribute("position", position);
     }
-    
+
     public void editEntryPoint(ArrayList<HashMap<Integer, Float>> newMatterBasket) {
-        
+
         MatterBasket matterBasket = new MatterBasket();
-        
+
         for (HashMap<Integer, Float> matter : newMatterBasket) {
             matterBasket.addMatterQuantity(matter.entrySet().iterator().next().getKey(), matter.entrySet().iterator().next().getValue());
         }
-        
+
         ((EntryPoint) this._selectedElement).setMatterBasket(matterBasket);
     }
-    
-    public void AddExitPoint(Point2D.Float position)
-    {
+
+    public void AddExitPoint(Point2D.Float position) {
+
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-        
+
         _selectedElement = getProject().getSortCenter().addExitPoint();
 
         _selectedElement.setAttribute("position", position);
 
     }
-    
-    
+
     public void addJunction(Point2D.Float position) {
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-        
+
         _selectedElement = this.getProject().getSortCenter().addJunction();
         _selectedElement.setAttribute("position", position);
     }
@@ -503,9 +550,8 @@ public class Controller {
     {
         this.getProject().getSortCenter().deleteEntryPoint((EntryPoint) _selectedElement);
     }
-    
-    public void deleteExitPoint()
-    {
+
+    public void deleteExitPoint() {
         this.getProject().getSortCenter().deleteExitPoint((ExitPoint) _selectedElement);
     }
 
@@ -526,29 +572,29 @@ public class Controller {
     public void deleteJunction() {
         this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
     }
-    
+
     public void deleteConveyor() {
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
-    
+
     public void showMatterFrame() {
         matterFrame matterFrame = new matterFrame(this);
         matterFrame.setVisible(true);
     }
 
     public void addMatter() {
-        String matterName = JOptionPane.showInputDialog(null, "Quel est le nom de la matière?", "Matières", 0);    
+        String matterName = JOptionPane.showInputDialog(null, "Quel est le nom de la matière?", "Matières", 0);
         if (matterName != null) {
-            if ( ! matterName.isEmpty()) {
+            if (!matterName.isEmpty()) {
                 try {
-                    this._project.getSortCenter().addMatterToMatterList(matterName); 
+                    this._project.getSortCenter().addMatterToMatterList(matterName);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Veuillez indiquez un nom de matière qui n'existe pas déjà.", null, 0);
                 }
             }
         }
     }
-    
+
     public ArrayList<HashMap<Integer, String>> getMatterList() {
         ArrayList<HashMap<Integer, String>> matterList = this.getProject().getSortCenter().getMatterList().getMapList();
         return matterList;
@@ -561,15 +607,16 @@ public class Controller {
     public void editMatter(HashMap<Integer, String> matter) {
         int key = matter.entrySet().iterator().next().getKey();
         String name = matter.entrySet().iterator().next().getValue();
-        
+
         this._project.getSortCenter().getMatterList().setMatterName(key, name);
     }
-    
-    public HashMap<Integer, Float> getPurityRateForMatterBasketAtSelectedElement() {
+
+    public HashMap<Integer, Float> getPurityRateForMatterBasketAtSlectedElement() {
+
         return this._project.getSortCenter().getPurityRateForMatterBasketAtElement(this._selectedElement);
     }
-    
-    public HashMap<Integer, Float> getRecoveryRateForMatterBasketAtSelectedElement () {
+
+    public HashMap<Integer, Float> getRecoveryRateForMatterBasketAtSelectedElement() {
         return this._project.getSortCenter().getRecoveryRateForMatterBasketAtElement(this._selectedElement);
     }
 
@@ -579,8 +626,7 @@ public class Controller {
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
 //            this._project.getSortCenter().updateDesign();
 
-        } 
-        catch (Exception ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
     }
@@ -608,5 +654,7 @@ public class Controller {
         return _inlet;
 
     }
+
+
 
 }

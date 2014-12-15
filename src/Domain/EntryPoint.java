@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class EntryPoint extends RectangularNode
 {
     private Outlet _outlet;
@@ -90,6 +91,20 @@ public class EntryPoint extends RectangularNode
     @Override
     public void setMatterBasketAtOutlets(MatterBasket matterBasket) {
         this.setMatterBasket(matterBasket);
+    }
+
+    /**
+     * @return the _name
+     */
+    public String getName() {
+        return _name;
+    }
+
+    /**
+     * @param _name the _name to set
+     */
+    public void setName(String _name) {
+        this._name = _name;
     }
     
 }
