@@ -629,11 +629,11 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
-        // TODO add your handling code here:
+        _controller.redo();
     }//GEN-LAST:event_btnRedoActionPerformed
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
-        // TODO add your handling code here:
+        _controller.undo();
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnCreateNewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewProjectActionPerformed
@@ -1098,6 +1098,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
             
             _controller.LoadProject(path);
+            
             repaint();
             
         }

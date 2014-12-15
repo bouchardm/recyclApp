@@ -228,6 +228,7 @@ public abstract class Station extends RectangularNode
     }
     
      
+    @Override
     public String getName() {
         return _name;
     }
@@ -236,10 +237,12 @@ public abstract class Station extends RectangularNode
         this._name = _name;
     }
 
+    @Override
     public String getDescription() {
         return _description;
     }
 
+    @Override
     public void setDescription(String _description) {
         this._description = _description;
     }
@@ -251,18 +254,22 @@ public abstract class Station extends RectangularNode
     public void setKgHMax(float _kgHMax) {
         this.setSpeedMax(_kgHMax);
     }
+    @Override
     public Color getColor() {
         return _color;
     }
 
+    @Override
     public void setColor(Color _color) {
         this._color = _color;
     }
     
+    @Override
     public Image getImg() {
         return _img;
     }
 
+    @Override
     public void setImg(String src) {
         this.setImg(Toolkit.getDefaultToolkit().getImage(src));
     }

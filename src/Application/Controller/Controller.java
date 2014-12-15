@@ -22,6 +22,7 @@ public class Controller {
     private Outlet _outlet;
     private Inlet _inlet;
     private Element _selectedElement;
+    
 
     public Controller() {
         _project = new Project();
@@ -579,4 +580,13 @@ public class Controller {
 
     }
 
+    public void redo()
+    {
+    
+    }
+    
+     public void undo()
+    {
+    
+    }
 }

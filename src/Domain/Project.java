@@ -51,6 +51,7 @@ public class Project {
 
             SortCenter sortcenter = (SortCenter) decoder.readObject();
             this.setSortCenter(sortcenter);
+            this.getSortCenter().updateDesign();
 
         } catch (final Exception e) {
 
@@ -62,32 +63,8 @@ public class Project {
 
         try {
 
-            //Get all entrypoint
-//            ArrayList<EntryPoint> entryPointList = getSortCenter().getEntryPoints();
-//            ArrayList<ExitPoint> exitPointList = getSortCenter().getExitPoints();
-//            ArrayList<Conveyor> conveyorList = getSortCenter().getConveyors();
-//            ArrayList<Junction> junctionList = getSortCenter().getJunctions();
-//            MatterList matterList = getSortCenter().getMatterList();
-//
             encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
-//
-//            for (EntryPoint entryPoint : entryPointList) {
-//                encoder.writeObject(entryPoint);
-//            }
-//            for (ExitPoint exitPoint : exitPointList) {
-//                encoder.writeObject(exitPoint);
-//            }
-//            for (Conveyor conveyor : conveyorList) {
-//                encoder.writeObject(conveyor);
-//            }
-//            for (Junction junction : junctionList) {
-//                encoder.writeObject(junction);
-//            }
-//
-//                encoder.writeObject(matterList);
-
             encoder.writeObject(this.getSortCenter());
-
             encoder.flush();
 
         } catch (final java.io.IOException e) {
@@ -170,4 +147,6 @@ public class Project {
         this._isSaved = _isSaved;
     }
 
+   
+    
 }
