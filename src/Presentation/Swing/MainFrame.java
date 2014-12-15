@@ -1017,7 +1017,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMatterListActionPerformed
 
     private void btnAddMatterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMatterActionPerformed
-        this._controller.showAboutUs();
+        this._controller.addMatter();
     }//GEN-LAST:event_btnAddMatterActionPerformed
 
     private void btnAboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMouseClicked

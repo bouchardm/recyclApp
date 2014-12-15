@@ -421,13 +421,13 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
     }//GEN-LAST:event_txtStationKgHMaxKeyPressed
 
     private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
-
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
         this._controller.DeleteStation();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
+    }//GEN-LAST:event_btnDeleteStationActionPerformed
+
+    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
+        
     }//GEN-LAST:event_btnDeleteStationMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -427,13 +427,13 @@ public class infoSortStationFrame extends javax.swing.JFrame { // Pourquoi c'est
     }//GEN-LAST:event_txtStationDescriptionKeyPressed
 
     private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
-
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
         this._controller.DeleteStation();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
+    }//GEN-LAST:event_btnDeleteStationActionPerformed
+
+    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
+        
     }//GEN-LAST:event_btnDeleteStationMouseClicked
 
     private void txtStationNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStationNameActionPerformed

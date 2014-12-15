@@ -138,13 +138,13 @@ public class infoJunctionFrame extends javax.swing.JFrame { // Pourquoi c'est un
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteStationActionPerformed
-
-    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
         this._controller.deleteJunction();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
+    }//GEN-LAST:event_btnDeleteStationActionPerformed
+
+    private void btnDeleteStationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStationMouseClicked
+        
     }//GEN-LAST:event_btnDeleteStationMouseClicked
 
     private void txtStationNbExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStationNbExitKeyPressed

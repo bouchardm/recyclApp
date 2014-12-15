@@ -182,7 +182,8 @@ public class Junction extends RectangularNode {
                 
                 newMatterBasket.addMatterQuantity(currentMatterID, newMatterQty);
             }
-               
+            
+            _outlet.setMatterBasket(newMatterBasket); 
         }
         if(getOutlet().getMatterBasket().getTotalQuantity()>0 && getOutlet().hasConveyor()==false) {
             this.addErrorMessage("La jonction reçoit de la matière mais sa sortie n'est pas connectée au réseau.");
