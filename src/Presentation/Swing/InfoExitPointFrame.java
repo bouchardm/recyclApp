@@ -45,18 +45,24 @@ public class InfoExitPointFrame extends JFrame { // Pourquoi c'est un Frame. Cet
         String[] nameCol = {"Matière" , "Quantité"};
       
             
-        String[][] data = new String[size + 1][size + 1];
+        String[][] data = new String[size+1][size+1];
 
         HashMap<Integer, Float> matterHashMap = matterBasket.getQuantities();
         int i = 0;
         Float totalValue = 0.0f;
         for (Map.Entry<Integer, Float> iter : matterHashMap.entrySet()) {
             Integer matterID = iter.getKey();
-            data[i][0] =  _controller.getProject().getSortCenter().getMatterList().getMatterName(matterID);
-            data[i][1] = iter.getValue().toString();
-            totalValue += iter.getValue();
+            float qty = iter.getValue();
+            if(qty!=0) {
+                data[i][0] =  _controller.getProject().getSortCenter().getMatterList().getMatterName(matterID);
+                data[i][1] = iter.getValue().toString(); 
+                totalValue += iter.getValue();
+                i++;
+            }
+            
+            
            
-            i++;
+            
         }
 
         matterTable.setModel(new DefaultTableModel(data, nameCol));

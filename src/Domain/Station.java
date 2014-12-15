@@ -93,7 +93,7 @@ public abstract class Station extends RectangularNode
             
             currentOutlet.setMatterBasket(sortedBasketForOutlet);  
             if(!currentOutlet.hasConveyor() && sortedBasketForOutlet.getTotalQuantity()>0) {
-                currentOutlet.addErrorMessage("La sortie "+(i+1)+" de la station "+this._name+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
+                this.addErrorMessage("La sortie "+(i+1)+" reçoit de la matière mais n'est pas connecté à un convoyeur.");
             } 
         }
         if(this._speedMax!=0) {

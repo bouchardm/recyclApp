@@ -473,6 +473,7 @@ public class Controller {
         }
         
         ((EntryPoint) this._selectedElement).setMatterBasket(matterBasket);
+        this._project.getSortCenter().updateDesign();
     }
     
     public void AddExitPoint(Point2D.Float position)
@@ -544,6 +545,7 @@ public class Controller {
                     this._project.getSortCenter().addMatterToMatterList(matterName); 
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Veuillez indiquez un nom de matière qui n'existe pas déjà.", null, 0);
+//                    JOptionPane.showMessageDialog(null, e.getMessage(), null, 0);
                 }
             }
         }

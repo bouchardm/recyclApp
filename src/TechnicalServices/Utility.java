@@ -6,6 +6,7 @@
 package TechnicalServices;
 
 import Application.Controller.Controller;
+import Domain.EntryPoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,11 +42,11 @@ public class Utility {
         for (Map.Entry<Integer, Float> entrySet : listMatter.entrySet()) {
             Integer key = entrySet.getKey();
             Float value = entrySet.getValue();
-            
+            if(controller.typeOfElementSelectedIs(EntryPoint.class) || value!=0) {
             matters[i][0] = controller.getMatterName(key);
             matters[i][1] = value.toString();
-            
             i++;
+            }
         }
         
         DefaultTableModel result = new javax.swing.table.DefaultTableModel(matters, headers);
