@@ -186,7 +186,7 @@ public class SortCenter extends Element {
         try {
             int newMatterID = this.getNextMatterID();
             Matter matter = new Matter(matterName, newMatterID);
-            this.getMatterList().addMatterToList(matter);
+            this._matterList.addMatterToList(matter);
             //pour la première matière, il faut mettre à jour les stations et leurs matrices
             if(this._matterList.getCount()==1) {
                 for(Station station : this.getStations()) {
@@ -523,9 +523,8 @@ public class SortCenter extends Element {
     }
 
     public Junction addJunction() {
-//        Junction junction = new Junction(this._matterList);
         Junction junction = new Junction();
-        this.getJunctionList().add(junction);
+        this._junctionList.add(junction);
         this.updateDesign();
         return junction;
     }

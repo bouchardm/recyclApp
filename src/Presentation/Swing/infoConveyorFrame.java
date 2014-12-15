@@ -82,11 +82,6 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
         panelInformation2.setPreferredSize(new java.awt.Dimension(216, 2));
 
         btnDeleteConveyor.setText("Supprimer");
-        btnDeleteConveyor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteConveyorMouseClicked(evt);
-            }
-        });
         btnDeleteConveyor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteConveyorActionPerformed(evt);
@@ -167,14 +162,10 @@ public class infoConveyorFrame extends javax.swing.JFrame { // Pourquoi c'est un
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteConveyorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteConveyorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteConveyorActionPerformed
-
-    private void btnDeleteConveyorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteConveyorMouseClicked
         this._controller.deleteConveyor();
         this._parent.cleanInformationPanel();
         this._parent.repaint();
-    }//GEN-LAST:event_btnDeleteConveyorMouseClicked
+    }//GEN-LAST:event_btnDeleteConveyorActionPerformed
 
     private void txtConveyorKgHMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConveyorKgHMaxKeyPressed
         String strKgHMax = this.txtConveyorKgHMax.getText();
