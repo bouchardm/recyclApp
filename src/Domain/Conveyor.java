@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import javax.swing.text.Segment;
 
 public class Conveyor extends Element {
 
@@ -23,17 +24,16 @@ public class Conveyor extends Element {
     private Color _color;
     private Line2D.Float _line;
     private final static float _WIDTH = 0.5f;
+    private ArrayList<ConveyorBend> _bends;
+    private int _bendIndexInsertion = 0;
     
-    public Conveyor()
-    {
-    
-    }
     public Conveyor(Outlet startPoint, Inlet endPoint)
     {
         if (startPoint == null || endPoint == null) 
         {
             throw new IllegalArgumentException("startPoint and endPoint cannot be null");
         }
+        _bends = new ArrayList<>();
         _errorMessages = new ArrayList<>();
         _line = new Line2D.Float();
         this._startPoint = startPoint;
@@ -60,6 +60,23 @@ public class Conveyor extends Element {
 
         updatePoints();
     }
+    
+    public ConveyorBend addBend()
+    {
+        ConveyorBend bend = new ConveyorBend(this);
+        _bends.add(_bendIndexInsertion, bend);
+        return bend;
+    }
+    
+    public void removeBend(ConveyorBend bend)
+    {
+        _bends.remove(bend);
+    }
+    
+    public ArrayList<ConveyorBend> getBends()
+    {
+        return _bends;
+    }
 
     /**
      * @return the _line
@@ -81,7 +98,24 @@ public class Conveyor extends Element {
     public boolean include(Point2D.Float point)
     {
         updatePoints();
-        return ((float)getLine().ptSegDist(point)) <= getWIDTH()/2;
+        Line2D.Float line = new Line2D.Float(_line.x1, _line.y1, _line.x2, _line.y2);
+        _bendIndexInsertion = 0;
+        for (ConveyorBend bend: _bends)
+        {
+            line.x2 = bend.getPosition().x;
+            line.y2 = bend.getPosition().y;
+            if (((float)line.ptSegDist(point)) <= getWIDTH()/2)
+            {
+                return true;
+            }
+            line.x1 = line.x2;
+            line.y1 = line.y2;
+            
+            _bendIndexInsertion++;
+        }
+        line.x2 = _line.x2;
+        line.y2 = _line.y2;
+        return ((float)line.ptSegDist(point)) <= getWIDTH()/2;
     }
 
     public void updatePoints()

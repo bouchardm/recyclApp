@@ -39,9 +39,14 @@ public class Controller {
         _selectedElement = _project.getSortCenter();
 
         List<Element> elements = new ArrayList<>();
+        List<Conveyor> conv = _project.getSortCenter().getConveyors();
 
         elements.add(_project.getSortCenter());
-        elements.addAll(_project.getSortCenter().getConveyors());
+        elements.addAll(conv);
+        for (Conveyor conveyor: conv)
+        {
+            elements.addAll(conveyor.getBends());
+        }
         elements.addAll(_project.getSortCenter().getStations());
         elements.addAll(_project.getSortCenter().getJunctions());
         elements.addAll(_project.getSortCenter().getEntryPoints());
@@ -266,6 +271,14 @@ public class Controller {
         infoElement.put("color", color);
 
         return infoElement;
+    }
+    
+    public void addConveyorBend()
+    {
+        if (_selectedElement instanceof Conveyor)
+        {
+            _selectedElement = ((Conveyor)_selectedElement).addBend();
+        }
     }
 
     private Map<String, Object> getEntryPointSelected() {
@@ -499,6 +512,11 @@ public class Controller {
 
     public void deleteConveyor() {
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
+    }
+    
+    public void deleteConveyorBend()
+    {
+        ((ConveyorBend)_selectedElement).delete();
     }
 
     public void showMatterFrame() {
