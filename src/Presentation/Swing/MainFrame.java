@@ -573,7 +573,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu2.setText("Édition");
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/undo.png"))); // NOI18N
         jMenuItem4.setText("Annuler");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -583,9 +583,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, 0));
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/redo.png"))); // NOI18N
         jMenuItem5.setText("Refaire");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -659,7 +664,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newMenuActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        _controller.undo();
+        repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
@@ -720,7 +726,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         _controller.setIsMouseDragged(false);
-         
+
         _dragOffset = null;
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
@@ -812,10 +818,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         repaint();
-        _controller.saveLastState();
-    
-           
-   
+       // _controller.saveLastState();
+
 
     }//GEN-LAST:event_viewportMouseReleased
 
@@ -840,14 +844,12 @@ public class MainFrame extends javax.swing.JFrame {
             _controller.moveStation(position);
 
             this.viewport.repaint();
-        }
-        else if (_controller.typeOfElementSelectedIs(Conveyor.class))
-        {
+        } else if (_controller.typeOfElementSelectedIs(Conveyor.class)) {
             _controller.addConveyorBend();
             cleanInformationPanel();
             _controller.setSelectedElementAttribute("position",
                     new Point2D.Float(viewport.pixToMeter(evt.getPoint().x),
-                    viewport.pixToMeter(evt.getPoint().y)));
+                            viewport.pixToMeter(evt.getPoint().y)));
             _dragOffset = new Point2D.Float(0, 0);
             repaint();
         }
@@ -1007,14 +1009,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewportMouseClicked
 
-    private void viewportMouseDoubleClicked(java.awt.event.MouseEvent evt)
-    {
-        if (_controller.typeOfElementSelectedIs(ConveyorBend.class))
-        {
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        _controller.redo();
+        repaint();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void viewportMouseDoubleClicked(java.awt.event.MouseEvent evt) {
+        if (_controller.typeOfElementSelectedIs(ConveyorBend.class)) {
             _controller.deleteConveyorBend();
         }
     }
-    
+
     @Override
     public void repaint() {
         super.repaint();

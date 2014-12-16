@@ -342,7 +342,7 @@ public class Controller {
     }
 
     public void moveStation(Point2D.Float position) {
-
+        saveLastState();
         if (position.x < 0) {
             position.x = 0;
         } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
@@ -359,6 +359,7 @@ public class Controller {
         }
 
         setSelectedElementAttribute("position", position);
+        saveLastState();
     }
 
     public void DeleteStation() {
@@ -596,9 +597,6 @@ public class Controller {
     public void saveCurrentState() {
         SortCenter sortCenter = null;
         SortCenter currentSortCenter = null;
-        
-        if(sortCenter.equals(currentSortCenter))
-            return;
         
         if (sortCenter != null) {
             SortCenter newSortCenter;
