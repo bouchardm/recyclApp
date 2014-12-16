@@ -39,7 +39,7 @@ public class ConveyorBend extends Element
     
     public Point2D.Float getPosition()
     {
-        Point2D.Float pos = new Point2D.Float(getPosition().x, getPosition().y);
+        Point2D.Float pos = new Point2D.Float(this._position.x, this._position.y);
         return pos;
     }
     
