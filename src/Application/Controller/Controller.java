@@ -1,5 +1,6 @@
 package Application.Controller;
 
+import Application.HistoryManagement.HistoryManagement;
 import Domain.*;
 import Presentation.Swing.AboutUs;
 import Presentation.Swing.matterFrame;
@@ -22,10 +23,12 @@ public class Controller {
     private Outlet _outlet;
     private Inlet _inlet;
     private Element _selectedElement;
-    
+    private HistoryManagement _historyManagement;
 
     public Controller() {
         _project = new Project();
+        _historyManagement = new HistoryManagement();
+
     }
 
     public boolean selectedElementIsFloor() {
@@ -134,7 +137,6 @@ public class Controller {
     public void LoadProject(String path) {
         this.getProject().loadProject(path);
     }
-
 
     public void CreateNewProject() {
         this._project = new Project();
@@ -548,8 +550,10 @@ public class Controller {
     public void addConveyor() {
 
         try {
+            
+            saveLastState();
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-//            this._project.getSortCenter().updateDesign();
+
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
@@ -580,13 +584,33 @@ public class Controller {
 
     }
 
-    public void redo()
-    {
-    
+    public void redo() {
+        _historyManagement.Redo();
+    }
+
+    public void undo() {
+        XMLEncoder encoder;
+        encoder = _historyManagement.Undo();
+
+        if (encoder != null) {
+            loadUndo(encoder);
+        }
     }
     
-     public void undo()
+    public void saveLastState()
     {
-    
+        XMLEncoder encoder = null;
+            encoder = getProject().saveState();
+            
+            if (encoder != null)
+                _historyManagement.addToUndoStack(encoder);
+    }
+    public void loadUndo(XMLEncoder encoder) {
+
+     if (encoder != null)
+        getProject().loadState(encoder);
+     
+
+      
     }
 }

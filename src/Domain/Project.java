@@ -34,20 +34,10 @@ public class Project {
         setSortCenter(new SortCenter());
         setIsSaved((Boolean) true);
 
-
     }
 
     public void loadProject(String path) {
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)))) {
-
-            ArrayList<EntryPoint> entryPointList = new ArrayList<>();
-//            int i = 0;
-//            while (i < 2) {
-//                entryPointList.add((EntryPoint) decoder.readObject());
-//                i++;
-//            }
-//            entryPointList.add((EntryPoint) decoder.readObject());        
-            // this.getSortCenter().setEntrypoints(entryPointList);
 
             SortCenter sortcenter = (SortCenter) decoder.readObject();
             this.setSortCenter(sortcenter);
@@ -56,7 +46,7 @@ public class Project {
         } catch (final Exception e) {
 
         }
-        }
+    }
 
     public void saveProject(String path) {
         XMLEncoder encoder = null;
@@ -75,6 +65,26 @@ public class Project {
                 encoder.close();
             }
         }
+    }
+
+    public XMLEncoder saveState() {
+        XMLEncoder encoder = null;
+
+        try {
+
+            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("temp2.xml")));
+            encoder.writeObject(this.getSortCenter());
+            encoder.flush();
+
+        } catch (final java.io.IOException e) {
+        } finally {
+
+            if (encoder != null) {
+
+                // encoder.close();  
+            }
+        }
+        return encoder;
     }
 
     public void saveAsProject(String path, String filename) {
@@ -147,6 +157,23 @@ public class Project {
         this._isSaved = _isSaved;
     }
 
-   
-    
+    public void loadState(XMLEncoder encoder) {
+        encoder.close();
+      
+       
+       
+        //try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp2.xml"))))
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp.xml"))))
+        {
+
+            SortCenter sortcenter = (SortCenter) decoder.readObject();
+            this.setSortCenter(sortcenter);
+            this.getSortCenter().updateDesign();
+
+        } catch (final Exception e) {
+
+        }
+
+    }
+
 }

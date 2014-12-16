@@ -630,10 +630,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
         _controller.redo();
+        repaint();
     }//GEN-LAST:event_btnRedoActionPerformed
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
         _controller.undo();
+        repaint();
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnCreateNewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewProjectActionPerformed
