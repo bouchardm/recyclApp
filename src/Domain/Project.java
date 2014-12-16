@@ -11,7 +11,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 /**
  *
@@ -34,20 +33,23 @@ public class Project {
         setSortCenter(new SortCenter());
         setIsSaved((Boolean) true);
 
+    }
 
+    public SortCenter deserializeSortcenter() {
+        SortCenter sortcenter = null;
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp.xml")))) {
+
+            sortcenter = (SortCenter) decoder.readObject();
+
+        } catch (final Exception e) {
+
+        }
+
+        return sortcenter;
     }
 
     public void loadProject(String path) {
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)))) {
-
-            ArrayList<EntryPoint> entryPointList = new ArrayList<>();
-//            int i = 0;
-//            while (i < 2) {
-//                entryPointList.add((EntryPoint) decoder.readObject());
-//                i++;
-//            }
-//            entryPointList.add((EntryPoint) decoder.readObject());        
-            // this.getSortCenter().setEntrypoints(entryPointList);
 
             SortCenter sortcenter = (SortCenter) decoder.readObject();
             this.setSortCenter(sortcenter);
@@ -56,7 +58,26 @@ public class Project {
         } catch (final Exception e) {
 
         }
+    }
+
+    public void serializeSortCenter(SortCenter sortcenter) {
+       XMLEncoder encoder = null;
+        try {
+encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("temp.xml")));
+            encoder.writeObject(sortcenter);
+            encoder.flush();
+           
+
+        } catch (final java.io.IOException e) {
         }
+        finally {
+
+            if (encoder != null) {
+
+                encoder.close();
+            }
+        }
+    }
 
     public void saveProject(String path) {
         XMLEncoder encoder = null;
@@ -147,6 +168,11 @@ public class Project {
         this._isSaved = _isSaved;
     }
 
-   
-    
+    public void loadState(SortCenter sortcenter) {
+
+        this.setSortCenter(sortcenter);
+        this.getSortCenter().updateDesign();
+
+    }
+
 }

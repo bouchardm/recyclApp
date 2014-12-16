@@ -166,6 +166,11 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
                 btnImgStationMouseClicked(evt);
             }
         });
+        btnImgStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImgStationActionPerformed(evt);
+            }
+        });
 
         btnTransMatrix.setText("Matrice de transformation");
         btnTransMatrix.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -444,6 +449,10 @@ public class infoTransStationFrame extends javax.swing.JFrame { // Pourquoi c'es
         StatsFrame statsFrame = new StatsFrame(this._controller);
         statsFrame.setVisible(true);
     }//GEN-LAST:event_btnStatsActionPerformed
+
+    private void btnImgStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImgStationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImgStationActionPerformed
 
     /**
      * @param args the command line arguments

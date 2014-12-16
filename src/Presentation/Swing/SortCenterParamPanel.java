@@ -7,6 +7,7 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.util.Map;
 import javax.swing.JColorChooser;
@@ -264,7 +265,7 @@ public class SortCenterParamPanel extends javax.swing.JFrame { // Pourquoi c'est
         filePicker.setFileFilter(filter);
         int responce = filePicker.showOpenDialog(this._parent);
         if(responce == JFileChooser.APPROVE_OPTION) {
-            _controller.setSelectedElementAttribute("image", filePicker.getSelectedFile().getAbsolutePath());
+            _controller.setSelectedElementAttribute("image", Toolkit.getDefaultToolkit().getImage(filePicker.getSelectedFile().getAbsolutePath()));
 //            this._controller.EditStation(
 //                this.txtStationName.getText(), 
 //                this.txtStationDescription.getText(), 

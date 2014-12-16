@@ -86,6 +86,8 @@ public class SortCenterDrawer {
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(2));
             
+            g.drawImage(_controller.getSortCenterImg(), margin, margin, width, height, _viewport);
+            
             if (_controller.isFloorSelected())
             {
                 g2.setColor(_selectedContourColor);

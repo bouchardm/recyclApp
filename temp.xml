@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_25" class="java.beans.XMLDecoder">
+ <object class="Domain.SortCenter" id="SortCenter0">
+  <void property="entryPointList">
+   <void method="add">
+    <object class="Domain.EntryPoint" id="EntryPoint0">
+     <void id="Point2D$Float0" property="center">
+      <void class="java.awt.geom.Point2D$Float" method="getField">
+       <string>x</string>
+       <void method="set">
+        <object idref="Point2D$Float0"/>
+        <float>1.58</float>
+       </void>
+      </void>
+      <void class="java.awt.geom.Point2D$Float" method="getField">
+       <string>y</string>
+       <void method="set">
+        <object idref="Point2D$Float0"/>
+        <float>1.76</float>
+       </void>
+      </void>
+     </void>
+     <void property="center">
+      <object idref="Point2D$Float0"/>
+     </void>
+     <void id="MatterBasket0" property="matterBasket"/>
+     <void property="matterBasket">
+      <object idref="MatterBasket0"/>
+     </void>
+     <void id="Outlet0" property="outlet">
+      <void id="Ellipse2D$Float0" property="circle">
+       <void class="java.awt.geom.Ellipse2D$Float" method="getField">
+        <string>y</string>
+        <void method="set">
+         <object idref="Ellipse2D$Float0"/>
+         <float>2.1446872</float>
+        </void>
+       </void>
+      </void>
+      <void property="circle">
+       <object idref="Ellipse2D$Float0"/>
+      </void>
+      <void id="MatterBasket1" property="matterBasketQty"/>
+      <void property="matterBasketQty">
+       <object idref="MatterBasket1"/>
+      </void>
+      <void id="Point2D$Float1" property="position">
+       <void class="java.awt.geom.Point2D$Float" method="getField">
+        <string>y</string>
+        <void method="set">
+         <object idref="Point2D$Float1"/>
+         <float>2.2946873</float>
+        </void>
+       </void>
+      </void>
+      <void property="position">
+       <object idref="Point2D$Float1"/>
+      </void>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
