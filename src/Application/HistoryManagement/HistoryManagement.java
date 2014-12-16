@@ -1,86 +1,101 @@
 package Application.HistoryManagement;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
+
+import Domain.SortCenter;
 import java.util.Stack;
 
 public class HistoryManagement {
+
+    private Stack<SortCenter> _undoStack;
+    private Stack<SortCenter> _redoStack;
+    private SortCenter currentSortCenter;
+
+    public HistoryManagement() {
+        _undoStack = new Stack();
+        _redoStack = new Stack();
+        
+    }
     
-    private Stack<XMLEncoder> _undoStack ;
-    private Stack<XMLEncoder> _redoStack ;
-    
-    public  HistoryManagement()
+    public void setCurrentState (SortCenter sortCenter)
     {
-    _undoStack = new Stack();
-    _redoStack = new Stack();
-    
+    currentSortCenter = sortCenter;
     }
-    
-    public void clearUndoStack()
-    {
-    _undoStack.clear();
-    }
-    
-    public void clearRedoStack()
-    {
-    _redoStack.clear();
-    }
-    
-    public void addToRedoStack(XMLEncoder encoder)
-    {
-    _redoStack.push(encoder);
-    
-    }
-    
-        public void addToUndoStack(XMLEncoder encoder)
-    {
-    _undoStack.push(encoder);
-    
-    }
-    
-    
-    public XMLEncoder Undo() {
-      XMLEncoder encoder = null;
-      
-      if(!_undoStack.empty()){
-      encoder = _undoStack.pop();
-      _redoStack.push(encoder);
-      }
-      
-      return encoder;
-    }
-    
-    
-    public void Redo() {
-            throw new UnsupportedOperationException();
+    public HistoryManagement(SortCenter sortCenter) {
+        _undoStack = new Stack();
+        _redoStack = new Stack();
+        currentSortCenter = sortCenter;
+        
     }
 
-    /**
-     * @return the _undoStack
-     */
-    public Stack<XMLEncoder> getUndoStack() {
+    public void clearUndoStack() {
+        _undoStack.clear();
+    }
+
+    public void clearRedoStack() {
+        _redoStack.clear();
+    }
+
+    public void addToRedoStack(SortCenter sortCenter) {
+        _redoStack.push(sortCenter);
+
+    }
+
+    public void addToUndoStack(SortCenter sortCenter) {
+        _undoStack.push(sortCenter);
+
+    }
+
+    public SortCenter Undo() {
+        SortCenter sortCenter = null;
+ 
+        if (!_undoStack.empty()) {
+            
+            _redoStack.push(currentSortCenter);
+            sortCenter = _undoStack.pop();         
+            currentSortCenter = null;
+             currentSortCenter = sortCenter;
+
+        }
+
+        return sortCenter;
+    }
+
+    public SortCenter Redo() {
+
+        SortCenter sortCenter = null;
+        
+        if (!_redoStack.empty()) {
+            
+            _undoStack.push(currentSortCenter);
+            sortCenter = _redoStack.pop();
+            currentSortCenter = null;
+           currentSortCenter = sortCenter;
+         
+        }
+        return sortCenter;
+    }
+    public Stack<SortCenter> getUndoStack() {
         return _undoStack;
     }
 
     /**
      * @param _undoStack the _undoStack to set
      */
-    public void setUndoStack(Stack<XMLEncoder> _undoStack) {
+    public void setUndoStack(Stack<SortCenter> _undoStack) {
         this._undoStack = _undoStack;
     }
 
     /**
      * @return the _redoStack
      */
-    public Stack<XMLEncoder> getRedoStack() {
+    public Stack<SortCenter> getRedoStack() {
         return _redoStack;
     }
 
     /**
      * @param _redoStack the _redoStack to set
      */
-    public void setRedoStack(Stack<XMLEncoder> _redoStack) {
+    public void setRedoStack(Stack<SortCenter> _redoStack) {
         this._redoStack = _redoStack;
     }
-    
-    
+
 }

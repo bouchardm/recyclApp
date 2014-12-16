@@ -644,7 +644,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateNewProjectActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       saveProject();
+        saveProject();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
@@ -660,6 +660,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void btnAboutUsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAboutUsMousePressed
+        this._controller.setIsMouseDragged(false);
         this._controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMousePressed
 
@@ -669,7 +670,7 @@ public class MainFrame extends javax.swing.JFrame {
         Line2D.Float connectingArrow = viewport.getConnectingArrow();
 
         if (connectingArrow != null) {
-            Point2D.Float p1 = (Point2D.Float)_controller.getOutletAttribute("position");
+            Point2D.Float p1 = (Point2D.Float) _controller.getOutletAttribute("position");
             connectingArrow.x1 = p1.x;
             connectingArrow.y1 = p1.y;
             connectingArrow.x2 = viewport.pixToMeter(evt.getX());
@@ -715,11 +716,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
+        _controller.setIsMouseDragged(false);
+         
         _dragOffset = null;
         if (viewport.isSnapToGrid()) {
             position = viewport.snap(position);
         }
-        
+
         this.buttonGroup.clearSelection();
         switch (viewport.getCreationMode()) {
             case NONE:
@@ -804,7 +807,13 @@ public class MainFrame extends javax.swing.JFrame {
                 btnAddExit.setSelected(false);
                 break;
         }
+
         repaint();
+        _controller.saveLastState();
+    
+           
+   
+
     }//GEN-LAST:event_viewportMouseReleased
 
     private void btnAddStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStationActionPerformed
@@ -814,10 +823,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
+        _controller.setIsMouseDragged(true);
 
-        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) 
-        {
-            Point2D.Float elemPos = (Point2D.Float)_controller.getSelectedElementAttribute("position");
+        if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) {
+
+            Point2D.Float elemPos = (Point2D.Float) _controller.getSelectedElementAttribute("position");
             position.x = position.x - _dragOffset.x;
             position.y = position.y - _dragOffset.y;
             if (viewport.isSnapToGrid()) {
@@ -835,9 +845,8 @@ public class MainFrame extends javax.swing.JFrame {
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         cleanInformationPanel();
         _controller.selectElement(position);
-        if (!(_controller.typeOfElementSelectedIs(SortCenter.class) ||  _controller.typeOfElementSelectedIs(Conveyor.class)))
-        {
-            _dragOffset = (Point2D.Float)_controller.getSelectedElementAttribute("position");
+        if (!(_controller.typeOfElementSelectedIs(SortCenter.class) || _controller.typeOfElementSelectedIs(Conveyor.class))) {
+            _dragOffset = (Point2D.Float) _controller.getSelectedElementAttribute("position");
             _dragOffset.x = position.x - _dragOffset.x;
             _dragOffset.y = position.y - _dragOffset.y;
         }
@@ -883,8 +892,7 @@ public class MainFrame extends javax.swing.JFrame {
             JPanel InfoExitPointPanel = infoConveyorFrame.getPanel();
             InfoExitPointPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
             panelInformation.add(InfoExitPointPanel);
-        }
-        else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
+        } else if (this._controller.typeOfElementSelectedIs(SortCenter.class)) {
             SortCenterParamPanel sortCenterParamPanel = new SortCenterParamPanel(this._controller, this);
             JPanel SortCenterParamPanel = sortCenterParamPanel.getPanel();
             SortCenterParamPanel.setSize(this.panelInformation.getWidth(), this.panelInformation.getHeight());
@@ -895,11 +903,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_viewportMousePressed
 
     private void btnAddConveyorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddConveyorMouseClicked
-        
+
     }//GEN-LAST:event_btnAddConveyorMouseClicked
 
     private void btnAddTransStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransStationActionPerformed
-        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION); 
+        this.viewport.setCreationMode(Viewport.CREATION_MODES.TRANS_STATION);
     }//GEN-LAST:event_btnAddTransStationActionPerformed
 
     private void btnAddJunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJunctionActionPerformed
@@ -907,7 +915,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddJunctionActionPerformed
 
     private void btnAddEntryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddEntryMouseClicked
-        
+
     }//GEN-LAST:event_btnAddEntryMouseClicked
 
     private void btnAddExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddExitMouseClicked
@@ -982,8 +990,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddConveyorActionPerformed
 
     @Override
-    public void repaint()
-    {
+    public void repaint() {
         super.repaint();
     }
 
@@ -1079,64 +1086,57 @@ public class MainFrame extends javax.swing.JFrame {
     public void cleanInformationPanel() {
         this.panelInformation.removeAll();
     }
-    
-    private void loadProject()
-    {
-                JFileChooser filePicker = new JFileChooser();
+
+    private void loadProject() {
+        JFileChooser filePicker = new JFileChooser();
         FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
         filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
         filePicker.setFileFilter(smileyFilter);
         filePicker.setDialogTitle("Charger le projet");
         filePicker.setApproveButtonText("Ouvrir");
         int response = filePicker.showOpenDialog(this);
-        if (response == JFileChooser.APPROVE_OPTION)
-        {
+        if (response == JFileChooser.APPROVE_OPTION) {
             FileFilter fileFilter = filePicker.getFileFilter();
-            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
+            String extension = ((FileNameExtensionFilter) fileFilter).getExtensions()[0];
             String path = filePicker.getSelectedFile().toString();
-            if (!fileFilter.accept(filePicker.getSelectedFile()))
-            {
+            if (!fileFilter.accept(filePicker.getSelectedFile())) {
                 path += "." + extension;
             }
-            
+
             _controller.LoadProject(path);
-            
+
             repaint();
-            
+
         }
     }
-    private void saveProject()
-    {
-            JFileChooser filePicker = new JFileChooser();
+
+    private void saveProject() {
+        JFileChooser filePicker = new JFileChooser();
         FileNameExtensionFilter smileyFilter = new FileNameExtensionFilter(".smiley", "smiley");
         filePicker.removeChoosableFileFilter(filePicker.getFileFilter());
         filePicker.setFileFilter(smileyFilter);
         filePicker.setDialogTitle("Enregistrer le projet");
         int response = filePicker.showSaveDialog(this);
-        if (response == JFileChooser.APPROVE_OPTION)
-        {
+        if (response == JFileChooser.APPROVE_OPTION) {
             FileFilter fileFilter = filePicker.getFileFilter();
-            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
-            if (filePicker.getSelectedFile().exists())
-            {
+            String extension = ((FileNameExtensionFilter) fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists()) {
                 int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
-                if (answer != 0)
-                {
+                if (answer != 0) {
                     return;
                 }
             }
             String path = filePicker.getSelectedFile().toString();
-            if (!fileFilter.accept(filePicker.getSelectedFile()))
-            {
+            if (!fileFilter.accept(filePicker.getSelectedFile())) {
                 path += "." + extension;
             }
-            
+
             _controller.SaveProject(path);
         }
-    
+
     }
-    private void exportImage()
-    {
+
+    private void exportImage() {
         JFileChooser filePicker = new JFileChooser();
         FileNameExtensionFilter jpgFilter = new FileNameExtensionFilter(".jpg", "jpg");
         FileNameExtensionFilter gifFilter = new FileNameExtensionFilter(".gif", "gif");
@@ -1147,21 +1147,17 @@ public class MainFrame extends javax.swing.JFrame {
         filePicker.addChoosableFileFilter(pngFilter);
         filePicker.setFileFilter(jpgFilter);
         int response = filePicker.showSaveDialog(this);
-        if (response == JFileChooser.APPROVE_OPTION)
-        {
+        if (response == JFileChooser.APPROVE_OPTION) {
             FileFilter fileFilter = filePicker.getFileFilter();
-            String extension = ((FileNameExtensionFilter)fileFilter).getExtensions()[0];
-            if (filePicker.getSelectedFile().exists())
-            {
+            String extension = ((FileNameExtensionFilter) fileFilter).getExtensions()[0];
+            if (filePicker.getSelectedFile().exists()) {
                 int answer = JOptionPane.showConfirmDialog(this, "Le fichier existe déjà.\nVoulez-vous l'écraser?", "Écraser?", JOptionPane.YES_NO_OPTION);
-                if (answer != 0)
-                {
+                if (answer != 0) {
                     return;
                 }
             }
             String path = filePicker.getSelectedFile().toString();
-            if (!fileFilter.accept(filePicker.getSelectedFile()))
-            {
+            if (!fileFilter.accept(filePicker.getSelectedFile())) {
                 path += "." + extension;
             }
             viewport.exportImage(path, extension);

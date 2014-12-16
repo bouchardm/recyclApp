@@ -11,7 +11,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 /**
  *
@@ -36,6 +35,19 @@ public class Project {
 
     }
 
+    public SortCenter deserializeSortcenter() {
+        SortCenter sortcenter = null;
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp.xml")))) {
+
+            sortcenter = (SortCenter) decoder.readObject();
+
+        } catch (final Exception e) {
+
+        }
+
+        return sortcenter;
+    }
+
     public void loadProject(String path) {
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(path)))) {
 
@@ -45,6 +57,25 @@ public class Project {
 
         } catch (final Exception e) {
 
+        }
+    }
+
+    public void serializeSortCenter(SortCenter sortcenter) {
+       XMLEncoder encoder = null;
+        try {
+encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("temp.xml")));
+            encoder.writeObject(sortcenter);
+            encoder.flush();
+           
+
+        } catch (final java.io.IOException e) {
+        }
+        finally {
+
+            if (encoder != null) {
+
+                encoder.close();
+            }
         }
     }
 
@@ -65,26 +96,6 @@ public class Project {
                 encoder.close();
             }
         }
-    }
-
-    public XMLEncoder saveState() {
-        XMLEncoder encoder = null;
-
-        try {
-
-            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("temp2.xml")));
-            encoder.writeObject(this.getSortCenter());
-            encoder.flush();
-
-        } catch (final java.io.IOException e) {
-        } finally {
-
-            if (encoder != null) {
-
-                // encoder.close();  
-            }
-        }
-        return encoder;
     }
 
     public void saveAsProject(String path, String filename) {
@@ -157,22 +168,10 @@ public class Project {
         this._isSaved = _isSaved;
     }
 
-    public void loadState(XMLEncoder encoder) {
-        encoder.close();
-      
-       
-       
-        //try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp2.xml"))))
-        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("temp.xml"))))
-        {
+    public void loadState(SortCenter sortcenter) {
 
-            SortCenter sortcenter = (SortCenter) decoder.readObject();
-            this.setSortCenter(sortcenter);
-            this.getSortCenter().updateDesign();
-
-        } catch (final Exception e) {
-
-        }
+        this.setSortCenter(sortcenter);
+        this.getSortCenter().updateDesign();
 
     }
 

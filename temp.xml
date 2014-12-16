@@ -1,396 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_25" class="java.beans.XMLDecoder">
  <object class="Domain.SortCenter" id="SortCenter0">
-  <void property="conveyorList">
-   <void method="add">
-    <object class="Domain.Conveyor" id="Conveyor0">
-     <void property="color">
-      <object class="java.awt.Color">
-       <int>0</int>
-       <int>0</int>
-       <int>0</int>
-       <int>255</int>
-      </object>
-     </void>
-     <void property="endPoint">
-      <object class="Domain.Inlet" id="Inlet0">
-       <void property="color">
-        <object class="java.awt.Color">
-         <int>255</int>
-         <int>255</int>
-         <int>0</int>
-         <int>255</int>
-        </object>
-       </void>
-       <void property="conveyor">
-        <object idref="Conveyor0"/>
-       </void>
-       <void property="errorMessages">
-        <object class="java.util.ArrayList"/>
-       </void>
-       <void property="free">
-        <boolean>true</boolean>
-       </void>
-       <void property="node">
-        <object class="Domain.TransStation" id="TransStation0">
-         <void id="Point2D$Float0" property="center">
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>x</string>
-           <void method="set">
-            <object idref="Point2D$Float0"/>
-            <float>2.12</float>
-           </void>
-          </void>
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>y</string>
-           <void method="set">
-            <object idref="Point2D$Float0"/>
-            <float>2.26</float>
-           </void>
-          </void>
-         </void>
-         <void property="center">
-          <object idref="Point2D$Float0"/>
-         </void>
-         <void property="inlet">
-          <object idref="Inlet0"/>
-         </void>
-         <void property="outletList">
-          <void method="add">
-           <object class="Domain.Outlet" id="Outlet0">
-            <void property="color">
-             <object class="java.awt.Color" id="Color0">
-              <int>0</int>
-              <int>0</int>
-              <int>255</int>
-              <int>255</int>
-             </object>
-            </void>
-            <void property="errorMessages">
-             <object class="java.util.ArrayList"/>
-            </void>
-            <void id="MatterBasket0" property="matterBasketQty"/>
-            <void property="matterBasketQty">
-             <object idref="MatterBasket0"/>
-            </void>
-            <void property="node">
-             <object idref="TransStation0"/>
-            </void>
-            <void id="Point2D$Float1" property="position">
-             <void class="java.awt.geom.Point2D$Float" method="getField">
-              <string>x</string>
-              <void method="set">
-               <object idref="Point2D$Float1"/>
-               <float>2.7699997</float>
-              </void>
-             </void>
-             <void class="java.awt.geom.Point2D$Float" method="getField">
-              <string>y</string>
-              <void method="set">
-               <object idref="Point2D$Float1"/>
-               <float>2.2836092</float>
-              </void>
-             </void>
-            </void>
-            <void property="position">
-             <object idref="Point2D$Float1"/>
-            </void>
-            <void id="Point2D$Float2" property="relativePosition">
-             <void class="java.awt.geom.Point2D$Float" method="getField">
-              <string>y</string>
-              <void method="set">
-               <object idref="Point2D$Float2"/>
-               <float>0.023609156</float>
-              </void>
-             </void>
-            </void>
-           </object>
-          </void>
-         </void>
-         <void id="Point2D$Float3" property="position">
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>x</string>
-           <void method="set">
-            <object idref="Point2D$Float3"/>
-            <float>1.62</float>
-           </void>
-          </void>
-         </void>
-         <void property="position">
-          <object idref="Point2D$Float3"/>
-         </void>
-        </object>
-       </void>
-       <void id="Point2D$Float4" property="position">
-        <void class="java.awt.geom.Point2D$Float" method="getField">
-         <string>x</string>
-         <void method="set">
-          <object idref="Point2D$Float4"/>
-          <float>1.4699999</float>
-         </void>
-        </void>
-        <void class="java.awt.geom.Point2D$Float" method="getField">
-         <string>y</string>
-         <void method="set">
-          <object idref="Point2D$Float4"/>
-          <float>2.26</float>
-         </void>
-        </void>
-       </void>
-       <void property="position">
-        <object idref="Point2D$Float4"/>
-       </void>
-      </object>
-     </void>
-     <void property="errorMessages">
-      <object class="java.util.ArrayList"/>
-     </void>
-     <void property="line">
-      <object class="java.awt.geom.Line2D$Float" id="Line2D$Float0">
-       <void class="java.awt.geom.Line2D$Float" method="getField">
-        <string>x1</string>
-        <void method="set">
-         <object idref="Line2D$Float0"/>
-         <float>1.45</float>
-        </void>
-       </void>
-       <void class="java.awt.geom.Line2D$Float" method="getField">
-        <string>y1</string>
-        <void method="set">
-         <object idref="Line2D$Float0"/>
-         <float>1.3510718</float>
-        </void>
-       </void>
-       <void class="java.awt.geom.Line2D$Float" method="getField">
-        <string>x2</string>
-        <void method="set">
-         <object idref="Line2D$Float0"/>
-         <float>1.4699999</float>
-        </void>
-       </void>
-       <void class="java.awt.geom.Line2D$Float" method="getField">
-        <string>y2</string>
-        <void method="set">
-         <object idref="Line2D$Float0"/>
-         <float>2.26</float>
-        </void>
-       </void>
-      </object>
-     </void>
-     <void property="speedMax">
-      <float>10.0</float>
-     </void>
-     <void property="startPoint">
-      <object class="Domain.Outlet" id="Outlet1">
-       <void property="color">
-        <object idref="Color0"/>
-       </void>
-       <void property="conveyor">
-        <object idref="Conveyor0"/>
-       </void>
-       <void property="errorMessages">
-        <object class="java.util.ArrayList"/>
-       </void>
-       <void id="MatterBasket1" property="matterBasketQty"/>
-       <void property="matterBasketQty">
-        <object idref="MatterBasket1"/>
-       </void>
-       <void property="node">
-        <object class="Domain.EntryPoint" id="EntryPoint0">
-         <void id="Point2D$Float5" property="center">
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>x</string>
-           <void method="set">
-            <object idref="Point2D$Float5"/>
-            <float>0.8</float>
-           </void>
-          </void>
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>y</string>
-           <void method="set">
-            <object idref="Point2D$Float5"/>
-            <float>1.3</float>
-           </void>
-          </void>
-         </void>
-         <void property="center">
-          <object idref="Point2D$Float5"/>
-         </void>
-         <void id="MatterBasket2" property="matterBasket"/>
-         <void property="matterBasket">
-          <object idref="MatterBasket2"/>
-         </void>
-         <void property="outlet">
-          <object idref="Outlet1"/>
-         </void>
-         <void id="Point2D$Float6" property="position">
-          <void class="java.awt.geom.Point2D$Float" method="getField">
-           <string>y</string>
-           <void method="set">
-            <object idref="Point2D$Float6"/>
-            <float>0.8</float>
-           </void>
-          </void>
-         </void>
-         <void property="position">
-          <object idref="Point2D$Float6"/>
-         </void>
-        </object>
-       </void>
-       <void id="Point2D$Float7" property="position">
-        <void class="java.awt.geom.Point2D$Float" method="getField">
-         <string>x</string>
-         <void method="set">
-          <object idref="Point2D$Float7"/>
-          <float>1.45</float>
-         </void>
-        </void>
-        <void class="java.awt.geom.Point2D$Float" method="getField">
-         <string>y</string>
-         <void method="set">
-          <object idref="Point2D$Float7"/>
-          <float>1.3510718</float>
-         </void>
-        </void>
-       </void>
-       <void property="position">
-        <object idref="Point2D$Float7"/>
-       </void>
-      </object>
-     </void>
-    </object>
-   </void>
-  </void>
   <void property="entryPointList">
    <void method="add">
-    <object class="Domain.EntryPoint" id="EntryPoint1">
-     <void id="Point2D$Float8" property="center">
+    <object class="Domain.EntryPoint" id="EntryPoint0">
+     <void id="Point2D$Float0" property="center">
       <void class="java.awt.geom.Point2D$Float" method="getField">
        <string>x</string>
        <void method="set">
-        <object idref="Point2D$Float8"/>
-        <float>8.379999</float>
+        <object idref="Point2D$Float0"/>
+        <float>1.58</float>
        </void>
       </void>
       <void class="java.awt.geom.Point2D$Float" method="getField">
        <string>y</string>
        <void method="set">
-        <object idref="Point2D$Float8"/>
-        <float>2.7</float>
+        <object idref="Point2D$Float0"/>
+        <float>1.76</float>
        </void>
       </void>
      </void>
      <void property="center">
-      <object idref="Point2D$Float8"/>
+      <object idref="Point2D$Float0"/>
      </void>
-     <void id="MatterBasket3" property="matterBasket"/>
+     <void id="MatterBasket0" property="matterBasket"/>
      <void property="matterBasket">
-      <object idref="MatterBasket3"/>
+      <object idref="MatterBasket0"/>
      </void>
-     <void id="Outlet2" property="outlet">
+     <void id="Outlet0" property="outlet">
       <void id="Ellipse2D$Float0" property="circle">
        <void class="java.awt.geom.Ellipse2D$Float" method="getField">
         <string>y</string>
         <void method="set">
          <object idref="Ellipse2D$Float0"/>
-         <float>1.9812802</float>
+         <float>2.1446872</float>
         </void>
        </void>
       </void>
       <void property="circle">
        <object idref="Ellipse2D$Float0"/>
       </void>
-      <void id="MatterBasket4" property="matterBasketQty"/>
+      <void id="MatterBasket1" property="matterBasketQty"/>
       <void property="matterBasketQty">
-       <object idref="MatterBasket4"/>
+       <object idref="MatterBasket1"/>
       </void>
-      <void id="Point2D$Float9" property="position">
+      <void id="Point2D$Float1" property="position">
        <void class="java.awt.geom.Point2D$Float" method="getField">
         <string>y</string>
         <void method="set">
-         <object idref="Point2D$Float9"/>
-         <float>2.1312802</float>
+         <object idref="Point2D$Float1"/>
+         <float>2.2946873</float>
         </void>
        </void>
       </void>
       <void property="position">
-       <object idref="Point2D$Float9"/>
+       <object idref="Point2D$Float1"/>
       </void>
-      <void id="Point2D$Float10" property="relativePosition">
-       <void class="java.awt.geom.Point2D$Float" method="getField">
-        <string>x</string>
-        <void method="set">
-         <object idref="Point2D$Float10"/>
-         <float>0.6499999</float>
-        </void>
-       </void>
-       <void class="java.awt.geom.Point2D$Float" method="getField">
-        <string>y</string>
-        <void method="set">
-         <object idref="Point2D$Float10"/>
-         <float>-0.5687199</float>
-        </void>
-       </void>
-      </void>
-     </void>
-     <void id="Point2D$Float11" property="position">
-      <void class="java.awt.geom.Point2D$Float" method="getField">
-       <string>x</string>
-       <void method="set">
-        <object idref="Point2D$Float11"/>
-        <float>7.8799996</float>
-       </void>
-      </void>
-     </void>
-     <void property="position">
-      <object idref="Point2D$Float11"/>
      </void>
     </object>
-   </void>
-   <void method="add">
-    <object idref="EntryPoint0"/>
-   </void>
-  </void>
-  <void property="exitPointList">
-   <void method="add">
-    <object class="Domain.ExitPoint" id="ExitPoint0">
-     <void id="Point2D$Float12" property="center">
-      <void class="java.awt.geom.Point2D$Float" method="getField">
-       <string>x</string>
-       <void method="set">
-        <object idref="Point2D$Float12"/>
-        <float>2.3400002</float>
-       </void>
-      </void>
-      <void class="java.awt.geom.Point2D$Float" method="getField">
-       <string>y</string>
-       <void method="set">
-        <object idref="Point2D$Float12"/>
-        <float>4.74</float>
-       </void>
-      </void>
-     </void>
-     <void property="center">
-      <object idref="Point2D$Float12"/>
-     </void>
-     <void id="Point2D$Float13" property="position">
-      <void class="java.awt.geom.Point2D$Float" method="getField">
-       <string>x</string>
-       <void method="set">
-        <object idref="Point2D$Float13"/>
-        <float>1.84</float>
-       </void>
-      </void>
-     </void>
-     <void property="position">
-      <object idref="Point2D$Float13"/>
-     </void>
-    </object>
-   </void>
-  </void>
-  <void property="stationList">
-   <void method="add">
-    <object idref="TransStation0"/>
    </void>
   </void>
  </object>

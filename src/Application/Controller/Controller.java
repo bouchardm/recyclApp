@@ -3,6 +3,7 @@ package Application.Controller;
 import Application.HistoryManagement.HistoryManagement;
 import Domain.*;
 import Presentation.Swing.AboutUs;
+import Presentation.Swing.MainFrame;
 import Presentation.Swing.matterFrame;
 import java.awt.Color;
 import java.awt.Image;
@@ -24,10 +25,12 @@ public class Controller {
     private Inlet _inlet;
     private Element _selectedElement;
     private HistoryManagement _historyManagement;
+    private Boolean isMouseDragged;
 
     public Controller() {
         _project = new Project();
-        _historyManagement = new HistoryManagement();
+        _historyManagement = new HistoryManagement(getProject().getSortCenter());
+        isMouseDragged = false;
 
     }
 
@@ -150,22 +153,6 @@ public class Controller {
         return this._project.getSortCenter().getMatterList().getMatterID(matterName);
     }
 
-    public void ExportImage() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void CreateSortCenter() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void ValidateSortCenter() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void SetSizeSortCenter() {
-        throw new UnsupportedOperationException();
-    }
-
     public void EditConveyor(Float speedMax, Color color) {
         if (speedMax != null) {
             this.setSelectedElementAttribute("speedMax", speedMax);
@@ -176,14 +163,6 @@ public class Controller {
         }
 
         this._project.getSortCenter().updateDesign();
-    }
-
-    public void AddMatrix() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void RemoveMatrix() {
-        throw new UnsupportedOperationException();
     }
 
     private Map<String, Object> getStationSelected() {
@@ -290,16 +269,12 @@ public class Controller {
         return infoElement;
     }
 
-    public void EditMatrix() {
-        throw new UnsupportedOperationException();
-    }
-
     public void AddTransStation(Point2D.Float position) {
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
+        saveLastState();
         int value;
         try {
             value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));
@@ -326,7 +301,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
+        saveLastState();
         int value;
         try {
             value = Integer.parseInt(JOptionPane.showInputDialog(null, "Quel est le nombre de sortie?", null, 0));
@@ -349,6 +324,7 @@ public class Controller {
     }
 
     public void moveStation(Point2D.Float position) {
+
         if (position.x < 0) {
             position.x = 0;
         } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
@@ -368,11 +344,12 @@ public class Controller {
     }
 
     public void DeleteStation() {
+        saveLastState();
         this.getProject().getSortCenter().deleteStation((Station) this._selectedElement);
     }
 
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY) {
-
+        saveLastState();
         if (name != null) {
             this.setSelectedElementAttribute("name", name);
         }
@@ -410,35 +387,25 @@ public class Controller {
 
     public void EditStation(String name, String description, Color color, String imgSrc, Float speedMax, HashMap<Integer, ArrayList<Float>> sorter, Float dimensionX, Float dimensionY, HashMap<Integer, HashMap<Integer, Float>> transMatrix) {
         if (transMatrix != null) {
+            saveLastState();
             this.setSelectedElementAttribute("transMatrix", transMatrix);
         }
         this.EditStation(name, description, color, imgSrc, speedMax, sorter, dimensionX, dimensionY);
     }
 
-    public void AddExitPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void RemoveExitPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void EditExitPoint() {
-        throw new UnsupportedOperationException();
-    }
-
     public void AddEntryPoint(Point2D.Float position) {
+
         if (!this.getProject().getSortCenter().include(position)) {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
+        saveLastState();
         _selectedElement = this._project.getSortCenter().addEntryPoint();
         _selectedElement.setAttribute("position", position);
     }
 
     public void editEntryPoint(ArrayList<HashMap<Integer, Float>> newMatterBasket) {
-
+        saveLastState();
         MatterBasket matterBasket = new MatterBasket();
 
         for (HashMap<Integer, Float> matter : newMatterBasket) {
@@ -455,6 +422,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
+        saveLastState();
 
         _selectedElement = getProject().getSortCenter().addExitPoint();
 
@@ -467,26 +435,20 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "Veuillez indiquez un endroit sur le plan", null, 0);
             return;
         }
-
+        saveLastState();
         _selectedElement = this.getProject().getSortCenter().addJunction();
         _selectedElement.setAttribute("position", position);
     }
 
     public void deleteEntryPoint() // Pourquoi un delete EntryPoint ... Element plutôt
     {
+        saveLastState();
         this.getProject().getSortCenter().deleteEntryPoint((EntryPoint) _selectedElement);
     }
 
     public void deleteExitPoint() {
+        saveLastState();
         this.getProject().getSortCenter().deleteExitPoint((ExitPoint) _selectedElement);
-    }
-
-    public void EditEntryPoint() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void RemoveJunction() {
-        throw new UnsupportedOperationException();
     }
 
     public void editJunction(Float speedMax) {
@@ -496,10 +458,12 @@ public class Controller {
     }
 
     public void deleteJunction() {
+        saveLastState();
         this.getProject().getSortCenter().deleteJunction((Junction) _selectedElement);
     }
 
     public void deleteConveyor() {
+        saveLastState();
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
 
@@ -509,6 +473,7 @@ public class Controller {
     }
 
     public void addMatter() {
+        saveLastState();
         String matterName = JOptionPane.showInputDialog(null, "Quel est le nom de la matière?", "Matières", 0);
         if (matterName != null) {
             if (!matterName.isEmpty()) {
@@ -528,10 +493,12 @@ public class Controller {
     }
 
     public void removeMatter(int matterId) {
+        saveLastState();
         this._project.getSortCenter().removeMatterFromMatterList(matterId);
     }
 
     public void editMatter(HashMap<Integer, String> matter) {
+        saveLastState();
         int key = matter.entrySet().iterator().next().getKey();
         String name = matter.entrySet().iterator().next().getValue();
 
@@ -550,10 +517,9 @@ public class Controller {
     public void addConveyor() {
 
         try {
-            
+
             saveLastState();
             this.getProject().getSortCenter().addConveyor(_outlet, _inlet);
-
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
@@ -585,32 +551,78 @@ public class Controller {
     }
 
     public void redo() {
-        _historyManagement.Redo();
+        saveCurrentState();
+        SortCenter sortCenter;
+        sortCenter = _historyManagement.Redo();
+
+        if (sortCenter != null) {
+            loadState(sortCenter);
+        }
     }
 
     public void undo() {
-        XMLEncoder encoder;
-        encoder = _historyManagement.Undo();
+        saveCurrentState();
+        SortCenter sortCenter;
+        sortCenter = _historyManagement.Undo();
 
-        if (encoder != null) {
-            loadUndo(encoder);
+        if (sortCenter != null) {
+            loadState(sortCenter);
         }
     }
-    
-    public void saveLastState()
-    {
-        XMLEncoder encoder = null;
-            encoder = getProject().saveState();
-            
-            if (encoder != null)
-                _historyManagement.addToUndoStack(encoder);
+
+    public void saveCurrentState() {
+        SortCenter sortCenter = null;
+        SortCenter currentSortCenter = null;
+        
+        if(sortCenter.equals(currentSortCenter))
+            return;
+        
+        if (sortCenter != null) {
+            SortCenter newSortCenter;
+            getProject().serializeSortCenter(sortCenter);
+            newSortCenter = getProject().deserializeSortcenter();
+            if (!sortCenter.equals(newSortCenter)) {
+                _historyManagement.setCurrentState(newSortCenter);
+            }
+        }
     }
-    public void loadUndo(XMLEncoder encoder) {
 
-     if (encoder != null)
-        getProject().loadState(encoder);
-     
+    public void saveLastState() {
 
-      
+        if (!isMouseDragged) {
+            SortCenter sortCenter = null;
+            sortCenter = getProject().getSortCenter();
+
+            if (sortCenter != null) {
+                SortCenter newSortCenter;
+                getProject().serializeSortCenter(sortCenter);
+                newSortCenter = getProject().deserializeSortcenter();
+
+                _historyManagement.addToUndoStack(newSortCenter);
+                _historyManagement.clearRedoStack();
+            }
+        }
+    }
+
+    public void loadState(SortCenter sortCenter) {
+
+        if (sortCenter != null) {
+            getProject().loadState(sortCenter);
+        }
+
+    }
+
+    /**
+     * @return the isMouseDragged
+     */
+    public Boolean getIsMouseDragged() {
+        return isMouseDragged;
+    }
+
+    /**
+     * @param isMouseDragged the isMouseDragged to set
+     */
+    public void setIsMouseDragged(Boolean isMouseDragged) {
+        this.isMouseDragged = isMouseDragged;
     }
 }
