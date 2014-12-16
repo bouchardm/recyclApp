@@ -40,7 +40,8 @@ public class SortCenter extends Element {
         _junctionList = new ArrayList<>();
         _matterList = new MatterList();
         dimensions = new Point2D.Float(15f, 10f);
-        _img = null;
+        _size = 0.0f;
+        
         int level = 240;
         setColor(new Color(level, level, level));
        

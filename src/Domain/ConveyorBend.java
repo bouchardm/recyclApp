@@ -16,8 +16,15 @@ import java.awt.geom.Point2D;
  */
 public class ConveyorBend extends Element
 {
-    Point2D.Float _position;
-    public final static float RADIUS = 0.075f;
+
+    /**
+     * @return the RADIUS
+     */
+    public static float getRADIUS() {
+        return RADIUS;
+    }
+    private Point2D.Float _position;
+    private static final float RADIUS = 0.075f;
     private Conveyor _parentConveyor;
     
     public ConveyorBend(Conveyor conveyor)
@@ -27,12 +34,12 @@ public class ConveyorBend extends Element
     
     public void delete()
     {
-        _parentConveyor.removeBend(this);
+        getParentConveyor().removeBend(this);
     }
     
     public Point2D.Float getPosition()
     {
-        Point2D.Float pos = new Point2D.Float(_position.x, _position.y);
+        Point2D.Float pos = new Point2D.Float(getPosition().x, getPosition().y);
         return pos;
     }
     
@@ -44,18 +51,18 @@ public class ConveyorBend extends Element
     public Ellipse2D.Float getCircle()
     {
         Point2D.Float center = getPosition();
-        return new Ellipse2D.Float(center.x-RADIUS, center.y-RADIUS, RADIUS*2, RADIUS*2);
+        return new Ellipse2D.Float(center.x-getRADIUS(), center.y-getRADIUS(), getRADIUS()*2, getRADIUS()*2);
     }
     
     public Color getColor()
     {
-        return _parentConveyor.getColor();
+        return getParentConveyor().getColor();
     }
     
     @Override
     public boolean include(Point2D.Float point)
     {
-        return _position.distance(point) <= RADIUS;
+        return getPosition().distance(point) <= getRADIUS();
     }
     
 
@@ -67,7 +74,7 @@ public class ConveyorBend extends Element
             case "position":
                 return getPosition();
             case "dimensions":
-                return new Point2D.Float(RADIUS*2, RADIUS*2);
+                return new Point2D.Float(getRADIUS()*2, getRADIUS()*2);
             case "color":
                 return getColor();
             default:
@@ -86,6 +93,20 @@ public class ConveyorBend extends Element
             default:
                 throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }
+    }
+
+    /**
+     * @return the _parentConveyor
+     */
+    public Conveyor getParentConveyor() {
+        return _parentConveyor;
+    }
+
+    /**
+     * @param _parentConveyor the _parentConveyor to set
+     */
+    public void setParentConveyor(Conveyor _parentConveyor) {
+        this._parentConveyor = _parentConveyor;
     }
     
 }

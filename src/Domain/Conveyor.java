@@ -9,24 +9,19 @@ import javax.swing.text.Segment;
 public class Conveyor extends Element {
 
     private static final float DEFAULTCAPACITY = 10; // 10 kg/h
-
-    /**
-     * @return the _WIDTH
-     */
     public static float getWIDTH() {
         return _WIDTH;
     }
     private Outlet _startPoint;
     private Inlet _endPoint;
-//    private Object _iD;
-//    private MatterBasket _matterBasket;
+
     private Float _speedMax;
     private Color _color;
     private Line2D.Float _line;
     private final static float _WIDTH = 0.5f;
     private ArrayList<ConveyorBend> _bends;
     private int _bendIndexInsertion = 0;
-    
+    public Conveyor(){}
     public Conveyor(Outlet startPoint, Inlet endPoint)
     {
         if (startPoint == null || endPoint == null) 
@@ -64,13 +59,13 @@ public class Conveyor extends Element {
     public ConveyorBend addBend()
     {
         ConveyorBend bend = new ConveyorBend(this);
-        _bends.add(_bendIndexInsertion, bend);
+        getBends().add(getBendIndexInsertion(), bend);
         return bend;
     }
     
     public void removeBend(ConveyorBend bend)
     {
-        _bends.remove(bend);
+        getBends().remove(bend);
     }
     
     public ArrayList<ConveyorBend> getBends()
@@ -99,8 +94,8 @@ public class Conveyor extends Element {
     {
         updatePoints();
         Line2D.Float line = new Line2D.Float(_line.x1, _line.y1, _line.x2, _line.y2);
-        _bendIndexInsertion = 0;
-        for (ConveyorBend bend: _bends)
+        setBendIndexInsertion(0);
+        for (ConveyorBend bend: getBends())
         {
             line.x2 = bend.getPosition().x;
             line.y2 = bend.getPosition().y;
@@ -111,7 +106,7 @@ public class Conveyor extends Element {
             line.x1 = line.x2;
             line.y1 = line.y2;
             
-            _bendIndexInsertion++;
+            setBendIndexInsertion(getBendIndexInsertion() + 1);
         }
         line.x2 = _line.x2;
         line.y2 = _line.y2;
@@ -222,6 +217,27 @@ public class Conveyor extends Element {
     @Override
     public Color getColor() {
         return this._color;
+    }
+
+    /**
+     * @return the _bendIndexInsertion
+     */
+    public int getBendIndexInsertion() {
+        return _bendIndexInsertion;
+    }
+
+    /**
+     * @param _bendIndexInsertion the _bendIndexInsertion to set
+     */
+    public void setBendIndexInsertion(int _bendIndexInsertion) {
+        this._bendIndexInsertion = _bendIndexInsertion;
+    }
+
+    /**
+     * @param _bends the _bends to set
+     */
+    public void setBends(ArrayList<ConveyorBend> _bends) {
+        this._bends = _bends;
     }
         
 }

@@ -263,7 +263,8 @@ public class Controller {
     public void addConveyorBend()
     {
         if (_selectedElement instanceof Conveyor)
-        {
+        {   
+            saveLastState();
             _selectedElement = ((Conveyor)_selectedElement).addBend();
         }
     }

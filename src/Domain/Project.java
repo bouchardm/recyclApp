@@ -81,11 +81,11 @@ encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("temp.xml
 
     public void saveProject(String path) {
         XMLEncoder encoder = null;
-
         try {
 
             encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(path)));
-            encoder.writeObject(this.getSortCenter());
+            SortCenter sortcenter = this.getSortCenter();
+            encoder.writeObject(sortcenter);
             encoder.flush();
 
         } catch (final java.io.IOException e) {
