@@ -513,6 +513,11 @@ public class Controller {
     public void deleteConveyor() {
         this.getProject().getSortCenter().deleteConveyor((Conveyor) _selectedElement);
     }
+    
+    public void deleteConveyorBend()
+    {
+        ((ConveyorBend)_selectedElement).delete();
+    }
 
     public void showMatterFrame() {
         matterFrame matterFrame = new matterFrame(this);

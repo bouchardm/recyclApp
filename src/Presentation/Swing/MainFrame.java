@@ -7,6 +7,7 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.Conveyor;
+import Domain.ConveyorBend;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.SortStation;
@@ -17,7 +18,6 @@ import Domain.SortCenter;
 import Domain.TransStation;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.nio.file.Path;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -401,6 +401,9 @@ public class MainFrame extends javax.swing.JFrame {
         panelWrokspace.add(viewportBar, java.awt.BorderLayout.PAGE_END);
 
         viewport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewportMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 viewportMousePressed(evt);
             }
@@ -851,17 +854,18 @@ public class MainFrame extends javax.swing.JFrame {
             }
 
             _controller.moveStation(position);
-//            _controller.setSelectedElementAttribute("position", position);
 
             this.viewport.repaint();
         }
         else if (_controller.typeOfElementSelectedIs(Conveyor.class))
         {
             _controller.addConveyorBend();
+            cleanInformationPanel();
             _controller.setSelectedElementAttribute("position",
                     new Point2D.Float(viewport.pixToMeter(evt.getPoint().x),
                     viewport.pixToMeter(evt.getPoint().y)));
             _dragOffset = new Point2D.Float(0, 0);
+            repaint();
         }
     }//GEN-LAST:event_viewportMouseDragged
 
@@ -1032,6 +1036,20 @@ public class MainFrame extends javax.swing.JFrame {
 //        this._controller.showAboutUs();
     }//GEN-LAST:event_btnAboutUsMouseClicked
 
+    private void viewportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseClicked
+        if (evt.getClickCount() == 2) {
+            viewportMouseDoubleClicked(evt);
+        }
+    }//GEN-LAST:event_viewportMouseClicked
+
+    private void viewportMouseDoubleClicked(java.awt.event.MouseEvent evt)
+    {
+        if (_controller.typeOfElementSelectedIs(ConveyorBend.class))
+        {
+            _controller.deleteConveyorBend();
+        }
+    }
+    
     @Override
     public void repaint()
     {

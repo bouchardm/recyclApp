@@ -25,6 +25,10 @@ public class ConveyorBend extends Element
         _parentConveyor = conveyor;
     }
     
+    public void delete()
+    {
+        _parentConveyor.removeBend(this);
+    }
     
     public Point2D.Float getPosition()
     {
