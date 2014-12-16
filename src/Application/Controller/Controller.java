@@ -130,6 +130,11 @@ public class Controller {
     public Point2D.Float getSortCenterDimensions() {
         return _project.getSortCenter().getDimensions();
     }
+    
+    public Image getSortCenterImg()
+    {
+        return _project.getSortCenter().getImg();
+    }
 
     public void SaveProject(String path) {
         this.getProject().saveProject(path);
