@@ -696,6 +696,9 @@ public class SortCenter extends Element {
                 case "dimensionY":
                     setDimensions(dimensions.x, (Float)value);
                     break;
+                case "image":
+                    setImg((Image)value);
+                    break;
                 default:
                     throw new IllegalArgumentException(String.format("no method for set %s", attribName));
             }

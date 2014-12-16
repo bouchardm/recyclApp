@@ -7,12 +7,11 @@ package Presentation.Swing;
 
 import Application.Controller.Controller;
 import Domain.IOlet;
-import Domain.Inlet;
 import Domain.Conveyor;
+import Domain.ConveyorBend;
 import Domain.EntryPoint;
 import Domain.ExitPoint;
 import Domain.Junction;
-import Domain.SortCenter;
 import Domain.Station;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -86,6 +85,8 @@ public class SortCenterDrawer {
             
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(2));
+            
+            g.drawImage(_controller.getSortCenterImg(), margin, margin, width, height, _viewport);
             
             if (_controller.isFloorSelected())
             {
@@ -283,8 +284,43 @@ public class SortCenterDrawer {
             g.setColor(_selectedContourColor);
         }
         
+        ConveyorBend selectedBend = null;
+        int bendX, bendY;
+        for (ConveyorBend bend: conveyor.getBends())
+        {
+            bendX = _viewport.meterToPix(bend.getPosition().x);
+            bendY = _viewport.meterToPix(bend.getPosition().y);
+            g.drawLine(x1, y1, bendX, bendY);
+            drawBend(g, bend);
+            if (_controller.selectedElementIs(bend))
+            {
+                selectedBend = bend;
+            }
+            x1 = bendX;
+            y1 = bendY;
+        }
+        
         drawArrow(g, x1, y1, x2, y2);
+        if (selectedBend != null)
+        {
+            g.setColor(_selectedContourColor);
+            drawBend(g, selectedBend);
+        }
 
+    }
+    
+    private void drawBend(Graphics g, ConveyorBend bend)
+    {
+        Color oldColor = g.getColor();
+        Ellipse2D.Float circle = bend.getCircle();
+        
+        int x, y, d;
+        x = _viewport.meterToPix(circle.x);
+        y = _viewport.meterToPix(circle.y);
+        d = _viewport.meterToPixDim(circle.width);
+        
+        g.fillOval(x, y, d, d);
+        g.setColor(oldColor);
     }
     
     private void drawConnectingArrow(Graphics g)
@@ -314,7 +350,7 @@ public class SortCenterDrawer {
         g.transform(at);
 
         // Draw horizontal arrow starting in (0, 0)
-        g.setStroke(new BasicStroke(3));
+//        g.setStroke(new BasicStroke(3));
         g.drawLine(0, 0, len, 0);
         
               //  g.setStroke(new BasicStroke(10));
