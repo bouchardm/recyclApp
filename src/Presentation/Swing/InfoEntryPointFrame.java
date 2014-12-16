@@ -214,6 +214,8 @@ public class InfoEntryPointFrame extends javax.swing.JFrame { // Pourquoi c'est 
         }
         
         this._controller.editEntryPoint(matterBasket);
+        this._controller.updateDesign();
+        this._parent.repaint();
     }//GEN-LAST:event_btnSaveMatterActionPerformed
 
     private void btnErreurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErreurActionPerformed

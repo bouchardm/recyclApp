@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import java.beans.XMLEncoder;
 import java.beans.XMLDecoder;
+import java.math.BigDecimal;
 
 public class Controller {
 
@@ -548,6 +549,15 @@ public class Controller {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), null, 0);
         }
+    }
+    
+    public void updateDesign() {
+        this._project.getSortCenter().updateDesign();
+        
+    }
+    
+    public BigDecimal getUsageRate() {
+        return this.getProject().getSortCenter().getTotalStationUsageRate();
     }
 
     public Project getProject() {

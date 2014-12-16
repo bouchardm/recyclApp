@@ -154,6 +154,7 @@ public class SortCenterParamPanel extends javax.swing.JFrame { // Pourquoi c'est
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addGroup(panelInformation2Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
                                 .addGroup(panelInformation2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
