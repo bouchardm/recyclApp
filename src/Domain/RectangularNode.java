@@ -42,6 +42,7 @@ public abstract class RectangularNode extends Node
         {
             iolet.setPosition(iolet.getPosition());
         }
+        
     }
     
     
@@ -69,7 +70,7 @@ public abstract class RectangularNode extends Node
     public Point2D.Float getCenter()
     {
         Point2D.Float center = new Point2D.Float(
-                (float)getRect().getCenterX(),(float)getRect().getCenterY());
+                (float)_rect.getCenterX(),(float)_rect.getCenterY());
         return center;
     }
     

@@ -725,7 +725,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void viewportMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseReleased
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
-        _controller.setIsMouseDragged(false);
+        
 
         _dragOffset = null;
         if (viewport.isSnapToGrid()) {
@@ -818,7 +818,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         repaint();
-       // _controller.saveLastState();
+//        _controller.setIsMouseDragged(true);
+        _controller.saveLastState();
+     
 
 
     }//GEN-LAST:event_viewportMouseReleased
@@ -830,7 +832,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void viewportMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMouseDragged
         Point2D.Float position = this.viewport.createPointInMeter(evt.getX(), evt.getY());
         cursorCoordsLabel.setText(String.format("x : %.2f m  y : %.2f m\n", position.x, position.y));
-        _controller.setIsMouseDragged(true);
+//        _controller.setIsMouseDragged(true);
 
         if (!(_controller.selectedElementIsFloor() || _controller.typeOfElementSelectedIs(Conveyor.class))) {
 
@@ -858,6 +860,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
         Point2D.Float position = viewport.createPointInMeter(evt.getX(), evt.getY());
         cleanInformationPanel();
+        _controller.setIsMouseDragged(false);
         _controller.selectElement(position);
         if (!(_controller.typeOfElementSelectedIs(SortCenter.class) || _controller.typeOfElementSelectedIs(Conveyor.class))) {
             _dragOffset = (Point2D.Float) _controller.getSelectedElementAttribute("position");
@@ -1007,6 +1010,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             viewportMouseDoubleClicked(evt);
         }
+        _controller.setIsMouseDragged(false);
     }//GEN-LAST:event_viewportMouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed

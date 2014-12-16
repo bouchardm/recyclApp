@@ -27,11 +27,24 @@ public class ConveyorBend extends Element
     private static final float RADIUS = 0.075f;
     private Conveyor _parentConveyor;
     
+    public ConveyorBend()
+    {
+    }
+    
     public ConveyorBend(Conveyor conveyor)
     {
         _parentConveyor = conveyor;
     }
+    public void setPosition2(Point2D.Float position)
+    {
+    this._position = position;
+    }
     
+        public Point2D.Float getPosition2()
+    {
+    return this._position ;
+    }
+        
     public void delete()
     {
         getParentConveyor().removeBend(this);
@@ -39,7 +52,7 @@ public class ConveyorBend extends Element
     
     public Point2D.Float getPosition()
     {
-        Point2D.Float pos = new Point2D.Float(this._position.x, this._position.y);
+        Point2D.Float pos = new Point2D.Float(_position.x, _position.y);
         return pos;
     }
     

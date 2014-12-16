@@ -110,7 +110,7 @@ public abstract class IOlet extends Element
     
     public void updatePosition()
     {
-        setPosition(getRelativePosition());
+        setPosition(_relativePosition);
     }
     
     public Ellipse2D.Float getCircle()

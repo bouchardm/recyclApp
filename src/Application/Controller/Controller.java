@@ -344,7 +344,7 @@ public class Controller {
     }
 
     public void moveStation(Point2D.Float position) {
-        saveLastState();
+     
         if (position.x < 0) {
             position.x = 0;
         } else if (position.x + ((Point2D.Float) getSelectedElementAttribute("dimensions")).x > getSortCenterDimensions().x) {
@@ -361,7 +361,8 @@ public class Controller {
         }
 
         setSelectedElementAttribute("position", position);
-        saveLastState();
+//       if(isMouseDragged)
+//           saveLastState();
     }
 
     public void DeleteStation() {
@@ -621,7 +622,7 @@ public class Controller {
 
     public void saveLastState() {
 
-        if (!isMouseDragged) {
+//        if (!isMouseDragged) {
             SortCenter sortCenter = null;
             sortCenter = getProject().getSortCenter();
 
@@ -633,7 +634,7 @@ public class Controller {
                 _historyManagement.addToUndoStack(newSortCenter);
                 _historyManagement.clearRedoStack();
             }
-        }
+//        }
     }
 
     public void loadState(SortCenter sortCenter) {

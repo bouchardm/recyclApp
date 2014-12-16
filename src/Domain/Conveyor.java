@@ -59,13 +59,13 @@ public class Conveyor extends Element {
     public ConveyorBend addBend()
     {
         ConveyorBend bend = new ConveyorBend(this);
-        getBends().add(getBendIndexInsertion(), bend);
+        _bends.add(getBendIndexInsertion(), bend);
         return bend;
     }
     
     public void removeBend(ConveyorBend bend)
     {
-        getBends().remove(bend);
+        _bends.remove(bend);
     }
     
     public ArrayList<ConveyorBend> getBends()
@@ -95,7 +95,7 @@ public class Conveyor extends Element {
         updatePoints();
         Line2D.Float line = new Line2D.Float(_line.x1, _line.y1, _line.x2, _line.y2);
         setBendIndexInsertion(0);
-        for (ConveyorBend bend: getBends())
+        for (ConveyorBend bend: _bends)
         {
             line.x2 = bend.getPosition().x;
             line.y2 = bend.getPosition().y;
