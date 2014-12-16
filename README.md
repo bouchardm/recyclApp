@@ -3,6 +3,10 @@ RecyclApp
 
 RecyclApp est l'application idéale pour gérez vos nombreux centre de tri. Grâce à cette application vous en aurez fini de vos maux de tête.
 
+> Le futur est recyclé
+
+> Le futur est RecyclApp
+
 Documentation officiel
 ===
 
