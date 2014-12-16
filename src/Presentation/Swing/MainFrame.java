@@ -855,6 +855,14 @@ public class MainFrame extends javax.swing.JFrame {
 
             this.viewport.repaint();
         }
+        else if (_controller.typeOfElementSelectedIs(Conveyor.class))
+        {
+            _controller.addConveyorBend();
+            _controller.setSelectedElementAttribute("position",
+                    new Point2D.Float(viewport.pixToMeter(evt.getPoint().x),
+                    viewport.pixToMeter(evt.getPoint().y)));
+            _dragOffset = new Point2D.Float(0, 0);
+        }
     }//GEN-LAST:event_viewportMouseDragged
 
     private void viewportMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewportMousePressed
